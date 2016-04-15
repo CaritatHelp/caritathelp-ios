@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class ProfilEventController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -47,19 +48,14 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                     //self.tableViewAssoc.reloadData()
                 }
                 else {
-                    print("erreur ne peux pas se retirer...")
+                    SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
                 }
             });
 
         }
             //empecher a l'host de quitter
         else if (String(Event["response"]["rights"]) == "host"){
-            let refreshAlert = UIAlertController(title: "Attention", message: "Vous êtes le créateur de l'évènement !", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
-                print("Handle Ok logic here")
-            }))
-            presentViewController(refreshAlert, animated: true, completion: nil)
+            SCLAlertView().showError("Attention", subTitle: "Vous avez créé cet évènement \n Vous ne pouvez le quitter !")
         }
         else{//Rejoindre l'event (envoyer une demande à l'host)
             param["token"] = String(user["token"])
@@ -72,7 +68,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                     //self.tableViewAssoc.reloadData()
                 }
                 else {
-                    print("erreur ne peux pas participer...")
+                    SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
                 }
             });
         }
@@ -96,7 +92,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 //self.tableViewAssoc.reloadData()
             }
             else {
-                
+                SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
             }
         });
     }
@@ -118,6 +114,14 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             
             secondViewController.EventID = String(Event["response"]["id"])
         }
+        if(segue.identifier == "goToUpdateEvent"){
+            let secondViewController = segue.destinationViewController as! UpdateEventController
+            
+            // set a variable in the second view controller with the String to pass
+            
+            secondViewController.Event = Event["response"]
+        }
+
     }
 
     

@@ -875,10 +875,10 @@
             </objects>
             <point key="canvasLocation" x="2985.5" y="-2906.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Modifier cet evenement-->
         <scene sceneID="Cfp-Pc-7Nu">
             <objects>
-                <viewController id="suP-xJ-CIu" sceneMemberID="viewController">
+                <viewController id="suP-xJ-CIu" customClass="UpdateEventController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l0Z-wT-h4r"/>
                         <viewControllerLayoutGuide type="bottom" id="Rxa-pj-FER"/>
@@ -887,19 +887,174 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Modification de l'event" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJ0-kF-AVs">
-                                <rect key="frame" x="101" y="252" width="173" height="21"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yZj-L1-HaK">
+                                <rect key="frame" x="0.0" y="99" width="375" height="55"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fm1-Sv-RGh">
+                                <rect key="frame" x="20" y="81" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lieu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMk-cL-tFV">
+                                <rect key="frame" x="20" y="171" width="37" height="21"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7i-kH-dxT">
+                                <rect key="frame" x="20" y="401" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DZi-XU-Nf5">
+                                <rect key="frame" x="0.0" y="189" width="375" height="55"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRN-XF-irf">
+                                <rect key="frame" x="143" y="568" width="88" height="30"/>
+                                <state key="normal" title="mettre à jour"/>
+                                <connections>
+                                    <action selector="updateEvent:" destination="suP-xJ-CIu" eventType="touchUpInside" id="81a-0T-8aB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96O-Ca-ebg">
+                                <rect key="frame" x="0.0" y="333" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Modifier la date"/>
+                                <connections>
+                                    <segue destination="bJ2-Yk-gaf" kind="show" identifier="goToUpdateDateEvent" id="Lga-er-MZU"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SdI-L4-SEL">
+                                <rect key="frame" x="0.0" y="430" width="375" height="122"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYR-nL-jNH">
+                                <rect key="frame" x="0.0" y="271" width="375" height="25"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tnj-KQ-ygk">
+                                <rect key="frame" x="0.0" y="300" width="375" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Modifier cet evenement" id="Y44-TB-bHm"/>
+                    <connections>
+                        <outlet property="DescEvent" destination="SdI-L4-SEL" id="wpM-cR-2Eg"/>
+                        <outlet property="EndDate" destination="Tnj-KQ-ygk" id="P5l-f1-zij"/>
+                        <outlet property="PlaceEvent" destination="DZi-XU-Nf5" id="KwE-IK-csj"/>
+                        <outlet property="StartDate" destination="xYR-nL-jNH" id="CJX-FG-pDb"/>
+                        <outlet property="TitleEvent" destination="yZj-L1-HaK" id="XDS-YY-80Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n8w-CN-0G9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5003.5" y="-5568.5"/>
+        </scene>
+        <!--Update Event Date Controller-->
+        <scene sceneID="uPN-Op-Vnb">
+            <objects>
+                <viewController id="EBn-Pe-shf" customClass="UpdateEventDateController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lNq-dV-9Xu"/>
+                        <viewControllerLayoutGuide type="bottom" id="uaF-mU-L7l"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6AU-Oc-5t5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Début :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3c8-o1-b9t">
+                                <rect key="frame" x="0.0" y="111" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="cGb-U9-DXq">
+                                <rect key="frame" x="0.0" y="152" width="375" height="179"/>
+                                <date key="date" timeIntervalSinceReferenceDate="482349288.612158">
+                                    <!--2016-04-14 17:54:48 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                    <!--2037-12-31 11:00:00 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="fr"/>
+                                <connections>
+                                    <action selector="ChangeStart:" destination="EBn-Pe-shf" eventType="valueChanged" id="3zp-am-Bvg"/>
+                                </connections>
+                            </datePicker>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="bYN-wp-hDa">
+                                <rect key="frame" x="0.0" y="422" width="375" height="196"/>
+                                <date key="date" timeIntervalSinceReferenceDate="482349288.612158">
+                                    <!--2016-04-14 17:54:48 +0000-->
+                                </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="-978267600">
+                                    <!--1970-01-01 11:00:00 +0000-->
+                                </date>
+                                <date key="maximumDate" timeIntervalSinceReferenceDate="1167562800">
+                                    <!--2037-12-31 11:00:00 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="fr"/>
+                                <connections>
+                                    <action selector="ChangeEnd:" destination="EBn-Pe-shf" eventType="valueChanged" id="Z9F-8v-g7n"/>
+                                </connections>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fin : " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wpn-gy-g7H">
+                                <rect key="frame" x="0.0" y="380" width="375" height="44"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9rU-us-102">
+                        <barButtonItem key="leftBarButtonItem" title="annuler" id="tVz-Wi-5oS">
+                            <color key="tintColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="bfA-Pv-6pm" kind="unwind" unwindAction="unwindToUpdateEventCancel:" id="hUD-L8-DZM"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="valider" id="bhh-cd-SOn">
+                            <color key="tintColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="bfA-Pv-6pm" kind="unwind" unwindAction="unwindToUpdateEvent:" id="RPz-yt-3mo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="DisplayEnd" destination="Wpn-gy-g7H" id="u2Q-iL-7xG"/>
+                        <outlet property="DisplayStart" destination="3c8-o1-b9t" id="lAl-P3-Hil"/>
+                        <outlet property="EndPicker" destination="bYN-wp-hDa" id="1XE-wx-3HZ"/>
+                        <outlet property="StartPicker" destination="cGb-U9-DXq" id="oGg-IB-Xce"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TtE-mR-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bfA-Pv-6pm" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="6140.5" y="-5602.5"/>
         </scene>
         <!--Titre event-->
         <scene sceneID="S2I-rs-eui">
@@ -1050,7 +1205,7 @@
                     <navigationItem key="navigationItem" title="Evenement" id="Kod-JE-iOW">
                         <barButtonItem key="rightBarButtonItem" image="list" id="TLP-eu-Get">
                             <connections>
-                                <segue destination="suP-xJ-CIu" kind="show" id="qlo-LR-tOi"/>
+                                <segue destination="suP-xJ-CIu" kind="show" identifier="goToUpdateEvent" id="qlo-LR-tOi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1467,14 +1622,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fmj-rM-niv">
-                                <rect key="frame" x="0.0" y="142" width="375" height="57"/>
-                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Ajouter une publicaiton"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-O8-Ute">
-                                <rect key="frame" x="0.0" y="366" width="375" height="57"/>
+                                <rect key="frame" x="0.0" y="219" width="375" height="57"/>
                                 <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="paramètre de l'association"/>
@@ -1482,22 +1631,22 @@
                                     <segue destination="6tu-2D-ulU" kind="show" identifier="goToParamAsso" id="CrY-Ep-lPO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBb-Nb-K8U">
-                                <rect key="frame" x="0.0" y="495" width="375" height="57"/>
-                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title=" Urgence">
-                                    <color key="titleColor" red="0.91450577974319458" green="0.41733849048614502" blue="0.32793667912483215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSA-Ou-ygn">
-                                <rect key="frame" x="0.0" y="253" width="375" height="57"/>
+                                <rect key="frame" x="0.0" y="131" width="375" height="57"/>
                                 <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Créer un évènement"/>
                                 <connections>
                                     <segue destination="nEb-xJ-qBN" kind="presentation" id="fgK-jd-vZJ"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBb-Nb-K8U">
+                                <rect key="frame" x="81" y="329" width="211" height="211"/>
+                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title=" Urgence">
+                                    <color key="titleColor" red="0.91450577974319458" green="0.41733849048614502" blue="0.32793667912483215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1512,6 +1661,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="urgenceBTN" destination="tBb-Nb-K8U" id="VQS-oF-edZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8FY-ho-1aq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1629,8 +1781,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="DescEvent" destination="OFU-7X-Myh" id="DdS-jJ-Lgu"/>
-                        <outlet property="cityEvent" destination="91m-Gp-72i" id="4gh-ZG-ds1"/>
-                        <outlet property="titleEvent" destination="R3d-bg-ISU" id="Ofx-Lt-QGe"/>
+                        <outlet property="cityEvent" destination="91m-Gp-72i" id="pF6-pM-bgH"/>
+                        <outlet property="titleEvent" destination="R3d-bg-ISU" id="qgh-hO-yHx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQ7-Cf-HVs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1650,7 +1802,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ol5-Pf-kke">
+                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="ol5-Pf-kke">
                                 <rect key="frame" x="0.0" y="147" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="479755253.929811">
                                     <!--2016-03-15 17:20:53 +0000-->
@@ -1673,14 +1825,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fin (optionnel) :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL7-Fq-Xm1">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fin :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AL7-Fq-Xm1">
                                 <rect key="frame" x="0.0" y="407" width="375" height="44"/>
                                 <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="UJD-Td-WzW">
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="UJD-Td-WzW">
                                 <rect key="frame" x="0.0" y="451" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="479755253.929811">
                                     <!--2016-03-15 17:20:53 +0000-->
@@ -2398,6 +2550,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gN4-Wb-3xP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-517" y="-5198"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fo0-0e-G61">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bJ2-Yk-gaf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4vl-Ax-79E">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="EBn-Pe-shf" kind="relationship" relationship="rootViewController" id="VTc-6K-C71"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ffm-dh-ZGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5553.5" y="-5602.5"/>
         </scene>
     </scenes>
     <resources>

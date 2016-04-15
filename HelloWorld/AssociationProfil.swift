@@ -9,15 +9,17 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDelegate {
-    var user : JSON = [] //all data about user
-    var request = RequestModel() //permet d'appeler le model request
-    var TitleAssoc = "" //titre asso
-    var AssocID : String = "" // ID asso
-    var param = [String: String]() // tableau pour les paramètre envoyer en requete
-    var Asso : JSON = [] // all data sur l'asso
-    var alreadyMember = "" // pour savoir si le user est deja membre
+    
+    var user : JSON = []
+    var request = RequestModel()
+    var TitleAssoc = ""
+    var AssocID : String = ""
+    var param = [String: String]()
+    var Asso : JSON = []
+    var alreadyMember = ""
     var creation = false;
     let gradientLayer = CAGradientLayer()
     
@@ -25,12 +27,14 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     @IBOutlet weak var ButtonJoin: UIButton!
     @IBOutlet weak var ButtonMenuOwner: UIBarButtonItem!
     @IBOutlet weak var ActuAssoList: UITableView!
+    //@IBOutlet weak var ImageProfilAsso: UIImageView!
     
     @IBOutlet weak var ImageProfilAsso: UIImageView!
     
     @IBOutlet weak var tableViewAssoc: UITableView!
     
-    //initialise le tableview avec des data
+    let members = ["la croix rouge", "les restos du coeur", "futsal", ""]
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cell : UITableViewCell!
         if indexPath.row == 0 {
@@ -44,12 +48,10 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         //return cell
     }
     
-    // return number of row of the tableview
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return members.count
     }
 
-    // permet d'ajuster la taille des cellules
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 160
@@ -59,13 +61,13 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
          return 0
     }
     
-    //load data on chargmement
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.title = TitleAssoc
         
         user = sharedInstance.volunteer["response"]
 
+        
         print("ASSO RIGHTS = \(alreadyMember)")
         if (alreadyMember != "owner"){
             self.ButtonMenuOwner.enabled = false
@@ -77,21 +79,21 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
 
         
         if(creation == false){
-            
-            param["token"] = String(user["token"])
-            let val = "associations/" + AssocID
-            request.request("GET", param: param,add: val, callback: {
-                (isOK, User)-> Void in
-                if(isOK){
-                    self.Asso = User
-                    self.title = String(self.Asso["response"]["name"])
-                    
-                    //self.tableViewAssoc.reloadData()
-                }
-                else {
-                    
-                }
-            });
+            print("enter donc false")
+        param["token"] = String(user["token"])
+        let val = "associations/" + AssocID
+        request.request("GET", param: param,add: val, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.Asso = User
+                self.title = String(self.Asso["response"]["name"])
+                
+                                //self.tableViewAssoc.reloadData()
+            }
+            else {
+                
+            }
+        });
         }
         
     }

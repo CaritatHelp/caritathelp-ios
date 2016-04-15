@@ -27,27 +27,12 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var nomAssoCreated: UILabel!
     @IBOutlet weak var viewAssoCreated: UIView!
     
-    //let AssocList = ["la croix rouge", "les restos du coeur", "futsal"]
-//    @IBAction func CreateAsso(sender: AnyObject) {
-//        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("NewAssoVC") as! NewAssociation
-//            vc.user = user
-//        self.presentViewController(vc, animated: true, completion: nil)
-//    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellMyAsso = tableViewAssoc.dequeueReusableCellWithIdentifier("myassoc", forIndexPath: indexPath) as! CustomCellMyAsso
 
-//        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
         let state = String(asso_member_list[indexPath.row]["rights"])
-//        if(String(asso_list["response"][indexPath.row]["rights"]) == "owner"){
-//            state = "owner"
-//        }
-//        else{
-//            state = "membre"
-//        }
-        //if(String(asso_list["response"][indexPath.row]["rights"]) == "owner"){
             cell.setCell(String(asso_member_list[indexPath.row]["name"]), imageName: "", state: state)
-        //}
         return cell
     }
     
@@ -112,26 +97,13 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     
 //    //2
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        var count = 0
-//        let total = asso_list["response"].count
-//        var i = 0
-//        while i < total{
-//            if(asso_list["response"][i]["rights"] == "owner"){
-//                count += 1
-//            }
-//            i += 1
-//        }
         return asso_created_list.count
     }
     
     //3
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell : CustomCellCollectionCreateAsso = createdAssoCollection.dequeueReusableCellWithReuseIdentifier("CreateAssoCell", forIndexPath: indexPath) as! CustomCellCollectionCreateAsso
-        //cell.backgroundColor = UIColor.blackColor()
-        // Configure the cell
-        //if(String(asso_list["response"][indexPath.row]["rights"]) == "owner"){
             cell.setData("", name: String(asso_created_list[indexPath.row]["name"]))
-        //}
         return cell
     }
     

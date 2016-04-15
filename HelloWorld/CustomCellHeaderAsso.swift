@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class CustomCellHeaderAsso: UITableViewCell {
     
@@ -37,18 +38,33 @@ class CustomCellHeaderAsso: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     @IBAction func JoinAsso(sender: AnyObject) {
+        if(alreadyMember == "none" || alreadyMember == "null"){
         param["token"] = String(user["token"])
         param["assoc_id"] = AssoID
         let val = "membership/join"
         request.request("POST", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
+                SCLAlertView().showTitle(
+                    "Demande envoyé", // Title of view
+                    subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
+                    duration: 10.0, // Duration to show before closing automatically, default: 0.0
+                    completeText: "ok", // Optional button value, default: ""
+                    style: .Success, // Styles - see below.
+                    colorStyle: 0x22B573,
+                    colorTextButton: 0xFFFFFF
+                )
                 self.JoinBtn.hidden = true
             }
             else {
                 
             }
         });
+        }
+        else if (alreadyMember == "owner"){
+            SCLAlertView().showError("Attention", subTitle: "Vous avez créé cette assocation \n vous ne pouvez la quitter!")
+
+        }
 
     }
     
@@ -67,13 +83,18 @@ class CustomCellHeaderAsso: UITableViewCell {
         self.JoinBtn.layer.cornerRadius = self.JoinBtn.frame.size.width / 2;
         self.JoinBtn.layer.borderWidth = 1.0
         self.JoinBtn.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.JoinBtn.layer.shadowOffset = CGSize(width: self.JoinBtn.frame.size.width + 10.0, height: self.JoinBtn.frame.size.height + 10.0)
+        self.JoinBtn.layer.shadowOpacity = 0.7
+        self.JoinBtn.layer.shadowColor = UIColor.blackColor().CGColor
+        self.JoinBtn.layer.shadowRadius = self.JoinBtn.frame.size.width / 2;
         self.JoinBtn.layer.masksToBounds = true
         self.JoinBtn.clipsToBounds = true
+        
                 print(alreadyMember)
         if (alreadyMember == "none" || alreadyMember == "null"){
             //self.JoinBtn.hidden = false
             JoinBtn.setImage(notJoined, forState: .Normal)
-            JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(75,75,75,75)
+            JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
 
         }
         else{

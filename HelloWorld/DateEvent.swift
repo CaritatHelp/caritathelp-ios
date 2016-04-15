@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SCLAlertView
 
 class DateCreateEvent : UIViewController {
     
@@ -43,11 +44,28 @@ class DateCreateEvent : UIViewController {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
         let strDate = dateFormatter.stringFromDate(DateEnd.date)
-        DisplayEnd.text = "Fin (optionnel : " + strDate
+        DisplayEnd.text = "Fin : " + strDate
         end = strDate
     }
     
-    
+    override func shouldPerformSegueWithIdentifier(identifier: String,sender: AnyObject?) -> Bool {
+        
+        if (identifier == "BackToMenuVC") {
+            
+            if (DisplayStart.text!.isEmpty) {
+                SCLAlertView().showError("Attention", subTitle: "veuillez donner une date de début à votre évènement")
+                return false
+            }
+            else {
+                return true
+            }
+
+        }
+        else {
+            return false
+        }
+
+    }
     
     override func viewWillDisappear(animated: Bool) {
         print("avant d'envoyer les data.....")

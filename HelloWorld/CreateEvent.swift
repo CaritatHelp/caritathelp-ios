@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SCLAlertView
 
 class CreateEvent : UIViewController {
     
@@ -15,9 +16,10 @@ class CreateEvent : UIViewController {
     @IBOutlet weak var cityEvent: UITextField!
     @IBOutlet weak var DescEvent: UITextView!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() //pour chacher le clavier en touchant ailleur sur l'écran
+        self.hideKeyboardWhenTappedAround() 
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -26,13 +28,37 @@ class CreateEvent : UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    //fonction pour être rediriger après un exit pour revenir sur cette view
+    
     @IBAction func unwindToSecondVC(sender: UIStoryboardSegue) {
         print("******************** JUOUIJUIKRZQC")
         _ = sender.sourceViewController
     }
 
-    //avant le changement d'une vue
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+        if (identifier == "goToDateCreateEvent") {
+            
+            if (titleEvent.text!.isEmpty) {
+                SCLAlertView().showError("Attention", subTitle: "veuillez donner un nom à votre évènement")
+                return false
+            }
+            else if (cityEvent.text!.isEmpty) {
+                SCLAlertView().showError("Attention", subTitle: "veuillez donner un lieu à votre évènement")
+                return false
+            }
+            else if (DescEvent.text!.isEmpty) {
+                SCLAlertView().showError("Attention", subTitle: "veuillez décrire votre évènement")
+                return false
+            }
+            else {
+                return true
+            }
+        }
+        
+        // by default, transition
+        return true
+    }
+
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         //print("value2 ok : \(ok)")
         // get a reference to the second view controller

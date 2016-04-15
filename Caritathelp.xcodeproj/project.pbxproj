@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3F0225DF1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225DE1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift */; };
 		3F0225E31CBC33C400158A1B /* CustomCellEventMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E21CBC33C400158A1B /* CustomCellEventMember.swift */; };
+		3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E41CC0092700158A1B /* UpdateEvent.swift */; };
+		3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */; };
 		3F12A0651C91E53900513778 /* gestionCompte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F12A0641C91E53900513778 /* gestionCompte.swift */; };
 		3F12A0671C91F14A00513778 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F12A0661C91F14A00513778 /* VolunteerModel.swift */; };
 		3F12A0691C94484700513778 /* ParametreAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F12A0681C94484700513778 /* ParametreAssociation.swift */; };
@@ -78,6 +80,8 @@
 /* Begin PBXFileReference section */
 		3F0225DE1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHeaderAsso.swift; sourceTree = "<group>"; };
 		3F0225E21CBC33C400158A1B /* CustomCellEventMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellEventMember.swift; sourceTree = "<group>"; };
+		3F0225E41CC0092700158A1B /* UpdateEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateEvent.swift; sourceTree = "<group>"; };
+		3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateEventDate.swift; sourceTree = "<group>"; };
 		3F12A0641C91E53900513778 /* gestionCompte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gestionCompte.swift; sourceTree = "<group>"; };
 		3F12A0661C91F14A00513778 /* VolunteerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
 		3F12A0681C94484700513778 /* ParametreAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametreAssociation.swift; sourceTree = "<group>"; };
@@ -190,6 +194,8 @@
 				3F12A0EF1C9B039D00513778 /* InformationEvent.swift */,
 				3F12A0F11C9B03B500513778 /* MembersEvent.swift */,
 				3F0225E21CBC33C400158A1B /* CustomCellEventMember.swift */,
+				3F0225E41CC0092700158A1B /* UpdateEvent.swift */,
+				3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */,
 			);
 			name = events;
 			sourceTree = "<group>";
@@ -534,6 +540,7 @@
 				3F12A0F01C9B039D00513778 /* InformationEvent.swift in Sources */,
 				3FB52A551CA1E6C2004D56D3 /* CustomCellMyEvents.swift in Sources */,
 				3FB4BF191C4F95EA00110EEA /* MenuController.swift in Sources */,
+				3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */,
 				3F12A0F41C9B0E5400513778 /* MyEvents.swift in Sources */,
 				3FC521A11CA459DD00742193 /* CustomCellHomePage.swift in Sources */,
 				3FB4BF221C6147CE00110EEA /* MyAssociations.swift in Sources */,
@@ -563,6 +570,7 @@
 				3F0225E31CBC33C400158A1B /* CustomCellEventMember.swift in Sources */,
 				3F676F3C1CAB790600466065 /* ViewCell.swift in Sources */,
 				3F12A0EA1C9881D900513778 /* DateEvent.swift in Sources */,
+				3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */,
 				3F12A0EE1C997BD000513778 /* ProfilEvent.swift in Sources */,
 				3F12A0F21C9B03B500513778 /* MembersEvent.swift in Sources */,
 				3FB52A531CA1AEBB004D56D3 /* CustomCellMemberAssociation.swift in Sources */,

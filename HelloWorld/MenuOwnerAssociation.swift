@@ -20,14 +20,17 @@ class MenuOwnerAssocation: UIViewController {
     var EventDateStart = ""
     var EventDateEnd = ""
     @IBOutlet weak var DisplayDateEvent: UILabel!
+    @IBOutlet weak var urgenceBTN: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
         
-        //print("entrer pour mettre de la data . . . . .")
-        //DisplayDateEvent.text = "LOL : " + EventDateStart + "\n" + EventDateEnd
-        
+        self.urgenceBTN.layer.cornerRadius = self.urgenceBTN.frame.size.width / 2;
+        self.urgenceBTN.layer.borderWidth = 1.0
+        self.urgenceBTN.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.urgenceBTN.layer.masksToBounds = true
+        self.urgenceBTN.clipsToBounds = true
 
     }
 
