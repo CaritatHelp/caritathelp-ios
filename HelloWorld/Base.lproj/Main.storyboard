@@ -81,6 +81,7 @@
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2017_logo_caritathelp" translatesAutoresizingMaskIntoConstraints="NO" id="QGS-ez-O03">
                                 <rect key="frame" x="-145" y="-149" width="651" height="455"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.43714893946944589" green="0.66666666666666663" blue="0.51562427791322807" alpha="1" colorSpace="calibratedRGB"/>
@@ -483,12 +484,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C7x-3f-T51">
-                                <rect key="frame" x="0.0" y="8" width="375" height="610"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="68" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="C7x-3f-T51">
+                                <rect key="frame" x="0.0" y="114" width="375" height="504"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MyEventsCell" rowHeight="68" id="QlW-VC-HIt" customClass="CustomCellMyEvents" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="68"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MyEventsCell" rowHeight="68" id="QlW-VC-HIt" customClass="CustomCellMyEvents" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="113.5" width="375" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QlW-VC-HIt" id="bCU-R8-GZ1">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="67.5"/>
@@ -525,12 +526,44 @@
                                     <outlet property="delegate" destination="B0n-a3-E90" id="enS-aF-kev"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JtE-sl-9Hp">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <barButtonItem title="A venir" width="69" style="plain" id="acc-0a-Bnk">
+                                        <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="loadFuturEvent:" destination="B0n-a3-E90" id="H3b-JP-3w1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Invitations" width="105" id="dvj-g2-vbk">
+                                        <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Créer" width="62.5" id="w9a-A8-MK9">
+                                        <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="loadCreatedEvent:" destination="B0n-a3-E90" id="3cO-mv-Cau"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="passé" width="76" id="vSP-ZN-Iow">
+                                        <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="loadPastEvent:" destination="B0n-a3-E90" id="PzC-Qz-ubi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Mes évènements" id="XV9-Dp-sXO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="btnCreatedEvent" destination="w9a-A8-MK9" id="ae7-Nj-Siu"/>
+                        <outlet property="btnFuturEvent" destination="acc-0a-Bnk" id="ufT-y3-Uae"/>
+                        <outlet property="btnPastEvent" destination="vSP-ZN-Iow" id="ZDx-8D-yCq"/>
                         <outlet property="events_list" destination="C7x-3f-T51" id="jHg-UU-LK5"/>
                     </connections>
                 </viewController>
@@ -2598,7 +2631,7 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zs6-k5-odG"/>
+        <segue reference="Ox6-A6-cfq"/>
         <segue reference="DJC-K9-eE8"/>
         <segue reference="lHp-KS-e8q"/>
         <segue reference="Kak-kY-Faf"/>

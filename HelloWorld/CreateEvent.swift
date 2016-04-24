@@ -12,6 +12,7 @@ import SCLAlertView
 
 class CreateEvent : UIViewController {
     
+        //variable en lien avec la storyBoard
     @IBOutlet weak var titleEvent: UITextField!
     @IBOutlet weak var cityEvent: UITextField!
     @IBOutlet weak var DescEvent: UITextView!

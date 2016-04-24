@@ -12,12 +12,14 @@ import SwiftyJSON
 
 class InformationsEvent: UIViewController {
     
+    var Event : JSON = []
     
+        //variable en lien avec la storyBoard
     @IBOutlet weak var DescEvent: UITextView!
     @IBOutlet weak var DateEvent: UILabel!
     @IBOutlet weak var LieuEvent: UILabel!
     
-    var Event : JSON = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

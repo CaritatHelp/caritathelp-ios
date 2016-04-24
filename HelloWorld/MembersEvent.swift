@@ -11,13 +11,15 @@ import UIKit
 import SwiftyJSON
 
 class MembersEventController: UIViewController {
+    
+    //variable utilisé dans cette classe
     var user : JSON = []
     var request = RequestModel()
     var param = [String: String]()
     var EventID : String = ""
     var members : JSON = []
     
-
+    //variable en lien avec la storyBoard
     @IBOutlet weak var members_list: UITableView!
     
     // init le tableview

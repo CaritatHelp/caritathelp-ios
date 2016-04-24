@@ -12,15 +12,17 @@ import SwiftyJSON
 import SCLAlertView
 
 class ProfilEventController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet weak var StateMembersOnEvent: UIButton!
-    @IBOutlet weak var eventsNewsList: UITableView!
-     var param = [String: String]()
+    //variable utilisé dans cette classe
+    var param = [String: String]()
     var request = RequestModel()
     var EventID : String = ""
     var Event : JSON = []
-     var user : JSON = []
+    var user : JSON = []
     
+    
+    //variable en lien avec la storyBoard
+    @IBOutlet weak var StateMembersOnEvent: UIButton!
+    @IBOutlet weak var eventsNewsList: UITableView!
     @IBOutlet weak var JoinEventBtn: UIBarButtonItem!
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -84,6 +86,9 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         request.request("GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
+                //test currentEvent save
+                currentEvent.currentEvent = User["response"]
+                print(currentEvent.currentEvent["title"])
                 self.Event = User
                 self.navigationItem.title = String(self.Event["response"]["title"])
                 if(String(self.Event["response"]["rights"]) == "host" || String(self.Event["response"]["rights"]) == "member"){
@@ -95,6 +100,11 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
             }
         });
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        print(currentEvent.currentEvent["title"])
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -111,14 +121,12 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             let secondViewController = segue.destinationViewController as! MembersEventController
             
             // set a variable in the second view controller with the String to pass
-            
             secondViewController.EventID = String(Event["response"]["id"])
         }
         if(segue.identifier == "goToUpdateEvent"){
             let secondViewController = segue.destinationViewController as! UpdateEventController
             
             // set a variable in the second view controller with the String to pass
-            
             secondViewController.Event = Event["response"]
         }
 
