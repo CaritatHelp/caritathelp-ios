@@ -73,8 +73,8 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         members_list.tableFooterView = UIView()
-        let sfondo = UIImage(named: "BoisFond")
-        members_list.backgroundColor = UIColor(patternImage: sfondo!)
+        //let sfondo = UIImage(named: "BoisFond")
+        //members_list.backgroundColor = UIColor(patternImage: sfondo!)
         
         user = sharedInstance.volunteer["response"]
         param["token"] = String(user["token"])
@@ -136,5 +136,20 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         return [shareAction]
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        //        // get a reference to the second view controller
+        if(segue.identifier == "ProfilMember"){
+            let indexPath = members_list.indexPathForCell(sender as! UITableViewCell)
+
+            let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.idvolunteer = String(members["response"][indexPath!.row]["id"])
+        }
+
+    }
+
     
 }

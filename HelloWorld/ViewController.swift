@@ -71,8 +71,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        login.text = "bobo@bobo.com"
-        password.text = "bobo1"
+        login.text = "jeremy@root.com"
+        password.text = "root"
     }
 
 

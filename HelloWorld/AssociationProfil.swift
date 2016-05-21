@@ -58,7 +58,6 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         } else {
             return 190
         }
-         return 0
     }
     
     override func viewDidLoad() {

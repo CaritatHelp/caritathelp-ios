@@ -96,12 +96,12 @@ let numberOfRowsAtSection: [Int] = [3, 1, 2, 1]
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
 //        // get a reference to the second view controller
-//        if(segue.identifier == "MyAssocitions"){
-//            let secondViewController = segue.destinationViewController as! MyAssociations
-//            
-//            // set a variable in the second view controller with the String to pass
-//            secondViewController.user = User
-//        }
+        if(segue.identifier == "GoToProfilVol"){
+            let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.idvolunteer = String(User["id"])
+        }
 //        if(segue.identifier == "GestionProfil"){
 //            let secondViewController = segue.destinationViewController as! GestionCompte
 //            
