@@ -14,7 +14,7 @@ class MenuController : UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var User : JSON = []
     var request = RequestModel()
-let numberOfRowsAtSection: [Int] = [3, 1, 2, 1]
+let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
     let Titlesections : [String] = ["","",""]
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -28,22 +28,25 @@ let numberOfRowsAtSection: [Int] = [3, 1, 2, 1]
         else if indexPath.row == 2{
             cell = tableView.dequeueReusableCellWithIdentifier("Menu3", forIndexPath: indexPath)
         }
+        else if indexPath.row == 3{
+                cell = tableView.dequeueReusableCellWithIdentifier("Menu4", forIndexPath: indexPath)
+            }
         }
         if indexPath.section == 1{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu4", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCellWithIdentifier("Menu5", forIndexPath: indexPath)
 
         }
 
         if indexPath.section == 2{
             if indexPath.row == 0{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu5", forIndexPath: indexPath)
-            }else if indexPath.row == 1{
                 cell = tableView.dequeueReusableCellWithIdentifier("Menu6", forIndexPath: indexPath)
+            }else if indexPath.row == 1{
+                cell = tableView.dequeueReusableCellWithIdentifier("Menu7", forIndexPath: indexPath)
             }
         }
 
         if indexPath.section == 3{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu7", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCellWithIdentifier("Menu8", forIndexPath: indexPath)
         }
 
         return cell

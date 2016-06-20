@@ -9,9 +9,10 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 
-class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate {
     
     var user : JSON = []
     var volunteer : JSON = []
@@ -19,13 +20,14 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     var param = [String: String]()
     var request = RequestModel()
     @IBOutlet weak var profil_list: UITableView!
+    var main_picture = ""
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cellB : UITableViewCell!
         
         if indexPath.row == 0 {
         let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCellWithIdentifier("CellProfilVolunteer", forIndexPath: indexPath) as! CustomCellProfilVolunteer
-            cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: "", imageName: "")
+            cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: "", imageName: main_picture)
             
             let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).CGColor, UIColor.whiteColor().CGColor]
             let gradientLocations = [0.0,1.0]
@@ -63,6 +65,9 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         profil_list.tableFooterView = UIView()
@@ -74,7 +79,18 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             (isOK, User)-> Void in
             if(isOK){
                 self.volunteer = User
-                self.profil_list.reloadData()
+                let val2 = "/volunteers/" + self.idvolunteer + "/main_picture"
+                self.request.request("GET", param: self.param,add: val2, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.main_picture = "http://api.caritathelp.me/" + String(User["response"]["picture_path"]["url"])
+                        self.profil_list.reloadData()
+
+                    }
+                    else {
+                        
+                    }
+                });
             }
             else {
                 

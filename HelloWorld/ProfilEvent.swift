@@ -122,6 +122,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             
             // set a variable in the second view controller with the String to pass
             secondViewController.EventID = String(Event["response"]["id"])
+            secondViewController.AssoID = String(Event["response"]["assoc_id"])
         }
         if(segue.identifier == "goToUpdateEvent"){
             let secondViewController = segue.destinationViewController as! UpdateEventController
@@ -130,7 +131,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             secondViewController.Event = Event["response"]
         }
 
-    }
+    }//goToInviteGuest
 
     
 }

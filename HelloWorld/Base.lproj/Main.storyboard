@@ -311,8 +311,30 @@
                                             <segue destination="55g-pO-o4g" kind="show" id="2s0-n8-0SF"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu4" id="KXK-su-aSi">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu4" id="z6S-bm-ZUa">
                                         <rect key="frame" x="0.0" y="181.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z6S-bm-ZUa" id="f7G-ve-3uL">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mes invitations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVI-Nk-rWP">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="mailbox_with_letter-1" translatesAutoresizingMaskIntoConstraints="NO" id="YW2-SR-Jq5">
+                                                    <rect key="frame" x="8" y="5" width="35" height="33.5"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="zWZ-WE-Cal" kind="show" id="nIz-3e-PsX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu5" id="KXK-su-aSi">
+                                        <rect key="frame" x="0.0" y="225.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KXK-su-aSi" id="ERy-ez-8HC">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -333,8 +355,8 @@
                                             <segue destination="JVW-cZ-3Z1" kind="show" id="el4-HC-MgB"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu5" id="nWW-4h-YzU">
-                                        <rect key="frame" x="0.0" y="225.5" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu6" id="nWW-4h-YzU">
+                                        <rect key="frame" x="0.0" y="269.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nWW-4h-YzU" id="Zbk-Q5-tCL">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -355,8 +377,8 @@
                                             <segue destination="cu0-SY-nD0" kind="show" identifier="GoToProfilVol" id="cum-nY-A2V"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu6" id="Hon-FO-Lvi">
-                                        <rect key="frame" x="0.0" y="269.5" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu7" id="Hon-FO-Lvi">
+                                        <rect key="frame" x="0.0" y="313.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hon-FO-Lvi" id="NPl-ll-0e4">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -374,8 +396,8 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Menu7" id="5XJ-96-w7q">
-                                        <rect key="frame" x="0.0" y="313.5" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Menu8" id="5XJ-96-w7q">
+                                        <rect key="frame" x="0.0" y="357.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5XJ-96-w7q" id="nGb-SD-daZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -476,6 +498,56 @@
             </objects>
             <point key="canvasLocation" x="346.5" y="-347.5"/>
         </scene>
+        <!--Invitations-->
+        <scene sceneID="0hK-7q-uzT">
+            <objects>
+                <viewController id="zWZ-WE-Cal" customClass="InvitationsController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NVj-Tg-Sie"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cbt-z0-vyE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lG4-bn-8qi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MSA-h3-LUV">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Associations" width="119" id="eEY-Aj-KJp">
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Evenements" width="124" id="QJU-H2-trk">
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Amis" width="54" id="4zM-PQ-pV6">
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yow-1Q-iBc">
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wvz-QP-alc">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wvz-QP-alc" id="eZn-0X-Rst">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Invitations" id="Tyi-38-qxP"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="upf-Aa-TPa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="877.5" y="-255.5"/>
+        </scene>
         <!--Profil Volunteer-->
         <scene sceneID="qu8-o8-S95">
             <objects>
@@ -503,12 +575,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="e6e-OE-6Bv">
                                                     <rect key="frame" x="125" y="25" width="125" height="125"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jérémy GROS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pc-dw-SUh">
-                                                    <rect key="frame" x="8" y="164" width="359" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnM-ZL-yuZ">
                                                     <rect key="frame" x="289" y="63" width="50" height="50"/>
                                                     <state key="normal" image="add_user-2">
@@ -519,6 +585,19 @@
                                                         <action selector="add_friend:" destination="ut3-8m-QJy" eventType="touchUpInside" id="vGo-vz-hWV"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XzM-Ob-ggd">
+                                                    <rect key="frame" x="159" y="142" width="57" height="30"/>
+                                                    <state key="normal" title="Modifier"/>
+                                                    <connections>
+                                                        <segue destination="P30-fY-VqL" kind="show" id="ao9-7r-IEV"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jérémy GROS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3pc-dw-SUh">
+                                                    <rect key="frame" x="8" y="166" width="359" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.88291266030000004" green="0.88291266030000004" blue="0.88291266030000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -554,33 +633,6 @@
                                                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         </barButtonItem>
                                                         <barButtonItem image="info_filled" width="50" id="fDk-qw-DUl">
-                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </barButtonItem>
-                                                    </items>
-                                                </toolbar>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuOwnProfil" rowHeight="46" id="GC4-kq-HM1" userLabel="MenuOwnProfil">
-                                        <rect key="frame" x="0.0" y="338" width="375" height="46"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GC4-kq-HM1" id="Og9-IP-uJs">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gDO-np-eL4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                                    <items>
-                                                        <barButtonItem image="groups_filled" width="69" id="ang-ua-pXd">
-                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </barButtonItem>
-                                                        <barButtonItem image="volunteering_filled" width="76" id="3fr-aY-a3I">
-                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </barButtonItem>
-                                                        <barButtonItem image="event_joined" width="97" id="ZLx-aV-kjk">
-                                                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </barButtonItem>
-                                                        <barButtonItem image="info_filled" width="50" id="b4s-q2-lsc">
                                                             <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                         </barButtonItem>
                                                     </items>
@@ -641,7 +693,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zq3-Dy-SGn">
                                                     <rect key="frame" x="79" y="8" width="259" height="29"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -684,7 +736,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="68" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="C7x-3f-T51">
                                 <rect key="frame" x="0.0" y="114" width="375" height="504"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MyEventsCell" rowHeight="68" id="QlW-VC-HIt" customClass="CustomCellMyEvents" customModule="Caritathelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="113.5" width="375" height="68"/>
@@ -768,6 +820,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a1h-SG-Qsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1103.5" y="-2108.5"/>
+        </scene>
+        <!--Load Photo Controller-->
+        <scene sceneID="BRy-bX-PWy">
+            <objects>
+                <viewController id="P30-fY-VqL" customClass="LoadPhotoController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lvn-3M-x8J"/>
+                        <viewControllerLayoutGuide type="bottom" id="jqV-sV-q54"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3l2-nZ-j5P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zl0-zz-fff">
+                                <rect key="frame" x="0.0" y="94" width="375" height="375"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T5B-0W-Vkq">
+                                <rect key="frame" x="49" y="499" width="101" height="30"/>
+                                <state key="normal" title="Appareil photo">
+                                    <color key="titleColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="CallCamera:" destination="P30-fY-VqL" eventType="touchUpInside" id="UaM-b0-kAD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYq-Pf-VX2">
+                                <rect key="frame" x="233" y="499" width="86" height="30"/>
+                                <state key="normal" title="bibliothèque">
+                                    <color key="titleColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="CallLibrary:" destination="P30-fY-VqL" eventType="touchUpInside" id="ry6-o3-iOe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Pl-d6-tsY">
+                                <rect key="frame" x="164" y="552" width="46" height="30"/>
+                                <state key="normal" title="valider">
+                                    <color key="titleColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="DownloadPicture:" destination="P30-fY-VqL" eventType="touchUpInside" id="gEp-GR-VpA"/>
+                                    <action selector="LoadPicture:" destination="P30-fY-VqL" eventType="touchUpInside" id="FKa-aN-Tjl"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Gxs-kl-xRO">
+                                <rect key="frame" x="218" y="557" width="20" height="20"/>
+                                <color key="color" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="Loader" destination="Gxs-kl-xRO" id="VQH-d8-lbp"/>
+                        <outlet property="PictureLoaded" destination="Zl0-zz-fff" id="V35-bq-nZU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UJV-np-TGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1061.5" y="-1271.5"/>
         </scene>
         <!--Mes associations-->
         <scene sceneID="4Br-hJ-bFX">
@@ -1509,7 +1621,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="liste des participants" id="3BP-bb-UvK"/>
+                    <navigationItem key="navigationItem" title="liste des participants" id="3BP-bb-UvK">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="EEs-Ht-0sa">
+                            <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="0TL-nH-J8Q" kind="show" identifier="goToInviteGuest" id="3Cv-BX-suX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="members_list" destination="Yd1-FT-K0q" id="LYw-ap-0Ww"/>
@@ -1518,6 +1637,69 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mCG-fz-1n8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4191.5" y="-3972.5"/>
+        </scene>
+        <!--Inviter des membres-->
+        <scene sceneID="XGy-gd-zau">
+            <objects>
+                <viewController id="0TL-nH-J8Q" customClass="InviteGuestController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aj4-fu-XLv"/>
+                        <viewControllerLayoutGuide type="bottom" id="rPT-81-yEz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VOH-Pu-Hur">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GLp-Zb-VlA">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuestCell" id="oEw-yh-77M" customClass="CustomCellInviteGuest" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oEw-yh-77M" id="IK1-UL-8Fh">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="xrL-Us-tMp">
+                                                    <rect key="frame" x="17" y="5" width="34" height="34"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZ0-mx-7ul">
+                                                    <rect key="frame" x="59" y="11" width="274" height="24.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.036536596900000003" green="0.6671711387" blue="0.30148286120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="ImageProfilFriends" destination="xrL-Us-tMp" id="Bu7-T7-eJD"/>
+                                            <outlet property="NameFriends" destination="aZ0-mx-7ul" id="cEb-6Z-I1o"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="0TL-nH-J8Q" id="aSa-uF-MD6"/>
+                                    <outlet property="delegate" destination="0TL-nH-J8Q" id="reE-Ju-bgW"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Inviter des membres" id="TX0-We-4Yf">
+                        <barButtonItem key="rightBarButtonItem" title="inviter" id="NmZ-Zx-GQe">
+                            <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="friends_list" destination="GLp-Zb-VlA" id="cxC-rA-L4l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sDE-wc-UZm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4592.5" y="-4203.5"/>
         </scene>
         <!--Post Statut Asso Controller-->
         <scene sceneID="nMq-bb-UFG">
@@ -1854,16 +2036,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUq-O8-Ute">
-                                <rect key="frame" x="0.0" y="219" width="375" height="57"/>
+                                <rect key="frame" x="-1" y="165" width="375" height="57"/>
                                 <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="paramètre de l'association"/>
+                                <state key="normal" title="Inviter des membres"/>
                                 <connections>
-                                    <segue destination="6tu-2D-ulU" kind="show" identifier="goToParamAsso" id="CrY-Ep-lPO"/>
+                                    <segue destination="Tyu-pr-wYT" kind="show" identifier="goToInviteMember" id="GIN-Xx-HX0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HSA-Ou-ygn">
-                                <rect key="frame" x="0.0" y="131" width="375" height="57"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="57"/>
                                 <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Créer un évènement"/>
@@ -1872,12 +2054,27 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBb-Nb-K8U">
-                                <rect key="frame" x="81" y="329" width="211" height="211"/>
+                                <rect key="frame" x="81" y="369" width="211" height="211"/>
                                 <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title=" Urgence">
                                     <color key="titleColor" red="0.91450577974319458" green="0.41733849048614502" blue="0.32793667912483215" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bF4-TL-xhl">
+                                <rect key="frame" x="0.0" y="230" width="375" height="57"/>
+                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Modifier le logo"/>
+                                <connections>
+                                    <segue destination="P30-fY-VqL" kind="show" id="5LN-Ot-TU7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiO-hp-3bk">
+                                <rect key="frame" x="0.0" y="295" width="375" height="57"/>
+                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="paramètre de l'association"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -2165,7 +2362,80 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B1X-ez-pSQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4823.5" y="-2923.5"/>
+            <point key="canvasLocation" x="4903.5" y="-3107.5"/>
+        </scene>
+        <!--Inviter vos amis-->
+        <scene sceneID="eIi-mW-MXN">
+            <objects>
+                <viewController id="Tyu-pr-wYT" customClass="InviteMemberController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="brV-Lo-2LD"/>
+                        <viewControllerLayoutGuide type="bottom" id="vAa-NJ-NtC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2rn-8R-zhR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ytq-We-EJq">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="friendCell" id="oBh-MT-tN8" customClass="CustomCellInviteMember" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oBh-MT-tN8" id="m1k-dn-VVj">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY1-SJ-vTq">
+                                                    <rect key="frame" x="61" y="0.0" width="242" height="35"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profil_photo" translatesAutoresizingMaskIntoConstraints="NO" id="LVT-bW-wlB">
+                                                    <rect key="frame" x="14" y="3" width="32" height="32.5"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.036536596900000003" green="0.6671711387" blue="0.30148286120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="ImageProfilFriends" destination="LVT-bW-wlB" id="Epi-wh-uh6"/>
+                                            <outlet property="NameFriends" destination="tY1-SJ-vTq" id="XeU-ii-PdV"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Tyu-pr-wYT" id="2cl-Gs-cbV"/>
+                                    <outlet property="delegate" destination="Tyu-pr-wYT" id="0i3-IY-ISU"/>
+                                </connections>
+                            </tableView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nSL-z0-ymO">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="7yd-9T-cgU"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Inviter vos amis" id="u0c-56-yP8">
+                        <barButtonItem key="rightBarButtonItem" title="inviter" id="NPb-xf-OXH">
+                            <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="InviteMember:" destination="Tyu-pr-wYT" id="h6d-uW-2tK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="friends_list" destination="Ytq-We-EJq" id="3An-fv-Ud2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Of3-0Q-H3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5567.5" y="-2913.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Gu2-mr-Rcs">
@@ -2819,6 +3089,7 @@
         <image name="home" width="32" height="32"/>
         <image name="info_filled" width="32" height="32"/>
         <image name="list" width="32" height="32"/>
+        <image name="mailbox_with_letter-1" width="96" height="96"/>
         <image name="menu" width="32" height="32"/>
         <image name="my_events" width="96" height="96"/>
         <image name="my_organisations" width="96" height="96"/>
@@ -2832,13 +3103,14 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oEU-cS-sLN"/>
+        <segue reference="5LN-Ot-TU7"/>
+        <segue reference="Ox6-A6-cfq"/>
         <segue reference="cum-nY-A2V"/>
         <segue reference="DJC-K9-eE8"/>
         <segue reference="Qe5-Kj-aGY"/>
-        <segue reference="Kak-kY-Faf"/>
-        <segue reference="j0r-d4-0hx"/>
         <segue reference="MoD-cH-jlH"/>
+        <segue reference="j0r-d4-0hx"/>
+        <segue reference="Kak-kY-Faf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99687499999999996" green="0.99687499999999996" blue="0.99687499999999996" alpha="1" colorSpace="calibratedRGB"/>
 </document>

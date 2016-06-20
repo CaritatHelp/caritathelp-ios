@@ -17,6 +17,7 @@ class MembersEventController: UIViewController {
     var request = RequestModel()
     var param = [String: String]()
     var EventID : String = ""
+    var AssoID : String = ""
     var members : JSON = []
     
     //variable en lien avec la storyBoard
@@ -66,6 +67,21 @@ class MembersEventController: UIViewController {
         return [shareAction, shareAction2]
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // get a reference to the second view controller
+        if(segue.identifier == "goToInviteGuest"){
+            let secondViewController = segue.destinationViewController as! InviteGuestController
+            
+            // set a variable in the second view controller with the String to pass
+            
+            secondViewController.EventID = EventID
+            secondViewController.AssoID = AssoID
+        }
+        
+    }
+
 
     //init les données au chargement de la vue
     override func viewDidLoad() {

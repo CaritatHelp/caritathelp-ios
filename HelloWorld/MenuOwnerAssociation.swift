@@ -56,6 +56,15 @@ class MenuOwnerAssocation: UIViewController {
                 secondViewController.AssocID = String(Asso["response"]["id"])
     
             }
+            if(segue.identifier == "goToInviteMember"){
+                let secondViewController = segue.destinationViewController as! InviteMemberController
+                
+                // set a variable in the second view controller with the String to pass
+                //secondViewController.user = user
+                //print("asso ID = \(Asso["response"]["id"])")
+                secondViewController.AssocID = String(Asso["response"]["id"])
+                
+            }
             if(segue.identifier == "goToParamAsso"){
                 let secondViewController = segue.destinationViewController as! ParametreAssociations
                 
@@ -64,7 +73,7 @@ class MenuOwnerAssocation: UIViewController {
                 //print("asso ID = \(Asso["response"]["id"])")
                 secondViewController.Asso = Asso
                 
-            }
+            }// goToInviteMember
         }
     
     @IBAction func unwindToEndCreateEvent(unwindSegue:UIStoryboardSegue) {

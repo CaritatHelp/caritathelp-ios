@@ -37,6 +37,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
     func setCell(NameLabel: String, DetailLabel: String, imageName: String){
         //self.TitleNews.text = NameLabel
         //self.DateNews.text = DateLabel
+        
         self.BtnAddFriend.layer.cornerRadius = self.BtnAddFriend.frame.size.width / 2
         self.BtnAddFriend.layer.borderColor = UIColor.whiteColor().CGColor;
         self.BtnAddFriend.layer.borderWidth = 1.0
@@ -44,6 +45,8 @@ class CustomCellProfilVolunteer: UITableViewCell {
         self.BtnAddFriend.layer.masksToBounds = true
         self.BtnAddFriend.clipsToBounds = true
         
+        
+        imgProfilVol.downloadedFrom(link: imageName, contentMode: .ScaleAspectFit)
         
                 self.imgProfilVol.layer.cornerRadius = self.imgProfilVol.frame.size.width / 2
                 self.imgProfilVol.layer.borderColor = UIColor.darkGrayColor().CGColor;
