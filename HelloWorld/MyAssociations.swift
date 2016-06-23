@@ -32,7 +32,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
         let cell : CustomCellMyAsso = tableViewAssoc.dequeueReusableCellWithIdentifier("myassoc", forIndexPath: indexPath) as! CustomCellMyAsso
 
         let state = String(asso_member_list[indexPath.row]["rights"])
-            cell.setCell(String(asso_member_list[indexPath.row]["name"]), imageName: "", state: state)
+            cell.setCell(String(asso_member_list[indexPath.row]["name"]), imageName: define.path_picture + String(asso_member_list[indexPath.row]["thumb_path"]), state: state)
         return cell
     }
     
@@ -103,7 +103,8 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     //3
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell : CustomCellCollectionCreateAsso = createdAssoCollection.dequeueReusableCellWithReuseIdentifier("CreateAssoCell", forIndexPath: indexPath) as! CustomCellCollectionCreateAsso
-            cell.setData("", name: String(asso_created_list[indexPath.row]["name"]))
+        print("CHEMIN :: " + define.path_picture + String(asso_created_list[indexPath.row]["thumb_path"]))
+            cell.setData(define.path_picture + String(asso_created_list[indexPath.row]["thumb_path"]), name: String(asso_created_list[indexPath.row]["name"]))
         return cell
     }
     

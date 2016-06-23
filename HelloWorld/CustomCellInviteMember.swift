@@ -35,6 +35,7 @@ class CustomCellInviteMember: UITableViewCell {
     func setCell(NameLabel: String, imageName: String){
         //self.TitleNews.text = NameLabel
         //self.DateNews.text = DateLabel
+        self.ImageProfilFriends.downloadedFrom(link: imageName, contentMode: .ScaleAspectFit)
         self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2
         self.ImageProfilFriends.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.ImageProfilFriends.layer.masksToBounds = true

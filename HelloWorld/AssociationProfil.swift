@@ -22,6 +22,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     var alreadyMember = ""
     var creation = false;
     let gradientLayer = CAGradientLayer()
+    var main_picture = ""
     
     
     @IBOutlet weak var ButtonJoin: UIButton!
@@ -39,7 +40,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         //let cell : UITableViewCell!
         if indexPath.row == 0 {
             let cell1 : CustomCellHeaderAsso = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCellHeader", forIndexPath: indexPath) as! CustomCellHeaderAsso
-            cell1.setCell(user, assoId: AssocID, rights: alreadyMember)
+            cell1.setCell(user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
             return cell1
         }else{
         let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCell", forIndexPath: indexPath)
@@ -86,8 +87,8 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             if(isOK){
                 self.Asso = User
                 self.title = String(self.Asso["response"]["name"])
-                
-                                //self.tableViewAssoc.reloadData()
+                self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
+                self.ActuAssoList.reloadData()
             }
             else {
                 

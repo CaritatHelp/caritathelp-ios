@@ -79,19 +79,9 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             (isOK, User)-> Void in
             if(isOK){
                 self.volunteer = User
-                let val2 = "/volunteers/" + self.idvolunteer + "/main_picture"
-                self.request.request("GET", param: self.param,add: val2, callback: {
-                    (isOK, User)-> Void in
-                    if(isOK){
-                        self.main_picture = "http://api.caritathelp.me/" + String(User["response"]["picture_path"]["url"])
-                        self.profil_list.reloadData()
-
-                    }
-                    else {
-                        
-                    }
-                });
-            }
+                self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
+                self.profil_list.reloadData()
+                }
             else {
                 
             }
@@ -117,6 +107,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             
             // set a variable in the second view controller with the String to pass
             secondViewController.idvolunteer = idvolunteer
+        }
+        if(segue.identifier == "fromprofilvolunteer"){
+            
+            let secondViewController = segue.destinationViewController as! LoadPhotoController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.from = "1"
         }
         
         

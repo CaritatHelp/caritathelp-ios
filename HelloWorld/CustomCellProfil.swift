@@ -46,8 +46,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
         self.BtnAddFriend.clipsToBounds = true
         
         
-        imgProfilVol.downloadedFrom(link: imageName, contentMode: .ScaleAspectFit)
-        
+        imgProfilVol.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
                 self.imgProfilVol.layer.cornerRadius = self.imgProfilVol.frame.size.width / 2
                 self.imgProfilVol.layer.borderColor = UIColor.darkGrayColor().CGColor;
         

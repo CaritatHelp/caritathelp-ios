@@ -38,7 +38,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         let heure = str[str.startIndex.advancedBy(11)...str.startIndex.advancedBy(15)]
         //let range = Range(start: String(events[index]["begin"]).startIndex.advancedBy(11), end: String(events[index]["begin"]).startIndex.advancedBy(16))
         //        cell.textLabel!.text = String(events["response"][indexPath.row]["title"])
-        cell.setCell(String(events[index]["title"]), imageName: "", state: heure)
+        cell.setCell(String(events[index]["title"]), imageName: String(events[index]["thumb_path"]), state: heure)
         
         index += 1
             return cell

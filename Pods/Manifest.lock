@@ -1,7 +1,7 @@
 PODS:
-  - Alamofire (3.3.1)
+  - Alamofire (3.4.1)
   - MGSwipeTableCell (1.5.5)
-  - SCLAlertView (0.5.2)
+  - SCLAlertView (0.5.9)
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
@@ -16,13 +16,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftyJSON:
-    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :commit: 73670b94292b8d8496c398a973f56ac67789ba9f
     :git: https://github.com/SwiftyJSON/SwiftyJSON.git
 
 SPEC CHECKSUMS:
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   MGSwipeTableCell: bafeb5f351124544c9364ecbdf24c7b06a37d340
-  SCLAlertView: 66873759027a98f891b6ba9042d75db9082abca2
+  SCLAlertView: d7c6a48c7d340e60206d4ed0e8ebcbff3b9d2a44
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
 COCOAPODS: 0.39.0

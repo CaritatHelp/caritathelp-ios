@@ -35,6 +35,12 @@ class CustomCellMyEvents: UITableViewCell {
     
     func setCell(NameLabel: String, imageName: String, state: String){
         self.NameAsso.text = NameLabel
+        print("name :" + imageName + ":")
+        if (imageName == "null") {
+            self.PictureAsso.image = UIImage(named: "default_profil")
+        }else {
+            self.PictureAsso.downloadedFrom(link: define.path_picture + imageName, contentMode: .ScaleToFill)
+        }
         self.PictureAsso.layer.cornerRadius = 10
         self.PictureAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.PictureAsso.layer.masksToBounds = true

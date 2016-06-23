@@ -16,6 +16,9 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
     var request = RequestModel()
     var user : JSON = []
     var image = UIImage()
+    var from = ""
+    var id_asso = ""
+    var id_event = ""
     
     
     let imagePicker = UIImagePickerController()
@@ -30,7 +33,10 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
         imagePicker.delegate = self
-        let alertView = SCLAlertView()
+        let appearance = SCLAlertView.SCLAppearance(
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("de la bibliothèque") {
             print("vers la bibliothèque")
             self.LoadLibrary()
@@ -83,7 +89,17 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
         param["file"] = strBase64
         param["filename"] = "photo_profil.jpg"
         param["original_filename"] = "photo_profil.jpg"
-        param["is_main"] = "true"
+        if (from == "1") {
+            param["is_main"] = "true"
+        }
+        else if(from == "2"){
+            param["is_main"] = "true"
+            param["assoc_id"] = id_asso
+        }
+        else if(from == "3"){
+            param["is_main"] = "true"
+            param["event_id"] = id_event
+        }
         let val = "pictures"
         Loader.startAnimating()
         request.request("POST", param: param,add: val, callback: {

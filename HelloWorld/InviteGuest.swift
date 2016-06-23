@@ -75,7 +75,7 @@ class InviteGuestController: UIViewController {
         let cell : CustomCellInviteGuest  = friends_list.dequeueReusableCellWithIdentifier("GuestCell", forIndexPath: indexPath) as! CustomCellInviteGuest
 
         let name = String(friends["response"][indexPath.row]["firstname"]) + " " + String(friends["response"][indexPath.row]["lastname"])
-        cell.setCell(name, imageName: "")
+        cell.setCell(name, imageName: define.path_picture + String(friends["response"][indexPath.row]["thumb_path"]))
         
         
         return cell

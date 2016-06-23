@@ -35,7 +35,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         else{
             name = String(filteredTableData[indexPath.row])
         }
-        cell.setCell(name, imageName: "")
+        cell.setCell(name, imageName: define.path_picture + String(members["response"][indexPath.row]["thumb_path"]))
         
     
         return cell

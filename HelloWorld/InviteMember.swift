@@ -75,7 +75,7 @@ class InviteMemberController: UIViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellInviteMember  = friends_list.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as! CustomCellInviteMember
         let name = String(friends["response"][indexPath.row]["firstname"]) + " " + String(friends["response"][indexPath.row]["lastname"])
-        cell.setCell(name, imageName: "")
+        cell.setCell(name, imageName: define.path_picture + String(friends["response"][indexPath.row]["thumb_path"]))
         
         
         return cell

@@ -21,7 +21,7 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellAssoVolunteer = asso_list.dequeueReusableCellWithIdentifier("assovolunteer", forIndexPath: indexPath) as! CustomCellAssoVolunteer
-        cell.setCell(String(assoVolunteer["response"][indexPath.row]["name"]), imageName: "", state: "Paris")
+        cell.setCell(String(assoVolunteer["response"][indexPath.row]["name"]), imageName: define.path_picture + String(assoVolunteer["response"][indexPath.row]["thumb_path"]), state: "Paris")
         return cell
     }
     

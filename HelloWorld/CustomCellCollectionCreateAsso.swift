@@ -30,10 +30,11 @@ class CustomCellCollectionCreateAsso : UICollectionViewCell {
 
     
     func setData(image: String, name: String){
-//        self.imageAsso.layer.cornerRadius = self.imageAsso.frame.size.width / 2
-//        self.imageAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
-//        self.imageAsso.layer.masksToBounds = true
-//        self.imageAsso.clipsToBounds = true
+        self.imageAsso.downloadedFrom(link: image, contentMode: .ScaleToFill)
+        self.imageAsso.layer.cornerRadius = self.imageAsso.frame.size.width / 2
+        self.imageAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.imageAsso.layer.masksToBounds = true
+        self.imageAsso.clipsToBounds = true
         self.nomAsso.text = name
 
     }

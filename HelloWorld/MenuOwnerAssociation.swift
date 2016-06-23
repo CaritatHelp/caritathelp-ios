@@ -49,31 +49,27 @@ class MenuOwnerAssocation: UIViewController {
 
             if(segue.identifier == "goToNotifAsso"){
                 let secondViewController = segue.destinationViewController as! NotifAssociation
-    
-                // set a variable in the second view controller with the String to pass
-                //secondViewController.user = user
+
                 print("asso ID = \(Asso["response"]["id"])")
                 secondViewController.AssocID = String(Asso["response"]["id"])
     
             }
             if(segue.identifier == "goToInviteMember"){
                 let secondViewController = segue.destinationViewController as! InviteMemberController
-                
-                // set a variable in the second view controller with the String to pass
-                //secondViewController.user = user
-                //print("asso ID = \(Asso["response"]["id"])")
                 secondViewController.AssocID = String(Asso["response"]["id"])
                 
             }
             if(segue.identifier == "goToParamAsso"){
                 let secondViewController = segue.destinationViewController as! ParametreAssociations
-                
-                // set a variable in the second view controller with the String to pass
-                //secondViewController.user = user
-                //print("asso ID = \(Asso["response"]["id"])")
                 secondViewController.Asso = Asso
                 
-            }// goToInviteMember
+            }
+            if(segue.identifier == "fromasso"){
+                let secondViewController = segue.destinationViewController as! LoadPhotoController
+                secondViewController.from = "2"
+                secondViewController.id_asso = String(Asso["response"]["id"])
+                
+            }
         }
     
     @IBAction func unwindToEndCreateEvent(unwindSegue:UIStoryboardSegue) {

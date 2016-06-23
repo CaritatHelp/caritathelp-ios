@@ -25,7 +25,7 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomFriendsCell = list_friends.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath: indexPath) as! CustomFriendsCell
         let name = String(friends["response"][indexPath.row]["firstname"]) + " " + String(friends["response"][indexPath.row]["lastname"])
-        cell.setCell(name, DetailLabel: "", imageName: "")
+        cell.setCell(name, DetailLabel: String(friends["response"][indexPath.row]["nb_common_friends"]), imageName: define.path_picture + define.path_picture + String(friends["response"][indexPath.row]["thumb_path"]))
         return cell
     }
     

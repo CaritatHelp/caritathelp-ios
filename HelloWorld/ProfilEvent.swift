@@ -18,8 +18,10 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     var EventID : String = ""
     var Event : JSON = []
     var user : JSON = []
+    var main_picture = ""
     
     
+    @IBOutlet weak var imageEvent: UIImageView!
     //variable en lien avec la storyBoard
     @IBOutlet weak var StateMembersOnEvent: UIButton!
     @IBOutlet weak var eventsNewsList: UITableView!
@@ -94,6 +96,19 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 if(String(self.Event["response"]["rights"]) == "host" || String(self.Event["response"]["rights"]) == "member"){
                     self.JoinEventBtn.image = UIImage(named: "event_joined")
                 }
+                let val2 = "/events/" + self.EventID + "/main_picture"
+                self.request.request("GET", param: self.param,add: val2, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.main_picture = define.path_picture + String(User["response"]["picture_path"]["url"])
+                        self.imageEvent.downloadedFrom(link: self.main_picture, contentMode: .ScaleAspectFit)
+                    }
+                    else {
+                        
+                    }
+                });
+
+                
                 //self.tableViewAssoc.reloadData()
             }
             else {
@@ -129,6 +144,14 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             
             // set a variable in the second view controller with the String to pass
             secondViewController.Event = Event["response"]
+        }
+        if(segue.identifier == "fromevent"){
+            let secondViewController = segue.destinationViewController as! LoadPhotoController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.id_event = String(Event["response"]["id"])
+            secondViewController.from = "3"
+            
         }
 
     }//goToInviteGuest

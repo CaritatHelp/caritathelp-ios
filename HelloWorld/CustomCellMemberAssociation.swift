@@ -33,6 +33,7 @@ class CustomCellMemberAsso: UITableViewCell {
     
     func setCell(NameLabel: String, imageName: String){
         self.NameMember.text = NameLabel
+        self.ProfilePictureMember.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
         self.ProfilePictureMember.layer.cornerRadius = 30
         self.ProfilePictureMember.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.ProfilePictureMember.layer.masksToBounds = true

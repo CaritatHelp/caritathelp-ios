@@ -28,7 +28,7 @@ class MembersEventController: UIViewController {
         let cell : CustomCellEventMember = members_list.dequeueReusableCellWithIdentifier("MemberEventCell", forIndexPath: indexPath) as! CustomCellEventMember
         
         let nom = String(members["response"][indexPath.row]["firstname"]) + " " + String(members["response"][indexPath.row]["lastname"])
-        cell.setCell(nom, DetailLabel: "8 amis en commun", imageName: "")
+        cell.setCell(nom, DetailLabel: "8 amis en commun", imageName: define.path_picture + String(members["response"][indexPath.row]["thumb_path"]))
         return cell
     }
     //nombre de ligne du table view

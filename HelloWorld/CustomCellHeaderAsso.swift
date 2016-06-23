@@ -68,12 +68,13 @@ class CustomCellHeaderAsso: UITableViewCell {
 
     }
     
-    func setCell(User: JSON, assoId: String, rights: String){
+    func setCell(User: JSON, assoId: String, rights: String, imagePath: String){
         user = User
         AssoID = assoId
         alreadyMember = rights
         let notJoined = UIImage(named: "asso_not_joined")
         let Joined = UIImage(named: "asso_joined")
+        self.imageProfil.downloadedFrom(link: imagePath, contentMode: .ScaleToFill)
         self.imageProfil.layer.cornerRadius = self.imageProfil.frame.size.width / 2;
         self.imageProfil.layer.borderWidth = 1.0
         self.imageProfil.layer.borderColor = UIColor.darkGrayColor().CGColor;

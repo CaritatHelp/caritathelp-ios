@@ -35,6 +35,7 @@ class CustomCellAssoVolunteer: UITableViewCell {
     
     func setCell(NameLabel: String, imageName: String, state: String){
         self.NameAsso.text = NameLabel
+        self.PictureAsso.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
         self.PictureAsso.layer.cornerRadius = 10
         self.PictureAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.PictureAsso.layer.masksToBounds = true

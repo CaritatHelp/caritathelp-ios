@@ -12,7 +12,6 @@ import SwiftyJSON
 class VolunteerModel {
     
     var volunteer : JSON = []
-    
     func setUser(user : JSON){
         volunteer = user
         print("DATA SEND TO MODEL")
@@ -28,3 +27,9 @@ class VolunteerModel {
 
 //singleton (variable accessible partout dans le code)
 let sharedInstance = VolunteerModel()
+
+class Define {
+    var path_picture = "http://api.caritathelp.me"    
+}
+
+let define = Define()

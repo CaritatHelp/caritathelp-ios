@@ -39,6 +39,7 @@ class CustomCellEventMember: UITableViewCell {
     //Give value to the cell
     func setCell(NameLabel: String, DetailLabel: String, imageName: String){
         // design de l'image de la cellule
+        self.ImageProfilMember.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
         self.ImageProfilMember.layer.cornerRadius = self.ImageProfilMember.frame.size.width / 2
         self.ImageProfilMember.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.ImageProfilMember.layer.masksToBounds = true
