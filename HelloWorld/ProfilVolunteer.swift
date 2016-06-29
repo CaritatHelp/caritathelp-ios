@@ -27,7 +27,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         
         if indexPath.row == 0 {
         let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCellWithIdentifier("CellProfilVolunteer", forIndexPath: indexPath) as! CustomCellProfilVolunteer
-            cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: "", imageName: main_picture)
+            cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: String(volunteer["response"]["friendship"]), imageName: main_picture, User: volunteer["response"])
             
             let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).CGColor, UIColor.whiteColor().CGColor]
             let gradientLocations = [0.0,1.0]

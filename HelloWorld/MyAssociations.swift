@@ -31,7 +31,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellMyAsso = tableViewAssoc.dequeueReusableCellWithIdentifier("myassoc", forIndexPath: indexPath) as! CustomCellMyAsso
 
-        let state = String(asso_member_list[indexPath.row]["rights"])
+        let state = String(asso_member_list[indexPath.row]["nb_members"]) + " membres"
             cell.setCell(String(asso_member_list[indexPath.row]["name"]), imageName: define.path_picture + String(asso_member_list[indexPath.row]["thumb_path"]), state: state)
         return cell
     }

@@ -447,7 +447,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="84" id="ntl-WD-hJe" customClass="CustomFriendsCell" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="84"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="84"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ntl-WD-hJe" id="Er0-tQ-gls">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="83.5"/>
@@ -515,34 +515,132 @@
                                 <items>
                                     <barButtonItem title="Associations" width="119" id="eEY-Aj-KJp">
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="ShowInvitsAsso:" destination="zWZ-WE-Cal" id="odD-wZ-3n4"/>
+                                        </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Evenements" width="124" id="QJU-H2-trk">
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="ShowInvitsEvent:" destination="zWZ-WE-Cal" id="Hsn-pp-vQ6"/>
+                                        </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Amis" width="54" id="4zM-PQ-pV6">
+                                    <barButtonItem title="Amis" width="67" id="4zM-PQ-pV6">
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="ShowInvitsFriend:" destination="zWZ-WE-Cal" id="icy-C2-ITP"/>
+                                        </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yow-1Q-iBc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yow-1Q-iBc">
                                 <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wvz-QP-alc">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellInvitation" rowHeight="70" id="wvz-QP-alc" customClass="CustomCellInvits" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wvz-QP-alc" id="eZn-0X-Rst">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dV-EW-trn">
+                                                    <rect key="frame" x="8" y="10" width="49" height="49"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOa-pI-Wca">
+                                                    <rect key="frame" x="70" y="8" width="290" height="35"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4d-Oc-bX6">
+                                                    <rect key="frame" x="70" y="44" width="287" height="15"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
+                                                    <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="DetailNotif" destination="h4d-Oc-bX6" id="Aac-Ci-x57"/>
+                                            <outlet property="LabelNotif" destination="NOa-pI-Wca" id="qv8-V1-V1n"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellInvitation2" rowHeight="70" id="vJa-Wq-YAj" customClass="CustomCellInvits" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="98" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vJa-Wq-YAj" id="mgL-kn-DDc">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTi-eq-25a">
+                                                    <rect key="frame" x="8" y="10" width="49" height="49"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4y-uy-kV1">
+                                                    <rect key="frame" x="70" y="8" width="290" height="35"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D89-fL-U3D">
+                                                    <rect key="frame" x="70" y="44" width="287" height="15"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
+                                                    <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="DetailNotif" destination="D89-fL-U3D" id="RA0-oX-dso"/>
+                                            <outlet property="LabelNotif" destination="Y4y-uy-kV1" id="WmP-8a-s3f"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellInvitation3" rowHeight="70" id="OWO-4T-lty" customClass="CustomCellInvits" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="168" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OWO-4T-lty" id="Ace-Z4-htG">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eKh-M2-mY2">
+                                                    <rect key="frame" x="8" y="10" width="49" height="49"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lxl-LJ-Sew">
+                                                    <rect key="frame" x="70" y="8" width="290" height="35"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5QB-l7-G8Z">
+                                                    <rect key="frame" x="70" y="44" width="287" height="15"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
+                                                    <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="DetailNotif" destination="5QB-l7-G8Z" id="AvA-10-1WS"/>
+                                            <outlet property="LabelNotif" destination="Lxl-LJ-Sew" id="liW-l2-42F"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="zWZ-WE-Cal" id="C56-Bn-70G"/>
+                                    <outlet property="delegate" destination="zWZ-WE-Cal" id="UK5-QQ-RFL"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Invitations" id="Tyi-38-qxP"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="InvitsAssoBtn" destination="eEY-Aj-KJp" id="KMg-9Q-qDp"/>
+                        <outlet property="InvitsEventBtn" destination="QJU-H2-trk" id="yOw-sd-U3o"/>
+                        <outlet property="InvitsFriendBtn" destination="4zM-PQ-pV6" id="5Sf-SO-Wob"/>
+                        <outlet property="list_invits" destination="yow-1Q-iBc" id="dnC-Nu-rKY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="upf-Aa-TPa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -566,7 +664,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellProfilVolunteer" rowHeight="200" id="ut3-8m-QJy" customClass="CustomCellProfilVolunteer" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ut3-8m-QJy" id="FOd-JO-uee">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
@@ -598,17 +696,31 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IuK-Ap-kch">
+                                                    <rect key="frame" x="258" y="72" width="32" height="32"/>
+                                                    <state key="normal" image="checkmark_filled"/>
+                                                    <connections>
+                                                        <action selector="Accept_Friend:" destination="ut3-8m-QJy" eventType="touchUpInside" id="Haa-Qv-EL1"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypn-Kc-5HH">
+                                                    <rect key="frame" x="80" y="72" width="37" height="32"/>
+                                                    <state key="normal" image="multiply_filled"/>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.88291266030000004" green="0.88291266030000004" blue="0.88291266030000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="AccceptFriendBtn" destination="IuK-Ap-kch" id="cvK-FX-osm"/>
                                             <outlet property="BtnAddFriend" destination="gnM-ZL-yuZ" id="GW2-gW-JLu"/>
+                                            <outlet property="ModifyPictureBtn" destination="XzM-Ob-ggd" id="fDh-qR-lcH"/>
                                             <outlet property="NomVolunteer" destination="3pc-dw-SUh" id="RmY-ET-d82"/>
+                                            <outlet property="RefusedFriendBtn" destination="ypn-Kc-5HH" id="7Op-0Y-pAn"/>
                                             <outlet property="imgProfilVol" destination="e6e-OE-6Bv" id="nCd-fy-0ZP"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuProfil" rowHeight="46" id="HWj-2e-MgB">
-                                        <rect key="frame" x="0.0" y="228" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="292" width="375" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HWj-2e-MgB" id="ijE-Xv-Mo0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
@@ -656,7 +768,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q1a-UM-YC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="478.5" y="-2027.5"/>
+            <point key="canvasLocation" x="1290.5" y="-2027.5"/>
         </scene>
         <!--Volunteer Asso-->
         <scene sceneID="n1H-ob-xMB">
@@ -675,7 +787,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="assovolunteer" rowHeight="73" id="rT9-g8-mUj" customClass="CustomCellAssoVolunteer" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="73"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rT9-g8-mUj" id="DKr-hd-Fey">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="72.5"/>
@@ -720,7 +832,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYl-ie-JeO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="602.5" y="-2820.5"/>
+            <point key="canvasLocation" x="1414.5" y="-2820.5"/>
         </scene>
         <!--Mes évènements-->
         <scene sceneID="bBj-8o-xnN">
@@ -819,7 +931,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a1h-SG-Qsg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1103.5" y="-2108.5"/>
+            <point key="canvasLocation" x="1915.5" y="-2108.5"/>
         </scene>
         <!--Load Photo Controller-->
         <scene sceneID="BRy-bX-PWy">
@@ -1216,7 +1328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="isL-Lz-gp8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2985.5" y="-2906.5"/>
+            <point key="canvasLocation" x="3797.5" y="-2906.5"/>
         </scene>
         <!--Modifier cet evenement-->
         <scene sceneID="Cfp-Pc-7Nu">
@@ -1910,7 +2022,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3J-8x-LqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3160.5" y="-1773.5"/>
+            <point key="canvasLocation" x="3972.5" y="-1773.5"/>
         </scene>
         <!--Description Association-->
         <scene sceneID="WQJ-oW-yHM">
@@ -2029,7 +2141,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="4318.5" y="-1772.5"/>
+            <point key="canvasLocation" x="5130.5" y="-1772.5"/>
         </scene>
         <!--Gestion de l'association-->
         <scene sceneID="wgN-1c-LXc">
@@ -2103,7 +2215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8FY-ho-1aq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3865.5" y="-2989.5"/>
+            <point key="canvasLocation" x="4677.5" y="-2989.5"/>
         </scene>
         <!--Parametre Associations-->
         <scene sceneID="efL-T7-xKe">
@@ -2163,7 +2275,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xG0-1I-FsF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5310.5" y="-2095.5"/>
+            <point key="canvasLocation" x="6122.5" y="-2095.5"/>
         </scene>
         <!--Créer votre évènement-->
         <scene sceneID="UrO-bO-iaN">
@@ -2370,7 +2482,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B1X-ez-pSQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4903.5" y="-3107.5"/>
+            <point key="canvasLocation" x="5715.5" y="-3107.5"/>
         </scene>
         <!--Inviter vos amis-->
         <scene sceneID="eIi-mW-MXN">
@@ -2443,7 +2555,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Of3-0Q-H3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5567.5" y="-2913.5"/>
+            <point key="canvasLocation" x="6379.5" y="-2913.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Gu2-mr-Rcs">
@@ -2458,7 +2570,7 @@
                         <segue destination="HB8-sf-p0U" kind="relationship" relationship="viewControllers" id="N1M-YE-g6a"/>
                         <segue destination="Cn2-rB-hun" kind="relationship" relationship="viewControllers" id="G95-Gn-azf"/>
                         <segue destination="tKg-wi-Xxj" kind="relationship" relationship="viewControllers" id="Cb9-yw-YPN"/>
-                        <segue destination="Ojw-JF-5oY" kind="relationship" relationship="viewControllers" id="jI3-Bx-mc5"/>
+                        <segue destination="cBU-ug-9An" kind="relationship" relationship="viewControllers" id="jI3-Bx-mc5"/>
                         <segue destination="z7i-1z-GmR" kind="relationship" relationship="viewControllers" id="BOE-LS-2jT"/>
                     </connections>
                 </tabBarController>
@@ -2541,7 +2653,7 @@
             </objects>
             <point key="canvasLocation" x="-476.5" y="-3389.5"/>
         </scene>
-        <!--Notifications-->
+        <!--Volunteer Notification Controller-->
         <scene sceneID="eDc-Dp-n12">
             <objects>
                 <viewController id="Ojw-JF-5oY" customClass="VolunteerNotificationController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -2554,11 +2666,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ByQ-Xv-gfT">
-                                <rect key="frame" x="0.0" y="102" width="375" height="516"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotifCell" rowHeight="57" id="cav-gy-PmS" customClass="CustomCellNotif" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="57"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cav-gy-PmS" id="n1t-SL-TAl">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
@@ -2567,16 +2679,84 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="groups_filled" translatesAutoresizingMaskIntoConstraints="NO" id="zv0-9d-C2f">
                                                     <rect key="frame" x="8" y="5" width="48" height="43.5"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puW-VT-lOv">
-                                                    <rect key="frame" x="69" y="12" width="298" height="32.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puW-VT-lOv">
+                                                    <rect key="frame" x="64" y="5" width="298" height="32.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.91450577970000002" green="0.41733849049999999" blue="0.32793667910000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki3-D7-Sqg">
+                                                    <rect key="frame" x="64" y="34" width="272" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                                    <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="DetailNotif" destination="ki3-D7-Sqg" id="TzM-IO-VTf"/>
                                             <outlet property="LabelNotif" destination="puW-VT-lOv" id="Y3f-DN-ogb"/>
+                                            <segue destination="73r-WB-HXn" kind="show" id="CsK-LS-o8h"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotifCell2" rowHeight="57" id="bRl-Pl-8Mq" customClass="CustomCellNotif" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="149" width="375" height="57"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bRl-Pl-8Mq" id="mb3-QR-lSk">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="groups_filled" translatesAutoresizingMaskIntoConstraints="NO" id="Zqx-HD-GF1">
+                                                    <rect key="frame" x="8" y="5" width="48" height="43.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SF-Wp-TuZ">
+                                                    <rect key="frame" x="64" y="5" width="298" height="32.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZc-zC-gOx">
+                                                    <rect key="frame" x="64" y="34" width="272" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                                    <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="DetailNotif" destination="cZc-zC-gOx" id="bff-t2-JUP"/>
+                                            <outlet property="LabelNotif" destination="0SF-Wp-TuZ" id="bgp-IB-rIB"/>
+                                            <segue destination="uN9-8I-BQy" kind="show" id="Fhn-C8-51A"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotifCell3" rowHeight="57" id="Rqq-Og-i7e" customClass="CustomCellNotif" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="206" width="375" height="57"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rqq-Og-i7e" id="8B2-G3-cl9">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="groups_filled" translatesAutoresizingMaskIntoConstraints="NO" id="yev-av-ike">
+                                                    <rect key="frame" x="8" y="5" width="48" height="43.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qnb-ha-ouu">
+                                                    <rect key="frame" x="64" y="5" width="298" height="32.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.31764705879999999" green="0.63921568630000003" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DX9-H9-s2v">
+                                                    <rect key="frame" x="64" y="34" width="272" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                                    <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="DetailNotif" destination="DX9-H9-s2v" id="Xfg-fS-bLF"/>
+                                            <outlet property="LabelNotif" destination="qnb-ha-ouu" id="2Dv-dR-Pkk"/>
+                                            <segue destination="cu0-SY-nD0" kind="show" identifier="fromnotiftoprofil" id="NBW-vV-vBD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2585,18 +2765,10 @@
                                     <outlet property="delegate" destination="Ojw-JF-5oY" id="FVe-iJ-Ipu"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wCN-kG-za0">
-                                <rect key="frame" x="113" y="47" width="149" height="29"/>
-                                <segments>
-                                    <segment title="général"/>
-                                    <segment title="Personnel"/>
-                                </segments>
-                                <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="calibratedRGB"/>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Notifications" image="google_alerts_copyrighted" id="RI6-W0-JTE"/>
+                    <navigationItem key="navigationItem" id="8tY-KD-wbJ"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="list_notif" destination="ByQ-Xv-gfT" id="Xgp-0f-D4q"/>
@@ -2604,7 +2776,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x8F-Nr-sr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-476.5" y="-2472.5"/>
+            <point key="canvasLocation" x="335.5" y="-2472.5"/>
         </scene>
         <!--Subscribe Ctrl-->
         <scene sceneID="G0i-DW-EaW">
@@ -3078,6 +3250,25 @@
             </objects>
             <point key="canvasLocation" x="5553.5" y="-5602.5"/>
         </scene>
+        <!--Notifications-->
+        <scene sceneID="t1K-Jx-1Xs">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cBU-ug-9An" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notifications" image="google_alerts_copyrighted" id="RI6-W0-JTE"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MA6-j9-0Qn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ojw-JF-5oY" kind="relationship" relationship="rootViewController" id="L3q-Oj-2wZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cXT-t2-84x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-477" y="-2473"/>
+        </scene>
     </scenes>
     <resources>
         <image name="2017_logo_caritathelp" width="1191" height="842"/>
@@ -3085,6 +3276,7 @@
         <image name="about" width="96" height="96"/>
         <image name="add_user-2" width="32" height="32"/>
         <image name="asso_not_joined" width="100" height="100"/>
+        <image name="checkmark_filled" width="32" height="32"/>
         <image name="create_new_filled" width="32" height="32"/>
         <image name="default_profil" width="255" height="254"/>
         <image name="event_joined" width="32" height="32"/>
@@ -3100,6 +3292,7 @@
         <image name="list" width="32" height="32"/>
         <image name="mailbox_with_letter-1" width="96" height="96"/>
         <image name="menu" width="32" height="32"/>
+        <image name="multiply_filled" width="32" height="32"/>
         <image name="my_events" width="96" height="96"/>
         <image name="my_organisations" width="96" height="96"/>
         <image name="profil_photo" width="960" height="1280"/>
@@ -3112,11 +3305,11 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qPM-4L-18n"/>
+        <segue reference="Fhn-C8-51A"/>
+        <segue reference="CsK-LS-o8h"/>
+        <segue reference="NBW-vV-vBD"/>
         <segue reference="Qe5-Kj-aGY"/>
         <segue reference="ao9-7r-IEV"/>
-        <segue reference="DJC-K9-eE8"/>
-        <segue reference="Ox6-A6-cfq"/>
         <segue reference="Kak-kY-Faf"/>
         <segue reference="j0r-d4-0hx"/>
         <segue reference="MoD-cH-jlH"/>

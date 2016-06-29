@@ -56,7 +56,7 @@ class InviteMemberController: UIViewController {
                 param["volunteer_id"] = String(friends["response"][i]["id"])
                 param["assoc_id"] = AssocID
                 let val = "membership/invite"
-                request.request("GET", param: param,add: val, callback: {
+                request.request("POST", param: param,add: val, callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         print("membre inviter : " + String(self.friends["response"][i]["firstname"]))

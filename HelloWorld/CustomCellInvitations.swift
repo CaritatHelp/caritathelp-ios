@@ -1,8 +1,8 @@
 //
-//  CustomCellNotif.swift
+//  CustomCellInvitations.swift
 //  Caritathelp
 //
-//  Created by Jeremy gros on 25/03/2016.
+//  Created by Jeremy gros on 29/06/2016.
 //  Copyright © 2016 Jeremy gros. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-class CustomCellNotif: UITableViewCell {
+class CustomCellInvits: UITableViewCell {
     
     @IBOutlet weak var LabelNotif: UILabel!
     @IBOutlet weak var DetailNotif: UILabel!
@@ -35,10 +35,10 @@ class CustomCellNotif: UITableViewCell {
     func setCell(NameLabel: String, DetailLabel: String, imageName: String){
         //self.TitleNews.text = NameLabel
         //self.DateNews.text = DateLabel
-//        self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2
-//        self.ImageProfilFriends.layer.borderColor = UIColor.darkGrayColor().CGColor;
-//        self.ImageProfilFriends.layer.masksToBounds = true
-//        self.ImageProfilFriends.clipsToBounds = true
+        //        self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2
+        //        self.ImageProfilFriends.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        //        self.ImageProfilFriends.layer.masksToBounds = true
+        //        self.ImageProfilFriends.clipsToBounds = true
         self.LabelNotif.text = NameLabel
         self.DetailNotif.text = DetailLabel
         //cell.imageView?.layer.cornerRadius = 25

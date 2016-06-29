@@ -30,6 +30,7 @@
 		3F3FAE881CF7A69900E2779C /* CustomCellInviteGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */; };
 		3F3FAE8A1CF7A8FA00E2779C /* CurrentAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */; };
 		3F3FAE8D1D03143900E2779C /* LoadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */; };
+		3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */; };
 		3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */; };
 		3F6025731C21EAAA00FC7FB1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025721C21EAAA00FC7FB1 /* HomeController.swift */; };
 		3F639D551CDF960100F45583 /* ProfilVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F639D541CDF960100F45583 /* ProfilVolunteer.swift */; };
@@ -114,6 +115,7 @@
 		3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInviteGuest.swift; sourceTree = "<group>"; };
 		3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAssociation.swift; sourceTree = "<group>"; };
 		3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPhotoController.swift; sourceTree = "<group>"; };
+		3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInvitations.swift; sourceTree = "<group>"; };
 		3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeCtrl.swift; sourceTree = "<group>"; };
 		3F6025721C21EAAA00FC7FB1 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3F639D541CDF960100F45583 /* ProfilVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilVolunteer.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				3F639D5A1CE10AFF00F45583 /* CustomCellAssoVolunteer.swift */,
 				3F3FAE831CF74FA600E2779C /* CustomCellInviteMember.swift */,
 				3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */,
+				3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */,
 			);
 			name = ContainerTableViewCell;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				3F12A0F01C9B039D00513778 /* InformationEvent.swift in Sources */,
 				3FB52A551CA1E6C2004D56D3 /* CustomCellMyEvents.swift in Sources */,
 				3FB4BF191C4F95EA00110EEA /* MenuController.swift in Sources */,
+				3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */,
 				3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */,
 				3F891F671CF3491600712C6E /* InviteMember.swift in Sources */,
 				3F12A0F41C9B0E5400513778 /* MyEvents.swift in Sources */,
