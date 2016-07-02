@@ -38,7 +38,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         InvitsAssoBtn.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         user = sharedInstance.volunteer["response"]
         param["token"] = String(user["token"])
-        let val = "volunteers/" + String(user["id"]) + "/notifications"
+        let val = "notifications/"
         request.request("GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){

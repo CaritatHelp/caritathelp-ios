@@ -30,9 +30,9 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
         let cell = list_notif.dequeueReusableCellWithIdentifier("CellEventVolunteer", forIndexPath: indexPath) as! CustomCellEventVolunteer
         
         var detail = ""
-        if notifs["response"][indexPath.row]["nb_friends_members"] == 0 {
+        if notifs["response"][indexPath.row]["nb_friends_members"] == "0" {
             detail = ""
-        } else if notifs["response"][indexPath.row]["nb_friends_members"] == 1 {
+        } else if notifs["response"][indexPath.row]["nb_friends_members"] == "1" {
             detail = String(notifs["response"][indexPath.row]["nb_friends_members"]) + " ami y participent"
         }else{
             detail = String(notifs["response"][indexPath.row]["nb_friends_members"]) + " amis y participent"
