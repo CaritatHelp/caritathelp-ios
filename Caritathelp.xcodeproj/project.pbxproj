@@ -31,6 +31,9 @@
 		3F3FAE8A1CF7A8FA00E2779C /* CurrentAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */; };
 		3F3FAE8D1D03143900E2779C /* LoadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */; };
 		3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */; };
+		3F3FAE911D27BA9A00E2779C /* websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE901D27BA9A00E2779C /* websocket.swift */; };
+		3F3FAE931D27FE0F00E2779C /* VolunteerEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */; };
+		3F3FAE971D28072C00E2779C /* CustomCellEventVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE961D28072C00E2779C /* CustomCellEventVolunteer.swift */; };
 		3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */; };
 		3F6025731C21EAAA00FC7FB1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025721C21EAAA00FC7FB1 /* HomeController.swift */; };
 		3F639D551CDF960100F45583 /* ProfilVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F639D541CDF960100F45583 /* ProfilVolunteer.swift */; };
@@ -116,6 +119,9 @@
 		3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAssociation.swift; sourceTree = "<group>"; };
 		3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPhotoController.swift; sourceTree = "<group>"; };
 		3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInvitations.swift; sourceTree = "<group>"; };
+		3F3FAE901D27BA9A00E2779C /* websocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = websocket.swift; sourceTree = "<group>"; };
+		3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerEvents.swift; sourceTree = "<group>"; };
+		3F3FAE961D28072C00E2779C /* CustomCellEventVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellEventVolunteer.swift; sourceTree = "<group>"; };
 		3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeCtrl.swift; sourceTree = "<group>"; };
 		3F6025721C21EAAA00FC7FB1 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3F639D541CDF960100F45583 /* ProfilVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilVolunteer.swift; sourceTree = "<group>"; };
@@ -212,6 +218,7 @@
 				3F639D541CDF960100F45583 /* ProfilVolunteer.swift */,
 				3F639D581CE1047100F45583 /* VolunteerAsso.swift */,
 				3F891F641CF3409C00712C6E /* InvitationsController.swift */,
+				3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */,
 			);
 			name = Benevole;
 			sourceTree = "<group>";
@@ -277,6 +284,7 @@
 				3F3FAE831CF74FA600E2779C /* CustomCellInviteMember.swift */,
 				3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */,
 				3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */,
+				3F3FAE961D28072C00E2779C /* CustomCellEventVolunteer.swift */,
 			);
 			name = ContainerTableViewCell;
 			sourceTree = "<group>";
@@ -334,6 +342,7 @@
 				3F12A0661C91F14A00513778 /* VolunteerModel.swift */,
 				3F0225E81CC1503100158A1B /* CurrentEvent.swift */,
 				3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */,
+				3F3FAE901D27BA9A00E2779C /* websocket.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -591,6 +600,7 @@
 				3FB52A551CA1E6C2004D56D3 /* CustomCellMyEvents.swift in Sources */,
 				3FB4BF191C4F95EA00110EEA /* MenuController.swift in Sources */,
 				3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */,
+				3F3FAE911D27BA9A00E2779C /* websocket.swift in Sources */,
 				3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */,
 				3F891F671CF3491600712C6E /* InviteMember.swift in Sources */,
 				3F12A0F41C9B0E5400513778 /* MyEvents.swift in Sources */,
@@ -628,6 +638,7 @@
 				3F0225E31CBC33C400158A1B /* CustomCellEventMember.swift in Sources */,
 				3F676F3C1CAB790600466065 /* ViewCell.swift in Sources */,
 				3F12A0EA1C9881D900513778 /* DateEvent.swift in Sources */,
+				3F3FAE971D28072C00E2779C /* CustomCellEventVolunteer.swift in Sources */,
 				3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */,
 				3F3FAE861CF7A0D400E2779C /* InviteGuest.swift in Sources */,
 				3F3FAE8D1D03143900E2779C /* LoadPhotoController.swift in Sources */,
@@ -643,6 +654,7 @@
 				3F9F470D1C7CC47E007DCDB1 /* itemMyAsssoc.swift in Sources */,
 				3FCC1F9D1C7DE4AE00B5EA9A /* MembersInAssociation.swift in Sources */,
 				3F639D591CE1047100F45583 /* VolunteerAsso.swift in Sources */,
+				3F3FAE931D27FE0F00E2779C /* VolunteerEvents.swift in Sources */,
 				3FC521A31CA49AB700742193 /* MyFriends.swift in Sources */,
 				3FE614FB1C4193A200CFCFD8 /* SubscribeDateCtrl.swift in Sources */,
 			);

@@ -108,6 +108,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             // set a variable in the second view controller with the String to pass
             secondViewController.idvolunteer = idvolunteer
         }
+        if(segue.identifier == "fromprofiltoevents"){
+            
+            let secondViewController = segue.destinationViewController as! VolunteerEventsController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.idvolunteer = idvolunteer
+        }//fromprofiltoevents
         if(segue.identifier == "fromprofilvolunteer"){
             
             let secondViewController = segue.destinationViewController as! LoadPhotoController

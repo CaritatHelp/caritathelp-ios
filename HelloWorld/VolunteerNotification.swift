@@ -22,7 +22,6 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         return refreshControl
     }()
 
-    
     @IBOutlet weak var list_notif: UITableView!
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -32,18 +31,18 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         case "JoinAssoc", "InviteMember":
         cell = list_notif.dequeueReusableCellWithIdentifier("NotifCell", forIndexPath: indexPath) as! CustomCellNotif
         
-        cell.setCell(message, DetailLabel: String(notifs["response"][indexPath.row]["created_at"]), imageName: "")
+        cell.setCell(message, DetailLabel: String(notifs["response"][indexPath.row]["created_at"]), imageName: define.path_picture + String(notifs["response"][indexPath.row]["thumb_path"]))
         case "JoinEvent", "InviteGuest":
         cell = list_notif.dequeueReusableCellWithIdentifier("NotifCell2", forIndexPath: indexPath) as! CustomCellNotif
             
             //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(message, DetailLabel: String(notifs["response"][indexPath.row]["created_at"]), imageName: "")
+            cell.setCell(message, DetailLabel: String(notifs["response"][indexPath.row]["created_at"]), imageName: define.path_picture + String(notifs["response"][indexPath.row]["thumb_path"]))
         default :
             print(notifs["response"][indexPath.row]["notif_type"])
             cell = list_notif.dequeueReusableCellWithIdentifier("NotifCell3", forIndexPath: indexPath) as! CustomCellNotif
             
             //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(message, DetailLabel: String(notifs["response"][indexPath.row]["created_at"]), imageName: "")
+            cell.setCell(message, DetailLabel: String(notifs["response"][indexPath.row]["created_at"]), imageName: define.path_picture + String(notifs["response"][indexPath.row]["thumb_path"]))
         }
         return cell
     }
@@ -146,7 +145,7 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         self.list_notif.addSubview(self.refreshControl)
         user = sharedInstance.volunteer["response"]
         param["token"] = String(user["token"])
-        let val = "volunteers/" + String(user["id"]) + "/notifications"
+        let val = "/notifications"
         request.request("GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
@@ -157,7 +156,7 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
                 
             }
         });
-
+        
     }
     
     

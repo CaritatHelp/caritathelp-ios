@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-
+import Starscream
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
@@ -20,6 +20,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var msg_co: UILabel!
     
     var request = RequestModel()
+    //let ws = ConnectionWebSocket()
     //var volunteer = VolunteerModel()
     
     @IBAction func changeText(sender: AnyObject) {
@@ -50,9 +51,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //                self.msg_co.text = "Connecté"
 //                self.msg_co.textColor = UIColor.greenColor()
                 print("USER : \(User["response"]["lastname"])")
-//
-//                
-//                self.presentViewController(vc, animated: false, completion: nil)
+                let paramCo = "{\"token\":\"token\", \"token_user\":" + String(User["response"]["token"]) + "}"
+                ws.firstConnection(paramCo)
+                
+                //                self.presentViewController(vc, animated: false, completion: nil)
                 sharedInstance.setUser(User)
                 let storyboard = UIStoryboard(name:"Main",bundle: nil)
                 let TBCtrl = storyboard.instantiateViewControllerWithIdentifier("TabBarVC") as! TabBarController

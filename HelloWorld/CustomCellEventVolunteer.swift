@@ -1,8 +1,8 @@
 //
-//  CustomCellNotif.swift
+//  CustomCellEventVolunteer.swift
 //  Caritathelp
 //
-//  Created by Jeremy gros on 25/03/2016.
+//  Created by Jeremy gros on 02/07/2016.
 //  Copyright © 2016 Jeremy gros. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-class CustomCellNotif: UITableViewCell {
+class CustomCellEventVolunteer: UITableViewCell {
     
     @IBOutlet weak var LabelNotif: UILabel!
     @IBOutlet weak var DetailNotif: UILabel!
@@ -48,3 +48,4 @@ class CustomCellNotif: UITableViewCell {
         //cell.imageView?.clipsToBounds = true
     }
 }
+
