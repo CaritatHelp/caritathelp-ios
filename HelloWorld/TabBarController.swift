@@ -15,7 +15,11 @@ class TabBarController : UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tabBar.items?[3].badgeValue = "1"
+//        if (sharedInstance.nb_notif > 0){
+//        self.tabBar.items?[3].badgeValue = String(sharedInstance.nb_notif)
+//        }else{
+//            self.tabBar.items?[3].badgeValue = ""
+//        }
         self.tabBar.tintColor = UIColor(red: 111/255, green: 170/255, blue: 131/255, alpha: 1)
         self.tabBar.barTintColor = UIColor.whiteColor()
         self.tabBar.translucent = false

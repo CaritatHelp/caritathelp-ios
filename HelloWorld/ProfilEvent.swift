@@ -61,6 +61,9 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         else if (String(Event["response"]["rights"]) == "host"){
             SCLAlertView().showError("Attention", subTitle: "Vous avez créé cet évènement \n Vous ne pouvez le quitter !")
         }
+        else if (String(Event["response"]["rights"]) == "waiting"){
+            SCLAlertView().showError("En attente", subTitle: "le créateur de l'évènement est en train de traiter votre demande !")
+        }
         else{//Rejoindre l'event (envoyer une demande à l'host)
             param["token"] = String(user["token"])
             param["event_id"] = EventID
@@ -68,7 +71,19 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             request.request("POST", param: param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    self.JoinEventBtn.image = UIImage(named: "event_joined")
+                    SCLAlertView().showTitle(
+                        "Demande envoyé", // Title of view
+                        subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
+                        duration: 10.0, // Duration to show before closing automatically, default: 0.0
+                        completeText: "ok", // Optional button value, default: ""
+                        style: .Success, // Styles - see below.
+                        colorStyle: 0x22B573,
+                        colorTextButton: 0xFFFFFF
+                    )
+                    let imageBtnWait = UIImage(named: "waiting")
+                    let newimage = self.resizeImage(imageBtnWait!, newWidth: 30)
+                    self.JoinEventBtn.image = newimage
+                    
                     //self.tableViewAssoc.reloadData()
                 }
                 else {
@@ -78,6 +93,20 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         }
 
     }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
+        image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(EventID)
@@ -92,6 +121,11 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 currentEvent.currentEvent = User["response"]
                 print(currentEvent.currentEvent["title"])
                 self.Event = User
+                if (String(self.Event["response"]["rights"]) == "waiting"){
+                let imageBtnWait = UIImage(named: "waiting")
+                let newimage = self.resizeImage(imageBtnWait!, newWidth: 30)
+                self.JoinEventBtn.image = newimage
+                }
                 self.navigationItem.title = String(self.Event["response"]["title"])
                 if(String(self.Event["response"]["rights"]) == "host" || String(self.Event["response"]["rights"]) == "member"){
                     self.JoinEventBtn.image = UIImage(named: "event_joined")
@@ -138,6 +172,13 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             // set a variable in the second view controller with the String to pass
             secondViewController.EventID = String(Event["response"]["id"])
             secondViewController.AssoID = String(Event["response"]["assoc_id"])
+        }
+        if(segue.identifier == "gotopostfromevent"){
+            let secondViewController = segue.destinationViewController as! PostStatutAssoController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.EventID = String(Event["response"]["id"])
+            secondViewController.from = "event"
         }
         if(segue.identifier == "goToUpdateEvent"){
             let secondViewController = segue.destinationViewController as! UpdateEventController

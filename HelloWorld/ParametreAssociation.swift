@@ -33,9 +33,9 @@ class ParametreAssociations : UIViewController {
         
         
         param["token"] = String(user["token"])
-        param["mail"] = NomAsso.text
-        param["password"] = DescAsso.text
-        param["firstname"] = VilleAsso.text
+        param["name"] = NomAsso.text
+        param["description"] = DescAsso.text
+        param["city"] = VilleAsso.text
         
         
         request.request("PUT", param: param,add: "associations/"+String(Asso["response"]["id"]), callback: {

@@ -15,10 +15,9 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     let socket : WebSocket = WebSocket(url: NSURL(string: "ws://api.caritathelp.me:8080/")!)
    
     
-    func firstConnection(paramCo: String) {
+    func firstConnection() {
         socket.connect()
         socket.delegate = self
-        socket.writeString(paramCo)
     }
     
     func isConnected() {
@@ -27,6 +26,8 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     
     func websocketDidConnect(socket: WebSocket) {
         print("websocket is connected")
+        let paramCo = "{\"token\":\"token\", \"token_user\":\"" + String(sharedInstance.volunteer["response"]["token"]) + "\"}"
+        socket.writeString(paramCo)
     }
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
@@ -35,6 +36,10 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         print("got some text: \(text)")
+        
+        let notif = JSON(text)
+        AnalyzeData(notif)
+        sharedInstance.nb_notif += 1
     }
     
     func websocketDidReceiveData(socket: WebSocket, data: NSData) {
@@ -43,6 +48,41 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     func websocketDidReceivePong(socket: WebSocket) {
         print("Got pong!")
     }
+    
+    func AnalyzeData(notif: JSON){
+        var message = ""
+        let dateTime = NSDate()
+        
+        switch notif[""] {
+        case "AddFriend":
+            message = String(notif["sender_name"]) + " veut vous ajouter en ami."
+            case "NewGuest":
+            message = String(notif["sender_name"]) + " a rejoint l'évènement : " + String(notif["event_name"])
+        case "NewMember":
+            message = String(notif["sender_name"]) + " a rejoint l'association : " + String(notif["assoc_name"])
+        case "JoinAssoc":
+            message = String(notif["sender_name"]) + " veut rejoindre l'association : " + String(notif["assoc_name"])
+        case "JoinEvent":
+             message = String(notif["sender_name"]) + " veut rejoindre l'évènement : " + String(notif["event_name"])
+        case "InviteMember":
+             message = String(notif["sender_name"]) + " vous invite à rejoindre l'association : " + String(notif["assoc_name"])
+        case "InviteGuest":
+            message = String(notif["sender_name"]) + " vous invite à rejoindre l'évènement : " + String(notif["assoc_name"])
+        default:
+            message = ""
+        }
+        
+        // create a corresponding local notification
+        let notification = UILocalNotification()
+        notification.alertBody = message
+        notification.alertAction = "open"
+        notification.fireDate = dateTime
+        notification.soundName = UILocalNotificationDefaultSoundName // play default sound
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        
+    }
+    
 }
 
 let ws = ConnectionWebSocket()

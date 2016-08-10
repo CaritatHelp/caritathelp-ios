@@ -19,10 +19,18 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     var AssocID : String = ""
     var param = [String: String]()
     var Asso : JSON = []
+    var Actu :JSON = []
     var alreadyMember = ""
     var creation = false;
     let gradientLayer = CAGradientLayer()
     var main_picture = ""
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(AssociationProfil.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
+
     
     
     @IBOutlet weak var ButtonJoin: UIButton!
@@ -36,6 +44,12 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     
     let members = ["la croix rouge", "les restos du coeur", "futsal", ""]
     
+    override func didMoveToParentViewController(parent: UIViewController?) {
+        if parent == nil {
+            print("Back Pressed")
+        }
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cell : UITableViewCell!
         if indexPath.row == 0 {
@@ -43,14 +57,15 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             cell1.setCell(user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
             return cell1
         }else{
-        let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCell", forIndexPath: indexPath)
+        let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCell", forIndexPath: indexPath) as! CustomCellAssoActu
+            cell1.setCell(String(Actu["response"][indexPath.row-1]["name"]), date: String(Actu["response"][indexPath.row-1]["updated_at"]), content: String(Actu["response"][indexPath.row-1]["content"]),imagePath: define.path_picture + String(Actu["response"][indexPath.row-1]["thumb_path "]))
             return cell1
         }
         //return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
+        return Actu["response"].count + 1
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -66,7 +81,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         //self.title = TitleAssoc
         
         user = sharedInstance.volunteer["response"]
-
+        self.ActuAssoList.addSubview(self.refreshControl)
         
         print("ASSO RIGHTS = \(alreadyMember)")
         if (alreadyMember != "owner"){
@@ -80,6 +95,12 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         
         if(creation == false){
             print("enter donc false")
+            refresh()
+        }
+        
+    }
+
+    func refresh(){
         param["token"] = String(user["token"])
         let val = "associations/" + AssocID
         request.request("GET", param: param,add: val, callback: {
@@ -88,25 +109,37 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 self.Asso = User
                 self.title = String(self.Asso["response"]["name"])
                 self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
-                self.ActuAssoList.reloadData()
-            }
-            else {
+                self.alreadyMember = String(User["response"]["rights"])
+                //self.ActuAssoList.reloadData()
+                self.refreshControl.endRefreshing()
+                self.refreshActu()
+                
                 
             }
+            else {
+                print("une erreur est survenue...")
+            }
         });
-        }
-        
+
     }
     
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-//        if scrollView.contentOffset.y >= -CGRectGetHeight((self.navigationController?.accessibilityFrame)!) {
-//            adjustBackground(false)
-//        } else {
-//            adjustBackground(true)
-//        }
-        print("scroll vers le haut !")
+    func refreshActu() {
+        self.param["token"] = String(self.user["token"])
+        let val = "associations/" + self.AssocID + "/news"
+        self.request.request("GET", param: self.param,add: val, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.Actu = User
+                self.ActuAssoList.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+            else {
+                print("une erreur est survenue...")
+            }
+        });
+
     }
+    
 
     
     override func didReceiveMemoryWarning() {
@@ -149,6 +182,14 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 secondViewController.Asso = Asso
                 //secondViewController.user = user
             }
+            if(segue.identifier == "gotopostfromasso"){
+                
+                let secondViewController = segue.destinationViewController as! PostStatutAssoController
+                
+                // set a variable in the second view controller with the String to pass
+                secondViewController.AssoID = AssocID
+                secondViewController.from = "asso"
+            }//
         }
     
     @IBAction func unwindToProfilAsso(sender: UIStoryboardSegue) {
@@ -157,5 +198,21 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         
     }
 
+    @IBAction func unwindToProfilAssoAfterPublish(sender: UIStoryboardSegue) {
+        let data = sender.sourceViewController as! PostStatutAssoController
+        data.assoc_array["assoc_id"] = AssocID
+        request.request("POST", param: data.assoc_array,add: "news/wall_message", callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.refreshActu()
+            }
+            else {
+                print("erreur de requete ... ")
+            }
+        });
+
+        
+        
+    }
     
 }

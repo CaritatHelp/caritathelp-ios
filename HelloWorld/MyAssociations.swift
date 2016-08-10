@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     var user : JSON = []
@@ -18,6 +19,13 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     var asso_list : JSON = []
     var asso_member_list : JSON = []
     var asso_created_list : JSON = []
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MyAssociations.loadDataFirstView), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
+    
     @IBOutlet weak var createdAssoCollection: UICollectionView!
     
     @IBOutlet weak var tableViewAssoc: UITableView!
@@ -82,6 +90,8 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
                 print("++++++++++++")
                 self.tableViewAssoc.reloadData()
                 self.createdAssoCollection.reloadData()
+                self.refreshControl.endRefreshing()
+
             }
             else {
                 
@@ -112,8 +122,13 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         navigationItem.title = "Mes associations"
         tableViewAssoc.tableFooterView = UIView()
+        self.tableViewAssoc.addSubview(self.refreshControl)
         loadDataFirstView()
 
+        
+    }
+    
+    func refresh() {
         
     }
     
@@ -135,14 +150,14 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
             let shareAction = UITableViewRowAction(style: .Normal, title: "Quitter") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
                 
                 print("vous quittez cette association")
-                self.param["token"] = String(self.user["response"]["token"])
+                self.param["token"] = String(self.user["token"])
                 self.param["assoc_id"] = String(self.asso_list["response"][indexPath!.row]["id"])
-                self.param["volunteer_id"] = String(self.user["response"]["id"])
-                let val = "membership/kick"
+                let val = "membership/leave"
                 self.request.request("DELETE", param: self.param,add: val, callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         //self.asso_list = User
+                        SCLAlertView().showSuccess("Opération réussi", subTitle: "Vous venez de quittez une association.") // Edit
                         self.tableViewAssoc.reloadData()
                     }
                     else {

@@ -60,8 +60,10 @@ class InviteMemberController: UIViewController {
                     (isOK, User)-> Void in
                     if(isOK){
                         print("membre inviter : " + String(self.friends["response"][i]["firstname"]))
+                        SCLAlertView().showSuccess("invitations envoyées", subTitle: "Vos invitations viennent d'être envoyer à vos amis pour rejoindre votre association.")
                     }
                     else {
+                        SCLAlertView().showError("Invitations non envoyés", subTitle: "une invitation a déjà été envoyé.")
                         print("n'a pas pu etre inviter")
                     }
                 });

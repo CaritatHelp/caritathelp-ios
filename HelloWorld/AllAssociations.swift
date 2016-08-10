@@ -67,7 +67,6 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
             secondViewController.AssocID = String(asso_list["response"][indexPath!.row]["id"])
             secondViewController.alreadyMember = String(asso_list["response"][indexPath!.row]["rights"])
             //secondViewController.user = user
-
             navigationItem.title = "back"
         }
     }

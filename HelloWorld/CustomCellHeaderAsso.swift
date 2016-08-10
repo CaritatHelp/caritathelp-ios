@@ -74,6 +74,7 @@ class CustomCellHeaderAsso: UITableViewCell {
         alreadyMember = rights
         let notJoined = UIImage(named: "asso_not_joined")
         let Joined = UIImage(named: "asso_joined")
+        let waiting = UIImage(named: "waiting")
         self.imageProfil.downloadedFrom(link: imagePath, contentMode: .ScaleToFill)
         self.imageProfil.layer.cornerRadius = self.imageProfil.frame.size.width / 2;
         self.imageProfil.layer.borderWidth = 1.0
@@ -98,11 +99,16 @@ class CustomCellHeaderAsso: UITableViewCell {
             JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
 
         }
+        else if alreadyMember == "waiting"{
+            //JoinBtn.hidden = true
+            JoinBtn.setImage(waiting, forState: .Normal)
+            JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
+        }
         else{
             //self.JoinBtn.hidden = true
             JoinBtn.setImage(Joined, forState: .Normal)
             JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
-
+            //JoinBtn.hidden = false
         }
        
 

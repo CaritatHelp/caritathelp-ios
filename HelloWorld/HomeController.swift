@@ -17,6 +17,25 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var labeltest: UILabel!
     
+    @IBAction func testNotifs(sender: AnyObject) {
+        print(NSDate().dateByAddingTimeInterval(60*60*2+5))
+        
+        var notificationTypes: UIUserNotificationType = UIUserNotificationType.Alert
+        
+        var justInformAction = UIMutableUserNotificationAction()
+        justInformAction.identifier = "justInform"
+        justInformAction.title = "OK, got it"
+        justInformAction.activationMode = UIUserNotificationActivationMode.Foreground
+        justInformAction.destructive = false
+        justInformAction.authenticationRequired = false
+        
+        let categoriesForSettings = NSSet(objects: justInformAction)
+        
+        
+        // Register the notification settings.
+        let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as? Set<UIUserNotificationCategory>)
+        UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
+    }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellHomePage = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath) as! CustomCellHomePage
         

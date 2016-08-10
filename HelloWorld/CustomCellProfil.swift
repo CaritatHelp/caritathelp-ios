@@ -51,7 +51,9 @@ class CustomCellProfilVolunteer: UITableViewCell {
         user = User
         if (user["id"] == sharedInstance.volunteer["response"]["id"]){
             BtnAddFriend.hidden = true
+            ModifyPictureBtn.hidden = false
         }else {
+            ModifyPictureBtn.hidden = true
             if (DetailLabel == "friend"){
                 let alreadyAccept = UIImage(named: "reviewer-1")
                 BtnAddFriend.setImage(alreadyAccept, forState: .Normal)
@@ -82,7 +84,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
         self.imgProfilVol.layer.shadowOffset = CGSize(width: self.imgProfilVol.frame.size.width + 10.0, height: self.imgProfilVol.frame.size.height + 10.0)
         self.imgProfilVol.layer.shadowOpacity = 0.7
         self.imgProfilVol.layer.shadowColor = UIColor.blackColor().CGColor
-        self.imgProfilVol.layer.shadowRadius = self.imgProfilVol.frame.size.width / 2;
+        self.imgProfilVol.layer.shadowRadius = self.imgProfilVol.frame.size.width + 10 / 2;
         
                 self.imgProfilVol.layer.masksToBounds = true
                 self.imgProfilVol.clipsToBounds = true
@@ -94,7 +96,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
     @IBAction func add_friend(sender: AnyObject) {
         
         if (user["friendship"] == "none") {
-            self.param["token"] = String(sharedInstance.volunteer["token"])
+            self.param["token"] = String(sharedInstance.volunteer["response"]["token"])
             self.param["volunteer_id"] = String(user["id"])
             let val = "friendship/add"
             self.request.request("POST", param: self.param,add: val, callback: {
@@ -111,9 +113,28 @@ class CustomCellProfilVolunteer: UITableViewCell {
 
     }
     @IBAction func Accept_Friend(sender: AnyObject) {
-        if (user["friendship"] == "none") {
-            self.param["token"] = String(sharedInstance.volunteer["token"])
-            self.param["notif_id"] = String(user["response"]["id"])
+        if (user["friendship"] == "invitation received") {
+            self.param["token"] = String(sharedInstance.volunteer["response"]["token"])
+            self.param["notif_id"] = String(user["notif_id"])
+            self.param["acceptance"] = "true"
+            let val = "friendship/reply"
+            self.request.request("POST", param: self.param,add: val, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    //self.friends = User
+                    //self.list_friends.reloadData()
+                }
+                else {
+                    
+                }
+            });
+        }
+    }
+    @IBAction func refused_friend(sender: AnyObject) {
+        if (user["friendship"] == "invitation received") {
+            self.param["token"] = String(sharedInstance.volunteer["response"]["token"])
+            self.param["notif_id"] = String(user["notif_id"])
+            self.param["acceptance"] = "false"
             let val = "friendship/reply"
             self.request.request("POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in

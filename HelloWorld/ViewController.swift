@@ -52,7 +52,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 //                self.msg_co.textColor = UIColor.greenColor()
                 print("USER : \(User["response"]["lastname"])")
                 let paramCo = "{\"token\":\"token\", \"token_user\":" + String(User["response"]["token"]) + "}"
-                ws.firstConnection(paramCo)
+                print("TEST 1 : " + paramCo)
+                ws.firstConnection()
                 
                 //                self.presentViewController(vc, animated: false, completion: nil)
                 sharedInstance.setUser(User)
@@ -73,8 +74,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        login.text = "jeremy@root.com"
-        password.text = "root"
+        //login.text = "jeremy@root.com"
+        //password.text = "root"
     }
 
 
@@ -125,5 +126,6 @@ extension UIImageView {
             }
         }).resume()
     }
+    
 }
 

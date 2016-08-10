@@ -48,13 +48,7 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
         request.request("POST", param: user_array,add: "volunteers", callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-//                    //rediriger vers Home profil
-//                    let vc = self.storyboard?.instantiateViewControllerWithIdentifier("HomeVC") as! HomeController
-//                    //Pass delegate and variable to vc which is HomeController
-//                    vc.user = User
-//                    
-//                    self.presentViewController(vc, animated: true, completion: nil)
-//                    
+                    sharedInstance.setUser(User)
                     let storyboard = UIStoryboard(name:"Main",bundle: nil)
                     let TBCtrl = storyboard.instantiateViewControllerWithIdentifier("TabBarVC") as! TabBarController
                     TBCtrl.user = User

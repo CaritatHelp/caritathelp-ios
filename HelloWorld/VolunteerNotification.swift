@@ -82,18 +82,23 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         
         let shareAction = UITableViewRowAction(style: .Normal, title: "Confirmer") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             
-            print("nouvel ami !")
+            print(String(self.notifs["response"][indexPath.row]["notif_type"]))
             self.param["token"] = String(self.user["token"])
             self.param["notif_id"] = String(self.notifs["response"][indexPath!.row]["id"])
             self.param["acceptance"] = "true"
             var val = ""
-            if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
+            if self.notifs["response"][indexPath.row]["notif_type"] == "AddFriend" {
                 val = "friendship/reply"
             }
-            else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
+            else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteMember" {
                 val = "membership/reply_invite"
-            }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
+            }else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
+            }
+            else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinAssoc" {
+                val = "membership/reply_member"
+            }else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinEvent" {
+                val = "guests/reply_guest"
             }
             self.request.request("POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
@@ -108,18 +113,21 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         }
         let shareAction2 = UITableViewRowAction(style: .Normal, title: "refuser") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
             
-            print("nouvel ami !")
             self.param["token"] = String(self.user["token"])
             self.param["notif_id"] = String(self.notifs["response"][indexPath!.row]["id"])
             self.param["acceptance"] = "false"
             var val = ""
-            if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
+            if self.notifs["response"][indexPath.row]["notif_type"] == "AddFriend" {
                 val = "friendship/reply"
             }
-            else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
+            else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteMember" {
                 val = "membership/reply_invite"
-            }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
+            }else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
+            }else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinAssoc" {
+                val = "membership/reply_member"
+            }else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinEvent" {
+                val = "guests/reply_guest"
             }
             self.request.request("POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
@@ -164,7 +172,7 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
     func refresh() {
         // Code to refresh table view
         param["token"] = String(user["token"])
-        let val = "volunteers/" + String(user["id"]) + "/notifications"
+        let val = "notifications/"
         request.request("GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
@@ -186,6 +194,18 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
             
             // set a variable in the second view controller with the String to pass
             secondViewController.idvolunteer = String(notifs["response"][indexPath!.row]["sender_id"])
+        }
+        if(segue.identifier == "fromnotiftoevent"){
+            let secondViewController = segue.destinationViewController as! ProfilEventController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.EventID = String(notifs["response"][indexPath!.row]["event_id"])
+        }
+        if(segue.identifier == "fromnotiftoasso"){
+            let secondViewController = segue.destinationViewController as! AssociationProfil
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.AssocID = String(notifs["response"][indexPath!.row]["assoc_id"])
         }
     }
 
