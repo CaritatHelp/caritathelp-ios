@@ -16,6 +16,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var user : JSON = []
     var volunteer : JSON = []
+    var actu : JSON = []
     var idvolunteer = ""
     var param = [String: String]()
     var request = RequestModel()
@@ -43,14 +44,19 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             
             return cell
         }
+        else if indexPath.row == 1 {
+                let cell1 = profil_list.dequeueReusableCellWithIdentifier("MenuProfil", forIndexPath: indexPath)
+            return cell1
+        }
         else {
-            let cell1 = profil_list.dequeueReusableCellWithIdentifier("MenuProfil", forIndexPath: indexPath)
+            let cell1 : CustomCellProfilActu = profil_list.dequeueReusableCellWithIdentifier("ActuProfil", forIndexPath: indexPath) as! CustomCellProfilActu
+            cell1.setCell(String(actu["response"][indexPath.row - 1]["title"]), imageName: define.path_picture + String(actu["response"][indexPath.row - 1]["thumb_path"]), Date: String(actu["response"][indexPath.row - 1]["updated_at"]), Content: String(actu["response"][indexPath.row - 1]["content"]))
             return cell1
         }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return actu["response"].count + 2
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -60,8 +66,10 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 200
-        } else {
+        } else if indexPath.row == 1 {
             return 45
+        }else {
+            return 150
         }
     }
     
@@ -81,6 +89,18 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.volunteer = User
                 self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
                 self.profil_list.reloadData()
+                let val2 = "volunteers/" + self.idvolunteer + "/news"
+                self.request.request("GET", param: self.param,add: val2, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.actu = User
+                        self.profil_list.reloadData()
+                    }
+                    else {
+                        
+                    }
+                });
+
                 }
             else {
                 
@@ -122,6 +142,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "1"
         }
+        if(segue.identifier == "gotopostfromprofil"){
+            
+            let secondViewController = segue.destinationViewController as! PostStatutAssoController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.from = "profil"
+        }
         
         
     }
@@ -130,3 +157,46 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     
 
 }
+
+
+class CustomCellProfilActu: UITableViewCell {
+    
+    @IBOutlet weak var PictureActu: UIImageView!
+    
+    @IBOutlet weak var NameActu: UILabel!
+    @IBOutlet weak var DateActu: UILabel!
+    
+    @IBOutlet weak var contentActu: UITextView!
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init(coder decoder: NSCoder) {
+        super.init(coder: decoder)!
+    }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    func setCell(NameLabel: String, imageName: String, Date: String, Content: String){
+        self.NameActu.text = NameLabel
+        self.PictureActu.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.PictureActu.layer.cornerRadius = 10
+        self.PictureActu.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.PictureActu.layer.masksToBounds = true
+        self.PictureActu.clipsToBounds = true
+        self.DateActu.text = Date
+        self.contentActu.text = Content
+        
+        //cell.imageView?.layer.cornerRadius = 25
+        //cell.imageView?.clipsToBounds = true
+    }
+    
+}
+

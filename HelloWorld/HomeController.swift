@@ -8,12 +8,19 @@
 
 import UIKit
 import SwiftyJSON
+import SwiftyJSON
+import SCLAlertView
 
 
 class HomeController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var user : JSON = []
+    var request = RequestModel()
+    var param = [String: String]()
+    var actu : JSON = []
     
+    
+    @IBOutlet weak var list_Actu: UITableView!
     
     @IBOutlet weak var labeltest: UILabel!
     
@@ -36,11 +43,27 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings as? Set<UIUserNotificationCategory>)
         UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
     }
+    
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(HomeController.refreshActu), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
+    
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellHomePage = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath) as! CustomCellHomePage
         
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-        cell.setCell("",DateLabel: "2016-03-22 17:02", imageName: "", content: "")
+        if String(actu[indexPath.row]["volunteer_id"]) != nil {
+        cell.setCell(String(actu[indexPath.row]["volunteer_name"]),DateLabel: String(actu[indexPath.row]["updated_at"]), imageName: define.path_picture + String(actu[indexPath.row]["volunteer_thumb_path"]), content: String(actu[indexPath.row]["content"]))
+        } else if String(actu[indexPath.row]["assoc_id"]) != nil {
+            cell.setCell(String(actu[indexPath.row]["title"]),DateLabel: String(actu[indexPath.row]["updated_at"]), imageName: define.path_picture + String(actu[indexPath.row]["assoc_thumb_path"]), content: String(actu[indexPath.row]["content"]))
+        } else {
+            cell.setCell(String(actu[indexPath.row]["title"]),DateLabel: String(actu[indexPath.row]["updated_at"]), imageName: define.path_picture + String(actu[indexPath.row]["event_thumb_path"]), content: String(actu[indexPath.row]["content"]))
+        }
         cell.layer.cornerRadius = 5
         //cell.layer.borderColor = UIColor.grayColor().CGColor
         //cell.layer.borderWidth = 5
@@ -57,7 +80,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return actu.count
     }
 
     
@@ -82,15 +105,52 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        
+        self.list_Actu.addSubview(self.refreshControl)
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user
         print("entere : \(self.user)")
         
         
-        labeltest.text = String(self.user["response"]["firstname"])
+        //labeltest.text = String(self.user["response"]["firstname"])
+        refreshActu()
         
+            }
+    
+    func refreshActu() {
+        param["token"] = String(user["response"]["token"])
+        request.request("GET", param: param, add: "news", callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                //self.refreshActu()
+                self.actu = User["response"]
+                self.list_Actu.reloadData()
+                self.refreshControl.endRefreshing()
+                
+            }
+            else {
+                SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+            }
+        });
+
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // get a reference to the second view controller
+        if(segue.identifier == "detailNewsfromHome"){
+            let indexPath = list_Actu.indexPathForCell(sender as! UITableViewCell)
+            let secondViewController = segue.destinationViewController as! CommentActuController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.IDnews = String(actu[indexPath!.row]["id"])
+            //secondViewController.user = user
+        }
     }
 
 }
+
+
+
+
+
+

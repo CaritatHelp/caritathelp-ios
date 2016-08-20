@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class PostStatutAssoController : UIViewController, UITextViewDelegate {
     
+    @IBOutlet weak var ZoneText: UITextView!
     @IBOutlet weak var Statut: UITextView!
     var assoc_array = [String: String]()
     var AssoID = ""
@@ -61,10 +63,12 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
                 (isOK, User)-> Void in
                  if(isOK){
                     //self.refreshActu()
-                    print("POst OK !!")
+                    SCLAlertView().showSuccess("Succès !", subTitle: "Votre message a été publié.")
+                    self.ZoneText.text = "Exprimez-vous..."
+                    self.ZoneText.textColor = UIColor.lightGrayColor()
                 }
                 else {
-                    print("erreur de requete ... ")
+                    SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
                 }
             });
 

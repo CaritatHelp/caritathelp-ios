@@ -37,13 +37,14 @@ class CustomCellHomePage: UITableViewCell {
     }
     
     func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String){
-        //self.TitleNews.text = NameLabel
+        self.TitleNews.text = NameLabel
         self.DateNews.text = DateLabel
+        self.ImageProfilNews.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
         self.ImageProfilNews.layer.cornerRadius = self.ImageProfilNews.frame.size.width / 2
         self.ImageProfilNews.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.ImageProfilNews.layer.masksToBounds = true
         self.ImageProfilNews.clipsToBounds = true
-        //self.ContentNews.text = content
+        self.ContentNews.text = content
         
         //cell.imageView?.layer.cornerRadius = 25
         //cell.imageView?.clipsToBounds = true
