@@ -111,6 +111,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let indexPath = profil_list.indexPathForCell(sender as! UITableViewCell)
         
         // get a reference to the second view controller
         if(segue.identifier == "friendoffriend"){
@@ -148,6 +149,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "profil"
+        }
+        if(segue.identifier == "showcommentfromprofil"){
+            
+            let secondViewController = segue.destinationViewController as! CommentActuController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.IDnews = String(actu["response"][indexPath!.row - 1]["id"])
         }
         
         

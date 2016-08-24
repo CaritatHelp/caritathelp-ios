@@ -148,6 +148,8 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
     
         override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+            
+            let indexPath = ActuAssoList.indexPathForCell(sender as! UITableViewCell)
     
             // get a reference to the second view controller
             if(segue.identifier == "goToMembers"){
@@ -189,6 +191,14 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 // set a variable in the second view controller with the String to pass
                 secondViewController.AssoID = AssocID
                 secondViewController.from = "asso"
+            }
+            if(segue.identifier == "showcommentfromasso"){
+                
+                let secondViewController = segue.destinationViewController as! CommentActuController
+                
+                // set a variable in the second view controller with the String to pass
+                secondViewController.IDnews = String(Actu["response"][indexPath!.row-1]["id"])
+                //secondViewController.from = "asso"
             }//
         }
     
