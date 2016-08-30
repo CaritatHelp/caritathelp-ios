@@ -19,6 +19,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     var Event : JSON = []
     var user : JSON = []
     var main_picture = ""
+    var actu : JSON = []
     
     
     @IBOutlet weak var imageEvent: UIImageView!
@@ -28,15 +29,21 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var JoinEventBtn: UIBarButtonItem!
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = eventsNewsList.dequeueReusableCellWithIdentifier("EventNewsCell", forIndexPath: indexPath)
+        let cell : CustomCellActu = eventsNewsList.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
         
 //        cell.textLabel!.text = String(events["response"][indexPath.row]["title"])
+        let datefinale = String(actu[indexPath.section]["updated_at"])
+        //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
+                    cell.setCell(String(actu[indexPath.section]["name"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["thumb_path"]), content: String(actu[indexPath.section]["content"]))
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 3
+        return 1
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return actu.count
     }
     
     @IBAction func JoinEvent(sender: AnyObject) {
@@ -111,6 +118,9 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         print(EventID)
         print("----------")
+        eventsNewsList.estimatedRowHeight = 159.0
+        eventsNewsList.rowHeight = UITableViewAutomaticDimension
+        eventsNewsList.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         user = sharedInstance.volunteer["response"]
         param["token"] = String(user["token"])
         let val = "events/" + EventID
@@ -122,9 +132,9 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 print(currentEvent.currentEvent["title"])
                 self.Event = User
                 if (String(self.Event["response"]["rights"]) == "waiting"){
-                let imageBtnWait = UIImage(named: "waiting")
-                let newimage = self.resizeImage(imageBtnWait!, newWidth: 30)
-                self.JoinEventBtn.image = newimage
+                    let imageBtnWait = UIImage(named: "waiting")
+                    let newimage = self.resizeImage(imageBtnWait!, newWidth: 30)
+                    self.JoinEventBtn.image = newimage
                 }
                 self.navigationItem.title = String(self.Event["response"]["title"])
                 if(String(self.Event["response"]["rights"]) == "host" || String(self.Event["response"]["rights"]) == "member"){
@@ -136,6 +146,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                     if(isOK){
                         self.main_picture = define.path_picture + String(User["response"]["picture_path"]["url"])
                         self.imageEvent.downloadedFrom(link: self.main_picture, contentMode: .ScaleAspectFit)
+                        self.LoadActu()
                     }
                     else {
                         
@@ -149,6 +160,22 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
             }
         });
+    }
+    
+    func LoadActu() {
+        param["token"] = String(user["token"])
+        let val = "events/" + EventID + "/news"
+        request.request("GET", param: param,add: val, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.actu = User["response"]
+                self.eventsNewsList.reloadData()
+            }
+            else {
+                        print("erreure")
+                    }
+                });
+
     }
     
     override func viewWillAppear(animated: Bool) {

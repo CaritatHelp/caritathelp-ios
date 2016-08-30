@@ -34,36 +34,75 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellHomePage = tableView.dequeueReusableCellWithIdentifier("homeCell", forIndexPath: indexPath) as! CustomCellHomePage
+        if indexPath.row == 0 {
+            let cell : CustomCellActu = tableView.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
         
+//        let dateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+//        let date = dateFormatter.dateFromString(String(actu[indexPath.row]["updated_at"]))
+//        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR")
+//        dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
+//        let datefinale = dateFormatter.stringFromDate(date!)
+//        print("date = " + datefinale)
+       
+        let datefinale = String(actu[indexPath.section]["updated_at"])
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-        if String(actu[indexPath.row]["volunteer_id"]) != nil {
-        cell.setCell(String(actu[indexPath.row]["volunteer_name"]),DateLabel: String(actu[indexPath.row]["updated_at"]), imageName: define.path_picture + String(actu[indexPath.row]["volunteer_thumb_path"]), content: String(actu[indexPath.row]["content"]))
-        } else if String(actu[indexPath.row]["assoc_id"]) != nil {
-            cell.setCell(String(actu[indexPath.row]["title"]),DateLabel: String(actu[indexPath.row]["updated_at"]), imageName: define.path_picture + String(actu[indexPath.row]["assoc_thumb_path"]), content: String(actu[indexPath.row]["content"]))
+        if String(actu[indexPath.section]["volunteer_id"]) != nil {
+        cell.setCell(String(actu[indexPath.section]["volunteer_name"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["volunteer_thumb_path"]), content: String(actu[indexPath.section]["content"]))
+        } else if String(actu[indexPath.section]["assoc_id"]) != nil {
+            cell.setCell(String(actu[indexPath.section]["title"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["assoc_thumb_path"]), content: String(actu[indexPath.section]["content"]))
         } else {
-            cell.setCell(String(actu[indexPath.row]["title"]),DateLabel: String(actu[indexPath.row]["updated_at"]), imageName: define.path_picture + String(actu[indexPath.row]["event_thumb_path"]), content: String(actu[indexPath.row]["content"]))
+            cell.setCell(String(actu[indexPath.section]["title"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["event_thumb_path"]), content: String(actu[indexPath.section]["content"]))
         }
-        cell.layer.cornerRadius = 5
+
+
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("commentcell", forIndexPath: indexPath) as UITableViewCell
+            return cell
+        }
+        //cell.layer.cornerRadius = 5
         //cell.layer.borderColor = UIColor.grayColor().CGColor
         //cell.layer.borderWidth = 5
         
-        let border = CALayer()
-        let width = CGFloat(2.0)
-        border.borderColor = UIColor.darkGrayColor().CGColor
-        border.frame = CGRect(x: 0, y: cell.frame.size.height - width, width:  cell.frame.size.width, height: cell.frame.size.height)
+//        let border = CALayer()
+//        let width = CGFloat(2.0)
+//        border.borderColor = UIColor.darkGrayColor().CGColor
+//        border.frame = CGRect(x: 0, y: cell.frame.size.height - width, width:  cell.frame.size.width, height: cell.frame.size.height)
+//        
+//        border.borderWidth = width
+//        cell.layer.addSublayer(border)
+//        cell.layer.masksToBounds = true
         
-        border.borderWidth = width
-        cell.layer.addSublayer(border)
-        cell.layer.masksToBounds = true
-        return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return actu.count
+        return 2
     }
 
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        
+        return actu.count
+        
+    }
     
+    
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 5.0
+    }
+    
+//    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        if indexPath.row == 0 {
+//            return 140
+//        } else {
+//            return UITableViewAutomaticDimension
+//        }
+//    }
+    
+
     
     func getData(_user:JSON){
         print("recu la data")
@@ -82,6 +121,8 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -89,8 +130,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user
         print("entere : \(self.user)")
-        
-        
+        list_Actu.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
+        list_Actu.estimatedRowHeight = 159.0
+        list_Actu.rowHeight = UITableViewAutomaticDimension
+        //list_Actu.rowHeight = 44
         //labeltest.text = String(self.user["response"]["firstname"])
         refreshActu()
         
@@ -122,7 +165,15 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             let secondViewController = segue.destinationViewController as! CommentActuController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(actu[indexPath!.row]["id"])
+            secondViewController.IDnews = String(actu[indexPath!.section]["id"])
+            //secondViewController.user = user
+        }
+        if(segue.identifier == "showcommentfromcommenthome"){
+            let indexPath = list_Actu.indexPathForCell(sender as! UITableViewCell)
+            let secondViewController = segue.destinationViewController as! CommentActuController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.IDnews = String(actu[indexPath!.section]["id"])
             //secondViewController.user = user
         }
     }

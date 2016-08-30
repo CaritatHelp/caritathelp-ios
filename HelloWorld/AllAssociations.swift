@@ -49,6 +49,9 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         return asso_list["response"].count
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 69
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +60,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         user = tbc.user
         self.tableViewAssoc.addSubview(self.refreshControl)
         tableViewAssoc.tableFooterView = UIView()
-        refresh("")
+        refresh("pierre")
     }
     
     func refresh(search: String){
@@ -76,8 +79,11 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         });
     }
     
+
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = tableViewAssoc.indexPathForCell(sender as! UITableViewCell)
+        let indexPath =  self.tableViewAssoc.indexPathForCell(sender as! UITableViewCell)
+        
         // get a reference to the second view controller
         if(segue.identifier == "AssocVC3"){
             
@@ -100,6 +106,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         }
         if(segue.identifier == "showprofilfromresearch"){
             let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            print(indexPath?.row)
             secondViewController.idvolunteer = String(asso_list["response"][indexPath!.row]["id"])
         }
     }
@@ -110,7 +117,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        self.refreshControl.beginRefreshing()
+        //self.refreshControl.beginRefreshing()
         refresh(searchText)
 
     }

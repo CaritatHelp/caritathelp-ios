@@ -53,8 +53,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 print("USER : \(User["response"]["lastname"])")
                 let paramCo = "{\"token\":\"token\", \"token_user\":" + String(User["response"]["token"]) + "}"
                 print("TEST 1 : " + paramCo)
-                ws.firstConnection()
-                
                 //                self.presentViewController(vc, animated: false, completion: nil)
                 sharedInstance.setUser(User)
                 let storyboard = UIStoryboard(name:"Main",bundle: nil)

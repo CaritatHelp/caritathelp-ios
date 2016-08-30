@@ -33,6 +33,7 @@ let sharedInstance = VolunteerModel()
 
 class Define {
     var path_picture = "http://api.caritathelp.me"
+    var nb_notif = "0"
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))

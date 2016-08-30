@@ -15,6 +15,7 @@ class CustomCellHomePage: UITableViewCell {
     @IBOutlet weak var TitleNews: UILabel!
     @IBOutlet weak var DateNews: UILabel!
     
+    @IBOutlet weak var Content: UILabel!
     @IBOutlet weak var ContentNews: UITextView!
     @IBOutlet weak var FaireSavoirBtn: UIButton!
     @IBOutlet weak var CommenterBtn: UIButton!
@@ -44,7 +45,7 @@ class CustomCellHomePage: UITableViewCell {
         self.ImageProfilNews.layer.borderColor = UIColor.darkGrayColor().CGColor;
         self.ImageProfilNews.layer.masksToBounds = true
         self.ImageProfilNews.clipsToBounds = true
-        self.ContentNews.text = content
+        self.Content.text = content
         
         //cell.imageView?.layer.cornerRadius = 25
         //cell.imageView?.clipsToBounds = true

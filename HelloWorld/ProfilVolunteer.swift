@@ -23,6 +23,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var profil_list: UITableView!
     var main_picture = ""
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ProfilVolunteer.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        
+        return refreshControl
+    }()
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cellB : UITableViewCell!
         
@@ -49,8 +56,18 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             return cell1
         }
         else {
+            
+//            let dateFormatter = NSDateFormatter()
+//            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
+//            let date = dateFormatter.dateFromString(String(actu["response"][indexPath.row - 2]["updated_at"]))
+//            dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR")
+//            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
+//            let datefinale = dateFormatter.stringFromDate(date!)
+
+            let datefinale = String(actu["response"][indexPath.row - 2]["updated_at"])
+            
             let cell1 : CustomCellProfilActu = profil_list.dequeueReusableCellWithIdentifier("ActuProfil", forIndexPath: indexPath) as! CustomCellProfilActu
-            cell1.setCell(String(actu["response"][indexPath.row - 1]["title"]), imageName: define.path_picture + String(actu["response"][indexPath.row - 1]["thumb_path"]), Date: String(actu["response"][indexPath.row - 1]["updated_at"]), Content: String(actu["response"][indexPath.row - 1]["content"]))
+            cell1.setCell(String(actu["response"][indexPath.row - 2]["title"]), imageName: define.path_picture + String(actu["response"][indexPath.row - 2]["thumb_path"]), Date: datefinale, Content: String(actu["response"][indexPath.row - 2]["content"]))
             return cell1
         }
     }
@@ -79,8 +96,15 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         profil_list.tableFooterView = UIView()
+        self.profil_list.addSubview(self.refreshControl)
         user = sharedInstance.volunteer["response"]
+        profil_list.estimatedRowHeight = 159.0
+        profil_list.rowHeight = UITableViewAutomaticDimension
         
+        refresh()
+    }
+    
+    func refresh(){
         param["token"] = String(user["token"])
         let val = "volunteers/" + idvolunteer
         request.request("GET", param: param,add: val, callback: {
@@ -95,23 +119,23 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                     if(isOK){
                         self.actu = User
                         self.profil_list.reloadData()
+                        self.refreshControl.endRefreshing()
                     }
                     else {
                         
                     }
                 });
-
-                }
+                
+            }
             else {
                 
             }
         });
 
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = profil_list.indexPathForCell(sender as! UITableViewCell)
+        
         
         // get a reference to the second view controller
         if(segue.identifier == "friendoffriend"){
@@ -151,7 +175,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             secondViewController.from = "profil"
         }
         if(segue.identifier == "showcommentfromprofil"){
-            
+            let indexPath = profil_list.indexPathForCell(sender as! UITableViewCell)
             let secondViewController = segue.destinationViewController as! CommentActuController
             
             // set a variable in the second view controller with the String to pass

@@ -11,7 +11,7 @@ import Starscream
 import SwiftyJSON
 
 class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
-    
+    var i = 0
     let socket : WebSocket = WebSocket(url: NSURL(string: "ws://api.caritathelp.me:8080/")!)
    
     
@@ -27,7 +27,7 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     func websocketDidConnect(socket: WebSocket) {
         print("websocket is connected")
         let paramCo = "{\"token\":\"token\", \"token_user\":\"" + String(sharedInstance.volunteer["response"]["token"]) + "\"}"
-        socket.writeString(paramCo)
+        //socket.writeString(paramCo)
     }
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
@@ -38,8 +38,13 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
         print("got some text: \(text)")
         
         let notif = JSON(text)
-        AnalyzeData(notif)
-        sharedInstance.nb_notif += 1
+        //AnalyzeData(notif)
+        
+        i += 1
+        define.nb_notif += String(i)
+        
+        
+        
     }
     
     func websocketDidReceiveData(socket: WebSocket, data: NSData) {
@@ -85,4 +90,4 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     
 }
 
-let ws = ConnectionWebSocket()
+//let ws = ConnectionWebSocket()
