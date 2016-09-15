@@ -119,7 +119,10 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return 1 }
+        else {
+            return 2 }
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

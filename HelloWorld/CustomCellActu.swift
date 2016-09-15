@@ -39,7 +39,7 @@ class CustomCellActu: UITableViewCell {
             kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-            showCloseButton: true
+            showCloseButton: false
         )
         let alert = SCLAlertView(appearance: appearance)
         
@@ -63,6 +63,8 @@ class CustomCellActu: UITableViewCell {
         }
         alert.addButton("supprimer") {
             self.tapped_delete?(self, textfield1.text)
+        }
+        alert.addButton("annuler") {
         }
         
         alert.showInfo("Modification", subTitle: "Vous pouvez modifier votre actuailté.")

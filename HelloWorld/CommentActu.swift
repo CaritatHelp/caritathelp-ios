@@ -53,7 +53,51 @@ class CommentActuController: UIViewController, UITableViewDataSource, UITableVie
         }
         else {
             let cell = list_actu.dequeueReusableCellWithIdentifier("ListcommentsNews", forIndexPath: indexPath) as! CustomCellListCommentsNews
-            cell.setCell(String(comments[indexPath.row - 2]["firstname"]) + " " + String(comments[indexPath.row - 2]["lastname"]), DateLabel: String(comments[indexPath.row - 2]["updated_at"]), imageName: define.path_picture + String(comments[indexPath.row - 2]["thumb_path"]), content: String(comments[indexPath.row - 2]["content"]))
+            
+            cell.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let selectedItem = self.actu[path.row]["content"]
+                
+                print("the selected item is \(selectedItem) and new : \(Newcontent)")
+                self.param["token"] = String(self.user["token"])
+                self.param["content"] = Newcontent
+                self.request.request("PUT", param: self.param, add: "comments/" + String(self.comments[path.row - 2]["id"]), callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.refreshListComment()
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
+                });
+                
+            }
+            
+            cell.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                self.param["token"] = String(self.user["token"])
+                self.request.request("DELETE", param: self.param, add: "comments/" + String(self.comments[path.row - 2]["id"]) , callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        //self.refreshActu()
+                        self.refreshListComment()
+                        
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
+                });
+                
+            }
+            var from = ""
+            if comments[indexPath.row - 2]["volunteer_id"] == user["id"] {
+                from = "true"
+            }
+            else {
+                from = "false"
+            }
+            
+            cell.setCell(String(comments[indexPath.row - 2]["firstname"]) + " " + String(comments[indexPath.row - 2]["lastname"]), DateLabel: String(comments[indexPath.row - 2]["updated_at"]), imageName: define.path_picture + String(comments[indexPath.row - 2]["thumb_path"]), content: String(comments[indexPath.row - 2]["content"]), from: from)
         return cell
         }
         
@@ -234,6 +278,10 @@ class CustomCellListCommentsNews: UITableViewCell {
     @IBOutlet weak var TitleNews: UILabel!
     @IBOutlet weak var DateNews: UILabel!
     
+    var tapped_modify: ((CustomCellListCommentsNews, String) -> Void)?
+    var tapped_delete: ((CustomCellListCommentsNews, String) -> Void)?
+    
+    @IBOutlet weak var btn_comment: UIButton!
     @IBOutlet weak var ContentNews: UITextView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -252,8 +300,44 @@ class CustomCellListCommentsNews: UITableViewCell {
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    @IBAction func Comment_setting(sender: AnyObject) {
+        // Initialize SCLAlertView using custom Appearance
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCloseButton: false
+        )
+        let alert = SCLAlertView(appearance: appearance)
+        
+        // Creat the subview
+        let subview = UIView(frame: CGRectMake(0,0,216,70))
+        let x = (subview.frame.width - 180) / 2
+        
+        // Add textfield 1
+        let textfield1 = UITextView(frame: CGRectMake(x,10,180,50))
+        textfield1.layer.borderColor = UIColor.blueColor().CGColor
+        textfield1.layer.borderWidth = 1.5
+        textfield1.layer.cornerRadius = 5
+        textfield1.text = ContentNews.text
+        textfield1.textAlignment = NSTextAlignment.Center
+        subview.addSubview(textfield1)
+        
+        // Add the subview to the alert's UI property
+        alert.customSubview = subview
+        alert.addButton("modifier") {
+            self.tapped_modify?(self, textfield1.text)
+        }
+        alert.addButton("supprimer") {
+            self.tapped_delete?(self, textfield1.text)
+        }
+        alert.addButton("annuler") {
+        }
+        
+        alert.showInfo("Modification", subTitle: "Vous pouvez modifier votre actuailté.")
+    }
     
-    func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String){
+    func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String, from: String){
         print("-------- " + NameLabel)
         self.TitleNews.text = NameLabel
         self.DateNews.text = DateLabel
@@ -264,6 +348,9 @@ class CustomCellListCommentsNews: UITableViewCell {
         self.ImageProfilNews.clipsToBounds = true
         self.ContentNews.text = content
         
+        if from == "false" {
+            btn_comment.hidden = true
+        }
         //cell.imageView?.layer.cornerRadius = 25
         //cell.imageView?.clipsToBounds = true
     }
