@@ -17,6 +17,7 @@ class CustomCellActu: UITableViewCell {
     @IBOutlet weak var titre: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var content: UILabel!
+    @IBOutlet weak var btn_setting: UIButton!
     
     var tapped_modify: ((CustomCellActu, String) -> Void)?
     var tapped_delete: ((CustomCellActu, String) -> Void)?
@@ -68,7 +69,7 @@ class CustomCellActu: UITableViewCell {
 
     }
     
-    func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String){
+    func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String, from: String){
         self.titre.text = NameLabel
         self.date.text = DateLabel
         self.photo.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
@@ -78,6 +79,9 @@ class CustomCellActu: UITableViewCell {
         self.photo.clipsToBounds = true
         self.content.text = content
         
+        if from == "false"{
+            btn_setting.hidden = true
+        }
         //cell.imageView?.layer.cornerRadius = 25
         //cell.imageView?.clipsToBounds = true
     }

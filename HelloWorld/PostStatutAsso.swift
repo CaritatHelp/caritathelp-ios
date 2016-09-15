@@ -55,10 +55,17 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
             assoc_array["token"] = String(user["token"])
             assoc_array["content"] = Statut.text!
             if from == "asso" {
-                assoc_array["assoc_id"] = AssoID
+                assoc_array["group_id"] = AssoID
+                assoc_array["group_type"] = "Assoc"
             }else if from == "event" {
-                assoc_array["event_id"] = EventID
+                assoc_array["group_id"] = EventID
+                assoc_array["group_type"] = "Event"
             }
+            else {
+                assoc_array["group_id"] = String(user["id"])
+                assoc_array["group_type"] = "Volunteer"
+            }
+            assoc_array["news_type"] = "Status"
             request.request("POST", param: assoc_array,add: "news/wall_message", callback: {
                 (isOK, User)-> Void in
                  if(isOK){

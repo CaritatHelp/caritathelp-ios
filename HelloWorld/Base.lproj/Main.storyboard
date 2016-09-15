@@ -213,14 +213,14 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="headerCellNews" rowHeight="214" id="weV-th-hUE" customClass="CustomCellHeaderNews" customModule="Caritathelp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCellNews" rowHeight="214" id="weV-th-hUE" customClass="CustomCellHeaderNews" customModule="Caritathelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="375" height="214"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="weV-th-hUE" id="9h9-cV-sKm">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="213.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wwf_logo" translatesAutoresizingMaskIntoConstraints="NO" id="8d8-jQ-ttY">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profil" translatesAutoresizingMaskIntoConstraints="NO" id="8d8-jQ-ttY">
                                                     <rect key="frame" x="8" y="8" width="60" height="60"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="titre" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1m1-xe-S24">
@@ -251,7 +251,7 @@
                                             <outlet property="TitleNews" destination="1m1-xe-S24" id="Kbw-b3-HWF"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CommentNews" rowHeight="46" id="C77-Bc-FaM" customClass="CustomCellCommentNews" customModule="Caritathelp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentNews" rowHeight="46" id="C77-Bc-FaM" customClass="CustomCellCommentNews" customModule="Caritathelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="306" width="375" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C77-Bc-FaM" id="SaY-lN-48Y">
@@ -282,14 +282,14 @@
                                             <outlet property="TextFieldComments" destination="GhJ-cx-Tu0" id="XjZ-ZC-VoC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListcommentsNews" rowHeight="121" id="3pG-8C-m49" customClass="CustomCellListCommentsNews" customModule="Caritathelp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ListcommentsNews" rowHeight="121" id="3pG-8C-m49" customClass="CustomCellListCommentsNews" customModule="Caritathelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="352" width="375" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3pG-8C-m49" id="nbv-HK-Eth">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="120.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wwf_logo" translatesAutoresizingMaskIntoConstraints="NO" id="XkA-06-uNs">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profil" translatesAutoresizingMaskIntoConstraints="NO" id="XkA-06-uNs">
                                                     <rect key="frame" x="8" y="8" width="43" height="43"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jeremy GROS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qN5-vc-ouh">
@@ -875,6 +875,25 @@
                                                 </toolbar>
                                             </subviews>
                                         </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commentactuprofil" rowHeight="37" id="fIc-XW-M4p">
+                                        <rect key="frame" x="0.0" y="359.5" width="375" height="37"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fIc-XW-M4p" id="DoN-iJ-vWz">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="36.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="commenter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q2B-QZ-q71">
+                                                    <rect key="frame" x="143" y="7" width="97" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NBd-2V-eRT" kind="show" identifier="gotocommentfromprofil" id="aRZ-vF-bno"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -1793,14 +1812,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fond_event" translatesAutoresizingMaskIntoConstraints="NO" id="Fhc-Jn-YFe">
                                 <rect key="frame" x="0.0" y="64" width="375" height="101"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="52" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="d0Y-r9-yai">
-                                <rect key="frame" x="0.0" y="209" width="375" height="414"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="uN9-8I-BQy" id="QR2-XN-KYE"/>
-                                    <outlet property="delegate" destination="uN9-8I-BQy" id="WQh-Ir-GKn"/>
-                                </connections>
-                            </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eCf-uD-2Fe">
                                 <rect key="frame" x="0.0" y="165" width="375" height="44"/>
                                 <items>
@@ -1837,6 +1848,35 @@
                                     <segue destination="P30-fY-VqL" kind="show" identifier="fromevent" id="dyz-Mz-TIx"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="52" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="d0Y-r9-yai">
+                                <rect key="frame" x="0.0" y="209" width="375" height="414"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commentactuevent" id="TQC-nP-wye">
+                                        <rect key="frame" x="0.0" y="49.5" width="375" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TQC-nP-wye" id="poU-dO-6Zf">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="51.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="commenter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogK-NX-TwY">
+                                                    <rect key="frame" x="143" y="15" width="104" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NBd-2V-eRT" kind="show" identifier="gotocommentfromevent" id="p6J-xB-Bxu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="uN9-8I-BQy" id="QR2-XN-KYE"/>
+                                    <outlet property="delegate" destination="uN9-8I-BQy" id="WQh-Ir-GKn"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                     </view>
                     <navigationItem key="navigationItem" title="Evenement" id="Kod-JE-iOW">
@@ -2116,6 +2156,25 @@
                                         <connections>
                                             <outlet property="JoinBtn" destination="DKf-V1-7Zi" id="bse-Et-fUv"/>
                                             <outlet property="imageProfil" destination="PGF-NU-5C4" id="mzM-sS-vzh"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="gotocommentfromasso" rowHeight="45" id="oPt-M9-vSH">
+                                        <rect key="frame" x="0.0" y="272.5" width="375" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oPt-M9-vSH" id="h7b-he-D9x">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="commenter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9N5-sK-gKk">
+                                                    <rect key="frame" x="143" y="11" width="100" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="NBd-2V-eRT" kind="show" identifier="gotocommentfromasso" id="mHl-v4-VUx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3516,6 +3575,7 @@
         <image name="my_events" width="96" height="96"/>
         <image name="my_organisations" width="96" height="96"/>
         <image name="point_of_interest-1" width="100" height="100"/>
+        <image name="profil" width="100" height="100"/>
         <image name="profil_photo" width="960" height="1280"/>
         <image name="profile" width="2448" height="3264"/>
         <image name="search-1" width="32" height="32"/>
@@ -3526,9 +3586,10 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uYc-IU-TMd"/>
+        <segue reference="muY-K6-rqW"/>
         <segue reference="zs6-k5-odG"/>
         <segue reference="QU2-cM-zX4"/>
+        <segue reference="aRZ-vF-bno"/>
         <segue reference="Qe5-Kj-aGY"/>
         <segue reference="dyz-Mz-TIx"/>
         <segue reference="Qu8-yW-0gK"/>

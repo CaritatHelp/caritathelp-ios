@@ -57,9 +57,59 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             cell1.setCell(user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
             return cell1
         }else{
-        let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
-            cell1.setCell(String(Actu["response"][indexPath.section-1]["name"]), DateLabel: String(Actu["response"][indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(Actu["response"][indexPath.section-1]["thumb_path "]), content: String(Actu["response"][indexPath.section-1]["content"]))
+            if indexPath.row == 0 {
+                let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
+                
+                cell1.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
+                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                    self.param["token"] = String(self.user["token"])
+                    self.param["content"] = Newcontent
+                    self.request.request("PUT", param: self.param, add: "news/" + String(self.Actu["response"][path.section - 1]["id"]), callback: {
+                        (isOK, User)-> Void in
+                        if(isOK){
+                            self.refreshActu()
+                        }
+                        else {
+                            SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                        }
+                    });
+                    
+                }
+                
+                cell1.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
+                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                    
+                    self.param["token"] = String(self.user["token"])
+                    self.request.request("DELETE", param: self.param, add: "news/" + String(self.Actu["response"][path.section - 1]["id"]) , callback: {
+                        (isOK, User)-> Void in
+                        if(isOK){
+                            //self.refreshActu()
+                            self.refreshActu()
+                            
+                        }
+                        else {
+                            SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                        }
+                    });
+                    
+                }
+                
+                var title = ""
+                    title = String(Actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(Actu["response"][indexPath.section - 1]["group_name"])
+                var from = ""
+                if Actu["response"][indexPath.section - 1]["volunteer_id"] == user["id"] {
+                    from = "true"
+                }
+                else {
+                    from = "false"
+                }
+                cell1.setCell(title, DateLabel: String(Actu["response"][indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(Actu["response"][indexPath.section-1]["thumb_path "]), content: String(Actu["response"][indexPath.section-1]["content"]), from: from)
             return cell1
+            }
+            else {
+                let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("gotocommentfromasso", forIndexPath: indexPath) as UITableViewCell
+                return cell1
+            }
         }
         //return cell
     }
@@ -164,7 +214,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     
         override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
             
-            let indexPath = ActuAssoList.indexPathForCell(sender as! UITableViewCell)
+            
     
             // get a reference to the second view controller
             if(segue.identifier == "goToMembers"){
@@ -207,8 +257,8 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 secondViewController.AssoID = AssocID
                 secondViewController.from = "asso"
             }
-            if(segue.identifier == "showcommentfromasso"){
-                
+            if(segue.identifier == "gotocommentfromasso"){
+                let indexPath = ActuAssoList.indexPathForCell(sender as! UITableViewCell)
                 let secondViewController = segue.destinationViewController as! CommentActuController
                 
                 // set a variable in the second view controller with the String to pass

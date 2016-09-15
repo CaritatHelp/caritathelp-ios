@@ -87,14 +87,14 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         // get a reference to the second view controller
         if(segue.identifier == "AssocVC3"){
             
-            let currentCell = tableViewAssoc.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
+            //let currentCell = tableViewAssoc.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
             
             
             
             let secondViewController = segue.destinationViewController as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.TitleAssoc = currentCell.textLabel!.text!
+            secondViewController.TitleAssoc = String(asso_list["response"][indexPath!.row]["name"])
             secondViewController.AssocID = String(asso_list["response"][indexPath!.row]["id"])
             secondViewController.alreadyMember = String(asso_list["response"][indexPath!.row]["rights"])
             //secondViewController.user = user

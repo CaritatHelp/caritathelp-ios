@@ -23,7 +23,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k9y-0n-rHy">
                         <rect key="frame" x="76" y="8" width="291" height="39"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -35,7 +35,7 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuj-Mb-WG6">
                         <rect key="frame" x="76" y="47" width="291" height="21"/>
-                        <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="italicSystem" pointSize="13"/>
                         <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -60,6 +60,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="btn_setting" destination="aay-GT-COq" id="Ba2-ZR-AsY"/>
                 <outlet property="content" destination="9nm-Ry-SJV" id="A71-xd-Fbh"/>
                 <outlet property="date" destination="fuj-Mb-WG6" id="Qqf-hG-4Je"/>
                 <outlet property="photo" destination="jno-H2-kUx" id="Co1-51-IQd"/>

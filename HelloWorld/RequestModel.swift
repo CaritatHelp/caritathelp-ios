@@ -20,7 +20,7 @@ class RequestModel {
         var res : AnyObject = ""
         //var status = ""
         if(type == "POST"){
-            Alamofire.request(.POST, "http://api.caritathelp.me/"+add, parameters: param, encoding: .JSON)
+            Alamofire.request(.POST, "http://staging.caritathelp.me/"+add, parameters: param, encoding: .JSON)
             .responseJSON() { response in
 
                 print("Response JSON: \(response.result.value)")
@@ -37,7 +37,7 @@ class RequestModel {
         }
         else if(type == "GET"){
             
-            Alamofire.request(.GET, "http://api.caritathelp.me/"+add, parameters: param)
+            Alamofire.request(.GET, "http://staging.caritathelp.me/"+add, parameters: param)
                 .responseJSON { response in
                     guard response.result.isSuccess else {
                         print("Error while fetching remote rooms: \(response.result.error)")
@@ -58,7 +58,7 @@ class RequestModel {
         }
         else if(type == "PUT"){
             
-            Alamofire.request(.PUT, "http://api.caritathelp.me/"+add, parameters: param)
+            Alamofire.request(.PUT, "http://staging.caritathelp.me/"+add, parameters: param)
                 .responseJSON { response in
                     print("Response JSON: \(response.result.value)")
                     res = response.result.value!
@@ -74,7 +74,7 @@ class RequestModel {
         }
         else if(type == "DELETE"){
             
-            Alamofire.request(.DELETE, "http://api.caritathelp.me/"+add, parameters: param)
+            Alamofire.request(.DELETE, "http://staging.caritathelp.me/"+add, parameters: param)
                 .responseJSON { response in
                     print("Response JSON: \(response.result.value)")
                     res = response.result.value!

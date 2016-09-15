@@ -50,15 +50,12 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let selectedItem = self.actu[path.section]["content"]
                 
                print("the selected item is \(selectedItem) and new : \(Newcontent)")
-                param["token"] = String(user["response"]["token"])
-                request.request("GET", param: param, add: "news", callback: {
+                self.param["token"] = String(self.user["response"]["token"])
+                self.param["content"] = Newcontent
+                self.request.request("PUT", param: self.param, add: "news/" + String(self.actu[path.section]["id"]), callback: {
                     (isOK, User)-> Void in
                     if(isOK){
-                        //self.refreshActu()
-                        self.actu = User["response"]
-                        self.list_Actu.reloadData()
-                        self.refreshControl.endRefreshing()
-                        
+                        self.refreshActu()
                     }
                     else {
                         SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
@@ -72,14 +69,12 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let selectedItem = self.actu[path.section]["content"]
                 
                 print("the selected item is \(selectedItem) and new : \(Newcontent)")
-                param["token"] = String(user["response"]["token"])
-                request.request("GET", param: param, add: "news", callback: {
+                self.param["token"] = String(self.user["response"]["token"])
+                self.request.request("DELETE", param: self.param, add: "news/" + String(self.actu[path.section]["id"]) , callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         //self.refreshActu()
-                        self.actu = User["response"]
-                        self.list_Actu.reloadData()
-                        self.refreshControl.endRefreshing()
+                        self.refreshActu()
                         
                     }
                     else {
@@ -91,14 +86,21 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
        
         let datefinale = String(actu[indexPath.section]["updated_at"])
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-        if String(actu[indexPath.section]["volunteer_id"]) != nil {
-        cell.setCell(String(actu[indexPath.section]["volunteer_name"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["volunteer_thumb_path"]), content: String(actu[indexPath.section]["content"]))
-        } else if String(actu[indexPath.section]["assoc_id"]) != nil {
-            cell.setCell(String(actu[indexPath.section]["title"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["assoc_thumb_path"]), content: String(actu[indexPath.section]["content"]))
+            var title = ""
+        if actu[indexPath.section]["group_name"] == user["response"]["fullname"] {
+            title = String(actu[indexPath.section]["volunteer_name"]) + " a publié sur son mur"
         } else {
-            cell.setCell(String(actu[indexPath.section]["title"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["event_thumb_path"]), content: String(actu[indexPath.section]["content"]))
-        }
-
+            title = String(actu[indexPath.section]["volunteer_name"]) + " a publié sur le mur de " + String(actu[indexPath.section]["group_name"])
+            }
+            
+            var from = ""
+            if actu[indexPath.section]["volunteer_id"] == user["response"]["id"] {
+                from = "true"
+            }
+            else {
+                from = "false"
+            }
+            cell.setCell(title,DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["volunteer_thumb_path"]), content: String(actu[indexPath.section]["content"]), from: from)
 
             return cell
         }

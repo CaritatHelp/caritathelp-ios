@@ -29,17 +29,72 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var JoinEventBtn: UIBarButtonItem!
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
         let cell : CustomCellActu = eventsNewsList.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
         
 //        cell.textLabel!.text = String(events["response"][indexPath.row]["title"])
+            
+            cell.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let selectedItem = self.actu[path.section]["content"]
+                
+                print("the selected item is \(selectedItem) and new : \(Newcontent)")
+                self.param["token"] = String(self.user["token"])
+                self.param["content"] = Newcontent
+                self.request.request("PUT", param: self.param, add: "news/" + String(self.actu[path.section]["id"]), callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.LoadActu()
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
+                });
+                
+            }
+            
+            cell.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let selectedItem = self.actu[path.section]["content"]
+                
+                print("the selected item is \(selectedItem) and new : \(Newcontent)")
+                self.param["token"] = String(self.user["token"])
+                self.request.request("DELETE", param: self.param, add: "news/" + String(self.actu[path.section]["id"]) , callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        //self.refreshActu()
+                        self.LoadActu()
+                        
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
+                });
+                
+            }
+            
         let datefinale = String(actu[indexPath.section]["updated_at"])
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-                    cell.setCell(String(actu[indexPath.section]["name"]),DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["thumb_path"]), content: String(actu[indexPath.section]["content"]))
+            var title = ""
+            title = String(actu[indexPath.section]["volunteer_name"]) + " a publié sur le mur de " + String(actu[indexPath.section]["group_name"])
+            var from = ""
+            if actu[indexPath.section]["volunteer_id"] == user["id"] {
+                from = "true"
+            }
+            else {
+                from = "false"
+            }
+            
+            cell.setCell(title,DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["volunteer_thumb_path"]), content: String(actu[indexPath.section]["content"]), from: from)
         return cell
+        } else {
+            let cell = eventsNewsList.dequeueReusableCellWithIdentifier("commentactuevent", forIndexPath: indexPath) as UITableViewCell
+            return cell
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -219,6 +274,13 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             // set a variable in the second view controller with the String to pass
             secondViewController.id_event = String(Event["response"]["id"])
             secondViewController.from = "3"
+            
+        }
+        if(segue.identifier == "gotocommentfromevent"){
+            let secondViewController = segue.destinationViewController as! CommentActuController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.IDnews = String(actu["id"])
             
         }
 

@@ -65,12 +65,65 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
 //            dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR")
 //            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
 //            let datefinale = dateFormatter.stringFromDate(date!)
-
+            if indexPath.row == 0 {
             let datefinale = String(actu["response"][indexPath.section - 1]["updated_at"])
             
             let cell1 : CustomCellActu = profil_list.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
-            cell1.setCell(String(actu["response"][indexPath.section - 1]["title"]), DateLabel:  datefinale, imageName: define.path_picture + String(actu["response"][indexPath.section - 1]["thumb_path"]), content: String(actu["response"][indexPath.section - 1]["content"]))
+                
+                cell1.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
+                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+
+                    self.param["token"] = String(self.user["token"])
+                    self.param["content"] = Newcontent
+                    self.request.request("PUT", param: self.param, add: "news/" + String(self.actu["response"][path.section - 1]["id"]), callback: {
+                        (isOK, User)-> Void in
+                        if(isOK){
+                            self.refreshActu()
+                        }
+                        else {
+                            SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                        }
+                    });
+                    
+                }
+                
+                cell1.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
+                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+
+                    self.param["token"] = String(self.user["token"])
+                    self.request.request("DELETE", param: self.param, add: "news/" + String(self.actu["response"][path.section - 1]["id"]) , callback: {
+                        (isOK, User)-> Void in
+                        if(isOK){
+                            //self.refreshActu()
+                            self.refreshActu()
+                            
+                        }
+                        else {
+                            SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                        }
+                    });
+                    
+                }
+                
+                var title = ""
+                if actu["response"][indexPath.section - 1]["group_name"] == user["fullname"] {
+                    title = String(actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur son mur"
+                } else {
+                    title = String(actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(actu["response"][indexPath.section - 1]["group_name"])
+                }
+                var from = ""
+                if actu["response"][indexPath.section - 1]["volunteer_id"] == user["id"] {
+                    from = "true"
+                }
+                else {
+                    from = "false"
+                }
+                cell1.setCell(title, DateLabel:  datefinale, imageName: define.path_picture + String(actu["response"][indexPath.section - 1]["thumb_path"]), content: String(actu["response"][indexPath.section - 1]["content"]), from: from)
             return cell1
+            } else {
+                let cell1 = profil_list.dequeueReusableCellWithIdentifier("commentactuprofil", forIndexPath: indexPath) as UITableViewCell
+                return cell1
+            }
         }
     }
     
@@ -79,11 +132,9 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        
          return 2
-        }else {
-        return 1
-        }
+        
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -130,19 +181,23 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.volunteer = User
                 self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
                 self.profil_list.reloadData()
-                let val2 = "volunteers/" + self.idvolunteer + "/news"
-                self.request.request("GET", param: self.param,add: val2, callback: {
-                    (isOK, User)-> Void in
-                    if(isOK){
-                        self.actu = User
-                        self.profil_list.reloadData()
-                        self.refreshControl.endRefreshing()
-                    }
-                    else {
-                        
-                    }
-                });
+                self.refreshActu()
+            }
+            else {
                 
+            }
+        });
+
+    }
+    
+    func refreshActu() {
+        let val2 = "volunteers/" + self.idvolunteer + "/news"
+        self.request.request("GET", param: self.param,add: val2, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.actu = User
+                self.profil_list.reloadData()
+                self.refreshControl.endRefreshing()
             }
             else {
                 
@@ -191,7 +246,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "profil"
         }
-        if(segue.identifier == "showcommentfromprofil"){
+        if(segue.identifier == "gotocommentfromprofil"){
             let indexPath = profil_list.indexPathForCell(sender as! UITableViewCell)
             let secondViewController = segue.destinationViewController as! CommentActuController
             

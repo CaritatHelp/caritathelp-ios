@@ -33,23 +33,34 @@ class CommentActuController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
         let cell = list_actu.dequeueReusableCellWithIdentifier("headerCellNews", forIndexPath: indexPath) as! CustomCellHeaderNews
-            cell.setCell(String(actu["sender_name"]), DateLabel: String(actu["updated_at"]), imageName: define.path_picture + String(actu["thumb_path"]), content: String(actu["content"]))
+            var title = ""
+            if actu["group_name"] == user["fullname"] {
+                title = String(actu["volunteer_name"]) + " a publié sur son mur"
+            } else {
+                title = String(actu["volunteer_name"]) + " a publié sur le mur de " + String(actu["group_name"])
+            }
+            
+            cell.setCell(title, DateLabel: String(actu["updated_at"]), imageName: define.path_picture + String(actu["volunteer_thumb_path"]), content: String(actu["content"]))
         return cell
         } else if indexPath.row == 1 {
             let cell = list_actu.dequeueReusableCellWithIdentifier("CommentNews", forIndexPath: indexPath) as! CustomCellCommentNews
+            cell.tapped = { [unowned self] (selectedCell) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                self.refreshListComment()
+            }
             cell.setCell(IDnews)
         return cell
         }
         else {
             let cell = list_actu.dequeueReusableCellWithIdentifier("ListcommentsNews", forIndexPath: indexPath) as! CustomCellListCommentsNews
-            cell.setCell(String(comments["comments"][indexPath.row - 2]["firstname"]) + " " + String(comments["comments"][indexPath.row - 2]["lastname"]), DateLabel: String(comments["comments"][indexPath.row - 2]["updated_at"]), imageName: define.path_picture + String(comments["comments"][indexPath.row - 2]["thumb_path"]), content: String(comments["comments"][indexPath.row - 2]["content"]))
+            cell.setCell(String(comments[indexPath.row - 2]["firstname"]) + " " + String(comments[indexPath.row - 2]["lastname"]), DateLabel: String(comments[indexPath.row - 2]["updated_at"]), imageName: define.path_picture + String(comments[indexPath.row - 2]["thumb_path"]), content: String(comments[indexPath.row - 2]["content"]))
         return cell
         }
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments["comments"].count + 2
+        return comments.count + 2
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -84,24 +95,29 @@ class CommentActuController: UIViewController, UITableViewDataSource, UITableVie
                 //self.refreshActu()
                 self.actu = User["response"]
                 //self.list_actu.reloadData()
-                self.request.request("GET", param: self.param, add: "news/" + self.IDnews + "/comments", callback: {
-                    (isOK, User)-> Void in
-                    if(isOK){
-                        //self.refreshActu()
-                        self.comments = User["response"]
-                        self.refreshControl.endRefreshing()
-                        self.list_actu.reloadData()
-                        
-                    }
-                    else {
-                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
-                    }
-                });
+                self.refreshListComment()
+                }
+            else {
+                SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+            }
+        });
+    }
+    
+    func refreshListComment() {
+        self.request.request("GET", param: self.param, add: "news/" + self.IDnews + "/comments", callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                //self.refreshActu()
+                self.comments = User["response"]
+                self.refreshControl.endRefreshing()
+                self.list_actu.reloadData()
+                
             }
             else {
                 SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
             }
         });
+
     }
     
 }
@@ -155,6 +171,8 @@ class CustomCellCommentNews: UITableViewCell {
     var param = [String: String]()
     var IDnews = ""
     
+    var tapped: ((CustomCellCommentNews) -> Void)?
+    
     @IBOutlet weak var TextFieldComments: UITextView!
     
     @IBOutlet weak var BtnComment: UIButton!
@@ -171,6 +189,7 @@ class CustomCellCommentNews: UITableViewCell {
                 //self.list_actu.reloadData()
                 print("commentaire envoyé !")
                 self.TextFieldComments.text = ""
+                self.tapped?(self)
             }
             else {
                 SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
@@ -235,6 +254,7 @@ class CustomCellListCommentsNews: UITableViewCell {
     }
     
     func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String){
+        print("-------- " + NameLabel)
         self.TitleNews.text = NameLabel
         self.DateNews.text = DateLabel
         self.ImageProfilNews.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
