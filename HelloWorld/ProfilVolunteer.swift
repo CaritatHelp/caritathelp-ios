@@ -33,27 +33,29 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cellB : UITableViewCell!
         
-        if indexPath.row == 0 {
-        let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCellWithIdentifier("CellProfilVolunteer", forIndexPath: indexPath) as! CustomCellProfilVolunteer
-            cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: String(volunteer["response"]["friendship"]), imageName: main_picture, User: volunteer["response"])
-            
-            let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).CGColor, UIColor.whiteColor().CGColor]
-            let gradientLocations = [0.0,1.0]
-            
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.colors = gradientBackgroundColors
-            gradientLayer.locations = gradientLocations
-            
-            gradientLayer.frame = cell.bounds
-            let backgroundView = UIView(frame: cell.bounds)
-            backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
-            cell.backgroundView = backgroundView
-            
-            return cell
-        }
-        else if indexPath.row == 1 {
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCellWithIdentifier("CellProfilVolunteer", forIndexPath: indexPath) as! CustomCellProfilVolunteer
+                cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: String(volunteer["response"]["friendship"]), imageName: main_picture, User: volunteer["response"])
+                
+                let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).CGColor, UIColor.whiteColor().CGColor]
+                let gradientLocations = [0.0,1.0]
+                
+                let gradientLayer = CAGradientLayer()
+                gradientLayer.colors = gradientBackgroundColors
+                gradientLayer.locations = gradientLocations
+                
+                gradientLayer.frame = cell.bounds
+                let backgroundView = UIView(frame: cell.bounds)
+                backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
+                cell.backgroundView = backgroundView
+                
+                return cell
+            }
+            else {
                 let cell1 = profil_list.dequeueReusableCellWithIdentifier("MenuProfil", forIndexPath: indexPath)
-            return cell1
+                return cell1
+            }
         }
         else {
             
@@ -64,16 +66,24 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
 //            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
 //            let datefinale = dateFormatter.stringFromDate(date!)
 
-            let datefinale = String(actu["response"][indexPath.row - 2]["updated_at"])
+            let datefinale = String(actu["response"][indexPath.section - 1]["updated_at"])
             
-            let cell1 : CustomCellProfilActu = profil_list.dequeueReusableCellWithIdentifier("ActuProfil", forIndexPath: indexPath) as! CustomCellProfilActu
-            cell1.setCell(String(actu["response"][indexPath.row - 2]["title"]), imageName: define.path_picture + String(actu["response"][indexPath.row - 2]["thumb_path"]), Date: datefinale, Content: String(actu["response"][indexPath.row - 2]["content"]))
+            let cell1 : CustomCellActu = profil_list.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
+            cell1.setCell(String(actu["response"][indexPath.section - 1]["title"]), DateLabel:  datefinale, imageName: define.path_picture + String(actu["response"][indexPath.section - 1]["thumb_path"]), content: String(actu["response"][indexPath.section - 1]["content"]))
             return cell1
         }
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return actu["response"].count + 1
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return actu["response"].count + 2
+        if section == 0 {
+         return 2
+        }else {
+        return 1
+        }
     }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -90,7 +100,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 1.0
+    }
     
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10.0
+    }
     
     
     override func viewDidLoad() {
@@ -98,6 +114,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         profil_list.tableFooterView = UIView()
         self.profil_list.addSubview(self.refreshControl)
         user = sharedInstance.volunteer["response"]
+        profil_list.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         profil_list.estimatedRowHeight = 159.0
         profil_list.rowHeight = UITableViewAutomaticDimension
         
@@ -179,7 +196,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             let secondViewController = segue.destinationViewController as! CommentActuController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(actu["response"][indexPath!.row - 1]["id"])
+            secondViewController.IDnews = String(actu["response"][indexPath!.section - 1]["id"])
         }
         
         

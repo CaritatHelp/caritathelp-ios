@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -39,6 +39,13 @@
                         <color key="textColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aay-GT-COq">
+                        <rect key="frame" x="346" y="8" width="21" height="21"/>
+                        <state key="normal" title="Button" image="settings_3_filled"/>
+                        <connections>
+                            <action selector="setting_actu:" destination="ANG-0E-DPX" eventType="touchUpInside" id="6Gc-9g-5h0"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="jno-H2-kUx" firstAttribute="leading" secondItem="EIx-76-4pP" secondAttribute="leadingMargin" id="7xh-NS-OEW"/>
@@ -61,4 +68,7 @@
             <point key="canvasLocation" x="242.5" y="256"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="settings_3_filled" width="100" height="100"/>
+    </resources>
 </document>

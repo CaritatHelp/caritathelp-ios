@@ -52,28 +52,40 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //let cell : UITableViewCell!
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             let cell1 : CustomCellHeaderAsso = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCellHeader", forIndexPath: indexPath) as! CustomCellHeaderAsso
             cell1.setCell(user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
             return cell1
         }else{
-        let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCell", forIndexPath: indexPath) as! CustomCellAssoActu
-            cell1.setCell(String(Actu["response"][indexPath.row-1]["name"]), date: String(Actu["response"][indexPath.row-1]["updated_at"]), content: String(Actu["response"][indexPath.row-1]["content"]),imagePath: define.path_picture + String(Actu["response"][indexPath.row-1]["thumb_path "]))
+        let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
+            cell1.setCell(String(Actu["response"][indexPath.section-1]["name"]), DateLabel: String(Actu["response"][indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(Actu["response"][indexPath.section-1]["thumb_path "]), content: String(Actu["response"][indexPath.section-1]["content"]))
             return cell1
         }
         //return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return Actu["response"].count + 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 160
         } else {
-            return 190
+            return UITableViewAutomaticDimension
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1.0
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10.0
     }
     
     override func viewDidLoad() {
@@ -82,7 +94,9 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         
         user = sharedInstance.volunteer["response"]
         self.ActuAssoList.addSubview(self.refreshControl)
-        
+        ActuAssoList.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
+        ActuAssoList.estimatedRowHeight = 159.0
+        ActuAssoList.rowHeight = UITableViewAutomaticDimension
         print("ASSO RIGHTS = \(alreadyMember)")
         if (alreadyMember != "owner"){
             self.ButtonMenuOwner.enabled = false
@@ -92,6 +106,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             
         }
 
+        
         
         if(creation == false){
             print("enter donc false")
@@ -197,7 +212,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 let secondViewController = segue.destinationViewController as! CommentActuController
                 
                 // set a variable in the second view controller with the String to pass
-                secondViewController.IDnews = String(Actu["response"][indexPath!.row-1]["id"])
+                secondViewController.IDnews = String(Actu["response"][indexPath!.section-1]["id"])
                 //secondViewController.from = "asso"
             }//
         }

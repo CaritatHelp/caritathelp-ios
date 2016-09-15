@@ -44,6 +44,50 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
 //        let datefinale = dateFormatter.stringFromDate(date!)
 //        print("date = " + datefinale)
+            
+            cell.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let selectedItem = self.actu[path.section]["content"]
+                
+               print("the selected item is \(selectedItem) and new : \(Newcontent)")
+                param["token"] = String(user["response"]["token"])
+                request.request("GET", param: param, add: "news", callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        //self.refreshActu()
+                        self.actu = User["response"]
+                        self.list_Actu.reloadData()
+                        self.refreshControl.endRefreshing()
+                        
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
+                });
+
+            }
+            
+            cell.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
+                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let selectedItem = self.actu[path.section]["content"]
+                
+                print("the selected item is \(selectedItem) and new : \(Newcontent)")
+                param["token"] = String(user["response"]["token"])
+                request.request("GET", param: param, add: "news", callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        //self.refreshActu()
+                        self.actu = User["response"]
+                        self.list_Actu.reloadData()
+                        self.refreshControl.endRefreshing()
+                        
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
+                });
+
+            }
        
         let datefinale = String(actu[indexPath.section]["updated_at"])
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
@@ -91,7 +135,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 5.0
+            return 1.0
+    }
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10.0
     }
     
 //    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
