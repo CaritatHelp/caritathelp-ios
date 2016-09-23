@@ -146,6 +146,20 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         
     }
 
+    override func viewWillAppear(animated: Bool) {
+        let tabController = UIApplication.sharedApplication().windows.first?.rootViewController as? UITabBarController
+        let tabArray = tabController!.tabBar.items as NSArray!
+        let alertTabItem = tabArray.objectAtIndex(2) as! UITabBarItem
+        
+        
+        if let badgeValue = (alertTabItem.badgeValue) {
+            let intValue = Int(badgeValue)
+            alertTabItem.badgeValue = (intValue! + 1).description
+            print(intValue)
+        } else {
+            alertTabItem.badgeValue = "1"
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

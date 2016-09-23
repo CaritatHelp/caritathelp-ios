@@ -18,6 +18,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     var request = RequestModel()
     var param = [String: String]()
     var actu : JSON = []
+    var mySocket = ConnectionWebSocket()
     
     
     @IBOutlet weak var list_Actu: UITableView!
@@ -135,7 +136,6 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
             return 1.0
     }
@@ -175,6 +175,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        mySocket.firstConnection()
         self.list_Actu.addSubview(self.refreshControl)
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user

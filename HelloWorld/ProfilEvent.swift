@@ -277,10 +277,11 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             
         }
         if(segue.identifier == "gotocommentfromevent"){
+            let indexPath = eventsNewsList.indexPathForCell(sender as! UITableViewCell)
             let secondViewController = segue.destinationViewController as! CommentActuController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(actu["id"])
+            secondViewController.IDnews = String(actu[indexPath!.section]["id"])
             
         }
 

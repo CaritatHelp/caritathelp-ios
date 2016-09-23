@@ -222,25 +222,27 @@ class CustomCellCommentNews: UITableViewCell {
     @IBOutlet weak var BtnComment: UIButton!
     
     @IBAction func Comment(sender: AnyObject) {
-        
-        param["token"] = String(sharedInstance.volunteer["response"]["token"])
-        param["content"] = TextFieldComments.text
-        param["new_id"] = IDnews
-        self.request.request("POST", param: self.param, add: "comments", callback: {
-            (isOK, User)-> Void in
-            if(isOK){
-                //self.refreshActu()
-                //self.list_actu.reloadData()
-                print("commentaire envoyé !")
-                self.TextFieldComments.text = ""
-                self.tapped?(self)
-            }
-            else {
-                SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
-            }
-        });
+        if TextFieldComments.text == "" {
+            SCLAlertView().showError("Attention", subTitle: "Votre commentaire est vide.")
+        }else {
+            param["token"] = String(sharedInstance.volunteer["response"]["token"])
+            param["content"] = TextFieldComments.text
+            param["new_id"] = IDnews
+            self.request.request("POST", param: self.param, add: "comments", callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    //self.refreshActu()
+                    //self.list_actu.reloadData()
+                    print("commentaire envoyé !")
+                    self.TextFieldComments.text = ""
+                    self.tapped?(self)
+                }
+                else {
+                    SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                }
+            });
 
-        
+        }
         
     }
     

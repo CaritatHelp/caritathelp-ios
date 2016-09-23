@@ -50,7 +50,7 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
     @IBAction func Publish(sender: AnyObject) {
         
         if(Statut.text == ""){
-            print("pas de status.....")
+            print("Votre message est vide. Ecrivez quelque chose.")
         }else{
             assoc_array["token"] = String(user["token"])
             assoc_array["content"] = Statut.text!

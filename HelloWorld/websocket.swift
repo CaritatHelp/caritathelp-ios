@@ -12,9 +12,12 @@ import SwiftyJSON
 
 class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     var i = 0
-    let socket : WebSocket = WebSocket(url: NSURL(string: "ws://api.caritathelp.me:8080/")!)
-   
+    let socket : WebSocket = WebSocket(url: NSURL(string: "ws://ws.api.caritathelp.me")!)
+   //ws://ws.api.caritathelp.me
+    //ws://ws.staging.caritathelp.me
     
+
+
     func firstConnection() {
         socket.connect()
         socket.delegate = self
@@ -27,7 +30,8 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     func websocketDidConnect(socket: WebSocket) {
         print("websocket is connected")
         let paramCo = "{\"token\":\"token\", \"token_user\":\"" + String(sharedInstance.volunteer["response"]["token"]) + "\"}"
-        //socket.writeString(paramCo)
+        print(paramCo)
+        socket.writeString(paramCo)
     }
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
@@ -37,14 +41,17 @@ class ConnectionWebSocket : WebSocketDelegate, WebSocketPongDelegate {
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         print("got some text: \(text)")
         
-        let notif = JSON(text)
-        //AnalyzeData(notif)
+        let tabController = UIApplication.sharedApplication().windows.first?.rootViewController as? UITabBarController
+        let tabArray = tabController!.tabBar.items as NSArray!
+        let alertTabItem = tabArray.objectAtIndex(3) as! UITabBarItem
         
-        i += 1
-        define.nb_notif += String(i)
-        
-        
-        
+        if let badgeValue = (alertTabItem.badgeValue) {
+            let intValue = Int(badgeValue)
+            alertTabItem.badgeValue = (intValue! + 1).description
+            print(intValue)
+        } else {
+            alertTabItem.badgeValue = "1"
+        }
     }
     
     func websocketDidReceiveData(socket: WebSocket, data: NSData) {

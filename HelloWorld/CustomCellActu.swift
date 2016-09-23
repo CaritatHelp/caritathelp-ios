@@ -84,8 +84,6 @@ class CustomCellActu: UITableViewCell {
         if from == "false"{
             btn_setting.hidden = true
         }
-        //cell.imageView?.layer.cornerRadius = 25
-        //cell.imageView?.clipsToBounds = true
     }
     
 }

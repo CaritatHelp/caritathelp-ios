@@ -144,11 +144,11 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentcell" rowHeight="37" id="vtA-O4-K0O">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commentcell" rowHeight="37" id="vtA-O4-K0O">
                                         <rect key="frame" x="0.0" y="49.5" width="375" height="37"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vtA-O4-K0O" id="iC9-0s-QYz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="36.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="commenter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AU5-aa-MSa">
@@ -2929,7 +2929,7 @@
         <!--Messages-->
         <scene sceneID="TfC-mW-2Co">
             <objects>
-                <viewController id="tKg-wi-Xxj" sceneMemberID="viewController">
+                <viewController id="tKg-wi-Xxj" customClass="ListchatroomController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="06R-kq-YRz"/>
                         <viewControllerLayoutGuide type="bottom" id="ExP-MW-krf"/>
@@ -3597,11 +3597,11 @@
     <inferredMetricsTieBreakers>
         <segue reference="muY-K6-rqW"/>
         <segue reference="zs6-k5-odG"/>
+        <segue reference="cbw-52-vWL"/>
         <segue reference="QU2-cM-zX4"/>
-        <segue reference="aRZ-vF-bno"/>
         <segue reference="Qe5-Kj-aGY"/>
+        <segue reference="3r6-pW-jNR"/>
         <segue reference="dyz-Mz-TIx"/>
-        <segue reference="Qu8-yW-0gK"/>
         <segue reference="j0r-d4-0hx"/>
         <segue reference="Kak-kY-Faf"/>
         <segue reference="MoD-cH-jlH"/>
