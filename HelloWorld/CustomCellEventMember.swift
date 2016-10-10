@@ -30,7 +30,7 @@ class CustomCellEventMember: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
@@ -39,9 +39,9 @@ class CustomCellEventMember: UITableViewCell {
     //Give value to the cell
     func setCell(NameLabel: String, DetailLabel: String, imageName: String){
         // design de l'image de la cellule
-        self.ImageProfilMember.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.ImageProfilMember.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.ImageProfilMember.layer.cornerRadius = self.ImageProfilMember.frame.size.width / 2
-        self.ImageProfilMember.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.ImageProfilMember.layer.borderColor = UIColor.darkGray.cgColor;
         self.ImageProfilMember.layer.masksToBounds = true
         self.ImageProfilMember.clipsToBounds = true
         

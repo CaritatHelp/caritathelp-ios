@@ -25,35 +25,35 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(ProfilVolunteer.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ProfilVolunteer.refresh), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cellB : UITableViewCell!
         
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCellWithIdentifier("CellProfilVolunteer", forIndexPath: indexPath) as! CustomCellProfilVolunteer
-                cell.setCell(String(volunteer["response"]["firstname"]) + " " + String(volunteer["response"]["lastname"]), DetailLabel: String(volunteer["response"]["friendship"]), imageName: main_picture, User: volunteer["response"])
+                let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCell(withIdentifier: "CellProfilVolunteer", for: indexPath) as! CustomCellProfilVolunteer
+                cell.setCell(NameLabel: String(describing: volunteer["response"]["firstname"]) + " " + String(describing: volunteer["response"]["lastname"]), DetailLabel: String(describing: volunteer["response"]["friendship"]), imageName: main_picture, User: volunteer["response"])
                 
-                let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).CGColor, UIColor.whiteColor().CGColor]
+                let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).cgColor, UIColor.white.cgColor]
                 let gradientLocations = [0.0,1.0]
                 
                 let gradientLayer = CAGradientLayer()
                 gradientLayer.colors = gradientBackgroundColors
-                gradientLayer.locations = gradientLocations
+                gradientLayer.locations = gradientLocations as [NSNumber]?
                 
                 gradientLayer.frame = cell.bounds
                 let backgroundView = UIView(frame: cell.bounds)
-                backgroundView.layer.insertSublayer(gradientLayer, atIndex: 0)
+                backgroundView.layer.insertSublayer(gradientLayer, at: 0)
                 cell.backgroundView = backgroundView
                 
                 return cell
             }
             else {
-                let cell1 = profil_list.dequeueReusableCellWithIdentifier("MenuProfil", forIndexPath: indexPath)
+                let cell1 = profil_list.dequeueReusableCell(withIdentifier: "MenuProfil", for: indexPath)
                 return cell1
             }
         }
@@ -66,16 +66,16 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
 //            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
 //            let datefinale = dateFormatter.stringFromDate(date!)
             if indexPath.row == 0 {
-            let datefinale = String(actu["response"][indexPath.section - 1]["updated_at"])
+            let datefinale = String(describing: actu["response"][indexPath.section - 1]["updated_at"])
             
-            let cell1 : CustomCellActu = profil_list.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
+            let cell1 : CustomCellActu = profil_list.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
                 
                 cell1.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
-                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                    let path = tableView.indexPathForRow(at: selectedCell.center)!
 
-                    self.param["token"] = String(self.user["token"])
+                    self.param["token"] = String(describing: self.user["token"])
                     self.param["content"] = Newcontent
-                    self.request.request("PUT", param: self.param, add: "news/" + String(self.actu["response"][path.section - 1]["id"]), callback: {
+                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.actu["response"][path.section - 1]["id"]), callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             self.refreshActu()
@@ -88,10 +88,10 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 }
                 
                 cell1.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
-                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                    let path = tableView.indexPathForRow(at: selectedCell.center)!
 
-                    self.param["token"] = String(self.user["token"])
-                    self.request.request("DELETE", param: self.param, add: "news/" + String(self.actu["response"][path.section - 1]["id"]) , callback: {
+                    self.param["token"] = String(describing: self.user["token"])
+                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.actu["response"][path.section - 1]["id"]) , callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             //self.refreshActu()
@@ -107,9 +107,9 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 
                 var title = ""
                 if actu["response"][indexPath.section - 1]["group_name"] == user["fullname"] {
-                    title = String(actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur son mur"
+                    title = String(describing: actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur son mur"
                 } else {
-                    title = String(actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(actu["response"][indexPath.section - 1]["group_name"])
+                    title = String(describing: actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu["response"][indexPath.section - 1]["group_name"])
                 }
                 var from = ""
                 if actu["response"][indexPath.section - 1]["volunteer_id"] == user["id"] {
@@ -118,30 +118,30 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 else {
                     from = "false"
                 }
-                cell1.setCell(title, DateLabel:  datefinale, imageName: define.path_picture + String(actu["response"][indexPath.section - 1]["thumb_path"]), content: String(actu["response"][indexPath.section - 1]["content"]), from: from)
+                cell1.setCell(NameLabel: title, DateLabel:  datefinale, imageName: define.path_picture + String(describing: actu["response"][indexPath.section - 1]["thumb_path"]), content: String(describing: actu["response"][indexPath.section - 1]["content"]), from: from)
             return cell1
             } else {
-                let cell1 = profil_list.dequeueReusableCellWithIdentifier("commentactuprofil", forIndexPath: indexPath) as UITableViewCell
+                let cell1 = profil_list.dequeueReusableCell(withIdentifier: "commentactuprofil", for: indexPath) as UITableViewCell
                 return cell1
             }
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return actu["response"].count + 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
          return 2
         
     }
     
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.backgroundColor = UIColor.clearColor()
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = UIColor.clear
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 200
         } else if indexPath.row == 1 {
@@ -151,11 +151,11 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
             return 1.0
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10.0
     }
     
@@ -165,7 +165,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         profil_list.tableFooterView = UIView()
         self.profil_list.addSubview(self.refreshControl)
         user = sharedInstance.volunteer["response"]
-        profil_list.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
+        profil_list.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         profil_list.estimatedRowHeight = 159.0
         profil_list.rowHeight = UITableViewAutomaticDimension
         
@@ -173,13 +173,16 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func refresh(){
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "volunteers/" + idvolunteer
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.volunteer = User
-                self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
+                self.main_picture = define.path_picture + String(describing: User["response"]["thumb_path"])
                 self.profil_list.reloadData()
                 self.refreshActu()
             }
@@ -192,7 +195,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func refreshActu() {
         let val2 = "volunteers/" + self.idvolunteer + "/news"
-        self.request.request("GET", param: self.param,add: val2, callback: {
+        self.request.request(type: "GET", param: self.param,add: val2, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.actu = User
@@ -206,13 +209,13 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         
         // get a reference to the second view controller
         if(segue.identifier == "friendoffriend"){
             
-            let secondViewController = segue.destinationViewController as! MyFriendsController
+            let secondViewController = segue.destination as! MyFriendsController
             
             // set a variable in the second view controller with the String to pass
             secondViewController.idfriend = idvolunteer
@@ -220,38 +223,38 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         }
         if(segue.identifier == "AssoVolunteer"){
             
-            let secondViewController = segue.destinationViewController as! VolunteerAsso
+            let secondViewController = segue.destination as! VolunteerAsso
             
             // set a variable in the second view controller with the String to pass
             secondViewController.idvolunteer = idvolunteer
         }
         if(segue.identifier == "fromprofiltoevents"){
             
-            let secondViewController = segue.destinationViewController as! VolunteerEventsController
+            let secondViewController = segue.destination as! VolunteerEventsController
             
             // set a variable in the second view controller with the String to pass
             secondViewController.idvolunteer = idvolunteer
         }//fromprofiltoevents
         if(segue.identifier == "fromprofilvolunteer"){
             
-            let secondViewController = segue.destinationViewController as! LoadPhotoController
+            let secondViewController = segue.destination as! LoadPhotoController
             
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "1"
         }
         if(segue.identifier == "gotopostfromprofil"){
             
-            let secondViewController = segue.destinationViewController as! PostStatutAssoController
+            let secondViewController = segue.destination as! PostStatutAssoController
             
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "profil"
         }
         if(segue.identifier == "gotocommentfromprofil"){
-            let indexPath = profil_list.indexPathForCell(sender as! UITableViewCell)
-            let secondViewController = segue.destinationViewController as! CommentActuController
+            let indexPath = profil_list.indexPath(for: sender as! UITableViewCell)
+            let secondViewController = segue.destination as! CommentActuController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(actu["response"][indexPath!.section - 1]["id"])
+            secondViewController.IDnews = String(describing: actu["response"][indexPath!.section - 1]["id"])
         }
         
         
@@ -284,15 +287,15 @@ class CustomCellProfilActu: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, imageName: String, Date: String, Content: String){
         self.NameActu.text = NameLabel
-        self.PictureActu.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.PictureActu.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.PictureActu.layer.cornerRadius = 10
-        self.PictureActu.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.PictureActu.layer.borderColor = UIColor.darkGray.cgColor;
         self.PictureActu.layer.masksToBounds = true
         self.PictureActu.clipsToBounds = true
         self.DateActu.text = Date

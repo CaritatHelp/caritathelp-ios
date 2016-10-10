@@ -34,7 +34,7 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
         //nom = receivedString
         mail.text = mailUser
     }
-    func textFieldShouldReturn(textField:UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool{
         textField.resignFirstResponder()
         return true
     }
@@ -43,19 +43,19 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
         
         let numberRegEx  = ".*[0-9]+.*"
         let testCase = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
-        let containsNumber = testCase.evaluateWithObject(_string)
+        let containsNumber = testCase.evaluate(with: _string)
         
         return containsNumber
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+    func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         if (identifier == "goToFinishSub") {
             if (mail.text!.isEmpty ) {
                 
                 checkMail.text = "Veuillez saisir un mail."
                 return false
             }
-            else if (mail.text!.rangeOfString("@") == nil) {
+            else if (mail.text!.range(of: "@") == nil) {
                 
                 checkMail.text = "Veuillez saisir un mail valide."
                 return false
@@ -65,7 +65,7 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
                 checkMail.text = ""
                 return false
             }
-            else if(doStringContainsNumber(password.text!) == false){
+            else if(doStringContainsNumber(_string: password.text!) == false){
                 checkPassword.text = "votre mot de passe doit contenir lettre/chiffre"
                 checkMail.text = ""
                 return false
@@ -83,11 +83,11 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
     }
 
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "goToFinishSub"){
-            let secondViewController = segue.destinationViewController as! SubscribeFinishController
+            let secondViewController = segue.destination as! SubscribeFinishController
             
             // set a variable in the second view controller with the String to pass
             secondViewController.nom = nom
@@ -98,7 +98,7 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
             secondViewController.mdp = password.text!
         }
         if(segue.identifier == "goToDateSubscribe"){
-            let firstViewController = segue.destinationViewController as! SubscribeDateController
+            let firstViewController = segue.destination as! SubscribeDateController
             firstViewController.nom = nom
             firstViewController.prenom = prenom
         }

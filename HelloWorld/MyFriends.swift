@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SwiftyJSON
 
-class MyFriendsController : UIViewController, UITableViewDataSource, UITableViewDelegate{
+class MyFriendsController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var friends : JSON = []
     var friends_request : JSON = []
@@ -23,23 +23,23 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var list_friends: UITableView!
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomFriendsCell = list_friends.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath: indexPath) as! CustomFriendsCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : CustomFriendsCell = list_friends.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath as IndexPath) as! CustomFriendsCell
         if indexPath.section == 0  && fromProfil == false{
-            let name = String(friends_request["response"][indexPath.row]["firstname"]) + " " + String(friends_request["response"][indexPath.row]["lastname"])
-            cell.setCell(name, DetailLabel: "", imageName:  define.path_picture + String(friends["response"][indexPath.row]["thumb_path"]))
+            let name = String(describing: friends_request["response"][indexPath.row]["firstname"]) + " " + String(describing: friends_request["response"][indexPath.row]["lastname"])
+            cell.setCell(NameLabel: name, DetailLabel: "", imageName:  define.path_picture + String(describing: friends["response"][indexPath.row]["thumb_path"]))
 
         } else {
-        let name = String(friends["response"][indexPath.row]["firstname"]) + " " + String(friends["response"][indexPath.row]["lastname"])
-        cell.setCell(name, DetailLabel: String(friends["response"][indexPath.row]["nb_common_friends"]) + " amis en commun", imageName: define.path_picture + String(friends["response"][indexPath.row]["thumb_path"]))
+        let name = String(describing: friends["response"][indexPath.row]["firstname"]) + " " + String(describing: friends["response"][indexPath.row]["lastname"])
+        cell.setCell(NameLabel: name, DetailLabel: String(describing: friends["response"][indexPath.row]["nb_common_friends"]) + " amis en commun", imageName: define.path_picture + String(describing: friends["response"][indexPath.row]["thumb_path"]))
         }
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, list_friends.bounds.size.width, list_friends.bounds.size.height))
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width: list_friends.bounds.size.width,height: list_friends.bounds.size.height))
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-        noDataLabel.textAlignment = NSTextAlignment.Center
+        noDataLabel.textAlignment = NSTextAlignment.center
         
         if(friends["response"].count == 0){
             noDataLabel.text = "Vous n'avez aucun ami... \n BOLOSS"
@@ -59,15 +59,15 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
         return count
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+   func numberOfSections(in tableView: UITableView) -> Int {
         var NbSection = 1
         if fromProfil == false {
             NbSection = 2
         }
         return NbSection
     }
-
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         var title_tab = ["Invitation envoyées","Vos amis"]
         if fromProfil == true {
@@ -78,14 +78,17 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if indexPath.section == 0 && fromProfil == false{
-        let shareAction2 = UITableViewRowAction(style: .Normal, title: "annuler") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction2 = UITableViewRowAction(style: .normal, title: "annuler") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
-            self.param["token"] = String(self.user["token"])
-            self.param["notif_id"] = String(self.friends_request["response"][indexPath!.row]["notif_id"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+            self.param["notif_id"] = String(describing: self.friends_request["response"][indexPath!.row]["notif_id"])
             self.param["acceptance"] = "false"
-            self.request.request("POST", param: self.param,add: "friendship/reply", callback: {
+            self.request.request(type: "POST", param: self.param,add: "friendship/reply", callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     self.refresh()
@@ -96,7 +99,7 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
             });
             
         }
-        shareAction2.backgroundColor = UIColor.redColor()
+        shareAction2.backgroundColor = UIColor.red
         return [shareAction2]
         }
         else {
@@ -116,20 +119,23 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     }
     
     func refresh(){
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         var val = ""
         if fromProfil == false {
-            val = "volunteers/" + String(user["id"]) + "/friends"
+            val = "volunteers/" + String(describing: user["id"]) + "/friends"
         }else {
             val = "volunteers/" + idfriend + "/friends"
         }
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.friends = User
-                self.param["token"] = String(self.user["token"])
+                self.param["token"] = String(describing: self.user["token"])
                 self.param["sent"] = "true"
-                self.request.request("GET", param: self.param,add: "friend_requests", callback: {
+                self.request.request(type: "GET", param: self.param,add: "friend_requests", callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         self.friends_request = User
@@ -146,19 +152,19 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
         });
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "ProfilFriend"){
-            let indexPath = list_friends.indexPathForCell(sender as! UITableViewCell)
+            let indexPath = list_friends.indexPath(for: sender as! UITableViewCell)
             
-            let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            let secondViewController = segue.destination as! ProfilVolunteer
             
             // set a variable in the second view controller with the String to pass
             if indexPath!.section == 0 && fromProfil == false{
-                secondViewController.idvolunteer = String(friends_request["response"][indexPath!.row]["id"])
+                secondViewController.idvolunteer = String(describing: friends_request["response"][indexPath!.row]["id"])
             }else {
-                secondViewController.idvolunteer = String(friends["response"][indexPath!.row]["id"])
+                secondViewController.idvolunteer = String(describing: friends["response"][indexPath!.row]["id"])
             }
         }
         

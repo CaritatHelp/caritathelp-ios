@@ -14,39 +14,40 @@ class MenuController : UIViewController, UITableViewDataSource, UITableViewDeleg
     
     var User : JSON = []
     var request = RequestModel()
+    var param = [String: String]()
 let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
     let Titlesections : [String] = ["","",""]
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : UITableViewCell!
         if indexPath.section == 0{
             if indexPath.row == 0{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu1", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "Menu1", for: indexPath)
             }else if indexPath.row == 1{
-            cell = tableView.dequeueReusableCellWithIdentifier("Menu2", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "Menu2", for: indexPath)
         }
         else if indexPath.row == 2{
-            cell = tableView.dequeueReusableCellWithIdentifier("Menu3", forIndexPath: indexPath)
+            cell = tableView.dequeueReusableCell(withIdentifier: "Menu3", for: indexPath)
         }
         else if indexPath.row == 3{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu4", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "Menu4", for: indexPath)
             }
         }
         if indexPath.section == 1{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu5", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "Menu5", for: indexPath)
 
         }
 
         if indexPath.section == 2{
             if indexPath.row == 0{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu6", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "Menu6", for: indexPath)
             }else if indexPath.row == 1{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu7", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "Menu7", for: indexPath)
             }
         }
 
         if indexPath.section == 3{
-                cell = tableView.dequeueReusableCellWithIdentifier("Menu8", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "Menu8", for: indexPath)
         }
 
         return cell
@@ -56,11 +57,12 @@ let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
 //        return 7
 //    }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rows: Int = 0
         
         if section < numberOfRowsAtSection.count {
@@ -71,14 +73,17 @@ let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
     }
     
    
-    @IBAction func Deconnexion(sender: AnyObject) {
-        let param = ["token" : String(User["token"])]
+    @IBAction func Deconnexion(_ sender: AnyObject) {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         
-        request.request("POST", param: param, add: "logout", callback: {
+        self.request.request(type: "POST", param: param, add: "auth/sign_out", callback: {
             (isOK, User) -> Void in
             if (isOK) {
-                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ConnectVC") as! ViewController
-                self.presentViewController(vc, animated: true, completion: nil)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ConnectVC") as! ViewController
+                self.present(vc, animated: true, completion: nil)
             }else{
                 // do error handling here
                 print("erreur de déconnexion")
@@ -96,14 +101,14 @@ let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
 //        // get a reference to the second view controller
         if(segue.identifier == "GoToProfilVol"){
-            let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            let secondViewController = segue.destination as! ProfilVolunteer
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.idvolunteer = String(User["id"])
+            secondViewController.idvolunteer = String(describing: User["id"])
         }
 //        if(segue.identifier == "GestionProfil"){
 //            let secondViewController = segue.destinationViewController as! GestionCompte

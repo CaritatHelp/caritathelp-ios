@@ -39,51 +39,51 @@ class CustomCellProfilVolunteer: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, DetailLabel: String, imageName: String, User: JSON){
         //self.TitleNews.text = NameLabel
         //self.DateNews.text = DateLabel
-        AccceptFriendBtn.hidden = true
-        RefusedFriendBtn.hidden = true
+        AccceptFriendBtn.isHidden = true
+        RefusedFriendBtn.isHidden = true
         user = User
         if (user["id"] == sharedInstance.volunteer["response"]["id"]){
-            BtnAddFriend.hidden = true
-            ModifyPictureBtn.hidden = false
+            BtnAddFriend.isHidden = true
+            ModifyPictureBtn.isHidden = false
         }else {
-            ModifyPictureBtn.hidden = true
+            ModifyPictureBtn.isHidden = true
             if (DetailLabel == "friend"){
                 let alreadyAccept = UIImage(named: "reviewer-1")
-                BtnAddFriend.setImage(alreadyAccept, forState: .Normal)
+                BtnAddFriend.setImage(alreadyAccept, for: .normal)
                 BtnAddFriend.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
             }else if (DetailLabel == "invitation sent"){
                 let alreadyAccept = UIImage(named: "hourglass")
-                BtnAddFriend.setImage(alreadyAccept, forState: .Normal)
+                BtnAddFriend.setImage(alreadyAccept, for: .normal)
                 BtnAddFriend.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
             }else if (DetailLabel == "invitation received") {
-                AccceptFriendBtn.hidden = false
-                RefusedFriendBtn.hidden = false
-                BtnAddFriend.hidden = true
+                AccceptFriendBtn.isHidden = false
+                RefusedFriendBtn.isHidden = false
+                BtnAddFriend.isHidden = true
             }
             self.BtnAddFriend.layer.cornerRadius = self.BtnAddFriend.frame.size.width / 2
-            self.BtnAddFriend.layer.borderColor = UIColor.whiteColor().CGColor;
+            self.BtnAddFriend.layer.borderColor = UIColor.white.cgColor;
             self.BtnAddFriend.layer.borderWidth = 1.0
             //self.BtnAddFriend.layer.borderColor = UIColor.darkGrayColor().CGColor;
             self.BtnAddFriend.layer.masksToBounds = true
             self.BtnAddFriend.clipsToBounds = true
         }
         
-        imgProfilVol.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        imgProfilVol.downloadedFrom(link: imageName, contentMode: .scaleToFill)
                 self.imgProfilVol.layer.cornerRadius = self.imgProfilVol.frame.size.width / 2
-                self.imgProfilVol.layer.borderColor = UIColor.darkGrayColor().CGColor;
+                self.imgProfilVol.layer.borderColor = UIColor.darkGray.cgColor;
         
         self.imgProfilVol.layer.borderWidth = 1.0
-        self.imgProfilVol.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.imgProfilVol.layer.borderColor = UIColor.darkGray.cgColor;
         self.imgProfilVol.layer.shadowOffset = CGSize(width: self.imgProfilVol.frame.size.width + 10.0, height: self.imgProfilVol.frame.size.height + 10.0)
         self.imgProfilVol.layer.shadowOpacity = 0.7
-        self.imgProfilVol.layer.shadowColor = UIColor.blackColor().CGColor
+        self.imgProfilVol.layer.shadowColor = UIColor.black.cgColor
         self.imgProfilVol.layer.shadowRadius = self.imgProfilVol.frame.size.width + 10 / 2;
         
                 self.imgProfilVol.layer.masksToBounds = true
@@ -93,13 +93,13 @@ class CustomCellProfilVolunteer: UITableViewCell {
                 
     }
     
-    @IBAction func add_friend(sender: AnyObject) {
+    @IBAction func add_friend(_ sender: AnyObject) {
         
         if (user["friendship"] == "none") {
-            self.param["token"] = String(sharedInstance.volunteer["response"]["token"])
-            self.param["volunteer_id"] = String(user["id"])
+            self.param["token"] = String(describing: sharedInstance.volunteer["response"]["token"])
+            self.param["volunteer_id"] = String(describing: user["id"])
             let val = "friendship/add"
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     //self.friends = User
@@ -112,13 +112,13 @@ class CustomCellProfilVolunteer: UITableViewCell {
         }
 
     }
-    @IBAction func Accept_Friend(sender: AnyObject) {
+    @IBAction func Accept_Friend(_ sender: AnyObject) {
         if (user["friendship"] == "invitation received") {
-            self.param["token"] = String(sharedInstance.volunteer["response"]["token"])
-            self.param["notif_id"] = String(user["notif_id"])
+            self.param["token"] = String(describing: sharedInstance.volunteer["response"]["token"])
+            self.param["notif_id"] = String(describing: user["notif_id"])
             self.param["acceptance"] = "true"
             let val = "friendship/reply"
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     //self.friends = User
@@ -130,13 +130,13 @@ class CustomCellProfilVolunteer: UITableViewCell {
             });
         }
     }
-    @IBAction func refused_friend(sender: AnyObject) {
+    @IBAction func refused_friend(_ sender: AnyObject) {
         if (user["friendship"] == "invitation received") {
-            self.param["token"] = String(sharedInstance.volunteer["response"]["token"])
-            self.param["notif_id"] = String(user["notif_id"])
+            self.param["token"] = String(describing: sharedInstance.volunteer["response"]["token"])
+            self.param["notif_id"] = String(describing: user["notif_id"])
             self.param["acceptance"] = "false"
             let val = "friendship/reply"
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     //self.friends = User

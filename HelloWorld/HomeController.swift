@@ -28,15 +28,15 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(HomeController.refreshActu), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(HomeController.refreshActu), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell : CustomCellActu = tableView.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
+            let cell : CustomCellActu = tableView.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
         
 //        let dateFormatter = NSDateFormatter()
 //        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
@@ -47,13 +47,16 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        print("date = " + datefinale)
             
             cell.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
-                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let path = tableView.indexPathForRow(at: selectedCell.center)!
                 let selectedItem = self.actu[path.section]["content"]
                 
                print("the selected item is \(selectedItem) and new : \(Newcontent)")
-                self.param["token"] = String(self.user["response"]["token"])
+                //self.param["token"] = String(describing: self.user["response"]["token"])
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
                 self.param["content"] = Newcontent
-                self.request.request("PUT", param: self.param, add: "news/" + String(self.actu[path.section]["id"]), callback: {
+                self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.actu[path.section]["id"]), callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         self.refreshActu()
@@ -66,12 +69,14 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             
             cell.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
-                let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                let path = tableView.indexPathForRow(at: selectedCell.center)!
                 let selectedItem = self.actu[path.section]["content"]
                 
                 print("the selected item is \(selectedItem) and new : \(Newcontent)")
-                self.param["token"] = String(self.user["response"]["token"])
-                self.request.request("DELETE", param: self.param, add: "news/" + String(self.actu[path.section]["id"]) , callback: {
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.actu[path.section]["id"]) , callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         //self.refreshActu()
@@ -85,13 +90,13 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             }
        
-        let datefinale = String(actu[indexPath.section]["updated_at"])
+        let datefinale = String(describing: actu[indexPath.section]["updated_at"])
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
             var title = ""
         if actu[indexPath.section]["group_name"] == user["response"]["fullname"] {
-            title = String(actu[indexPath.section]["volunteer_name"]) + " a publié sur son mur"
+            title = String(describing: actu[indexPath.section]["volunteer_name"]) + " a publié sur son mur"
         } else {
-            title = String(actu[indexPath.section]["volunteer_name"]) + " a publié sur le mur de " + String(actu[indexPath.section]["group_name"])
+            title = String(describing: actu[indexPath.section]["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu[indexPath.section]["group_name"])
             }
             
             var from = ""
@@ -101,12 +106,12 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             else {
                 from = "false"
             }
-            cell.setCell(title,DateLabel: datefinale, imageName: define.path_picture + String(actu[indexPath.section]["volunteer_thumb_path"]), content: String(actu[indexPath.section]["content"]), from: from)
+            cell.setCell(NameLabel: title,DateLabel: datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section]["volunteer_thumb_path"]), content: String(describing: actu[indexPath.section]["content"]), from: from)
 
             return cell
         }
         else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("commentcell", forIndexPath: indexPath) as UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "commentcell", for: indexPath) as UITableViewCell
             return cell
         }
         //cell.layer.cornerRadius = 5
@@ -124,11 +129,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         
         return actu.count
@@ -136,10 +141,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
             return 1.0
     }
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10.0
     }
     
@@ -160,14 +165,14 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("recu la data : \(user)")
     }
     
-    @IBAction func goToMenu(sender: AnyObject) {
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MenuVC") as! MenuController
+    @IBAction func goToMenu(_ sender: AnyObject) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuVC") as! MenuController
         //Pass delegate and variable to vc which is HomeController
         vc.User = user
         //vc.teststring = "hello"
         
         
-        self.presentViewController(vc, animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
     }
     
     
@@ -180,7 +185,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user
         print("entere : \(self.user)")
-        list_Actu.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
+        list_Actu.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         list_Actu.estimatedRowHeight = 159.0
         list_Actu.rowHeight = UITableViewAutomaticDimension
         //list_Actu.rowHeight = 44
@@ -190,8 +195,10 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
     
     func refreshActu() {
-        param["token"] = String(user["response"]["token"])
-        request.request("GET", param: param, add: "news", callback: {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+        self.request.request(type: "GET", param: self.param, add: "news", callback: {
             (isOK, User)-> Void in
             if(isOK){
                 //self.refreshActu()
@@ -207,23 +214,16 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("HOLA")
         // get a reference to the second view controller
-        if(segue.identifier == "detailNewsfromHome"){
-            let indexPath = list_Actu.indexPathForCell(sender as! UITableViewCell)
-            let secondViewController = segue.destinationViewController as! CommentActuController
-            
-            // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(actu[indexPath!.section]["id"])
-            //secondViewController.user = user
-        }
         if(segue.identifier == "showcommentfromcommenthome"){
-            let indexPath = list_Actu.indexPathForCell(sender as! UITableViewCell)
-            let secondViewController = segue.destinationViewController as! CommentActuController
+            let indexPath = list_Actu.indexPath(for: sender as! UITableViewCell)
+            let secondViewController = segue.destination as! CommentActuController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(actu[indexPath!.section]["id"])
+            print("ID = " + String(describing: actu[indexPath!.section]["id"]))
+            secondViewController.IDnews = String(describing: actu[indexPath!.section]["id"])
             //secondViewController.user = user
         }
     }

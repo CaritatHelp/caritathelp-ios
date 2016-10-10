@@ -19,30 +19,30 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
     var param = [String: String]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(VolunteerNotificationController.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(VolunteerNotificationController.refresh), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
     
     @IBOutlet weak var list_notif: UITableView!
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = list_notif.dequeueReusableCellWithIdentifier("CellEventVolunteer", forIndexPath: indexPath) as! CustomCellEventVolunteer
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = list_notif.dequeueReusableCell(withIdentifier: "CellEventVolunteer", for: indexPath) as! CustomCellEventVolunteer
         
         var detail = ""
         if notifs["response"][indexPath.row]["nb_friends_members"] == "0" {
             detail = ""
         } else if notifs["response"][indexPath.row]["nb_friends_members"] == "1" {
-            detail = String(notifs["response"][indexPath.row]["nb_friends_members"]) + " ami y participent"
+            detail = String(describing: notifs["response"][indexPath.row]["nb_friends_members"]) + " ami y participent"
         }else{
-            detail = String(notifs["response"][indexPath.row]["nb_friends_members"]) + " amis y participent"
+            detail = String(describing: notifs["response"][indexPath.row]["nb_friends_members"]) + " amis y participent"
         }
         
-        cell.setCell(String(notifs["response"][indexPath.row]["title"]), DetailLabel: detail, imageName: define.path_picture + String(notifs["response"][indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: String(describing: notifs["response"][indexPath.row]["title"]), DetailLabel: detail, imageName: define.path_picture + String(describing: notifs["response"][indexPath.row]["thumb_path"]))
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notifs["response"].count
     }
     
@@ -59,9 +59,12 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
     
     func refresh() {
         // Code to refresh table view
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "volunteers/" + idvolunteer + "/events"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.notifs = User
@@ -74,14 +77,14 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
         });
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath = list_notif.indexPathForCell(sender as! UITableViewCell)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath = list_notif.indexPath(for: sender as! UITableViewCell)
         //        // get a reference to the second view controller
         if(segue.identifier == "fromprofileventstoevent"){
-            let secondViewController = segue.destinationViewController as! ProfilEventController
+            let secondViewController = segue.destination as! ProfilEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(notifs["response"][indexPath!.row]["id"])
+            secondViewController.EventID = String(describing: notifs["response"][indexPath!.row]["id"])
         }
     }
 

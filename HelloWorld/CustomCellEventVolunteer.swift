@@ -30,16 +30,16 @@ class CustomCellEventVolunteer: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, DetailLabel: String, imageName: String){
         //self.TitleNews.text = NameLabel
         //self.DateNews.text = DateLabel
-        self.ImageProfilFriends.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.ImageProfilFriends.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.ImageProfilFriends.layer.cornerRadius = 10
-        self.ImageProfilFriends.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.ImageProfilFriends.layer.borderColor = UIColor.darkGray.cgColor;
         self.ImageProfilFriends.layer.masksToBounds = true
         self.ImageProfilFriends.clipsToBounds = true
         self.LabelNotif.text = NameLabel

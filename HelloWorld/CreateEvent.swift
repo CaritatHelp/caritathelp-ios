@@ -30,12 +30,12 @@ class CreateEvent : UIViewController {
     }
 
     
-    @IBAction func unwindToSecondVC(sender: UIStoryboardSegue) {
+    @IBAction func unwindToSecondVC(_ sender: UIStoryboardSegue) {
         print("******************** JUOUIJUIKRZQC")
-        _ = sender.sourceViewController
+        _ = sender.source
     }
 
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+    func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         if (identifier == "goToDateCreateEvent") {
             
             if (titleEvent.text!.isEmpty) {
@@ -60,12 +60,12 @@ class CreateEvent : UIViewController {
     }
 
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
         //print("value2 ok : \(ok)")
         // get a reference to the second view controller
         if(segue.identifier == "goToDateCreateEvent"){
             
-            let firstViewController = segue.destinationViewController as! DateCreateEvent
+            let firstViewController = segue.destination as! DateCreateEvent
             
             // set a variable in the second view controller with the String to pass
             firstViewController.eventTitle = titleEvent.text!

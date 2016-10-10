@@ -30,16 +30,16 @@ class NewAssociation : UIViewController {
         user = sharedInstance.volunteer["response"]
     }
     
-    @IBAction func NewAssociaiton(sender: AnyObject) {
+    @IBAction func NewAssociaiton(_ sender: AnyObject) {
         
     }
     
     func CreateAssociation() -> Int {
         let check = 1
         let Date = NSDate()
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd";
-        let date = formatter.stringFromDate(Date);
+        let date = formatter.string(from: Date as Date);
         
         
         
@@ -57,7 +57,10 @@ class NewAssociation : UIViewController {
         }
         else{
         
-        assoc_array["token"] = String(user["token"])
+            self.assoc_array["access-token"] = sharedInstance.header["access-token"]
+            self.assoc_array["client"] = sharedInstance.header["client"]
+            self.assoc_array["uid"] = sharedInstance.header["uid"]
+
         assoc_array["name"] = AssocName.text!
         assoc_array["description"] = AssocDescription.text!
         assoc_array["birthday"] = date
@@ -83,7 +86,7 @@ class NewAssociation : UIViewController {
     
 
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+     func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
             if(identifier == "AfterCreateAssoVC"){
                 
                 if(AssocName.text == ""){
@@ -113,7 +116,7 @@ class NewAssociation : UIViewController {
 
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //print("value2 ok : \(ok)")
         // get a reference to the second view controller
         
@@ -124,7 +127,7 @@ class NewAssociation : UIViewController {
         if(segue.identifier == "goToProfilAssoc"){
             print("Asso : ")
             print(Asso);
-                let firstViewController = segue.destinationViewController as! AssociationProfil
+                let firstViewController = segue.destination as! AssociationProfil
                 
                 // set a variable in the second view controller with the String to pass
                 firstViewController.user = user

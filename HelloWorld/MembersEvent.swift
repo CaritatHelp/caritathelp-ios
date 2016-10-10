@@ -25,10 +25,10 @@ class MembersEventController: UIViewController {
     
     // init le tableview
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellEventMember = members_list.dequeueReusableCellWithIdentifier("MemberEventCell", forIndexPath: indexPath) as! CustomCellEventMember
+        let cell : CustomCellEventMember = members_list.dequeueReusableCell(withIdentifier: "MemberEventCell", for: indexPath as IndexPath) as! CustomCellEventMember
         
-        let nom = String(members["response"][indexPath.row]["firstname"]) + " " + String(members["response"][indexPath.row]["lastname"])
-        cell.setCell(nom, DetailLabel: "8 amis en commun", imageName: define.path_picture + String(members["response"][indexPath.row]["thumb_path"]))
+        let nom = String(describing: members["response"][indexPath.row]["firstname"]) + " " + String(describing: members["response"][indexPath.row]["lastname"])
+        cell.setCell(NameLabel: nom, DetailLabel: "8 amis en commun", imageName: define.path_picture + String(describing: members["response"][indexPath.row]["thumb_path"]))
         return cell
     }
     //nombre de ligne du table view
@@ -40,14 +40,17 @@ class MembersEventController: UIViewController {
     // bouton quand on slide une ligne du tableview
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         //Bouton pour kick un membre de l'event
-        let shareAction2 = UITableViewRowAction(style: .Normal, title: "kick") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction2 = UITableViewRowAction(style: .normal, title: "kick") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
         }
         //Bouton pour ajouter un ami
-        let shareAction = UITableViewRowAction(style: .Normal, title: "Ajouter en ami") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
-            self.param["token"] = String(self.user["token"])
-            self.param["volunteer_id"] = String(self.members["response"][indexPath.row]["id"])
+        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter en ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+            self.param["volunteer_id"] = String(describing: self.members["response"][indexPath.row]["id"])
             let val = "friendship/add"
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     //self.friends = User
@@ -60,19 +63,18 @@ class MembersEventController: UIViewController {
 
         }
         //couleur des boutons
-        shareAction.backgroundColor = UIColor.greenColor()
+        shareAction.backgroundColor = UIColor.green
         //shareAction.backgroundColor = UIColor(patternImage: UIImage(named: "add_user")!)
-        shareAction2.backgroundColor = UIColor.redColor()
-        
-        return [shareAction, shareAction2]
+        shareAction2.backgroundColor = UIColor.red
+         return [shareAction, shareAction2]
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "goToInviteGuest"){
-            let secondViewController = segue.destinationViewController as! InviteGuestController
+            let secondViewController = segue.destination as! InviteGuestController
             
             // set a variable in the second view controller with the String to pass
             
@@ -87,9 +89,12 @@ class MembersEventController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "events/" + EventID + "/guests"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.members = User

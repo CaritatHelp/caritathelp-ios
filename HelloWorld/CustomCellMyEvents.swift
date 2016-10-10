@@ -29,7 +29,7 @@ class CustomCellMyEvents: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
@@ -39,10 +39,10 @@ class CustomCellMyEvents: UITableViewCell {
         if (imageName == "null") {
             self.PictureAsso.image = UIImage(named: "default_profil")
         }else {
-            self.PictureAsso.downloadedFrom(link: define.path_picture + imageName, contentMode: .ScaleToFill)
+            self.PictureAsso.downloadedFrom(link: define.path_picture + imageName, contentMode: .scaleToFill)
         }
         self.PictureAsso.layer.cornerRadius = 10
-        self.PictureAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.PictureAsso.layer.borderColor = UIColor.darkGray.cgColor;
         self.PictureAsso.layer.masksToBounds = true
         self.PictureAsso.clipsToBounds = true
         self.LieuAsso.text = state

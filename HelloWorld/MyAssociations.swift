@@ -21,7 +21,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     var asso_created_list : JSON = []
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(MyAssociations.loadDataFirstView), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(MyAssociations.loadDataFirstView), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
@@ -36,18 +36,18 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var viewAssoCreated: UIView!
     
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellMyAsso = tableViewAssoc.dequeueReusableCellWithIdentifier("myassoc", forIndexPath: indexPath) as! CustomCellMyAsso
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : CustomCellMyAsso = tableViewAssoc.dequeueReusableCell(withIdentifier: "myassoc", for: indexPath) as! CustomCellMyAsso
 
-        let state = String(asso_member_list[indexPath.row]["nb_members"]) + " membres"
-            cell.setCell(String(asso_member_list[indexPath.row]["name"]), imageName: define.path_picture + String(asso_member_list[indexPath.row]["thumb_path"]), state: state)
+        let state = String(describing: asso_member_list[indexPath.row]["nb_members"]) + " membres"
+            cell.setCell(NameLabel: String(describing: asso_member_list[indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_member_list[indexPath.row]["thumb_path"]), state: state)
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, tableViewAssoc.bounds.size.width, tableViewAssoc.bounds.size.height))
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: tableViewAssoc.bounds.size.width, height: tableViewAssoc.bounds.size.height))
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-        noDataLabel.textAlignment = NSTextAlignment.Center
+        noDataLabel.textAlignment = NSTextAlignment.center
         
         if(asso_member_list.count == 0){
             noDataLabel.text = "Vous ne faites partis d'aucune association.."
@@ -62,9 +62,12 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     
     func loadDataFirstView(){
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
-        let val = "volunteers/" + String(user["id"]) + "/associations"
-        request.request("GET", param: param,add: val, callback: {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
+        let val = "volunteers/" + String(describing: user["id"]) + "/associations"
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 var TableData:Array< JSON > = Array < JSON >()
@@ -101,20 +104,20 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     //COLLECTION VIEW
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    private func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
     
 //    //2
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return asso_created_list.count
     }
     
     //3
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell : CustomCellCollectionCreateAsso = createdAssoCollection.dequeueReusableCellWithReuseIdentifier("CreateAssoCell", forIndexPath: indexPath) as! CustomCellCollectionCreateAsso
-        print("CHEMIN :: " + define.path_picture + String(asso_created_list[indexPath.row]["thumb_path"]))
-            cell.setData(define.path_picture + String(asso_created_list[indexPath.row]["thumb_path"]), name: String(asso_created_list[indexPath.row]["name"]))
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell : CustomCellCollectionCreateAsso = createdAssoCollection.dequeueReusableCell(withReuseIdentifier: "CreateAssoCell", for: indexPath) as! CustomCellCollectionCreateAsso
+        print("CHEMIN :: " + define.path_picture + String(describing: asso_created_list[indexPath.row]["thumb_path"]))
+            cell.setData(image: define.path_picture + String(describing: asso_created_list[indexPath.row]["thumb_path"]), name: String(describing: asso_created_list[indexPath.row]["name"]))
         return cell
     }
     
@@ -136,24 +139,26 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLayoutSubviews()
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
     }
     
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
         
         //var unsubscribe = UITableViewRowAction(style: .Normal, title: "Quitter") { handler: (UITableViewRowAction, NSIndexPath) -> Void))
     
-            let shareAction = UITableViewRowAction(style: .Normal, title: "Quitter") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+            let shareAction = UITableViewRowAction(style: .normal, title: "Quitter") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
                 
                 print("vous quittez cette association")
-                self.param["token"] = String(self.user["token"])
-                self.param["assoc_id"] = String(self.asso_list["response"][indexPath!.row]["id"])
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                self.param["assoc_id"] = String(describing: self.asso_list["response"][indexPath!.row]["id"])
                 let val = "membership/leave"
-                self.request.request("DELETE", param: self.param,add: val, callback: {
+                self.request.request(type: "DELETE", param: self.param,add: val, callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         //self.asso_list = User
@@ -169,51 +174,50 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
                 
             }
             
-            shareAction.backgroundColor = UIColor.redColor()
+            shareAction.backgroundColor = UIColor.red
             
             return [shareAction]
 
         }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {        
         // get a reference to the second view controller
         if(segue.identifier == "AssocProfilVC2"){
-             let indexPath = tableViewAssoc.indexPathForCell(sender as! UITableViewCell)
+             let indexPath = tableViewAssoc.indexPath(for: sender as! UITableViewCell)
 //            let currentCell : CustomCellMyAsso = tableViewAssoc.cellForRowAtIndexPath(indexPath!) as! CustomCellMyAsso!
             
             
             
-            let secondViewController = segue.destinationViewController as! AssociationProfil
+            let secondViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
 //            secondViewController.TitleAssoc = currentCell.textLabel!.text!
-            secondViewController.AssocID = String(asso_member_list[indexPath!.row]["id"])
-            secondViewController.alreadyMember = String(asso_member_list[indexPath!.row]["rights"])
+            secondViewController.AssocID = String(describing: asso_member_list[indexPath!.row]["id"])
+            secondViewController.alreadyMember = String(describing: asso_member_list[indexPath!.row]["rights"])
             print(indexPath?.row);
             navigationItem.title = "back"
         }
         if(segue.identifier == "AssocProfilVC4"){
-            let indexPath = createdAssoCollection.indexPathForCell(sender as! UICollectionViewCell)
+            let indexPath = createdAssoCollection.indexPath(for: sender as! UICollectionViewCell)
             //            let currentCell : CustomCellMyAsso = tableViewAssoc.cellForRowAtIndexPath(indexPath!) as! CustomCellMyAsso!
             
             
             
-            let secondViewController = segue.destinationViewController as! AssociationProfil
+            let secondViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
             //            secondViewController.TitleAssoc = currentCell.textLabel!.text!
-            secondViewController.AssocID = String(asso_created_list[indexPath!.row]["id"])
-            secondViewController.alreadyMember = String(asso_created_list[indexPath!.row]["rights"])
+            secondViewController.AssocID = String(describing: asso_created_list[indexPath!.row]["id"])
+            secondViewController.alreadyMember = String(describing: asso_created_list[indexPath!.row]["rights"])
             print(indexPath?.row);
             navigationItem.title = "back"
         }
         
     }
     
-    @IBAction func unwindToMyAsso(sender: UIStoryboardSegue) {
-         let data = sender.sourceViewController as! NewAssociation
-        request.request("POST", param: data.assoc_array,add: "associations", callback: {
+    @IBAction func unwindToMyAsso(_ sender: UIStoryboardSegue) {
+         let data = sender.source as! NewAssociation
+        request.request(type: "POST", param: data.assoc_array,add: "associations", callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.loadDataFirstView()

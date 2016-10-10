@@ -28,31 +28,34 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
         self.hideKeyboardWhenTappedAround()
         user = sharedInstance.volunteer["response"]
         Statut.text = "Exprimez-vous..."
-        Statut.textColor = UIColor.lightGrayColor()
+        Statut.textColor = UIColor.lightGray
     }
     
     
     
-    func textViewDidBeginEditing(textView: UITextView) {
-        if textView.textColor == UIColor.lightGrayColor() {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
             textView.text = nil
-            textView.textColor = UIColor.blackColor()
+            textView.textColor = UIColor.black
         }
     }
     
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Exprimez-vous..."
-            textView.textColor = UIColor.lightGrayColor()
+            textView.textColor = UIColor.lightGray
         }
     }
     
-    @IBAction func Publish(sender: AnyObject) {
+    @IBAction func Publish(_ sender: AnyObject) {
         
         if(Statut.text == ""){
             print("Votre message est vide. Ecrivez quelque chose.")
         }else{
-            assoc_array["token"] = String(user["token"])
+            self.assoc_array["access-token"] = sharedInstance.header["access-token"]
+            self.assoc_array["client"] = sharedInstance.header["client"]
+            self.assoc_array["uid"] = sharedInstance.header["uid"]
+
             assoc_array["content"] = Statut.text!
             if from == "asso" {
                 assoc_array["group_id"] = AssoID
@@ -62,17 +65,17 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
                 assoc_array["group_type"] = "Event"
             }
             else {
-                assoc_array["group_id"] = String(user["id"])
+                assoc_array["group_id"] = String(describing: user["id"])
                 assoc_array["group_type"] = "Volunteer"
             }
             assoc_array["news_type"] = "Status"
-            request.request("POST", param: assoc_array,add: "news/wall_message", callback: {
+            request.request(type: "POST", param: assoc_array,add: "news/wall_message", callback: {
                 (isOK, User)-> Void in
                  if(isOK){
                     //self.refreshActu()
                     SCLAlertView().showSuccess("Succès !", subTitle: "Votre message a été publié.")
                     self.ZoneText.text = "Exprimez-vous..."
-                    self.ZoneText.textColor = UIColor.lightGrayColor()
+                    self.ZoneText.textColor = UIColor.lightGray
                 }
                 else {
                     SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
@@ -101,12 +104,12 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
     
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         
         if(segue.identifier == "PublishStatut"){
             
-            let firstViewController = segue.destinationViewController as! AssociationProfil
+            let firstViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
             firstViewController.user = user

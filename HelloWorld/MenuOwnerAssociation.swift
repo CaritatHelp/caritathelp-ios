@@ -28,7 +28,7 @@ class MenuOwnerAssocation: UIViewController {
         
         self.urgenceBTN.layer.cornerRadius = self.urgenceBTN.frame.size.width / 2;
         self.urgenceBTN.layer.borderWidth = 1.0
-        self.urgenceBTN.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.urgenceBTN.layer.borderColor = UIColor.darkGray.cgColor;
         self.urgenceBTN.layer.masksToBounds = true
         self.urgenceBTN.clipsToBounds = true
 
@@ -44,47 +44,50 @@ class MenuOwnerAssocation: UIViewController {
 //                }
 //
     
-        override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
 
             if(segue.identifier == "goToNotifAsso"){
-                let secondViewController = segue.destinationViewController as! NotifAssociation
+                let secondViewController = segue.destination as! NotifAssociation
 
                 print("asso ID = \(Asso["response"]["id"])")
-                secondViewController.AssocID = String(Asso["response"]["id"])
+                secondViewController.AssocID = String(describing: Asso["response"]["id"])
     
             }
             if(segue.identifier == "goToInviteMember"){
-                let secondViewController = segue.destinationViewController as! InviteMemberController
-                secondViewController.AssocID = String(Asso["response"]["id"])
+                let secondViewController = segue.destination as! InviteMemberController
+                secondViewController.AssocID = String(describing: Asso["response"]["id"])
                 
             }
             if(segue.identifier == "goToParamAsso"){
-                let secondViewController = segue.destinationViewController as! ParametreAssociations
+                let secondViewController = segue.destination as! ParametreAssociations
                 secondViewController.Asso = Asso
                 
             }
             if(segue.identifier == "fromasso"){
-                let secondViewController = segue.destinationViewController as! LoadPhotoController
+                let secondViewController = segue.destination as! LoadPhotoController
                 secondViewController.from = "2"
-                secondViewController.id_asso = String(Asso["response"]["id"])
+                secondViewController.id_asso = String(describing: Asso["response"]["id"])
                 
             }
         }
     
-    @IBAction func unwindToEndCreateEvent(unwindSegue:UIStoryboardSegue) {
+    @IBAction func unwindToEndCreateEvent(_ unwindSegue:UIStoryboardSegue) {
         //if let _ = unwindSegue.sourceViewController as? MenuOwnerAssocation {
             //performSegueWithIdentifier("BackToMenuVC", sender: self)}
-        let data = unwindSegue.sourceViewController as? DateCreateEvent
-        param["token"] = String(user["token"])
-        param["assoc_id"] = String(Asso["response"]["id"])
+        let data = unwindSegue.source as? DateCreateEvent
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
+        param["assoc_id"] = String(describing: Asso["response"]["id"])
         param["title"] = data?.eventTitle
         param["description"] = data?.descp
         param["place"] = data?.city
         param["begin"] = data?.start
         param["end"] = data?.end
         let val = "events"
-        request.request("POST", param: param,add: val, callback: {
+        request.request(type: "POST", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                // self.notifs = User
@@ -99,8 +102,8 @@ class MenuOwnerAssocation: UIViewController {
        // _ = unwindSegue.sourceViewControllers
     }
     
-    @IBAction func unwindToMenuOwner(sender: UIStoryboardSegue) {
-        _ = sender.sourceViewController
+    @IBAction func unwindToMenuOwner(_ sender: UIStoryboardSegue) {
+        _ = sender.source
     }
 
 }

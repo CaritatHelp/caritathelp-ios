@@ -18,10 +18,10 @@ class SubscribeDateController: UIViewController {
     @IBOutlet weak var naissance: UIDatePicker!
     
     
-    @IBAction func naissanceAction(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
+    @IBAction func naissanceAction(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-        strDate = dateFormatter.stringFromDate(naissance.date)
+        strDate = dateFormatter.string(from: naissance.date)
         //date = strDate
         print("Date : "+strDate)
     }
@@ -36,11 +36,11 @@ class SubscribeDateController: UIViewController {
         //nom = receivedString
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "goToMailSubscribe"){
-            let secondViewController = segue.destinationViewController as! SubscribeMailController
+            let secondViewController = segue.destination as! SubscribeMailController
             
             // set a variable in the second view controller with the String to pass
             secondViewController.nom = nom
@@ -49,7 +49,7 @@ class SubscribeDateController: UIViewController {
             secondViewController.gender = sex
         }
         if(segue.identifier == "goToStartSubscribe"){
-            let firstViewController = segue.destinationViewController as! SubscribeCtrl
+            let firstViewController = segue.destination as! SubscribeCtrl
             
             // set a variable in the second view controller with the String to pass
             firstViewController.nomUser = nom

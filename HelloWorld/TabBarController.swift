@@ -61,14 +61,13 @@ class TabBarController : UITabBarController {
 //         }
         self.tabBar.items?[3].badgeValue = nil
         self.tabBar.tintColor = UIColor(red: 111/255, green: 170/255, blue: 131/255, alpha: 1)
-        self.tabBar.barTintColor = UIColor.whiteColor()
-        self.tabBar.translucent = false
+        self.tabBar.barTintColor = UIColor.white
+        self.tabBar.isTranslucent = false
 
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-
-        let tabBarC = segue.destinationViewController as! TabBarController
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tabBarC = segue.destination as! TabBarController
         let firstViewController = tabBarC.viewControllers?.first as! HomeController
 
         firstViewController.user = user

@@ -30,9 +30,9 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
         user = sharedInstance.volunteer
         print("DANS UPDATE // ")
         print(user)
-        Prenom.text = String(user["response"]["firstname"])
-        Nom.text = String(user["response"]["lastname"])
-        Mail.text = String(user["response"]["mail"])
+        Prenom.text = String(describing: user["response"]["firstname"])
+        Nom.text = String(describing: user["response"]["lastname"])
+        Mail.text = String(describing: user["response"]["mail"])
         
     }
 
@@ -40,24 +40,24 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
         
         let numberRegEx  = ".*[0-9]+.*"
         let testCase = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
-        let containsNumber = testCase.evaluateWithObject(_string)
+        let containsNumber = testCase.evaluate(with: _string)
         
         return containsNumber
     }
 
     
     func beforeUpdate() -> Bool{
-        self.Message.textColor = UIColor.redColor()
+        self.Message.textColor = UIColor.red
         if(Prenom.text == "" || Nom.text == "" || Mail.text == ""){
             Message.text = "Veuillez remplir vos informations."
             return false
         }
         if(old_password.text != ""){
-            if(old_password.text != String(user["response"]["password"])){
+            if(old_password.text != String(describing: user["response"]["password"])){
                 Message.text = "Votre ancien mot de passe ne correspond pas..."
                 return false
             }
-            if(doStringContainsNumber(new_password.text!) == false){
+            if(doStringContainsNumber(_string: new_password.text!) == false){
                 Message.text = "votre mot de passe doit contenir lettre/chiffre"
                 return false
             }
@@ -69,28 +69,31 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
         return true;
     }
     
-    @IBAction func UpdateProfil(sender: AnyObject) {
+    @IBAction func UpdateProfil(_ sender: AnyObject) {
         
         if (beforeUpdate() == true) {
         
-        param["token"] = String(user["response"]["token"])
-        param["mail"] = Mail.text
-        param["password"] = new_password.text == "" ?String(user["response"]["password"]) : new_password.text
-        param["firstname"] = Prenom.text
-        param["lastname"] = Nom.text
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+        self.param["mail"] = Mail.text
+        self.param["password"] = new_password.text == "" ?String(describing: user["response"]["password"]) : new_password.text
+        self.param["firstname"] = Prenom.text
+        self.param["lastname"] = Nom.text
 
         
-        request.request("PUT", param: param,add: "volunteers/"+String(user["response"]["id"]), callback: {
+        request.request(type: "PUT", param: self.param,add: "volunteers/"+String(describing: user["response"]["id"]), callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Message.text = "Votre profil à été mis à jour !"
-                self.Message.textColor = UIColor.greenColor()
+                self.Message.textColor = UIColor.green
                 self.user = User
-                sharedInstance.setUser(User)
+                sharedInstance.setUser(user: User)
             }
             else {
                 self.Message.text = "Une erreur est survenue ... "
-                self.Message.textColor = UIColor.redColor()
+                self.Message.textColor = UIColor.red
 
             }
         });
@@ -98,7 +101,7 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         self.view.endEditing(true)
         return true

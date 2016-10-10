@@ -26,7 +26,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
     var param = [String: String]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(VolunteerNotificationController.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(VolunteerNotificationController.refresh), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
@@ -37,9 +37,12 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         self.list_invits.addSubview(self.refreshControl)
         InvitsAssoBtn.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "notifications/"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 var TableData:Array< JSON > = Array < JSON >()
@@ -78,25 +81,25 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : CustomCellInvits!
-        let message = MessageNotif(indexPath.row)
+        let message = MessageNotif(row: indexPath.row)
         switch invits[indexPath.row]["notif_type"] {
         case "InviteMember":
-            cell = list_invits.dequeueReusableCellWithIdentifier("CellInvitation", forIndexPath: indexPath) as! CustomCellInvits
+            cell = list_invits.dequeueReusableCell(withIdentifier: "CellInvitation", for: indexPath) as! CustomCellInvits
             
-            cell.setCell(message, DetailLabel: String(invits[indexPath.row]["created_at"]), imageName: "")
+            cell.setCell(NameLabel: message, DetailLabel: String(describing: invits[indexPath.row]["created_at"]), imageName: "")
         case "InviteGuest":
-            cell = list_invits.dequeueReusableCellWithIdentifier("CellInvitation2", forIndexPath: indexPath) as! CustomCellInvits
+            cell = list_invits.dequeueReusableCell(withIdentifier: "CellInvitation2", for: indexPath) as! CustomCellInvits
             
             //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(message, DetailLabel: String(invits[indexPath.row]["created_at"]), imageName: "")
+            cell.setCell(NameLabel: message, DetailLabel: String(describing: invits[indexPath.row]["created_at"]), imageName: "")
         default :
             print(invits["notif_type"])
-            cell = list_invits.dequeueReusableCellWithIdentifier("CellInvitation3", forIndexPath: indexPath) as! CustomCellInvits
+            cell = list_invits.dequeueReusableCell(withIdentifier: "CellInvitation3", for: indexPath) as! CustomCellInvits
             
             //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(message, DetailLabel: String(invits[indexPath.row]["created_at"]), imageName: "")
+            cell.setCell(NameLabel: message, DetailLabel: String(describing: invits[indexPath.row]["created_at"]), imageName: "")
         }
         return cell
     }
@@ -105,31 +108,34 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         var message = ""
         switch invits[row]["notif_type"] {
         case "InviteMember":
-            message = String(invits[row]["sender_name"]) + " vous invite à rejoindre l'association : " + String(invits[row]["assoc_name"])
+            message = String(describing: invits[row]["sender_name"]) + " vous invite à rejoindre l'association : " + String(describing: invits[row]["assoc_name"])
         case "InviteGuest":
-            message = String(invits[row]["sender_name"]) + " vous invite à rejoindre l'évènement : " + String(invits[row]["event_name"])
+            message = String(describing: invits[row]["sender_name"]) + " vous invite à rejoindre l'évènement : " + String(describing: invits[row]["event_name"])
         case "AddFriend":
-            message = String(invits[row]["sender_name"]) + " veux vous ajouter en ami "
+            message = String(describing: invits[row]["sender_name"]) + " veux vous ajouter en ami "
         default:
             message = "erreur...."
         }
         return message
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return invits.count
     }
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
         //var unsubscribe = UITableViewRowAction(style: .Normal, title: "Quitter") { handler: (UITableViewRowAction, NSIndexPath) -> Void))
         
-        let shareAction = UITableViewRowAction(style: .Normal, title: "Confirmer") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction = UITableViewRowAction(style: .normal, title: "Confirmer") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
-            self.param["token"] = String(self.user["token"])
-            self.param["notif_id"] = String(self.invits[indexPath!.row]["id"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+            self.param["notif_id"] = String(describing: self.invits[indexPath!.row]["id"])
             self.param["acceptance"] = "true"
             //print(self.param["notif_id"])
             var val = ""
@@ -141,7 +147,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             }else if self.invits[indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
             }
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     self.refresh()                }
@@ -151,11 +157,14 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             });
             
         }
-        let shareAction2 = UITableViewRowAction(style: .Normal, title: "refuser") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction2 = UITableViewRowAction(style: .normal, title: "refuser") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
             print("nouvel ami !")
-            self.param["token"] = String(self.user["token"])
-            self.param["notif_id"] = String(self.invits[indexPath!.row]["id"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+            self.param["notif_id"] = String(describing: self.invits[indexPath!.row]["id"])
             self.param["acceptance"] = "false"
             var val = ""
             if self.invits[indexPath.row]["notif_type"] == "AddFriend" {
@@ -166,7 +175,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             }else if self.invits[indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
             }
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     self.refresh()                }
@@ -176,13 +185,13 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             });
             
         }
-        shareAction2.backgroundColor = UIColor.redColor()
+        shareAction2.backgroundColor = UIColor.red
         shareAction.backgroundColor = UIColor(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)
         return [shareAction2, shareAction]
         
     }
 
-    @IBAction func ShowInvitsAsso(sender: AnyObject) {
+    @IBAction func ShowInvitsAsso(_ sender: AnyObject) {
         InvitsAssoBtn.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         InvitsEventBtn.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         InvitsFriendBtn.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -192,7 +201,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         list_invits.reloadData()
     }
     
-    @IBAction func ShowInvitsEvent(sender: AnyObject) {
+    @IBAction func ShowInvitsEvent(_ sender: AnyObject) {
         InvitsEventBtn.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         InvitsAssoBtn.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         InvitsFriendBtn.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -202,7 +211,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         list_invits.reloadData()
     }
     
-    @IBAction func ShowInvitsFriend(sender: AnyObject) {
+    @IBAction func ShowInvitsFriend(_ sender: AnyObject) {
         InvitsFriendBtn.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         InvitsEventBtn.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         InvitsAssoBtn.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -214,9 +223,12 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
     
     func refresh() {
         // Code to refresh table view
-        param["token"] = String(user["token"])
-        let val = "volunteers/" + String(user["id"]) + "/notifications"
-        request.request("GET", param: param,add: val, callback: {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
+        let val = "volunteers/" + String(describing: user["id"]) + "/notifications"
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 var TableData:Array< JSON > = Array < JSON >()

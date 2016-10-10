@@ -27,13 +27,13 @@ class CustomCellActu: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
     
-    @IBAction func setting_actu(sender: AnyObject) {
+    @IBAction func setting_actu(_ sender: AnyObject) {
         // Initialize SCLAlertView using custom Appearance
         let appearance = SCLAlertView.SCLAppearance(
             kTitleFont: UIFont(name: "HelveticaNeue", size: 20)!,
@@ -44,16 +44,16 @@ class CustomCellActu: UITableViewCell {
         let alert = SCLAlertView(appearance: appearance)
         
         // Creat the subview
-        let subview = UIView(frame: CGRectMake(0,0,216,70))
+        let subview = UIView(frame: CGRect(x:0,y:0,width:216,height:70))
         let x = (subview.frame.width - 180) / 2
         
         // Add textfield 1
-        let textfield1 = UITextView(frame: CGRectMake(x,10,180,50))
-        textfield1.layer.borderColor = UIColor.blueColor().CGColor
+        let textfield1 = UITextView(frame: CGRect(x: x,y:10,width:180,height:50))
+        textfield1.layer.borderColor = UIColor.blue.cgColor
         textfield1.layer.borderWidth = 1.5
         textfield1.layer.cornerRadius = 5
         textfield1.text = content.text
-        textfield1.textAlignment = NSTextAlignment.Center
+        textfield1.textAlignment = NSTextAlignment.center
         subview.addSubview(textfield1)
         
         // Add the subview to the alert's UI property
@@ -74,15 +74,15 @@ class CustomCellActu: UITableViewCell {
     func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String, from: String){
         self.titre.text = NameLabel
         self.date.text = DateLabel
-        self.photo.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.photo.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.photo.layer.cornerRadius = self.photo.frame.size.width / 2
-        self.photo.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.photo.layer.borderColor = UIColor.darkGray.cgColor;
         self.photo.layer.masksToBounds = true
         self.photo.clipsToBounds = true
         self.content.text = content
         
         if from == "false"{
-            btn_setting.hidden = true
+            btn_setting.isHidden = true
         }
     }
     

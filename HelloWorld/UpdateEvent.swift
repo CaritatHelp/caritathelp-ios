@@ -28,15 +28,15 @@ class UpdateEventController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
-        TitleEvent.text = String(Event["title"])
-        PlaceEvent.text = String(Event["place"])
-        StartDate.text = "début : " + String(Event["begin"])
-        EndDate.text = "fin : " + String(Event["end"])
-        DescEvent.text = String(Event["description"])
+        TitleEvent.text = String(describing: Event["title"])
+        PlaceEvent.text = String(describing: Event["place"])
+        StartDate.text = "début : " + String(describing: Event["begin"])
+        EndDate.text = "fin : " + String(describing: Event["end"])
+        DescEvent.text = String(describing: Event["description"])
 
     }
     
-    @IBAction func updateEvent(sender: AnyObject) {
+    @IBAction func updateEvent(_ sender: AnyObject) {
         if(TitleEvent.text!.isEmpty){
             SCLAlertView().showError("Attention", subTitle: "Votre évènement doit avoir un nom")
         }else if (PlaceEvent.text!.isEmpty){
@@ -46,15 +46,18 @@ class UpdateEventController : UIViewController {
             
         }else {
             
-            param["token"] = String(user["token"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
             param["title"] = TitleEvent.text
             param["description"] = DescEvent.text
             param["place"] = PlaceEvent.text
             param["begin"] = StartDate.text
             param["end"] = EndDate.text
-            let path = "events/" + String(Event["id"])
+            let path = "events/" + String(describing: Event["id"])
             
-            request.request("PUT", param: param,add: path, callback: {
+            request.request(type: "PUT", param: param,add: path, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     currentEvent.currentEvent = User["response"]
@@ -70,12 +73,12 @@ class UpdateEventController : UIViewController {
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "goToUpdateDateEvent"){
             //envoyer les dates au controller sur le dates
-            let navController = segue.destinationViewController as! UINavigationController
+            let navController = segue.destination as! UINavigationController
             let VC = navController.topViewController as! UpdateEventDateController
             VC.start = StartDate.text!
             VC.end = EndDate.text!
@@ -83,14 +86,14 @@ class UpdateEventController : UIViewController {
     }
 
     
-    @IBAction func unwindToUpdateEvent(sender: UIStoryboardSegue) {
-        let data = sender.sourceViewController as! UpdateEventDateController
+    @IBAction func unwindToUpdateEvent(_ sender: UIStoryboardSegue) {
+        let data = sender.source as! UpdateEventDateController
         StartDate.text = "début : " + data.start
         EndDate.text = "fin : " + data.end
     }
     
-    @IBAction func unwindToUpdateEventCancel(sender: UIStoryboardSegue) {
-        _ = sender.sourceViewController
+    @IBAction func unwindToUpdateEventCancel(_ sender: UIStoryboardSegue) {
+        _ = sender.source
     }
     
 

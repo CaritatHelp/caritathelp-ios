@@ -22,18 +22,18 @@ class NotifAssociation : UIViewController, UITableViewDataSource, UITableViewDel
     
     //let AssocList = ["la croix rouge", "les restos du coeur", "futsal"]
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = notifs_list.dequeueReusableCellWithIdentifier("NotifAssoCell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = notifs_list.dequeueReusableCell(withIdentifier: "NotifAssoCell", for: indexPath as IndexPath)
         
-        cell.textLabel!.text = String(notifs["response"]["member_request"][indexPath.row]["firstname"]) + " " + String(notifs["response"]["member_request"][indexPath.row]["lastname"])
+        cell.textLabel!.text = String(describing: notifs["response"]["member_request"][indexPath.row]["firstname"]) + " " + String(describing: notifs["response"]["member_request"][indexPath.row]["lastname"])
         cell.detailTextLabel?.text = "demande de membre"
         print("res : ")
-        print(String(notifs["response"]["member_request"]))
+        print(String(describing: notifs["response"]["member_request"]))
         print("fin .")
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return notifs["response"].count
     }
@@ -42,9 +42,12 @@ class NotifAssociation : UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "associations/" + AssocID + "/notifications"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.notifs = User
@@ -58,31 +61,34 @@ class NotifAssociation : UIViewController, UITableViewDataSource, UITableViewDel
         
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
     }
     
     
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
         //var unsubscribe = UITableViewRowAction(style: .Normal, title: "Quitter") { handler: <#T##(UITableViewRowAction, NSIndexPath) -> Void#>))
-        let shareAction2 = UITableViewRowAction(style: .Normal, title: "Refuser") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction2 = UITableViewRowAction(style: .normal, title: "Refuser") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
         }
         
-        let shareAction = UITableViewRowAction(style: .Normal, title: "Accepter") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction = UITableViewRowAction(style: .normal, title: "Accepter") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
-            self.param["token"] = String(self.user["token"])
-            self.param["notif_id"] = String(self.notifs["response"]["member_request"][indexPath.row]["notif_id"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+            self.param["notif_id"] = String(describing: self.notifs["response"]["member_request"][indexPath.row]["notif_id"])
             self.param["acceptance"] = "true"
             let val = "/membership/reply_member"
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    self.param["token"] = String(self.user["token"])
+                    self.param["token"] = String(describing: self.user["token"])
                     let val = "associations/" + self.AssocID + "/notifications"
-                    self.request.request("GET", param: self.param,add: val, callback: {
+                    self.request.request(type: "GET", param: self.param,add: val, callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             self.notifs = User
@@ -103,8 +109,8 @@ class NotifAssociation : UIViewController, UITableViewDataSource, UITableViewDel
         
 
         
-        shareAction.backgroundColor = UIColor.greenColor()
-        shareAction2.backgroundColor = UIColor.redColor()
+        shareAction.backgroundColor = UIColor.green
+        shareAction2.backgroundColor = UIColor.red
         
         return [shareAction, shareAction2]
         

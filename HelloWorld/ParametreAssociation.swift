@@ -24,30 +24,33 @@ class ParametreAssociations : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
-        NomAsso.text = String(Asso["response"]["name"])
-        DescAsso.text = String(Asso["response"]["description"])
-        VilleAsso.text = String(Asso["response"]["city"])
+        NomAsso.text = String(describing: Asso["response"]["name"])
+        DescAsso.text = String(describing: Asso["response"]["description"])
+        VilleAsso.text = String(describing: Asso["response"]["city"])
     }
     
-    @IBAction func UpdateAsso(sender: AnyObject) {
+    @IBAction func UpdateAsso(_ sender: AnyObject) {
         
         
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         param["name"] = NomAsso.text
         param["description"] = DescAsso.text
         param["city"] = VilleAsso.text
         
         
-        request.request("PUT", param: param,add: "associations/"+String(Asso["response"]["id"]), callback: {
+        request.request(type: "PUT", param: param,add: "associations/"+String(describing: Asso["response"]["id"]), callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Message.text = "l'association a été mis à jour !"
-                self.Message.textColor = UIColor.greenColor()
+                self.Message.textColor = UIColor.green
                 self.Asso = User
             }
             else {
                 self.Message.text = "Une erreur est survenue ... "
-                self.Message.textColor = UIColor.redColor()
+                self.Message.textColor = UIColor.red
                 
             }
         });

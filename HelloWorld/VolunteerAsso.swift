@@ -19,13 +19,13 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
     @IBOutlet weak var asso_list: UITableView!
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellAssoVolunteer = asso_list.dequeueReusableCellWithIdentifier("assovolunteer", forIndexPath: indexPath) as! CustomCellAssoVolunteer
-        cell.setCell(String(assoVolunteer["response"][indexPath.row]["name"]), imageName: define.path_picture + String(assoVolunteer["response"][indexPath.row]["thumb_path"]), state: "Paris")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : CustomCellAssoVolunteer = asso_list.dequeueReusableCell(withIdentifier: "assovolunteer", for: indexPath) as! CustomCellAssoVolunteer
+        cell.setCell(NameLabel: String(describing: assoVolunteer["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: assoVolunteer["response"][indexPath.row]["thumb_path"]), state: "Paris")
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return assoVolunteer["response"].count
     }
     
@@ -34,9 +34,12 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
         super.viewDidLoad()
         
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "volunteers/" + idvolunteer + "/associations"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.assoVolunteer = User
@@ -49,21 +52,21 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "assovolunteerprofil"){
-            let indexPath = asso_list.indexPathForCell(sender as! UITableViewCell)
-            let currentCell = asso_list.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
+            let indexPath = asso_list.indexPath(for: sender as! UITableViewCell)
+            _ = asso_list.cellForRow(at: indexPath!) as UITableViewCell!
             
             
             
-            let secondViewController = segue.destinationViewController as! AssociationProfil
+            let secondViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
             //secondViewController.TitleAssoc = currentCell.textLabel!.text!
-            secondViewController.AssocID = String(assoVolunteer["response"][indexPath!.row]["id"])
-            secondViewController.alreadyMember = String(assoVolunteer["response"][indexPath!.row]["rights"])
+            secondViewController.AssocID = String(describing: assoVolunteer["response"][indexPath!.row]["id"])
+            secondViewController.alreadyMember = String(describing: assoVolunteer["response"][indexPath!.row]["rights"])
             //secondViewController.user = user
             
             navigationItem.title = "back"

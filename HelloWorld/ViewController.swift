@@ -23,13 +23,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
     //let ws = ConnectionWebSocket()
     //var volunteer = VolunteerModel()
     
-    @IBAction func changeText(sender: AnyObject) {
+    @IBAction func changeText(_ sender: AnyObject) {
         
 
         let pseudo = login.text
         let pwd = password.text
         msg_co.text = ""
-        LogIn(pseudo!, pwd: pwd!)
+        LogIn(pseudo: pseudo!, pwd: pwd!)
     }
     
     func getData(status:String){
@@ -38,33 +38,33 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func LogIn(pseudo:String,pwd:String) {
         
-        //print(pseudo)
+        print(pseudo)
         //print(pwd)
         
-        let param = ["mail": pseudo, "password": pwd]
+        let param = ["email": pseudo, "password": pwd]
         //var res : AnyObject = ""
         
-        request.request("POST", param: param, add: "login", callback: {
+        request.request(type: "POST", param: param, add: "auth/sign_in", callback: {
             (isOK, User) -> Void in
             if (isOK) {
                 //do good stuff here
 //                self.msg_co.text = "Connecté"
 //                self.msg_co.textColor = UIColor.greenColor()
                 print("USER : \(User["response"]["lastname"])")
-                let paramCo = "{\"token\":\"token\", \"token_user\":" + String(User["response"]["token"]) + "}"
+                let paramCo = "{\"token\":\"token\", \"token_user\":" + String(describing: User["response"]["token"]) + "}"
                 print("TEST 1 : " + paramCo)
                 //                self.presentViewController(vc, animated: false, completion: nil)
-                sharedInstance.setUser(User)
+                sharedInstance.setUser(user: User)
                 let storyboard = UIStoryboard(name:"Main",bundle: nil)
-                let TBCtrl = storyboard.instantiateViewControllerWithIdentifier("TabBarVC") as! TabBarController
+                let TBCtrl = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarController
                 TBCtrl.user = User
-                let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let appdelegate = UIApplication.shared.delegate as! AppDelegate
                 appdelegate.window?.rootViewController = TBCtrl
 
             }else{
                 // do error handling here
                 self.msg_co.text = "login et/ou mot de passe incorrect"
-                self.msg_co.textColor = UIColor.redColor()
+                self.msg_co.textColor = UIColor.red
             }
         })
     }
@@ -73,7 +73,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         login.text = "jeremy@root.com"
-        password.text = "root"
+        password.text = "root1234"
     }
 
 
@@ -82,7 +82,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         self.view.endEditing(true)
         return true
@@ -97,7 +97,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
     }
     
@@ -107,19 +107,19 @@ extension UIViewController {
 }
 
 extension UIImageView {
-    func downloadedFrom(link link:String, contentMode mode: UIViewContentMode) {
+    func downloadedFrom(link:String, contentMode mode: UIViewContentMode) {
         guard
             let url = NSURL(string: link)
             else {return}
         contentMode = mode
-        NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: { (data, response, error) -> Void in
+        URLSession.shared.dataTask(with: url as URL, completionHandler: { (data, response, error) -> Void in
             guard
-                let httpURLResponse = response as? NSHTTPURLResponse where httpURLResponse.statusCode == 200,
-                let mimeType = response?.MIMEType where mimeType.hasPrefix("image"),
-                let data = data where error == nil,
+                let httpURLResponse = response as? HTTPURLResponse , httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType , mimeType.hasPrefix("image"),
+                let data = data , error == nil,
                 let image = UIImage(data: data)
                 else { return }
-            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            DispatchQueue.main.async { () -> Void in
                 self.image = image
             }
         }).resume()

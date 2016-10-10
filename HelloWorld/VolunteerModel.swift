@@ -13,6 +13,7 @@ import UIKit
 class VolunteerModel {
     
     var volunteer : JSON = []
+    var header = [String: String]()
     var nb_notif = 0
     func setUser(user : JSON){
         volunteer = user
@@ -36,9 +37,9 @@ class Define {
     var nb_notif = "0"
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0,y: 0,width: width,height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         

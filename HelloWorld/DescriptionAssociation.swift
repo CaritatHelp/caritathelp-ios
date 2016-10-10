@@ -22,8 +22,8 @@ class DescriptionAssociation : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NameAsso.text! = String(Asso["response"]["name"])
-        descriptionText.text! = String(Asso["response"]["description"])
-        LieuAsso.text! = String(Asso["response"]["city"])
+        NameAsso.text! = String(describing: Asso["response"]["name"])
+        descriptionText.text! = String(describing: Asso["response"]["description"])
+        LieuAsso.text! = String(describing: Asso["response"]["city"])
     }
 }

@@ -8,7 +8,103 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
+import SCLAlertView
 
-class ListchatroomController : UIViewController {
+class ListchatroomController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var user : JSON = []
+    var request = RequestModel()
+    var param = [String: String]()
+    var list_room : JSON = []
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ListchatroomController.refresh_chatroom), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+
+    @IBOutlet weak var tableview_room: UITableView!
+
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+            let cell = tableview_room.dequeueReusableCell(withIdentifier: "roomcell", for: indexPath as IndexPath) as! CustomRoomCell
+            cell.setCell(NameLabel: String(describing: list_room["response"][indexPath.row]["name"]), DetailLabel: String(describing: list_room["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: list_room["response"][indexPath.row]["thumb_path"]))
+            return cell
+            
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return list_room["response"].count
+    }
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableview_room.tableFooterView = UIView()
+        self.tableview_room.addSubview(self.refreshControl)
+        
+        refresh_chatroom()
+        
+    }
+    
+    func refresh_chatroom() {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+        
+        let val = "chatrooms"
+        request.request(type: "GET", param: param,add: val, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.list_room = User
+                self.tableview_room.reloadData()
+                //self.refreshActu()
+            }
+            else {
+                
+            }
+        });
+
+    }
+    
+}
+
+class CustomRoomCell: UITableViewCell {
+    
+    @IBOutlet weak var ImageProfilFriends: UIImageView!
+    @IBOutlet weak var NameRoom: UILabel!
+    @IBOutlet weak var LastMessage: UILabel!
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    required init(coder decoder: NSCoder) {
+        super.init(coder: decoder)!
+    }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    func setCell(NameLabel: String, DetailLabel: String, imageName: String){
+        //self.TitleNews.text = NameLabel
+        self.LastMessage.text = DetailLabel
+        self.ImageProfilFriends.downloadedFrom(link: imageName, contentMode: .scaleToFill)
+        self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2
+        self.ImageProfilFriends.layer.borderColor = UIColor.darkGray.cgColor;
+        self.ImageProfilFriends.layer.masksToBounds = true
+        self.ImageProfilFriends.clipsToBounds = true
+        self.NameRoom.text = NameLabel
+        
+        //cell.imageView?.layer.cornerRadius = 25
+        //cell.imageView?.clipsToBounds = true
+    }
 }

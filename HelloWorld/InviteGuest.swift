@@ -24,10 +24,13 @@ class InviteGuestController: UIViewController {
         super.viewDidLoad()
         friends_list.tableFooterView = UIView()
         
-        user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
+        param["token"] = String(describing: user["token"])
         let val = "associations/" + AssoID + "/members"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.friends = User
@@ -41,15 +44,15 @@ class InviteGuestController: UIViewController {
         
     }
     
-    @IBAction func InviteMember(sender: AnyObject) {
+    @IBAction func InviteMember(_ sender: AnyObject) {
         var i = 0
         
         while i < friends["response"].count {
-            let rowToSelect:NSIndexPath = NSIndexPath(forRow: i, inSection: 0)
-            let cell = friends_list.cellForRowAtIndexPath(rowToSelect)
+            //let rowToSelect:IndexPath = IndexPath(forRow: i, inSection: 0)
+            let cell = friends_list.cellForRow(at: sender.indexPath as IndexPath)
             
-            if (cell?.accessoryType == UITableViewCellAccessoryType.Checkmark){
-                print("invite" + String(friends["response"][i]["firstname"]))
+            if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
+                print("invite" + String(describing: friends["response"][i]["firstname"]))
                 
 //                param["token"] = String(user["token"])
 //                param["volunteer_id"] = String(friends["response"][i]["id"])
@@ -72,10 +75,10 @@ class InviteGuestController: UIViewController {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellInviteGuest  = friends_list.dequeueReusableCellWithIdentifier("GuestCell", forIndexPath: indexPath) as! CustomCellInviteGuest
+        let cell : CustomCellInviteGuest  = friends_list.dequeueReusableCell(withIdentifier: "GuestCell", for: indexPath as IndexPath) as! CustomCellInviteGuest
 
-        let name = String(friends["response"][indexPath.row]["firstname"]) + " " + String(friends["response"][indexPath.row]["lastname"])
-        cell.setCell(name, imageName: define.path_picture + String(friends["response"][indexPath.row]["thumb_path"]))
+        let name = String(describing: friends["response"][indexPath.row]["firstname"]) + " " + String(describing: friends["response"][indexPath.row]["lastname"])
+        cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: friends["response"][indexPath.row]["thumb_path"]))
         
         
         return cell
@@ -88,26 +91,26 @@ class InviteGuestController: UIViewController {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
         
-        let cell = friends_list.cellForRowAtIndexPath(indexPath)
+        let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
-        if (cell?.accessoryType == UITableViewCellAccessoryType.Checkmark){
-            cell!.accessoryType = UITableViewCellAccessoryType.None;
+        if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
+            cell!.accessoryType = UITableViewCellAccessoryType.none;
             
         }else{
-            cell!.accessoryType = UITableViewCellAccessoryType.Checkmark;
+            cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
             
         }
     }
     
     func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath){
         
-        let cell = friends_list.cellForRowAtIndexPath(indexPath)
+        let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
-        if (cell?.accessoryType == UITableViewCellAccessoryType.Checkmark){
-            cell!.accessoryType = UITableViewCellAccessoryType.None;
+        if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
+            cell!.accessoryType = UITableViewCellAccessoryType.none;
             
         }else{
-            cell!.accessoryType = UITableViewCellAccessoryType.Checkmark;
+            cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
             
         }
     }

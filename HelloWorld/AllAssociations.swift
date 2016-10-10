@@ -11,6 +11,8 @@ import UIKit
 import SwiftyJSON
 
 class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate{
+    
+
     var user : JSON = []
     var request = RequestModel()
     var param = [String: String]()
@@ -19,7 +21,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(AllAssociations.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(AllAssociations.refresh), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
@@ -27,29 +29,29 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     @IBOutlet weak var tableViewAssoc: UITableView!
     //let AssocList = ["la croix rouge", "les restos du coeur", "futsal"]
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        print(String(asso_list["response"][indexPath.row]["result_type"]))
-        if String(asso_list["response"][indexPath.row]["result_type"]) == "volunteer" {
-            let cell = tableViewAssoc.dequeueReusableCellWithIdentifier("researchVolunteer", forIndexPath: indexPath) as! CustomCellResearchAsso
-            cell.setCell(String(asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(asso_list["response"][indexPath.row]["thumb_path"]), state: "volontaire")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print(String(describing: asso_list["response"][indexPath.row]["result_type"]))
+        if String(describing: asso_list["response"][indexPath.row]["result_type"]) == "volunteer" {
+            let cell = tableViewAssoc.dequeueReusableCell(withIdentifier: "researchVolunteer", for: indexPath as IndexPath) as! CustomCellResearchAsso
+            cell.setCell(NameLabel: String(describing: asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list["response"][indexPath.row]["thumb_path"]), state: "volontaire")
             return cell
             
-        }else if String(asso_list["response"][indexPath.row]["result_type"]) == "event" {
-            let cell = tableViewAssoc.dequeueReusableCellWithIdentifier("researchEvent", forIndexPath: indexPath) as! CustomCellResearchAsso
-            cell.setCell(String(asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(asso_list["response"][indexPath.row]["thumb_path"]), state: "évènement")
+        }else if String(describing: asso_list["response"][indexPath.row]["result_type"]) == "event" {
+            let cell = tableViewAssoc.dequeueReusableCell(withIdentifier: "researchEvent", for: indexPath as IndexPath) as! CustomCellResearchAsso
+            cell.setCell(NameLabel: String(describing: asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list["response"][indexPath.row]["thumb_path"]), state: "évènement")
             return cell
         } else {
-            let cell = tableViewAssoc.dequeueReusableCellWithIdentifier("researchAsso", forIndexPath: indexPath) as! CustomCellResearchAsso
-            cell.setCell(String(asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(asso_list["response"][indexPath.row]["thumb_path"]), state: "association")
+            let cell = tableViewAssoc.dequeueReusableCell(withIdentifier: "researchAsso", for: indexPath as IndexPath) as! CustomCellResearchAsso
+            cell.setCell(NameLabel: String(describing: asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list["response"][indexPath.row]["thumb_path"]), state: "association")
             return cell
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return asso_list["response"].count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 69
     }
     
@@ -59,14 +61,17 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user
         self.tableViewAssoc.addSubview(self.refreshControl)
-        tableViewAssoc.tableFooterView = UIView()
-        refresh("pierre")
+        //tableViewAssoc.tableFooterView = UIView()
+        refresh(search: "pierre")
     }
     
     func refresh(search: String){
-        param["token"] = String(user["response"]["token"])
-        param["research"] = search
-        request.request("GET", param: param,add: "search", callback: {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
+        self.param["research"] = search
+        request.request(type: "GET", param: self.param, add: "search", callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.asso_list = User
@@ -76,13 +81,13 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
             else {
                 print("erreure")
             }
-        });
+        })
     }
     
 
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let indexPath =  self.tableViewAssoc.indexPathForCell(sender as! UITableViewCell)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let indexPath =  self.tableViewAssoc.indexPath(for: sender as! UITableViewCell)
         
         // get a reference to the second view controller
         if(segue.identifier == "AssocVC3"){
@@ -91,34 +96,34 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
             
             
             
-            let secondViewController = segue.destinationViewController as! AssociationProfil
+            let secondViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.TitleAssoc = String(asso_list["response"][indexPath!.row]["name"])
-            secondViewController.AssocID = String(asso_list["response"][indexPath!.row]["id"])
-            secondViewController.alreadyMember = String(asso_list["response"][indexPath!.row]["rights"])
+            secondViewController.TitleAssoc = String(describing: asso_list["response"][indexPath!.row]["name"])
+            secondViewController.AssocID = String(describing: asso_list["response"][indexPath!.row]["id"])
+            secondViewController.alreadyMember = String(describing: asso_list["response"][indexPath!.row]["rights"])
             //secondViewController.user = user
             navigationItem.title = "back"
         }
         if(segue.identifier == "showeventfromresearch"){
-            let secondViewController = segue.destinationViewController as! ProfilEventController
-            secondViewController.EventID = String(asso_list["response"][indexPath!.row]["id"])
+            let secondViewController = segue.destination as! ProfilEventController
+            secondViewController.EventID = String(describing: asso_list["response"][indexPath!.row]["id"])
         }
         if(segue.identifier == "showprofilfromresearch"){
-            let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            let secondViewController = segue.destination as! ProfilVolunteer
             print(indexPath?.row)
-            secondViewController.idvolunteer = String(asso_list["response"][indexPath!.row]["id"])
+            secondViewController.idvolunteer = String(describing: asso_list["response"][indexPath!.row]["id"])
         }
     }
     
-    func searchBarResultsListButtonClicked(searchBar: UISearchBar) {
+    func searchBarResultsListButtonClicked(_ searchBar: UISearchBar) {
         //self.refreshControl.beginRefreshing()
         //refresh()
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //self.refreshControl.beginRefreshing()
-        refresh(searchText)
+        refresh(search: searchText)
 
     }
 
@@ -147,7 +152,7 @@ class CustomCellResearchAsso: UITableViewCell {
     @IBOutlet weak var PictureAsso: UIImageView!
     
     @IBOutlet weak var NameAsso: UILabel!
-    @IBOutlet weak var Type: UILabel!
+    @IBOutlet weak var `Type`: UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -162,15 +167,15 @@ class CustomCellResearchAsso: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, imageName: String, state: String){
         self.NameAsso.text! = NameLabel
-        self.PictureAsso.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.PictureAsso.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.PictureAsso.layer.cornerRadius = 10
-        self.PictureAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.PictureAsso.layer.borderColor = UIColor.darkGray.cgColor;
         self.PictureAsso.layer.masksToBounds = true
         self.PictureAsso.clipsToBounds = true
         self.Type.text = state

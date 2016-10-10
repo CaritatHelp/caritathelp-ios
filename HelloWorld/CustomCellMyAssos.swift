@@ -30,15 +30,15 @@ class CustomCellMyAsso: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, imageName: String, state: String){
         self.NameAsso.text = NameLabel
-        self.PictureAsso.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.PictureAsso.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.PictureAsso.layer.cornerRadius = 10
-        self.PictureAsso.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.PictureAsso.layer.borderColor = UIColor.darkGray.cgColor;
         self.PictureAsso.layer.masksToBounds = true
         self.PictureAsso.clipsToBounds = true
         self.LieuAsso.text = state

@@ -11,7 +11,7 @@ import UIKit
 import SwiftyJSON
 
 class MyEventsController : UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     var user : JSON = []
     var request = RequestModel()
     var param = [String: String]()
@@ -32,17 +32,23 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var events_list: UITableView!
     @IBOutlet weak var btnPastEvent: UIBarButtonItem!
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellMyEvents = events_list.dequeueReusableCellWithIdentifier("MyEventsCell", forIndexPath: indexPath) as! CustomCellMyEvents
-        let str = String(events[index]["begin"])
-        let heure = str[str.startIndex.advancedBy(11)...str.startIndex.advancedBy(15)]
-        cell.setCell(String(events[index]["title"]), imageName: String(events[index]["thumb_path"]), state: heure)
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : CustomCellMyEvents = events_list.dequeueReusableCell(withIdentifier: "MyEventsCell", for: indexPath as IndexPath) as! CustomCellMyEvents
+        let str = String(describing: events[index]["begin"])
+        //let heure = str[str.startIndex.advancedBy(11)...str.startIndex.advancedBy(15)]
+        if let range = str.range(of: "") {
+            let lo = str.index(range.lowerBound, offsetBy: 11)
+            let hi = str.index(range.lowerBound, offsetBy: 15)
+            let heure = lo ..< hi
+            print(str[heure]) }// "DE"
+        cell.setCell(NameLabel: String(describing: events[index]["title"]), imageName: String(describing: events[index]["thumb_path"]), state: "")
         
         index += 1
             return cell
-    }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    }
+        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         var rows : Int = 0
         if section < nbRowinnSect.count {
@@ -52,18 +58,18 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         return rows
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         var total = events.count
         var i = 0
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+        dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale!
         tabDate = []
         nbRowinnSect = []
         while i < total{
-            let target = String(events[i]["begin"])
-            let range = target.startIndex.advancedBy(10)
-            let date = target.substringToIndex(range)
+            _ = String(describing: events[i]["begin"])
+            _ = ""//target.startIndex.advancedBy(10)
+            let date = ""//target.substringToIndex(range)
             //print(date)
             self.tabDate.append(String(date))
             i += 1
@@ -73,7 +79,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         
         
-        total = uniq(tabDate).count
+        total = uniq(source: tabDate).count
         let total2 = events.count
         i = 0
         var j = 0
@@ -83,11 +89,11 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
             i = 0
             //print("date2 : " + String(tabDate[j]))
             while i < total2{
-                let range = String(events[i]["begin"]).startIndex.advancedBy(10)
-                if String(tabDate[j]) == String(events[i]["begin"]).substringToIndex(range) {
+                //let range = "" //String(describing: events[i]["begin"]).startIndex.advanced(10)
+                //if String(tabDate[j]) == String(events[i]["begin"]).substringToIndex(range) {
                 //if date1!.compare((date2)!) == NSComparisonResult.OrderedSame {
                         count += 1
-                }
+                //}
                 i += 1
             }
            // print(count)
@@ -96,9 +102,9 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         }
         
         
-        let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, events_list.bounds.size.width, events_list.bounds.size.height))
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0.0, y: 0.0,width: events_list.bounds.size.width, height: events_list.bounds.size.height))
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-        noDataLabel.textAlignment = NSTextAlignment.Center
+        noDataLabel.textAlignment = NSTextAlignment.center
         
         if(events.count == 0 && nb_futur == 0){
             noDataLabel.text = "Vous n'avez aucun evenement prochainement"
@@ -112,26 +118,26 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         }
         events_list.backgroundView = noDataLabel
         
-        return uniq(tabDate).count
+        return uniq(source: tabDate).count
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let dateFormatter = NSDateFormatter()
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.dateFromString(tabDate[section])
-        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR")
-        dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-        let datefinale = dateFormatter.stringFromDate(date!)
+        let date = dateFormatter.date(from: tabDate[section])
+        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale!
+        //dateFormatter.dateStyle = DateFormatter.Style.FullStyle
+        let datefinale = dateFormatter.string(from: date!)
         return datefinale
         
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30.0
     }
 
     
-    func uniq<S: SequenceType, E: Hashable where E==S.Generator.Element>(source: S) -> [E] {
+    func uniq<S: Sequence, E: Hashable>(source: S) -> [E] where E==S.Iterator.Element {
         var seen: [E:Bool] = [:]
         return source.filter { seen.updateValue(true, forKey: $0) == nil }
     }
@@ -143,9 +149,12 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         btnFuturEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         events_list.tableFooterView = UIView()
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
-        let val = "volunteers/" + String(user["id"]) + "/events"
-        request.request("GET", param: param,add: val, callback: {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
+        let val = "volunteers/" + String(describing: user["id"]) + "/events"
+        request.request(type: "GET", param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 //self.events = User
@@ -153,15 +162,15 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
                 var TableData:Array< JSON > = Array < JSON >()
                 var TableData2:Array< JSON > = Array < JSON >()
                 var TableData3:Array< JSON > = Array < JSON >()
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 let total = User["response"].count
                 var i = 0
                 while i < total{
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     //print(String(User["response"][i]["begin"]))
-                    let range = String(User["response"][i]["begin"]).startIndex.advancedBy(10)
-                    let currentdate = dateFormatter.stringFromDate(currentDate)
-                    let date = String(User["response"][i]["begin"]).substringToIndex(range)
+                    //let range = String(describing: User["response"][i]["begin"]).startIndex.advancedBy(10)
+                    let currentdate = dateFormatter.string(from: currentDate as Date)
+                    let date = ""// String(describing: User["response"][i]["begin"]).substringToIndex(range)
                     print(currentDate)
                     print(date)
                     print("----")
@@ -194,7 +203,8 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         
         
     }
-    @IBAction func loadPastEvent(sender: AnyObject) {
+        
+    func loadPastEvent(sender: AnyObject) {
         btnPastEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         btnFuturEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         btnCreatedEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -204,7 +214,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         events_list.reloadData()
     }
     
-    @IBAction func loadFuturEvent(sender: AnyObject) {
+    func loadFuturEvent(sender: AnyObject) {
         btnFuturEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         btnPastEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         btnCreatedEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -214,7 +224,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         events_list.reloadData()
         
     }
-    @IBAction func loadCreatedEvent(sender: AnyObject) {
+    func loadCreatedEvent(sender: AnyObject) {
         btnCreatedEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         btnFuturEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         btnPastEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -223,16 +233,16 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         index = 0
         events_list.reloadData()
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "EventProfilVC2"){
-            let indexPath = events_list.indexPathForCell(sender as! UITableViewCell)
+            let indexPath = events_list.indexPath(for: sender as! UITableViewCell)
             //            let currentCell = events_list.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
             
             
             
-            let secondViewController = segue.destinationViewController as! ProfilEventController
+            let secondViewController = segue.destination as! ProfilEventController
             
             var i = 0
             var newindex = 0;
@@ -247,7 +257,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
             // set a variable in the second view controller with the String to pass
             print(events["response"])
             print("*$$$$$$$*************")
-            secondViewController.EventID = String(events[newindex]["id"])
+            secondViewController.EventID = String(describing: events[newindex]["id"])
             //secondViewController.user = user
             print(indexPath?.row);
             //navigationItem.title = "back"
@@ -255,4 +265,3 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
     }
 
 }
-

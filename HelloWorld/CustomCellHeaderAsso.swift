@@ -34,15 +34,15 @@ class CustomCellHeaderAsso: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    @IBAction func JoinAsso(sender: AnyObject) {
+    @IBAction func JoinAsso(_ sender: AnyObject) {
         if(alreadyMember == "none" || alreadyMember == "null"){
-        param["token"] = String(user["token"])
+        param["token"] = String(describing: user["token"])
         param["assoc_id"] = AssoID
         let val = "membership/join"
-        request.request("POST", param: param,add: val, callback: {
+        request.request(type: "POST", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 SCLAlertView().showTitle(
@@ -50,11 +50,11 @@ class CustomCellHeaderAsso: UITableViewCell {
                     subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
                     duration: 10.0, // Duration to show before closing automatically, default: 0.0
                     completeText: "ok", // Optional button value, default: ""
-                    style: .Success, // Styles - see below.
+                    style: .success, // Styles - see below.
                     colorStyle: 0x22B573,
                     colorTextButton: 0xFFFFFF
                 )
-                self.JoinBtn.hidden = true
+                self.JoinBtn.isHidden = true
             }
             else {
                 
@@ -75,19 +75,19 @@ class CustomCellHeaderAsso: UITableViewCell {
         let notJoined = UIImage(named: "asso_not_joined")
         let Joined = UIImage(named: "asso_joined")
         let waiting = UIImage(named: "waiting")
-        self.imageProfil.downloadedFrom(link: imagePath, contentMode: .ScaleToFill)
+        self.imageProfil.downloadedFrom(link: imagePath, contentMode: .scaleToFill)
         self.imageProfil.layer.cornerRadius = self.imageProfil.frame.size.width / 2;
         self.imageProfil.layer.borderWidth = 1.0
-        self.imageProfil.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.imageProfil.layer.borderColor = UIColor.darkGray.cgColor;
         self.imageProfil.layer.masksToBounds = true
         self.imageProfil.clipsToBounds = true
         
         self.JoinBtn.layer.cornerRadius = self.JoinBtn.frame.size.width / 2;
         self.JoinBtn.layer.borderWidth = 1.0
-        self.JoinBtn.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.JoinBtn.layer.borderColor = UIColor.darkGray.cgColor;
         self.JoinBtn.layer.shadowOffset = CGSize(width: self.JoinBtn.frame.size.width + 10.0, height: self.JoinBtn.frame.size.height + 10.0)
         self.JoinBtn.layer.shadowOpacity = 0.7
-        self.JoinBtn.layer.shadowColor = UIColor.blackColor().CGColor
+        self.JoinBtn.layer.shadowColor = UIColor.black.cgColor
         self.JoinBtn.layer.shadowRadius = self.JoinBtn.frame.size.width / 2;
         self.JoinBtn.layer.masksToBounds = true
         self.JoinBtn.clipsToBounds = true
@@ -95,18 +95,18 @@ class CustomCellHeaderAsso: UITableViewCell {
                 print(alreadyMember)
         if (alreadyMember == "none" || alreadyMember == "null"){
             //self.JoinBtn.hidden = false
-            JoinBtn.setImage(notJoined, forState: .Normal)
+            JoinBtn.setImage(notJoined, for: .normal)
             JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
 
         }
         else if alreadyMember == "waiting"{
             //JoinBtn.hidden = true
-            JoinBtn.setImage(waiting, forState: .Normal)
+            JoinBtn.setImage(waiting, for: .normal)
             JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
         }
         else{
             //self.JoinBtn.hidden = true
-            JoinBtn.setImage(Joined, forState: .Normal)
+            JoinBtn.setImage(Joined, for: .normal)
             JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
             //JoinBtn.hidden = false
         }

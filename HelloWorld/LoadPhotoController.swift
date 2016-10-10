@@ -26,7 +26,7 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
     
     @IBOutlet weak var PictureLoaded: UIImageView!
     
-    @IBAction func LoadPicture(sender: AnyObject) {
+    @IBAction func LoadPicture(_ sender: AnyObject) {
         
     }
     override func viewDidLoad() {
@@ -50,27 +50,27 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
     }
     
     
-    @IBAction func CallCamera(sender: AnyObject) {
+    @IBAction func CallCamera(_ sender: AnyObject) {
         LoadCamera()
     }
-    @IBAction func CallLibrary(sender: AnyObject) {
+    @IBAction func CallLibrary(_ sender: AnyObject) {
         LoadLibrary()
     }
     
     func LoadLibrary() {
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = .photoLibrary
         
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func LoadCamera() {
-        if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
-            if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+        if (UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
                 imagePicker.allowsEditing = false
-                imagePicker.sourceType = .Camera
-                imagePicker.cameraCaptureMode = .Photo
-                presentViewController(imagePicker, animated: true, completion: {})
+                imagePicker.sourceType = .camera
+                imagePicker.cameraCaptureMode = .photo
+                present(imagePicker, animated: true, completion: {})
             } else {
                 SCLAlertView().showError("Echec", subTitle: "Vous n'avez pas de camera.")
             }
@@ -83,22 +83,25 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
         
         let scale = newWidth / image.size.width
         let newHeight = image.size.height * scale
-        UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-        image.drawInRect(CGRectMake(0, 0, newWidth, newHeight))
+        UIGraphicsBeginImageContext(CGSize(width: newWidth,height: newHeight))
+        image.draw(in: CGRect(x:0,y: 0,width: newWidth,height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return newImage
+        return newImage!
     }
 
     
-    @IBAction func DownloadPicture(sender: AnyObject) {
+    @IBAction func DownloadPicture(_ sender: AnyObject) {
         
-        let imageToLoad = resizeImage(image, newWidth: 200)
+        let imageToLoad = resizeImage(image: image, newWidth: 200)
         
-       let imageData:NSData = UIImagePNGRepresentation(imageToLoad)!
-        let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-        param["token"] = String(user["token"])
+       let imageData:NSData = UIImagePNGRepresentation(imageToLoad)! as NSData
+        let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         param["file"] = strBase64
         param["filename"] = "photo_profil.jpg"
         param["original_filename"] = "photo_profil.jpg"
@@ -115,7 +118,7 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
         }
         let val = "pictures"
         Loader.startAnimating()
-        request.request("POST", param: param,add: val, callback: {
+        request.request(type: "POST", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Loader.stopAnimating()
@@ -130,14 +133,14 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
     
 
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            PictureLoaded.contentMode = .ScaleAspectFit
+            PictureLoaded.contentMode = .scaleAspectFit
             PictureLoaded.image = pickedImage
             print(PictureLoaded.image)
             image = pickedImage
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

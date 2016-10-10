@@ -35,18 +35,18 @@ class UpdateEventDateController: UIViewController {
         DisplayEnd.text = end
     }
    
-    @IBAction func ChangeStart(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
+    @IBAction func ChangeStart(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        let strDate = dateFormatter.stringFromDate(StartPicker.date)
+        let strDate = dateFormatter.string(from: StartPicker.date)
         DisplayStart.text = "Début : " + strDate
         start = strDate
     }
     
-    @IBAction func ChangeEnd(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
+    @IBAction func ChangeEnd(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        let strDate = dateFormatter.stringFromDate(EndPicker.date)
+        let strDate = dateFormatter.string(from: EndPicker.date)
         DisplayEnd.text = "Fin : " + strDate
         end = strDate
     }

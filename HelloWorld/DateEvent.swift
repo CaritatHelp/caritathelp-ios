@@ -32,23 +32,23 @@ class DateCreateEvent : UIViewController {
     }
 
     
-    @IBAction func getDateStart(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
+    @IBAction func getDateStart(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        let strDate = dateFormatter.stringFromDate(DateStart.date)
+        let strDate = dateFormatter.string(from: DateStart.date)
         DisplayStart.text = "Début : " + strDate
         start = strDate
     }
     
-    @IBAction func getDateEnd(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
+    @IBAction func getDateEnd(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        let strDate = dateFormatter.stringFromDate(DateEnd.date)
+        let strDate = dateFormatter.string(from: DateEnd.date)
         DisplayEnd.text = "Fin : " + strDate
         end = strDate
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String,sender: AnyObject?) -> Bool {
+    func shouldPerformSegueWithIdentifier(identifier: String,sender: AnyObject?) -> Bool {
         
         if (identifier == "BackToMenuVC") {
             
@@ -67,13 +67,13 @@ class DateCreateEvent : UIViewController {
 
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    func viewWillDisappear(animated: Bool) {
         print("avant d'envoyer les data.....")
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        let StarDate = dateFormatter.stringFromDate(DateStart.date)
-        let EndDate = dateFormatter.stringFromDate(DateEnd.date)
-        let myVC = storyboard!.instantiateViewControllerWithIdentifier("CreateEventVC") as! MenuOwnerAssocation
+        let StarDate = dateFormatter.string(from: DateStart.date)
+        let EndDate = dateFormatter.string(from: DateEnd.date)
+        let myVC = storyboard!.instantiateViewController(withIdentifier: "CreateEventVC") as! MenuOwnerAssocation
         
         myVC.EventDateStart = StarDate
         myVC.EventDateEnd = EndDate

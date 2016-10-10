@@ -26,7 +26,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     var main_picture = ""
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(AssociationProfil.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        refreshControl.addTarget(self, action: #selector(AssociationProfil.refresh), for: UIControlEvents.valueChanged)
         
         return refreshControl
     }()
@@ -44,27 +44,30 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     
     let members = ["la croix rouge", "les restos du coeur", "futsal", ""]
     
-    override func didMoveToParentViewController(parent: UIViewController?) {
+    override func didMove(toParentViewController parent: UIViewController?) {
         if parent == nil {
             print("Back Pressed")
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //let cell : UITableViewCell!
         if indexPath.section == 0 {
-            let cell1 : CustomCellHeaderAsso = ActuAssoList.dequeueReusableCellWithIdentifier("ActuAssoCellHeader", forIndexPath: indexPath) as! CustomCellHeaderAsso
-            cell1.setCell(user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
+            let cell1 : CustomCellHeaderAsso = ActuAssoList.dequeueReusableCell(withIdentifier: "ActuAssoCellHeader", for: indexPath) as! CustomCellHeaderAsso
+            cell1.setCell(User: user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
             return cell1
         }else{
             if indexPath.row == 0 {
-                let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("customcellactu", forIndexPath: indexPath) as! CustomCellActu
+                let cell1 = ActuAssoList.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
                 
                 cell1.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
-                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
-                    self.param["token"] = String(self.user["token"])
+                    let path = tableView.indexPathForRow(at: selectedCell.center)!
+                    self.param["access-token"] = sharedInstance.header["access-token"]
+                    self.param["client"] = sharedInstance.header["client"]
+                    self.param["uid"] = sharedInstance.header["uid"]
+
                     self.param["content"] = Newcontent
-                    self.request.request("PUT", param: self.param, add: "news/" + String(self.Actu["response"][path.section - 1]["id"]), callback: {
+                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.Actu["response"][path.section - 1]["id"]), callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             self.refreshActu()
@@ -77,10 +80,13 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 }
                 
                 cell1.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
-                    let path = tableView.indexPathForRowAtPoint(selectedCell.center)!
+                    let path = tableView.indexPathForRow(at: selectedCell.center)!
                     
-                    self.param["token"] = String(self.user["token"])
-                    self.request.request("DELETE", param: self.param, add: "news/" + String(self.Actu["response"][path.section - 1]["id"]) , callback: {
+                    self.param["access-token"] = sharedInstance.header["access-token"]
+                    self.param["client"] = sharedInstance.header["client"]
+                    self.param["uid"] = sharedInstance.header["uid"]
+
+                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.Actu["response"][path.section - 1]["id"]) , callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             //self.refreshActu()
@@ -95,7 +101,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 }
                 
                 var title = ""
-                    title = String(Actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(Actu["response"][indexPath.section - 1]["group_name"])
+                    title = String(describing: Actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: Actu["response"][indexPath.section - 1]["group_name"])
                 var from = ""
                 if Actu["response"][indexPath.section - 1]["volunteer_id"] == user["id"] {
                     from = "true"
@@ -103,29 +109,29 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 else {
                     from = "false"
                 }
-                cell1.setCell(title, DateLabel: String(Actu["response"][indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(Actu["response"][indexPath.section-1]["thumb_path "]), content: String(Actu["response"][indexPath.section-1]["content"]), from: from)
+                cell1.setCell(NameLabel: title, DateLabel: String(describing: Actu["response"][indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(describing: Actu["response"][indexPath.section-1]["thumb_path "]), content: String(describing: Actu["response"][indexPath.section-1]["content"]), from: from)
             return cell1
             }
             else {
-                let cell1 = ActuAssoList.dequeueReusableCellWithIdentifier("gotocommentfromasso", forIndexPath: indexPath) as UITableViewCell
+                let cell1 = ActuAssoList.dequeueReusableCell(withIdentifier: "gotocommentfromasso", for: indexPath) as UITableViewCell
                 return cell1
             }
         }
         //return cell
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return Actu["response"].count + 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1 }
         else {
             return 2 }
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 160
         } else {
@@ -133,11 +139,11 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 1.0
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10.0
     }
     
@@ -147,15 +153,15 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         
         user = sharedInstance.volunteer["response"]
         self.ActuAssoList.addSubview(self.refreshControl)
-        ActuAssoList.registerNib(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
+        ActuAssoList.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         ActuAssoList.estimatedRowHeight = 159.0
         ActuAssoList.rowHeight = UITableViewAutomaticDimension
         print("ASSO RIGHTS = \(alreadyMember)")
         if (alreadyMember != "owner"){
-            self.ButtonMenuOwner.enabled = false
-            self.ButtonMenuOwner.tintColor = UIColor.clearColor()
+            self.ButtonMenuOwner.isEnabled = false
+            self.ButtonMenuOwner.tintColor = UIColor.clear
         }else{
-            self.ButtonMenuOwner.enabled = true
+            self.ButtonMenuOwner.isEnabled = true
             
         }
 
@@ -169,15 +175,18 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
 
     func refresh(){
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "associations/" + AssocID
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Asso = User
-                self.title = String(self.Asso["response"]["name"])
-                self.main_picture = define.path_picture + String(User["response"]["thumb_path"])
-                self.alreadyMember = String(User["response"]["rights"])
+                self.title = String(describing: self.Asso["response"]["name"])
+                self.main_picture = define.path_picture + String(describing: User["response"]["thumb_path"])
+                self.alreadyMember = String(describing: User["response"]["rights"])
                 //self.ActuAssoList.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshActu()
@@ -192,9 +201,12 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
     
     func refreshActu() {
-        self.param["token"] = String(self.user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "associations/" + self.AssocID + "/news"
-        self.request.request("GET", param: self.param,add: val, callback: {
+        self.request.request(type: "GET", param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Actu = User
@@ -215,14 +227,14 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         // Dispose of any resources that can be recreated.
     }
     
-        override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             
             
     
             // get a reference to the second view controller
             if(segue.identifier == "goToMembers"){
     
-                let secondViewController = segue.destinationViewController as! MembersInAssociation
+                let secondViewController = segue.destination as! MembersInAssociation
     
                 // set a variable in the second view controller with the String to pass
                 secondViewController.AssocID = AssocID
@@ -230,7 +242,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             }
             if(segue.identifier == "goToEvents"){
                 
-                let secondViewController = segue.destinationViewController as! EventOfAssociation
+                let secondViewController = segue.destination as! EventOfAssociation
                 
                 // set a variable in the second view controller with the String to pass
                 secondViewController.AssocID = AssocID
@@ -238,7 +250,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             }
             if(segue.identifier == "goToDescription"){
                 
-                let secondViewController = segue.destinationViewController as! DescriptionAssociation
+                let secondViewController = segue.destination as! DescriptionAssociation
                 
                 // set a variable in the second view controller with the String to pass
                 secondViewController.Asso = Asso
@@ -246,7 +258,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             }
             if(segue.identifier == "goToMenuOwner"){
                 
-                let secondViewController = segue.destinationViewController as! MenuOwnerAssocation
+                let secondViewController = segue.destination as! MenuOwnerAssocation
                 
                 // set a variable in the second view controller with the String to pass
                 secondViewController.Asso = Asso
@@ -254,32 +266,32 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             }
             if(segue.identifier == "gotopostfromasso"){
                 
-                let secondViewController = segue.destinationViewController as! PostStatutAssoController
+                let secondViewController = segue.destination as! PostStatutAssoController
                 
                 // set a variable in the second view controller with the String to pass
                 secondViewController.AssoID = AssocID
                 secondViewController.from = "asso"
             }
             if(segue.identifier == "gotocommentfromasso"){
-                let indexPath = ActuAssoList.indexPathForCell(sender as! UITableViewCell)
-                let secondViewController = segue.destinationViewController as! CommentActuController
+                let indexPath = ActuAssoList.indexPath(for: sender as! UITableViewCell)
+                let secondViewController = segue.destination as! CommentActuController
                 
                 // set a variable in the second view controller with the String to pass
-                secondViewController.IDnews = String(Actu["response"][indexPath!.section-1]["id"])
+                secondViewController.IDnews = String(describing: Actu["response"][indexPath!.section-1]["id"])
                 //secondViewController.from = "asso"
             }//
         }
     
-    @IBAction func unwindToProfilAsso(sender: UIStoryboardSegue) {
-        _ = sender.sourceViewController
+    @IBAction func unwindToProfilAsso(_ sender: UIStoryboardSegue) {
+        _ = sender.source
         
         
     }
 
-    @IBAction func unwindToProfilAssoAfterPublish(sender: UIStoryboardSegue) {
-        let data = sender.sourceViewController as! PostStatutAssoController
+    @IBAction func unwindToProfilAssoAfterPublish(_ sender: UIStoryboardSegue) {
+        let data = sender.source as! PostStatutAssoController
         data.assoc_array["assoc_id"] = AssocID
-        request.request("POST", param: data.assoc_array,add: "news/wall_message", callback: {
+        request.request(type: "POST", param: data.assoc_array,add: "news/wall_message", callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.refreshActu()

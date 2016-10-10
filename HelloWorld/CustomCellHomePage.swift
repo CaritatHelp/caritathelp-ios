@@ -33,16 +33,16 @@ class CustomCellHomePage: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String){
         self.TitleNews.text = NameLabel
         self.DateNews.text = DateLabel
-        self.ImageProfilNews.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.ImageProfilNews.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.ImageProfilNews.layer.cornerRadius = self.ImageProfilNews.frame.size.width / 2
-        self.ImageProfilNews.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.ImageProfilNews.layer.borderColor = UIColor.darkGray.cgColor;
         self.ImageProfilNews.layer.masksToBounds = true
         self.ImageProfilNews.clipsToBounds = true
         self.Content.text = content

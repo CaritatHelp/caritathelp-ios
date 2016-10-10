@@ -26,23 +26,23 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     var searchActive = false
     
     //init le tableview avec des data
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : CustomCellMemberAsso = members_list.dequeueReusableCellWithIdentifier("memberCell", forIndexPath: indexPath) as! CustomCellMemberAsso
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell : CustomCellMemberAsso = members_list.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! CustomCellMemberAsso
         var name = ""
         if(searchActive == false){
-            name = String(members["response"][indexPath.row]["firstname"]) + " " + String(members["response"][indexPath.row]["lastname"])
+            name = String(describing: members["response"][indexPath.row]["firstname"]) + " " + String(describing: members["response"][indexPath.row]["lastname"])
         }
         else{
             name = String(filteredTableData[indexPath.row])
         }
-        cell.setCell(name, imageName: define.path_picture + String(members["response"][indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: members["response"][indexPath.row]["thumb_path"]))
         
     
         return cell
     }
     
     //renvoi le nombre de ligne du tableview
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count : Int = 0
         if(searchActive == false){
             count = members["response"].count
@@ -52,14 +52,14 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         return count
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
         if searchText.isEmpty {
             searchActive = false
         } else {
             searchActive = true
             filteredTableData = filtered.filter({(dataItem: String) -> Bool in
-                if dataItem.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                if dataItem.range(of: searchText, options: .caseInsensitive) != nil {
                     return true
                 } else {
                     return false
@@ -77,16 +77,19 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         //members_list.backgroundColor = UIColor(patternImage: sfondo!)
         
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "associations/" + AssocID + "/members"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.members = User
                 self.members_list.reloadData()
                 var i = 0
                 while i < self.members.count{
-                    self.filtered.append(String(self.members["response"][i]["firstname"]) + " " + String(self.members["response"][i]["lastname"]))
+                    self.filtered.append(String(describing: self.members["response"][i]["firstname"]) + " " + String(describing: self.members["response"][i]["lastname"]))
                     i += 1
                 }
 
@@ -99,20 +102,23 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
     }
     
     
     //bouton quand on slide une ligne du tableview
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //bouton Ajouter en ami
-        let shareAction = UITableViewRowAction(style: .Normal, title: "Ajouter en ami") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter en ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
-            self.param["token"] = String(self.user["token"])
-            self.param["volunteer_id"] = String(self.members["response"][indexPath.row]["id"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+
+            self.param["volunteer_id"] = String(describing: self.members["response"][indexPath.row]["id"])
             let val = "friendship/add"
-            self.request.request("POST", param: self.param,add: val, callback: {
+            self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     //self.friends = User
@@ -126,27 +132,27 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
             
         }
         //bouton kick un membre
-        let shareAction2 = UITableViewRowAction(style: .Normal, title: "kick membre") { (action: UITableViewRowAction!, indexPath: NSIndexPath!) -> Void in
+        let shareAction2 = UITableViewRowAction(style: .normal, title: "kick membre") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
         }
         
         shareAction.backgroundColor = UIColor(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)
-        shareAction2.backgroundColor = UIColor.redColor()
+        shareAction2.backgroundColor = UIColor.red
         
         return [shareAction]
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //        // get a reference to the second view controller
         if(segue.identifier == "ProfilMember"){
-            let indexPath = members_list.indexPathForCell(sender as! UITableViewCell)
+            let indexPath = members_list.indexPath(for: sender as! UITableViewCell)
 
-            let secondViewController = segue.destinationViewController as! ProfilVolunteer
+            let secondViewController = segue.destination as! ProfilVolunteer
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.idvolunteer = String(members["response"][indexPath!.row]["id"])
+            secondViewController.idvolunteer = String(describing: members["response"][indexPath!.row]["id"])
         }
 
     }

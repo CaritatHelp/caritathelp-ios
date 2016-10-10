@@ -23,7 +23,7 @@ class SubscribeCtrl: UIViewController, UITextFieldDelegate {
     let genders = ["homme", "femme"]
     
     @IBOutlet weak var sex: UISegmentedControl!
-    @IBAction func changeSex(sender: AnyObject) {
+    @IBAction func changeSex(_ sender: AnyObject) {
         switch sex.selectedSegmentIndex
         {
         case 0:
@@ -42,7 +42,7 @@ class SubscribeCtrl: UIViewController, UITextFieldDelegate {
         
     }
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
+    func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         if (identifier == "goToDateSubsribe") {
             
             if (Nom.text!.isEmpty && Prenom.text!.isEmpty) {
@@ -60,11 +60,11 @@ class SubscribeCtrl: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "goToDateSubsribe"){
-            let secondViewController = segue.destinationViewController as! SubscribeDateController
+            let secondViewController = segue.destination as! SubscribeDateController
             print("sex : "+sexUser)
             // set a variable in the second view controller with the String to pass
             secondViewController.nom = Nom.text!
@@ -74,7 +74,7 @@ class SubscribeCtrl: UIViewController, UITextFieldDelegate {
         //secondViewController.gender = Sex
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         self.view.endEditing(true)
         

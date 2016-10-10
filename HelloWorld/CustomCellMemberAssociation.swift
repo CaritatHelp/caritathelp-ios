@@ -27,15 +27,15 @@ class CustomCellMemberAsso: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     func setCell(NameLabel: String, imageName: String){
         self.NameMember.text = NameLabel
-        self.ProfilePictureMember.downloadedFrom(link: imageName, contentMode: .ScaleToFill)
+        self.ProfilePictureMember.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.ProfilePictureMember.layer.cornerRadius = 30
-        self.ProfilePictureMember.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.ProfilePictureMember.layer.borderColor = UIColor.darkGray.cgColor;
         self.ProfilePictureMember.layer.masksToBounds = true
         self.ProfilePictureMember.clipsToBounds = true
         

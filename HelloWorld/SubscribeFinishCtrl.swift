@@ -26,7 +26,7 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     
     var request = RequestModel()
     var user_array = [String: String]()
-    @IBAction func validSubscribe(sender: AnyObject) {
+    @IBAction func validSubscribe(_ sender: AnyObject) {
         
         user_array["mail"] = mail
         user_array["password"] = mdp
@@ -35,42 +35,42 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
         user_array["birthday"] = date
         user_array["gender"] = gender
         
-        if(termes.on == false){
+        if(termes.isOn == false){
             check_termes.text = "Pour continuer, accepter les termes !"
         }
         else{
-            if(geoloc.on){
+            if(geoloc.isOn){
                 user_array["allowgps"] = "true"
             }else {
                 user_array["allowgps"] = "false"
             }
             
-        request.request("POST", param: user_array,add: "volunteers", callback: {
+        request.request(type: "POST", param: user_array,add: "volunteers", callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    sharedInstance.setUser(User)
+                    sharedInstance.setUser(user: User)
                     let storyboard = UIStoryboard(name:"Main",bundle: nil)
-                    let TBCtrl = storyboard.instantiateViewControllerWithIdentifier("TabBarVC") as! TabBarController
+                    let TBCtrl = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarController
                     TBCtrl.user = User
-                    let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
                     appdelegate.window?.rootViewController = TBCtrl
                     
                 }
                 else {
                     //print("isOK == = = \(isOK)")
-                    self.check_termes.text = String(User["message"])
+                    self.check_termes.text = String(describing: User["message"])
                     
                 }
             });
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //print("value2 ok : \(ok)")
         // get a reference to the second view controller
         if(segue.identifier == "goToMailSubscribe"){
             
-            let firstViewController = segue.destinationViewController as! SubscribeMailController
+            let firstViewController = segue.destination as! SubscribeMailController
             
             // set a variable in the second view controller with the String to pass
             firstViewController.nom = nom
@@ -82,7 +82,7 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     }
 
     
-    func textFieldShouldReturn(textField:UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool{
         textField.resignFirstResponder()
         return true
     }

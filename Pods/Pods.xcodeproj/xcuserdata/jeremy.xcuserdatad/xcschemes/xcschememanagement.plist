@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SlackTextViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Starscream.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,7 +42,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>209111FB5D77D3FD25C65CF02A635BF9</key>
+		<key>12D3B162C7A538DD748424A2066F7C7E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,17 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>89C6BB4AD56FCD27068AA8B558A87F03</key>
+		<key>E0486F61228A3848E9FA693812582962</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B34B1C589E6A80E38E6DB0B827AAF45B</key>
+		<key>EA4AAED255C655CA44F9CCAD6689291C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D19D5F5CA97498A86BE70F63050C4129</key>
+		<key>F2453236FE35B160E84695AF5AF3DAF2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD2DF89C2F37BD2A2330F788033EC5E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

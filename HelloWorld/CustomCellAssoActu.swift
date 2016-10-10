@@ -37,7 +37,7 @@ class CustomCellAssoActu: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
@@ -48,13 +48,13 @@ class CustomCellAssoActu: UITableViewCell {
         
         let font = UIFont(name: "Helvetica", size: 20.0)
         
-        let height = define.heightForView(content, font: font!, width: 100.0)
-         ContentActu.frame = CGRectMake(ContentActu.frame.origin.x, ContentActu.frame.origin.y, ContentActu.frame.width , height)
+        let height = define.heightForView(text: content, font: font!, width: 100.0)
+        ContentActu.frame = CGRect(x:ContentActu.frame.origin.x, y:ContentActu.frame.origin.y, width:ContentActu.frame.width ,height: height)
         
-        self.imageProfil.downloadedFrom(link: imagePath, contentMode: .ScaleToFill)
+        self.imageProfil.downloadedFrom(link: imagePath, contentMode: .scaleToFill)
         self.imageProfil.layer.cornerRadius = 10
         self.imageProfil.layer.borderWidth = 1.0
-        self.imageProfil.layer.borderColor = UIColor.darkGrayColor().CGColor;
+        self.imageProfil.layer.borderColor = UIColor.darkGray.cgColor;
         self.imageProfil.layer.masksToBounds = true
         self.imageProfil.clipsToBounds = true
 

@@ -22,17 +22,17 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
     
     //let AssocList = ["la croix rouge", "les restos du coeur", "futsal"]
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = events_list.dequeueReusableCellWithIdentifier("EventsAssoCell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = events_list.dequeueReusableCell(withIdentifier: "EventsAssoCell", for: indexPath)
         
-        cell.textLabel!.text = String(events["response"][indexPath.row]["title"])
+        cell.textLabel!.text = String(describing: events["response"][indexPath.row]["title"])
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let noDataLabel: UILabel = UILabel(frame: CGRectMake(0, 0, events_list.bounds.size.width, events_list.bounds.size.height))
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x:0,y: 0,width: events_list.bounds.size.width,height: events_list.bounds.size.height))
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-        noDataLabel.textAlignment = NSTextAlignment.Center
+        noDataLabel.textAlignment = NSTextAlignment.center
         
         if(events["response"].count == 0){
             noDataLabel.text = "Cette assocation n'a aucun evenements à venir..."
@@ -49,9 +49,12 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         events_list.tableFooterView = UIView()
         user = sharedInstance.volunteer["response"]
-        param["token"] = String(user["token"])
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+
         let val = "associations/" + AssocID + "/events"
-        request.request("GET", param: param,add: val, callback: {
+        request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.events = User
@@ -65,19 +68,19 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         // get a reference to the second view controller
         if(segue.identifier == "EventProfilVC"){
-            let indexPath = events_list.indexPathForCell(sender as! UITableViewCell)
+            let indexPath = events_list.indexPath(for: sender as! UITableViewCell)
 //            let currentCell = events_list.cellForRowAtIndexPath(indexPath!) as UITableViewCell!
             
             
             
-            let secondViewController = segue.destinationViewController as! ProfilEventController
+            let secondViewController = segue.destination as! ProfilEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(events["response"][indexPath!.row]["id"])
+            secondViewController.EventID = String(describing: events["response"][indexPath!.row]["id"])
             //secondViewController.user = user
             print(indexPath?.row);
             navigationItem.title = "back"

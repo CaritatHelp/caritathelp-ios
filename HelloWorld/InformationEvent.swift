@@ -26,9 +26,9 @@ class InformationsEvent: UIViewController {
         print("----------------")
         print(Event["response"])
         print("---------------")
-        DescEvent.text! = String(Event["response"]["description"])
-        DateEvent.text! = "Début : " + String(Event["response"]["begin"]) + "\nFin : " + String(Event["response"]["end"])
-        LieuEvent.text! = String(Event["response"]["place"])
+        DescEvent.text! = String(describing: Event["response"]["description"])
+        DateEvent.text! = "Début : " + String(describing: Event["response"]["begin"]) + "\nFin : " + String(describing: Event["response"]["end"])
+        LieuEvent.text! = String(describing: Event["response"]["place"])
         
     }
 }
