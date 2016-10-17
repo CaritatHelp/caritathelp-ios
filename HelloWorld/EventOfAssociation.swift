@@ -25,7 +25,7 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = events_list.dequeueReusableCell(withIdentifier: "EventsAssoCell", for: indexPath)
         
-        cell.textLabel!.text = String(describing: events["response"][indexPath.row]["title"])
+        cell.textLabel!.text = String(describing: events[indexPath.row]["title"])
         return cell
     }
     
@@ -34,14 +34,14 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
         noDataLabel.textAlignment = NSTextAlignment.center
         
-        if(events["response"].count == 0){
+        if(events.count == 0){
             noDataLabel.text = "Cette assocation n'a aucun evenements à venir..."
         }
         else{
             noDataLabel.text = ""
         }
         events_list.backgroundView = noDataLabel
-        return events["response"].count
+        return events.count
     }
     
     
@@ -57,7 +57,7 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.events = User
+                self.events = User["response"]
                 self.events_list.reloadData()
             }
             else {
@@ -80,7 +80,7 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
             let secondViewController = segue.destination as! ProfilEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(describing: events["response"][indexPath!.row]["id"])
+            secondViewController.EventID = String(describing: events[indexPath!.row]["id"])
             //secondViewController.user = user
             print(indexPath?.row);
             navigationItem.title = "back"

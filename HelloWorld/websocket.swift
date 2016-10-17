@@ -13,10 +13,10 @@ import SwiftyJSON
 class ConnectionWebSocket : WebSocketDelegate {
     
     var i = 0
-    let socket : WebSocket = WebSocket(url: NSURL(string: "ws://ws.api.caritathelp.me")! as URL)
+    let socket : WebSocket = WebSocket(url: NSURL(string: "ws://ws.staging.caritathelp.me")! as URL)
    //ws://ws.api.caritathelp.me
     //ws://ws.staging.caritathelp.me
-
+    var data : JSON?
 
     func firstConnection() {
         socket.connect()
@@ -29,13 +29,14 @@ class ConnectionWebSocket : WebSocketDelegate {
     
     func websocketDidConnect(socket: WebSocket) {
         print("websocket is connected")
-        let paramCo = "{\"token\":\"token\", \"token_user\":\"" + String(describing: sharedInstance.volunteer["response"]["token"]) + "\"}"
+        let paramCo = "{\"token\":\"token\", \"user_uid\":\"" + String(describing: sharedInstance.header["uid"]!) + "\"}"
         print(paramCo)
         socket.write(string: paramCo)
     }
     
     func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         print("websocket is disconnected: \(error?.localizedDescription)")
+        firstConnection()
     }
     
     func websocketDidReceiveMessage(socket: WebSocket, text: String) {
@@ -44,16 +45,36 @@ class ConnectionWebSocket : WebSocketDelegate {
         let tabController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
         let tabArray = tabController!.tabBar.items?[3] as UITabBarItem!
         //let alertTabItem = tabArray(3) as! UITabBarItem
+        //let split = text.characters.split(separator: ",")
+        var myStringArr = text.components(separatedBy: ",")
         
-        if let badgeValue = (tabArray?.badgeValue) {
-            let intValue = Int(badgeValue)
-            tabArray?.badgeValue = (intValue! + 1).description
-            print(intValue)
-        } else {
-            tabArray?.badgeValue = "1"
+        var TableData = [String: String]()
+        for str in myStringArr {
+            //str.replacingOccurrences(of: "{", with: "")
+            var split = str.components(separatedBy: ":")
+            
+            TableData[split[0]] = split[1]
+        }
+        
+        //data = json
+        print("------")
+        print(TableData)
+        print("------")
+        if TableData["\"type\""] == "\"message\"}" {
+            
+            //chatroomController.loadNewMessage(msg: TableData["\"content\""]!, name: TableData["\"sender_firstname\""]! + " " + TableData["\"sender_lastname\""]!)
+        }
+        else {
+            if let badgeValue = (tabArray?.badgeValue) {
+                let intValue = Int(badgeValue)
+                tabArray?.badgeValue = (intValue! + 1).description
+                print(intValue)
+            } else {
+                tabArray?.badgeValue = "1"
+            }
         }
     }
-    
+    //{"chatroom_id":17,"sender_id":4,"sender_firstname":"Jeremy","sender_lastname":"Gros","sender_thumb_path":"/uploads/picture/default_m.png","content":"C'est bien nous les meilleurs ! ;)","created_at":"2016-10-13T23:11:26.665+02:00","type":"message"}
     
     func websocketDidReceiveData(socket: WebSocket, data: Data) {
         print("got some data: \(data.count)")

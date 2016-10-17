@@ -30,9 +30,9 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
         user = sharedInstance.volunteer
         print("DANS UPDATE // ")
         print(user)
-        Prenom.text = String(describing: user["response"]["firstname"])
-        Nom.text = String(describing: user["response"]["lastname"])
-        Mail.text = String(describing: user["response"]["mail"])
+        Prenom.text = String(describing: user["firstname"])
+        Nom.text = String(describing: user["lastname"])
+        Mail.text = String(describing: user["mail"])
         
     }
 
@@ -53,7 +53,7 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
             return false
         }
         if(old_password.text != ""){
-            if(old_password.text != String(describing: user["response"]["password"])){
+            if(old_password.text != String(describing: user["password"])){
                 Message.text = "Votre ancien mot de passe ne correspond pas..."
                 return false
             }
@@ -78,17 +78,17 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
             self.param["uid"] = sharedInstance.header["uid"]
 
         self.param["mail"] = Mail.text
-        self.param["password"] = new_password.text == "" ?String(describing: user["response"]["password"]) : new_password.text
+        self.param["password"] = new_password.text == "" ?String(describing: user["password"]) : new_password.text
         self.param["firstname"] = Prenom.text
         self.param["lastname"] = Nom.text
 
         
-        request.request(type: "PUT", param: self.param,add: "volunteers/"+String(describing: user["response"]["id"]), callback: {
+        request.request(type: "PUT", param: self.param,add: "volunteers/"+String(describing: user["id"]), callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Message.text = "Votre profil à été mis à jour !"
                 self.Message.textColor = UIColor.green
-                self.user = User
+                self.user = User["response"]
                 sharedInstance.setUser(user: User)
             }
             else {

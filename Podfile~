@@ -5,7 +5,7 @@ use_frameworks!
 pod 'Alamofire'
 pod 'SwiftyJSON', '3.0.0'
 pod 'MGSwipeTableCell'
-pod 'SCLAlertView'
+pod 'SCLAlertView', :git => 'https://github.com/vikmeup/SCLAlertView-Swift'
 pod 'Starscream'
 pod "SlackTextViewController"
 

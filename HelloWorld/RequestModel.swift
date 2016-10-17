@@ -1,4 +1,4 @@
-//
+    //
 //  RequestModel.swift
 //  Caritathelp
 //
@@ -15,7 +15,7 @@ class RequestModel {
     var status = ""
     let server = "http://staging.caritathelp.me/" //http://api.caritathelp.me/
     
-    func request(type:String,param:[String:String], add:String, callback: ((_ isOk: Bool, _ User : JSON)->Void)?){
+    func request(type:String,param:[String:Any], add:String, callback: ((_ isOk: Bool, _ User : JSON)->Void)?){
         
         var res : AnyObject = "" as AnyObject
         if(type == "POST"){

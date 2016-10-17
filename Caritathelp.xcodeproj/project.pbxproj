@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F017C471DAD7D4400649B13 /* NewChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017C461DAD7D4400649B13 /* NewChatroom.swift */; };
+		3F017C4B1DAED5FE00649B13 /* chatroomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017C4A1DAED5FE00649B13 /* chatroomController.swift */; };
 		3F0225DF1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225DE1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift */; };
 		3F0225E31CBC33C400158A1B /* CustomCellEventMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E21CBC33C400158A1B /* CustomCellEventMember.swift */; };
 		3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E41CC0092700158A1B /* UpdateEvent.swift */; };
@@ -100,6 +102,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F017C461DAD7D4400649B13 /* NewChatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatroom.swift; sourceTree = "<group>"; };
+		3F017C4A1DAED5FE00649B13 /* chatroomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatroomController.swift; sourceTree = "<group>"; };
 		3F0225DE1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHeaderAsso.swift; sourceTree = "<group>"; };
 		3F0225E21CBC33C400158A1B /* CustomCellEventMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellEventMember.swift; sourceTree = "<group>"; };
 		3F0225E41CC0092700158A1B /* UpdateEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateEvent.swift; sourceTree = "<group>"; };
@@ -296,6 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				3F4FB7461D95576C004563A6 /* ListchatroomController.swift */,
+				3F017C461DAD7D4400649B13 /* NewChatroom.swift */,
+				3F017C4A1DAED5FE00649B13 /* chatroomController.swift */,
 			);
 			name = messagerie;
 			sourceTree = "<group>";
@@ -692,6 +698,7 @@
 				3F3FAE971D28072C00E2779C /* CustomCellEventVolunteer.swift in Sources */,
 				3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */,
 				3F3FAE861CF7A0D400E2779C /* InviteGuest.swift in Sources */,
+				3F017C471DAD7D4400649B13 /* NewChatroom.swift in Sources */,
 				3F3FAE8D1D03143900E2779C /* LoadPhotoController.swift in Sources */,
 				3F639D571CDF972400F45583 /* CustomCellProfil.swift in Sources */,
 				3F3FAE8A1CF7A8FA00E2779C /* CurrentAssociation.swift in Sources */,
@@ -704,6 +711,7 @@
 				3FF3334E1D6741B40060313B /* CommentActu.swift in Sources */,
 				3F1CC0611D75CF01006F38D7 /* CustomCellActu.swift in Sources */,
 				3FF1A53D1C17168A00098FBF /* AppDelegate.swift in Sources */,
+				3F017C4B1DAED5FE00649B13 /* chatroomController.swift in Sources */,
 				3FC521A81CA4A6C100742193 /* VolunteerNotification.swift in Sources */,
 				3F9F470D1C7CC47E007DCDB1 /* itemMyAsssoc.swift in Sources */,
 				3FCC1F9D1C7DE4AE00B5EA9A /* MembersInAssociation.swift in Sources */,

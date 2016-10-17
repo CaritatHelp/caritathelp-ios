@@ -30,12 +30,12 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         let cell : CustomCellMemberAsso = members_list.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! CustomCellMemberAsso
         var name = ""
         if(searchActive == false){
-            name = String(describing: members["response"][indexPath.row]["firstname"]) + " " + String(describing: members["response"][indexPath.row]["lastname"])
+            name = String(describing: members[indexPath.row]["firstname"]) + " " + String(describing: members[indexPath.row]["lastname"])
         }
         else{
             name = String(filteredTableData[indexPath.row])
         }
-        cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: members["response"][indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: members[indexPath.row]["thumb_path"]))
         
     
         return cell
@@ -45,7 +45,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count : Int = 0
         if(searchActive == false){
-            count = members["response"].count
+            count = members.count
         } else{
             count = filteredTableData.count
         }
@@ -85,11 +85,11 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.members = User
+                self.members = User["response"]
                 self.members_list.reloadData()
                 var i = 0
                 while i < self.members.count{
-                    self.filtered.append(String(describing: self.members["response"][i]["firstname"]) + " " + String(describing: self.members["response"][i]["lastname"]))
+                    self.filtered.append(String(describing: self.members[i]["firstname"]) + " " + String(describing: self.members[i]["lastname"]))
                     i += 1
                 }
 
@@ -116,7 +116,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
 
-            self.param["volunteer_id"] = String(describing: self.members["response"][indexPath.row]["id"])
+            self.param["volunteer_id"] = String(describing: self.members[indexPath.row]["id"])
             let val = "friendship/add"
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
@@ -152,7 +152,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
             let secondViewController = segue.destination as! ProfilVolunteer
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.idvolunteer = String(describing: members["response"][indexPath!.row]["id"])
+            secondViewController.idvolunteer = String(describing: members[indexPath!.row]["id"])
         }
 
     }

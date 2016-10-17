@@ -67,7 +67,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                     self.param["uid"] = sharedInstance.header["uid"]
 
                     self.param["content"] = Newcontent
-                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.Actu["response"][path.section - 1]["id"]), callback: {
+                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.Actu[path.section - 1]["id"]), callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             self.refreshActu()
@@ -86,7 +86,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                     self.param["client"] = sharedInstance.header["client"]
                     self.param["uid"] = sharedInstance.header["uid"]
 
-                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.Actu["response"][path.section - 1]["id"]) , callback: {
+                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.Actu[path.section - 1]["id"]) , callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             //self.refreshActu()
@@ -101,15 +101,15 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 }
                 
                 var title = ""
-                    title = String(describing: Actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: Actu["response"][indexPath.section - 1]["group_name"])
+                    title = String(describing: Actu[indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: Actu[indexPath.section - 1]["group_name"])
                 var from = ""
-                if Actu["response"][indexPath.section - 1]["volunteer_id"] == user["id"] {
+                if Actu[indexPath.section - 1]["volunteer_id"] == user["id"] {
                     from = "true"
                 }
                 else {
                     from = "false"
                 }
-                cell1.setCell(NameLabel: title, DateLabel: String(describing: Actu["response"][indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(describing: Actu["response"][indexPath.section-1]["thumb_path "]), content: String(describing: Actu["response"][indexPath.section-1]["content"]), from: from)
+                cell1.setCell(NameLabel: title, DateLabel: String(describing: Actu[indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(describing: Actu[indexPath.section-1]["thumb_path "]), content: String(describing: Actu[indexPath.section-1]["content"]), from: from)
             return cell1
             }
             else {
@@ -121,7 +121,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Actu["response"].count + 1
+        return Actu.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -151,7 +151,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         super.viewDidLoad()
         //self.title = TitleAssoc
         
-        user = sharedInstance.volunteer["response"]
+        user = sharedInstance.volunteer
         self.ActuAssoList.addSubview(self.refreshControl)
         ActuAssoList.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         ActuAssoList.estimatedRowHeight = 159.0
@@ -183,10 +183,10 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.Asso = User
-                self.title = String(describing: self.Asso["response"]["name"])
-                self.main_picture = define.path_picture + String(describing: User["response"]["thumb_path"])
-                self.alreadyMember = String(describing: User["response"]["rights"])
+                self.Asso = User["response"]
+                self.title = String(describing: self.Asso["name"])
+                self.main_picture = define.path_picture + String(describing: User["thumb_path"])
+                self.alreadyMember = String(describing: User["rights"])
                 //self.ActuAssoList.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshActu()
@@ -277,7 +277,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 let secondViewController = segue.destination as! CommentActuController
                 
                 // set a variable in the second view controller with the String to pass
-                secondViewController.IDnews = String(describing: Actu["response"][indexPath!.section-1]["id"])
+                secondViewController.IDnews = String(describing: Actu[indexPath!.section-1]["id"])
                 //secondViewController.from = "asso"
             }//
         }

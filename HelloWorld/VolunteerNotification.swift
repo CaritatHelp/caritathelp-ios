@@ -27,43 +27,43 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : CustomCellNotif!
         let message = MessageNotif(row: indexPath.row)
-        switch notifs["response"][indexPath.row]["notif_type"] {
+        switch notifs[indexPath.row]["notif_type"] {
         case "JoinAssoc", "InviteMember":
         cell = list_notif.dequeueReusableCell(withIdentifier: "NotifCell", for: indexPath) as! CustomCellNotif
         
-        cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs["response"][indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs["response"][indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs[indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
         case "JoinEvent", "InviteGuest":
         cell = list_notif.dequeueReusableCell(withIdentifier: "NotifCell2", for: indexPath) as! CustomCellNotif
             
-            //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs["response"][indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs["response"][indexPath.row]["thumb_path"]))
+            //        cell.textLabel!.text = String(asso_list[indexPath.row]["name"])
+            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs[indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
         default :
-            print(notifs["response"][indexPath.row]["notif_type"])
+            print(notifs[indexPath.row]["notif_type"])
             cell = list_notif.dequeueReusableCell(withIdentifier: "NotifCell3", for: indexPath) as! CustomCellNotif
             
-            //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs["response"][indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs["response"][indexPath.row]["thumb_path"]))
+            //        cell.textLabel!.text = String(asso_list[indexPath.row]["name"])
+            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs[indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
         }
         return cell
     }
     
     func MessageNotif(row: Int) -> String{
         var message = ""
-        switch notifs["response"][row]["notif_type"] {
+        switch notifs[row]["notif_type"] {
         case "JoinAssoc":
-            message = String(describing: notifs["response"][row]["sender_name"]) + " veux rejoindre votre association : " + String(describing: notifs["response"][row]["assoc_name"])
+            message = String(describing: notifs[row]["sender_name"]) + " veux rejoindre votre association : " + String(describing: notifs[row]["assoc_name"])
         case "JoinEvent":
-            message = String(describing: notifs["response"][row]["sender_name"]) + " veux rejoindre votre évènement : " + String(describing: notifs["response"][row]["event_name"])
+            message = String(describing: notifs[row]["sender_name"]) + " veux rejoindre votre évènement : " + String(describing: notifs[row]["event_name"])
         case "InviteMember":
-            message = String(describing: notifs["response"][row]["sender_name"]) + " vous invite à rejoindre l'association : " + String(describing: notifs["response"][row]["assoc_name"])
+            message = String(describing: notifs[row]["sender_name"]) + " vous invite à rejoindre l'association : " + String(describing: notifs[row]["assoc_name"])
         case "InviteGuest":
-            message = String(describing: notifs[row]["sender_name"]) + " vous invite à rejoindre l'évènement : " + String(describing: notifs["response"][row]["event_name"])
+            message = String(describing: notifs[row]["sender_name"]) + " vous invite à rejoindre l'évènement : " + String(describing: notifs[row]["event_name"])
         case "AddFriend":
-            message = String(describing: notifs["response"][row]["sender_name"]) + " veux vous ajouter en ami "
+            message = String(describing: notifs[row]["sender_name"]) + " veux vous ajouter en ami "
         case "NewGuest":
-            message = String(describing: notifs["response"][row]["sender_name"]) + " a rejoint l'association : " + String(describing: notifs["response"][row]["assoc_name"])
+            message = String(describing: notifs[row]["sender_name"]) + " a rejoint l'association : " + String(describing: notifs[row]["assoc_name"])
         case "NewMember":
-            message = String(describing: notifs["response"][row]["sender_name"]) + " a rejoint l'association : " + String(describing: notifs["response"][row]["assoc_name"])
+            message = String(describing: notifs[row]["sender_name"]) + " a rejoint l'association : " + String(describing: notifs[row]["assoc_name"])
         default:
             message = "erreur...."
         }
@@ -71,7 +71,8 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notifs["response"].count
+        print(notifs.count)
+        return notifs.count
     }
 
     
@@ -82,25 +83,25 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         
         let shareAction = UITableViewRowAction(style: .normal, title: "Confirmer") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
-            print(String(describing: self.notifs["response"][indexPath.row]["notif_type"]))
+            print(String(describing: self.notifs[indexPath.row]["notif_type"]))
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
 
-            self.param["notif_id"] = String(describing: self.notifs["response"][indexPath!.row]["id"])
+            self.param["notif_id"] = String(describing: self.notifs[indexPath!.row]["id"])
             self.param["acceptance"] = "true"
             var val = ""
-            if self.notifs["response"][indexPath.row]["notif_type"] == "AddFriend" {
+            if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
                 val = "friendship/reply"
             }
-            else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteMember" {
+            else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
                 val = "membership/reply_invite"
-            }else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteGuest" {
+            }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
             }
-            else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinAssoc" {
+            else if self.notifs[indexPath.row]["notif_type"] == "JoinAssoc" {
                 val = "membership/reply_member"
-            }else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinEvent" {
+            }else if self.notifs[indexPath.row]["notif_type"] == "JoinEvent" {
                 val = "guests/reply_guest"
             }
             self.request.request(type: "POST", param: self.param,add: val, callback: {
@@ -120,19 +121,19 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
 
-            self.param["notif_id"] = String(describing: self.notifs["response"][indexPath!.row]["id"])
+            self.param["notif_id"] = String(describing: self.notifs[indexPath!.row]["id"])
             self.param["acceptance"] = "false"
             var val = ""
-            if self.notifs["response"][indexPath.row]["notif_type"] == "AddFriend" {
+            if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
                 val = "friendship/reply"
             }
-            else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteMember" {
+            else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
                 val = "membership/reply_invite"
-            }else if self.notifs["response"][indexPath.row]["notif_type"] == "InviteGuest" {
+            }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
-            }else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinAssoc" {
+            }else if self.notifs[indexPath.row]["notif_type"] == "JoinAssoc" {
                 val = "membership/reply_member"
-            }else if self.notifs["response"][indexPath.row]["notif_type"] == "JoinEvent" {
+            }else if self.notifs[indexPath.row]["notif_type"] == "JoinEvent" {
                 val = "guests/reply_guest"
             }
             self.request.request(type: "POST", param: self.param,add: val, callback: {
@@ -159,7 +160,7 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         print("LOL2")
         self.list_notif.addSubview(self.refreshControl)
         print("LOL3")
-        user = sharedInstance.volunteer["response"]
+        user = sharedInstance.volunteer
         print("LOL4")
         self.refresh()
         print("LOL5")
@@ -178,7 +179,7 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
             (isOK, User)-> Void in
             if(isOK){
                 print("SUCCESS")
-                self.notifs = User
+                self.notifs = User["response"]
                 self.list_notif.reloadData()
                 self.refreshControl.endRefreshing()
             }
@@ -195,19 +196,19 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
             let secondViewController = segue.destination as! ProfilVolunteer
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.idvolunteer = String(describing: notifs["response"][indexPath!.row]["sender_id"])
+            secondViewController.idvolunteer = String(describing: notifs[indexPath!.row]["sender_id"])
         }
         if(segue.identifier == "fromnotiftoevent"){
             let secondViewController = segue.destination as! ProfilEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(describing: notifs["response"][indexPath!.row]["event_id"])
+            secondViewController.EventID = String(describing: notifs[indexPath!.row]["event_id"])
         }
         if(segue.identifier == "fromnotiftoasso"){
             let secondViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.AssocID = String(describing: notifs["response"][indexPath!.row]["assoc_id"])
+            secondViewController.AssocID = String(describing: notifs[indexPath!.row]["assoc_id"])
         }
     }
 

@@ -966,6 +966,160 @@
             </objects>
             <point key="canvasLocation" x="1354.5" y="-2275.5"/>
         </scene>
+        <!--Title-->
+        <scene sceneID="PtM-s3-aSj">
+            <objects>
+                <viewController id="Kzl-f7-K51" customClass="NewChatroomController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e6E-I0-X77"/>
+                        <viewControllerLayoutGuide type="bottom" id="WuR-eo-aBl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f5D-vo-4aK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Titre de la conversation (optionnel)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IQH-P8-z1N">
+                                <frame key="frameInset" minY="64" width="375" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94134615384615383" green="0.94134615384615383" blue="0.94134615384615383" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="52" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QdI-1e-njU">
+                                <frame key="frameInset" minY="122" width="375" height="496"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="getuserschatroom" rowHeight="52" id="0w2-Po-Ukc" customClass="CustomCellInviteMember" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="52"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0w2-Po-Ukc" id="y4k-oQ-V1v">
+                                            <frame key="frameInset" width="375" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csg-XZ-W9Q">
+                                                    <frame key="frameInset" minX="48" minY="13" width="280" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zIv-sx-tQo">
+                                                    <frame key="frameInset" minX="8" minY="8" width="34" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.036536596900000003" green="0.6671711387" blue="0.30148286120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="ImageProfilFriends" destination="zIv-sx-tQo" id="eIm-tr-M7X"/>
+                                            <outlet property="NameFriends" destination="csg-XZ-W9Q" id="Eal-aZ-HJT"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Kzl-f7-K51" id="gme-oD-emX"/>
+                                    <outlet property="delegate" destination="Kzl-f7-K51" id="Wvd-QO-jkI"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="0x3-KZ-tNL">
+                        <barButtonItem key="rightBarButtonItem" title="Créer" id="rsD-Zm-dIa">
+                            <color key="tintColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="InviteMember:" destination="Kzl-f7-K51" id="Kzi-Fr-LfO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="friends_list" destination="QdI-1e-njU" id="DHG-MW-WQb"/>
+                        <outlet property="titleChatroom" destination="IQH-P8-z1N" id="Mvw-di-2AJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fWF-QD-1iz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1312.8" y="-3900.0000000000005"/>
+        </scene>
+        <!--Chatroom Controller-->
+        <scene sceneID="DJy-lx-OFz">
+            <objects>
+                <viewController id="H2a-C3-0xX" customClass="chatroomController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8nn-AC-NJU"/>
+                        <viewControllerLayoutGuide type="bottom" id="yAW-AK-GPF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="piS-2G-NVZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="78" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HNB-HY-J2F">
+                                <frame key="frameInset" minY="64" width="375" height="554"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="messageCell" rowHeight="78" id="nZw-2Z-qd2">
+                                        <rect key="frame" x="0.0" y="92" width="375" height="78"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nZw-2Z-qd2" id="YgC-Gi-t1G">
+                                            <frame key="frameInset" width="375" height="77"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableview_room" destination="HNB-HY-J2F" id="Qmh-dt-uBJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Od-Vk-1O0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2080.8000000000002" y="-3835.2323838080961"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Xij-DO-8A7">
+            <objects>
+                <viewController id="LXv-C9-g1m" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LoL-b7-Gso"/>
+                        <viewControllerLayoutGuide type="bottom" id="hW4-eu-jzD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Psq-ie-FoY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label     nkjhkjhkjhkjh" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4r2-yu-gCf">
+                                <frame key="frameInset" minX="87" minY="200" width="210" height="75"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <color key="highlightedColor" red="0.88291266030000004" green="0.88291266030000004" blue="0.88291266030000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="shadowColor" red="0.013802083333333326" green="0.013802083333333326" blue="0.013802083333333326" alpha="1" colorSpace="calibratedRGB"/>
+                                <size key="shadowOffset" width="1" height="1"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="sdfsdfsdfdsfdsfsdfsdfSD\n qqdsdssq" borderStyle="roundedRect" placeholder="toto" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dfu-XA-CQD">
+                                <frame key="frameInset" minX="50" minY="377" width="236" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.036536596900000003" green="0.6671711387" blue="0.30148286120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dBv-KS-u1P" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2890.4000000000001" y="-3925.1874062968518"/>
+        </scene>
         <!--Volunteer Events Controller-->
         <scene sceneID="Qcl-tN-Ta0">
             <objects>
@@ -3108,6 +3262,7 @@
                                             <outlet property="ImageProfilFriends" destination="1wi-5c-PVm" id="rGA-Jd-26W"/>
                                             <outlet property="LastMessage" destination="rQH-qz-a0a" id="u0Z-Xs-woU"/>
                                             <outlet property="NameRoom" destination="2gS-3C-RB8" id="yjL-0K-nV7"/>
+                                            <segue destination="H2a-C3-0xX" kind="show" identifier="showchatroom" id="zAf-km-HzH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3122,6 +3277,9 @@
                     <navigationItem key="navigationItem" id="1ay-54-cJ4">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="lSG-oa-Vor">
                             <color key="tintColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="Kzl-f7-K51" kind="show" id="bMR-97-1zq"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -3827,16 +3985,16 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kak-kY-Faf"/>
         <segue reference="QU2-cM-zX4"/>
-        <segue reference="2s0-n8-0SF"/>
-        <segue reference="cbw-52-vWL"/>
         <segue reference="uYc-IU-TMd"/>
         <segue reference="zs6-k5-odG"/>
         <segue reference="dyz-Mz-TIx"/>
         <segue reference="3r6-pW-jNR"/>
-        <segue reference="MoD-cH-jlH"/>
+        <segue reference="cbw-52-vWL"/>
+        <segue reference="2s0-n8-0SF"/>
         <segue reference="3Lt-6m-30b"/>
+        <segue reference="MoD-cH-jlH"/>
+        <segue reference="Kak-kY-Faf"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99687499999999996" green="0.99687499999999996" blue="0.99687499999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

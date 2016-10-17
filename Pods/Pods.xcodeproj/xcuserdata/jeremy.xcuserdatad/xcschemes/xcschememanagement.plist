@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SnapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Starscream.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,7 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>12D3B162C7A538DD748424A2066F7C7E</key>
+		<key>0DF9B52570C5F2EDB3A6FF8DB316B520</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,27 +57,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>624965F75647E2C87ED8E62BA9BAFBAF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>77F78B454C0A410DE0477E2123F8C0B9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E0486F61228A3848E9FA693812582962</key>
+		<key>C2AAED80F4001DF46A6D39FC7265B1EE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EA4AAED255C655CA44F9CCAD6689291C</key>
+		<key>CC381CD3ECB8946256273FDD22677D4A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F2453236FE35B160E84695AF5AF3DAF2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FD2DF89C2F37BD2A2330F788033EC5E7</key>
+		<key>D28A2EF49E3201C8E7A4730D5E3B05E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

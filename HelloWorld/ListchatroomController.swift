@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 import SwiftyJSON
 import SCLAlertView
+import SlackTextViewController
 
 class ListchatroomController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     var user : JSON = []
     var request = RequestModel()
     var param = [String: String]()
     var list_room : JSON = []
+    var message_list : JSON = []
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -30,18 +32,25 @@ class ListchatroomController : UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
             let cell = tableview_room.dequeueReusableCell(withIdentifier: "roomcell", for: indexPath as IndexPath) as! CustomRoomCell
-            cell.setCell(NameLabel: String(describing: list_room["response"][indexPath.row]["name"]), DetailLabel: String(describing: list_room["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: list_room["response"][indexPath.row]["thumb_path"]))
+        var title = String(describing: list_room[indexPath.row]["name"])
+        
+        if String(describing: list_room[indexPath.row]["name"]) == "" {
+            title = String(describing: list_room[indexPath.row]["volunteers"][0])
+        }
+        
+            cell.setCell(NameLabel: title, DetailLabel: String(describing: list_room[indexPath.row]["name"]), imageName: define.path_picture + String(describing: list_room[indexPath.row]["thumb_path"]))
             return cell
             
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list_room["response"].count
+        return list_room.count
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableview_room.tableFooterView = UIView()
         self.tableview_room.addSubview(self.refreshControl)
         
@@ -58,7 +67,8 @@ class ListchatroomController : UIViewController, UITableViewDelegate, UITableVie
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.list_room = User
+                self.list_room = User["response"]
+                self.refreshControl.endRefreshing()
                 self.tableview_room.reloadData()
                 //self.refreshActu()
             }
@@ -67,6 +77,22 @@ class ListchatroomController : UIViewController, UITableViewDelegate, UITableVie
             }
         });
 
+    }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // get a reference to the second view controller
+        if(segue.identifier == "showchatroom"){
+            
+            let indexPath = tableview_room.indexPath(for: sender as! UITableViewCell)
+                                let secondViewController = segue.destination as! chatroomController
+                    
+                    // set a variable in the second view controller with the String to pass
+                    print("ID = " + String(describing: self.list_room[indexPath!.section]["id"]))
+                    secondViewController.chatroomID = String(describing: self.list_room[indexPath!.row]["id"])
+                    //secondViewController.list_room = User["response"]
+                    //secondViewController.user = user
+                    }
     }
     
 }

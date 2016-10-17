@@ -88,6 +88,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/MGSwipeTableCell.framework"
   install_framework "Pods/SCLAlertView.framework"
   install_framework "Pods/SlackTextViewController.framework"
+  install_framework "Pods/SnapKit.framework"
   install_framework "Pods/Starscream.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi
@@ -96,6 +97,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/MGSwipeTableCell.framework"
   install_framework "Pods/SCLAlertView.framework"
   install_framework "Pods/SlackTextViewController.framework"
+  install_framework "Pods/SnapKit.framework"
   install_framework "Pods/Starscream.framework"
   install_framework "Pods/SwiftyJSON.framework"
 fi

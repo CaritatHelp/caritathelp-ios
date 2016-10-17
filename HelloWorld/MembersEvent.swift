@@ -27,14 +27,14 @@ class MembersEventController: UIViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellEventMember = members_list.dequeueReusableCell(withIdentifier: "MemberEventCell", for: indexPath as IndexPath) as! CustomCellEventMember
         
-        let nom = String(describing: members["response"][indexPath.row]["firstname"]) + " " + String(describing: members["response"][indexPath.row]["lastname"])
-        cell.setCell(NameLabel: nom, DetailLabel: "8 amis en commun", imageName: define.path_picture + String(describing: members["response"][indexPath.row]["thumb_path"]))
+        let nom = String(describing: members[indexPath.row]["firstname"]) + " " + String(describing: members[indexPath.row]["lastname"])
+        cell.setCell(NameLabel: nom, DetailLabel: "8 amis en commun", imageName: define.path_picture + String(describing: members[indexPath.row]["thumb_path"]))
         return cell
     }
     //nombre de ligne du table view
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return members["response"].count
+        return members.count
     }
     
     // bouton quand on slide une ligne du tableview
@@ -48,7 +48,7 @@ class MembersEventController: UIViewController {
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
 
-            self.param["volunteer_id"] = String(describing: self.members["response"][indexPath.row]["id"])
+            self.param["volunteer_id"] = String(describing: self.members[indexPath.row]["id"])
             let val = "friendship/add"
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
@@ -97,7 +97,7 @@ class MembersEventController: UIViewController {
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.members = User
+                self.members = User["response"]
                 self.members_list.reloadData()
             }
             else {

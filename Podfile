@@ -8,6 +8,7 @@ pod 'MGSwipeTableCell'
 pod 'SCLAlertView', :git => 'https://github.com/vikmeup/SCLAlertView-Swift'
 pod 'Starscream'
 pod "SlackTextViewController"
+pod 'SnapKit'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

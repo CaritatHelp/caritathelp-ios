@@ -21,12 +21,12 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : CustomCellAssoVolunteer = asso_list.dequeueReusableCell(withIdentifier: "assovolunteer", for: indexPath) as! CustomCellAssoVolunteer
-        cell.setCell(NameLabel: String(describing: assoVolunteer["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: assoVolunteer["response"][indexPath.row]["thumb_path"]), state: "Paris")
+        cell.setCell(NameLabel: String(describing: assoVolunteer[indexPath.row]["name"]), imageName: define.path_picture + String(describing: assoVolunteer[indexPath.row]["thumb_path"]), state: "Paris")
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assoVolunteer["response"].count
+        return assoVolunteer.count
     }
     
     
@@ -42,7 +42,7 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.assoVolunteer = User
+                self.assoVolunteer = User["response"]
                 self.asso_list.reloadData()
             }
             else {
@@ -65,8 +65,8 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
             
             // set a variable in the second view controller with the String to pass
             //secondViewController.TitleAssoc = currentCell.textLabel!.text!
-            secondViewController.AssocID = String(describing: assoVolunteer["response"][indexPath!.row]["id"])
-            secondViewController.alreadyMember = String(describing: assoVolunteer["response"][indexPath!.row]["rights"])
+            secondViewController.AssocID = String(describing: assoVolunteer[indexPath!.row]["id"])
+            secondViewController.alreadyMember = String(describing: assoVolunteer[indexPath!.row]["rights"])
             //secondViewController.user = user
             
             navigationItem.title = "back"

@@ -30,25 +30,25 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     //let AssocList = ["la croix rouge", "les restos du coeur", "futsal"]
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(String(describing: asso_list["response"][indexPath.row]["result_type"]))
-        if String(describing: asso_list["response"][indexPath.row]["result_type"]) == "volunteer" {
+        print(String(describing: asso_list[indexPath.row]["result_type"]))
+        if String(describing: asso_list[indexPath.row]["result_type"]) == "volunteer" {
             let cell = tableViewAssoc.dequeueReusableCell(withIdentifier: "researchVolunteer", for: indexPath as IndexPath) as! CustomCellResearchAsso
-            cell.setCell(NameLabel: String(describing: asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list["response"][indexPath.row]["thumb_path"]), state: "volontaire")
+            cell.setCell(NameLabel: String(describing: asso_list[indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list[indexPath.row]["thumb_path"]), state: "volontaire")
             return cell
             
-        }else if String(describing: asso_list["response"][indexPath.row]["result_type"]) == "event" {
+        }else if String(describing: asso_list[indexPath.row]["result_type"]) == "event" {
             let cell = tableViewAssoc.dequeueReusableCell(withIdentifier: "researchEvent", for: indexPath as IndexPath) as! CustomCellResearchAsso
-            cell.setCell(NameLabel: String(describing: asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list["response"][indexPath.row]["thumb_path"]), state: "évènement")
+            cell.setCell(NameLabel: String(describing: asso_list[indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list[indexPath.row]["thumb_path"]), state: "évènement")
             return cell
         } else {
             let cell = tableViewAssoc.dequeueReusableCell(withIdentifier: "researchAsso", for: indexPath as IndexPath) as! CustomCellResearchAsso
-            cell.setCell(NameLabel: String(describing: asso_list["response"][indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list["response"][indexPath.row]["thumb_path"]), state: "association")
+            cell.setCell(NameLabel: String(describing: asso_list[indexPath.row]["name"]), imageName: define.path_picture + String(describing: asso_list[indexPath.row]["thumb_path"]), state: "association")
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return asso_list["response"].count
+        return asso_list.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -61,7 +61,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user
         self.tableViewAssoc.addSubview(self.refreshControl)
-        //tableViewAssoc.tableFooterView = UIView()
+        self.tableViewAssoc.tableFooterView = UIView()
         refresh(search: "pierre")
     }
     
@@ -74,7 +74,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         request.request(type: "GET", param: self.param, add: "search", callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.asso_list = User
+                self.asso_list = User["response"]
                 self.refreshControl.endRefreshing()
                 self.tableViewAssoc.reloadData()
             }
@@ -99,20 +99,20 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
             let secondViewController = segue.destination as! AssociationProfil
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.TitleAssoc = String(describing: asso_list["response"][indexPath!.row]["name"])
-            secondViewController.AssocID = String(describing: asso_list["response"][indexPath!.row]["id"])
-            secondViewController.alreadyMember = String(describing: asso_list["response"][indexPath!.row]["rights"])
+            secondViewController.TitleAssoc = String(describing: asso_list[indexPath!.row]["name"])
+            secondViewController.AssocID = String(describing: asso_list[indexPath!.row]["id"])
+            secondViewController.alreadyMember = String(describing: asso_list[indexPath!.row]["rights"])
             //secondViewController.user = user
             navigationItem.title = "back"
         }
         if(segue.identifier == "showeventfromresearch"){
             let secondViewController = segue.destination as! ProfilEventController
-            secondViewController.EventID = String(describing: asso_list["response"][indexPath!.row]["id"])
+            secondViewController.EventID = String(describing: asso_list[indexPath!.row]["id"])
         }
         if(segue.identifier == "showprofilfromresearch"){
             let secondViewController = segue.destination as! ProfilVolunteer
             print(indexPath?.row)
-            secondViewController.idvolunteer = String(describing: asso_list["response"][indexPath!.row]["id"])
+            secondViewController.idvolunteer = String(describing: asso_list[indexPath!.row]["id"])
         }
     }
     
@@ -132,9 +132,9 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
 //        asso_list = []
 //        var i = 0
 //        var j = 0
-//        while i <= tmp_list["response"].count {
-//            if (String(tmp_list["response"][i]["name"]).lowercaseString as NSString).rangeOfString(searchText).length != 0 {
-//                asso_list[j] = tmp_list["response"][i]
+//        while i <= tmp_list.count {
+//            if (String(tmp_list[i]["name"]).lowercaseString as NSString).rangeOfString(searchText).length != 0 {
+//                asso_list[j] = tmp_list[i]
 //                j += 1
 //            }
 //            i += 1

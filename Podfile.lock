@@ -3,6 +3,7 @@ PODS:
   - MGSwipeTableCell (1.5.6)
   - SCLAlertView (0.6.0)
   - SlackTextViewController (1.9.4)
+  - SnapKit (3.0.2)
   - Starscream (2.0.0)
   - SwiftyJSON (3.0.0)
 
@@ -11,6 +12,7 @@ DEPENDENCIES:
   - MGSwipeTableCell
   - SCLAlertView (from `https://github.com/vikmeup/SCLAlertView-Swift`)
   - SlackTextViewController
+  - SnapKit
   - Starscream
   - SwiftyJSON (= 3.0.0)
 
@@ -28,6 +30,7 @@ SPEC CHECKSUMS:
   MGSwipeTableCell: 616700eb0ffd1c611ba909066cb7fd739790a0a7
   SCLAlertView: 0f6b3c23a48b4993564ff1dd3c065782e4b2b687
   SlackTextViewController: d490f354dba963bc469a6b9ce3213978eaed67a5
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   Starscream: 947c865596f0d6bb3f0203fee23228ed2d471468
   SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
 

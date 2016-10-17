@@ -61,7 +61,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     
     
     func loadDataFirstView(){
-        user = sharedInstance.volunteer["response"]
+        user = sharedInstance.volunteer
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
@@ -72,15 +72,15 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
             if(isOK){
                 var TableData:Array< JSON > = Array < JSON >()
                 var TableData2:Array< JSON > = Array < JSON >()
-                self.asso_list = User
-                let total = self.asso_list["response"].count
+                self.asso_list = User["response"]
+                let total = self.asso_list.count
                 var i = 0
                 while i < total{
-                    if(self.asso_list["response"][i]["rights"] == "owner"){
+                    if(self.asso_list[i]["rights"] == "owner"){
                             //self.asso_created_list.rawValue
-                        TableData.append(self.asso_list["response"][i])
+                        TableData.append(self.asso_list[i])
                     }else{
-                        TableData2.append(self.asso_list["response"][i])
+                        TableData2.append(self.asso_list[i])
                     }
                     i += 1
                 }
@@ -156,7 +156,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.param["access-token"] = sharedInstance.header["access-token"]
                 self.param["client"] = sharedInstance.header["client"]
                 self.param["uid"] = sharedInstance.header["uid"]
-                self.param["assoc_id"] = String(describing: self.asso_list["response"][indexPath!.row]["id"])
+                self.param["assoc_id"] = String(describing: self.asso_list[indexPath!.row]["id"])
                 let val = "membership/leave"
                 self.request.request(type: "DELETE", param: self.param,add: val, callback: {
                     (isOK, User)-> Void in

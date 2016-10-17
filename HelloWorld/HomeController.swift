@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftyJSON
-import SwiftyJSON
 import SCLAlertView
 
 
@@ -228,6 +227,17 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 
+}
+
+
+extension UIColor {
+    class func greenCaritathelp() -> UIColor {
+        return UIColor(red: 83.0/255.0, green: 166.0/255.0, blue: 82.0/255.0, alpha: 1.0)
+    }
+    
+    class func grayCaritathelp() -> UIColor {
+        return UIColor(red: 218.0/255.0, green: 218.0/255.0, blue: 218.0/255.0, alpha: 1.0)
+    }
 }
 
 

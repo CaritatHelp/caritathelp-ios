@@ -36,7 +36,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCell(withIdentifier: "CellProfilVolunteer", for: indexPath) as! CustomCellProfilVolunteer
-                cell.setCell(NameLabel: String(describing: volunteer["response"]["firstname"]) + " " + String(describing: volunteer["response"]["lastname"]), DetailLabel: String(describing: volunteer["response"]["friendship"]), imageName: main_picture, User: volunteer["response"])
+                cell.setCell(NameLabel: String(describing: volunteer["firstname"]) + " " + String(describing: volunteer["lastname"]), DetailLabel: String(describing: volunteer["friendship"]), imageName: main_picture, User: volunteer)
                 
                 let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).cgColor, UIColor.white.cgColor]
                 let gradientLocations = [0.0,1.0]
@@ -61,12 +61,12 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             
 //            let dateFormatter = NSDateFormatter()
 //            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm"
-//            let date = dateFormatter.dateFromString(String(actu["response"][indexPath.row - 2]["updated_at"]))
+//            let date = dateFormatter.dateFromString(String(actu[indexPath.row - 2]["updated_at"]))
 //            dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR")
 //            dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
 //            let datefinale = dateFormatter.stringFromDate(date!)
             if indexPath.row == 0 {
-            let datefinale = String(describing: actu["response"][indexPath.section - 1]["updated_at"])
+            let datefinale = String(describing: actu[indexPath.section - 1]["updated_at"])
             
             let cell1 : CustomCellActu = profil_list.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
                 
@@ -75,7 +75,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
 
                     self.param["token"] = String(describing: self.user["token"])
                     self.param["content"] = Newcontent
-                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.actu["response"][path.section - 1]["id"]), callback: {
+                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.actu[path.section - 1]["id"]), callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             self.refreshActu()
@@ -91,7 +91,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                     let path = tableView.indexPathForRow(at: selectedCell.center)!
 
                     self.param["token"] = String(describing: self.user["token"])
-                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.actu["response"][path.section - 1]["id"]) , callback: {
+                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.actu[path.section - 1]["id"]) , callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             //self.refreshActu()
@@ -106,19 +106,19 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 }
                 
                 var title = ""
-                if actu["response"][indexPath.section - 1]["group_name"] == user["fullname"] {
-                    title = String(describing: actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur son mur"
+                if actu[indexPath.section - 1]["group_name"] == user["fullname"] {
+                    title = String(describing: actu[indexPath.section - 1]["volunteer_name"]) + " a publié sur son mur"
                 } else {
-                    title = String(describing: actu["response"][indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu["response"][indexPath.section - 1]["group_name"])
+                    title = String(describing: actu[indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu[indexPath.section - 1]["group_name"])
                 }
                 var from = ""
-                if actu["response"][indexPath.section - 1]["volunteer_id"] == user["id"] {
+                if actu[indexPath.section - 1]["volunteer_id"] == user["id"] {
                     from = "true"
                 }
                 else {
                     from = "false"
                 }
-                cell1.setCell(NameLabel: title, DateLabel:  datefinale, imageName: define.path_picture + String(describing: actu["response"][indexPath.section - 1]["thumb_path"]), content: String(describing: actu["response"][indexPath.section - 1]["content"]), from: from)
+                cell1.setCell(NameLabel: title, DateLabel:  datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section - 1]["thumb_path"]), content: String(describing: actu[indexPath.section - 1]["content"]), from: from)
             return cell1
             } else {
                 let cell1 = profil_list.dequeueReusableCell(withIdentifier: "commentactuprofil", for: indexPath) as UITableViewCell
@@ -128,7 +128,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return actu["response"].count + 1
+        return actu.count + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -164,7 +164,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         profil_list.tableFooterView = UIView()
         self.profil_list.addSubview(self.refreshControl)
-        user = sharedInstance.volunteer["response"]
+        user = sharedInstance.volunteer
         profil_list.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         profil_list.estimatedRowHeight = 159.0
         profil_list.rowHeight = UITableViewAutomaticDimension
@@ -181,8 +181,8 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.volunteer = User
-                self.main_picture = define.path_picture + String(describing: User["response"]["thumb_path"])
+                self.volunteer = User["response"]
+                self.main_picture = define.path_picture + String(describing: User["thumb_path"])
                 self.profil_list.reloadData()
                 self.refreshActu()
             }
@@ -254,7 +254,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             let secondViewController = segue.destination as! CommentActuController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.IDnews = String(describing: actu["response"][indexPath!.section - 1]["id"])
+            secondViewController.IDnews = String(describing: actu[indexPath!.section - 1]["id"])
         }
         
         
