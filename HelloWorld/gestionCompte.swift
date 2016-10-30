@@ -9,6 +9,7 @@
 import Foundation
 import SwiftyJSON
 import UIKit
+import SnapKit
 
 class GestionCompte : UIViewController, UITextFieldDelegate {
     
@@ -19,6 +20,7 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var new_password: UITextField!
     @IBOutlet weak var new_check_password: UITextField!
     @IBOutlet weak var Message: UILabel!
+    
     var user : JSON = []
     var param = [String: String]()
     var request = RequestModel()
@@ -27,7 +29,7 @@ class GestionCompte : UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() 
-        user = sharedInstance.volunteer
+        user = sharedInstance.volunteer["response"]
         print("DANS UPDATE // ")
         print(user)
         Prenom.text = String(describing: user["firstname"])

@@ -110,12 +110,6 @@ let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
             // set a variable in the second view controller with the String to pass
             secondViewController.idvolunteer = String(describing: User["id"])
         }
-//        if(segue.identifier == "GestionProfil"){
-//            let secondViewController = segue.destinationViewController as! GestionCompte
-//            
-//            // set a variable in the second view controller with the String to pass
-//            secondViewController.user = User
-//        }
     }
     
 

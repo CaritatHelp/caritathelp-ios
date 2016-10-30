@@ -189,7 +189,7 @@ class chatroomController : SLKTextViewController, WebSocketDelegate {
         let tabArray = tabController!.tabBar.items?[3] as UITabBarItem!
         //let alertTabItem = tabArray(3) as! UITabBarItem
         //let split = text.characters.split(separator: ",")
-        var myStringArr = text.components(separatedBy: ",")
+        let myStringArr = text.components(separatedBy: ",")
         
         var TableData = [String: String]()
         for str in myStringArr {

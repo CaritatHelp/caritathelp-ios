@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F011B3D1DC294220041BD65 /* ManageParticularViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F011B3C1DC294220041BD65 /* ManageParticularViewController.swift */; };
 		3F017C471DAD7D4400649B13 /* NewChatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017C461DAD7D4400649B13 /* NewChatroom.swift */; };
 		3F017C4B1DAED5FE00649B13 /* chatroomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F017C4A1DAED5FE00649B13 /* chatroomController.swift */; };
 		3F0225DF1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225DE1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift */; };
@@ -48,6 +49,9 @@
 		3F639D5B1CE10AFF00F45583 /* CustomCellAssoVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F639D5A1CE10AFF00F45583 /* CustomCellAssoVolunteer.swift */; };
 		3F676F3C1CAB790600466065 /* ViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F676F3B1CAB790600466065 /* ViewCell.swift */; };
 		3F676F401CABFFD500466065 /* CustomCellCollectionCreateAsso.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F676F3F1CABFFD500466065 /* CustomCellCollectionCreateAsso.swift */; };
+		3F70CA611DC255EE009663E3 /* ManageProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F70CA601DC255EE009663E3 /* ManageProfileViewController.swift */; };
+		3F70CA641DC2665B009663E3 /* UIColor+Caritathelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F70CA631DC2665B009663E3 /* UIColor+Caritathelp.swift */; };
+		3F70CA661DC2682F009663E3 /* UIFont+Caritathelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F70CA651DC2682F009663E3 /* UIFont+Caritathelp.swift */; };
 		3F891F651CF3409C00712C6E /* InvitationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F891F641CF3409C00712C6E /* InvitationsController.swift */; };
 		3F891F671CF3491600712C6E /* InviteMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F891F661CF3491600712C6E /* InviteMember.swift */; };
 		3F9F470D1C7CC47E007DCDB1 /* itemMyAsssoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F470C1C7CC47E007DCDB1 /* itemMyAsssoc.swift */; };
@@ -102,6 +106,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F011B3C1DC294220041BD65 /* ManageParticularViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageParticularViewController.swift; sourceTree = "<group>"; };
 		3F017C461DAD7D4400649B13 /* NewChatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewChatroom.swift; sourceTree = "<group>"; };
 		3F017C4A1DAED5FE00649B13 /* chatroomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatroomController.swift; sourceTree = "<group>"; };
 		3F0225DE1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHeaderAsso.swift; sourceTree = "<group>"; };
@@ -143,6 +148,9 @@
 		3F639D5A1CE10AFF00F45583 /* CustomCellAssoVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellAssoVolunteer.swift; sourceTree = "<group>"; };
 		3F676F3B1CAB790600466065 /* ViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewCell.swift; sourceTree = "<group>"; };
 		3F676F3F1CABFFD500466065 /* CustomCellCollectionCreateAsso.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCollectionCreateAsso.swift; sourceTree = "<group>"; };
+		3F70CA601DC255EE009663E3 /* ManageProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageProfileViewController.swift; sourceTree = "<group>"; };
+		3F70CA631DC2665B009663E3 /* UIColor+Caritathelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Caritathelp.swift"; sourceTree = "<group>"; };
+		3F70CA651DC2682F009663E3 /* UIFont+Caritathelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Caritathelp.swift"; sourceTree = "<group>"; };
 		3F891F641CF3409C00712C6E /* InvitationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationsController.swift; sourceTree = "<group>"; };
 		3F891F661CF3491600712C6E /* InviteMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteMember.swift; sourceTree = "<group>"; };
 		3F9F470C1C7CC47E007DCDB1 /* itemMyAsssoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemMyAsssoc.swift; sourceTree = "<group>"; };
@@ -233,6 +241,8 @@
 				3F639D581CE1047100F45583 /* VolunteerAsso.swift */,
 				3F891F641CF3409C00712C6E /* InvitationsController.swift */,
 				3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */,
+				3F70CA601DC255EE009663E3 /* ManageProfileViewController.swift */,
+				3F011B3C1DC294220041BD65 /* ManageParticularViewController.swift */,
 			);
 			name = Benevole;
 			sourceTree = "<group>";
@@ -304,6 +314,15 @@
 				3F017C4A1DAED5FE00649B13 /* chatroomController.swift */,
 			);
 			name = messagerie;
+			sourceTree = "<group>";
+		};
+		3F70CA621DC26642009663E3 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3F70CA631DC2665B009663E3 /* UIColor+Caritathelp.swift */,
+				3F70CA651DC2682F009663E3 /* UIFont+Caritathelp.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		3F9F470B1C7CC3EB007DCDB1 /* ContainerTableViewCell */ = {
@@ -417,6 +436,7 @@
 		3FF1A53B1C17168A00098FBF /* Caritathelp */ = {
 			isa = PBXGroup;
 			children = (
+				3F70CA621DC26642009663E3 /* Extension */,
 				3FCC1FA21C7E716E00B5EA9A /* View */,
 				3FE614FF1C46DFDC00CFCFD8 /* model */,
 				3FE614F71C418B2000CFCFD8 /* Controller */,
@@ -655,10 +675,13 @@
 			files = (
 				3F12A0F01C9B039D00513778 /* InformationEvent.swift in Sources */,
 				3FB52A551CA1E6C2004D56D3 /* CustomCellMyEvents.swift in Sources */,
+				3F70CA661DC2682F009663E3 /* UIFont+Caritathelp.swift in Sources */,
 				3FB4BF191C4F95EA00110EEA /* MenuController.swift in Sources */,
+				3F70CA611DC255EE009663E3 /* ManageProfileViewController.swift in Sources */,
 				3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */,
 				3F3FAE911D27BA9A00E2779C /* websocket.swift in Sources */,
 				3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */,
+				3F011B3D1DC294220041BD65 /* ManageParticularViewController.swift in Sources */,
 				3F891F671CF3491600712C6E /* InviteMember.swift in Sources */,
 				3F12A0F41C9B0E5400513778 /* MyEvents.swift in Sources */,
 				3FC521A11CA459DD00742193 /* CustomCellHomePage.swift in Sources */,
@@ -710,6 +733,7 @@
 				3F3FAE881CF7A69900E2779C /* CustomCellInviteGuest.swift in Sources */,
 				3FF3334E1D6741B40060313B /* CommentActu.swift in Sources */,
 				3F1CC0611D75CF01006F38D7 /* CustomCellActu.swift in Sources */,
+				3F70CA641DC2665B009663E3 /* UIColor+Caritathelp.swift in Sources */,
 				3FF1A53D1C17168A00098FBF /* AppDelegate.swift in Sources */,
 				3F017C4B1DAED5FE00649B13 /* chatroomController.swift in Sources */,
 				3FC521A81CA4A6C100742193 /* VolunteerNotification.swift in Sources */,
