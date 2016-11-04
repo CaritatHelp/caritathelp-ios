@@ -43,7 +43,8 @@ class ConnectionWebSocket : WebSocketDelegate {
         print("got some text: \(text)")
         
         let tabController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
-        let tabArray = tabController!.tabBar.items?[3] as UITabBarItem!
+        let tabArrayNotif = tabController!.tabBar.items?[3] as UITabBarItem!
+        let tabArrayMsg = tabController!.tabBar.items?[3] as UITabBarItem!
         //let alertTabItem = tabArray(3) as! UITabBarItem
         //let split = text.characters.split(separator: ",")
         var myStringArr = text.components(separatedBy: ",")
@@ -61,17 +62,18 @@ class ConnectionWebSocket : WebSocketDelegate {
         print(TableData)
         print("------")
         if TableData["\"type\""] == "\"message\"}" {
-            
-            //chatroomController.loadNewMessage(msg: TableData["\"content\""]!, name: TableData["\"sender_firstname\""]! + " " + TableData["\"sender_lastname\""]!)
+            if let badgeValue = (tabArrayMsg?.badgeValue) {
+            let intValue = Int(badgeValue)
+            tabArrayMsg?.badgeValue = (intValue! + 1).description
         }
         else {
-            if let badgeValue = (tabArray?.badgeValue) {
+            if let badgeValue = (tabArrayNotif?.badgeValue) {
                 let intValue = Int(badgeValue)
-                tabArray?.badgeValue = (intValue! + 1).description
-                print(intValue)
+                tabArrayNotif?.badgeValue = (intValue! + 1).description
             } else {
-                tabArray?.badgeValue = "1"
+                tabArrayNotif?.badgeValue = "1"
             }
+        }
         }
     }
     //{"chatroom_id":17,"sender_id":4,"sender_firstname":"Jeremy","sender_lastname":"Gros","sender_thumb_path":"/uploads/picture/default_m.png","content":"C'est bien nous les meilleurs ! ;)","created_at":"2016-10-13T23:11:26.665+02:00","type":"message"}

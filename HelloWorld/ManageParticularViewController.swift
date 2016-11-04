@@ -42,9 +42,9 @@ class ManageParticularViewController: UIViewController {
         submit.setTitle("Mettre à jour", for: UIControlState.normal)
         submit.setTitleColor(UIColor.white, for: UIControlState.normal)
         if self.from == "name" || self.from == "mail" {
-        submit.addTarget(self, action: #selector(updatePassord), for: .touchUpInside)
+        submit.addTarget(self, action: #selector(self.updateProfile), for: .touchUpInside)
         }else {
-            submit.addTarget(self, action: #selector(updateProfile), for: .touchUpInside)
+            submit.addTarget(self, action: #selector(self.updatePassword), for: .touchUpInside)
         }
         footerView.addSubview(submit)
         
@@ -58,7 +58,7 @@ class ManageParticularViewController: UIViewController {
         self.manageTableView.tableFooterView = footerView
     }
     
-    func updatePassord() {
+    func updatePassword() {
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
@@ -70,12 +70,9 @@ class ManageParticularViewController: UIViewController {
                     SCLAlertView().showError("Informations incomplète", subTitle: "Veuillez remplir tous les champs.")
                 }
                 else{
-                    if i == 0 {
-                        self.param["password"] = customCell.getValue()
-                    }
-                    else {
-                        self.param["password_confirmation"] = customCell.getValue()
-                    }
+                    self.param["password"] = customCell.getValue()
+                    self.param["password_confirmation"] = customCell.getValue()
+                    
                 }
             }
             i += 1

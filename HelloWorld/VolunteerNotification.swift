@@ -64,6 +64,8 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
             message = String(describing: notifs[row]["sender_name"]) + " a rejoint l'association : " + String(describing: notifs[row]["assoc_name"])
         case "NewMember":
             message = String(describing: notifs[row]["sender_name"]) + " a rejoint l'association : " + String(describing: notifs[row]["assoc_name"])
+        case "Emergency":
+            message = "L'evènement " + String(describing: notifs[row]["event_name"]) + " a besoin de vous urgement !"
         default:
             message = "erreur...."
         }
@@ -155,15 +157,13 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("LOL1")
-        //list_notif.tableFooterView = UIView()
-        print("LOL2")
+        list_notif.tableFooterView = UIView()
         self.list_notif.addSubview(self.refreshControl)
-        print("LOL3")
         user = sharedInstance.volunteer
-        print("LOL4")
+        let tabController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
+        let tabArray = tabController!.tabBar.items?[3] as UITabBarItem!
+        tabArray?.badgeValue = nil
         self.refresh()
-        print("LOL5")
     }
     
     

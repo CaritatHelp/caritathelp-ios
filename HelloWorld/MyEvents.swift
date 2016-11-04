@@ -36,12 +36,16 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         let cell : CustomCellMyEvents = events_list.dequeueReusableCell(withIdentifier: "MyEventsCell", for: indexPath as IndexPath) as! CustomCellMyEvents
         let str = String(describing: events[index]["begin"])
         //let heure = str[str.startIndex.advancedBy(11)...str.startIndex.advancedBy(15)]
+        let start = str.index(str.startIndex, offsetBy: 11)
+        let end = str.index(str.endIndex, offsetBy: -7)
+        let Range = start..<end
+        let heure = str.substring(with: Range)
         if let range = str.range(of: "") {
             let lo = str.index(range.lowerBound, offsetBy: 11)
             let hi = str.index(range.lowerBound, offsetBy: 15)
             let heure = lo ..< hi
             print(str[heure]) }// "DE"
-        cell.setCell(NameLabel: String(describing: events[index]["title"]), imageName: String(describing: events[index]["thumb_path"]), state: "")
+        cell.setCell(NameLabel: String(describing: events[index]["title"]), imageName: String(describing: events[index]["thumb_path"]), state: heure)
         
         index += 1
             return cell
@@ -67,9 +71,9 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         tabDate = []
         nbRowinnSect = []
         while i < total{
-            _ = String(describing: events[i]["begin"])
-            _ = ""//target.startIndex.advancedBy(10)
-            let date = ""//target.substringToIndex(range)
+            let target = String(describing: events[i]["begin"])
+            let range = target.index(target.startIndex, offsetBy: 10)
+            let date = target.substring(to: range)
             //print(date)
             self.tabDate.append(String(date))
             i += 1
@@ -89,11 +93,10 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
             i = 0
             //print("date2 : " + String(tabDate[j]))
             while i < total2{
-                //let range = "" //String(describing: events[i]["begin"]).startIndex.advanced(10)
-                //if String(tabDate[j]) == String(events[i]["begin"]).substringToIndex(range) {
-                //if date1!.compare((date2)!) == NSComparisonResult.OrderedSame {
+                let range = String(describing: events[i]["begin"]).index(String(describing: events[i]["begin"]).startIndex, offsetBy: 10)
+                if String(tabDate[j]) == String(describing: events[i]["begin"]).substring(to: range) {
                         count += 1
-                //}
+                }
                 i += 1
             }
            // print(count)
@@ -126,7 +129,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: tabDate[section])
         dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale!
-        //dateFormatter.dateStyle = DateFormatter.Style.FullStyle
+        dateFormatter.dateStyle = DateFormatter.Style.full
         let datefinale = dateFormatter.string(from: date!)
         return datefinale
         
@@ -168,9 +171,9 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
                 while i < total{
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     //print(String(User["response"][i]["begin"]))
-                    //let range = String(describing: User["response"][i]["begin"]).startIndex.advancedBy(10)
+                    let range = String(describing: User["response"][i]["begin"]).index(String(describing: User["response"][i]["begin"]).startIndex, offsetBy: 10)
                     let currentdate = dateFormatter.string(from: currentDate as Date)
-                    let date = ""// String(describing: User["response"][i]["begin"]).substringToIndex(range)
+                    let date = String(describing: User["response"][i]["begin"]).substring(to: range)
                     print(currentDate)
                     print(date)
                     print("----")
@@ -204,7 +207,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         
     }
         
-    func loadPastEvent(sender: AnyObject) {
+    @IBAction func loadPastEvent(_ sender: AnyObject) {
         btnPastEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         btnFuturEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         btnCreatedEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -214,7 +217,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         events_list.reloadData()
     }
     
-    func loadFuturEvent(sender: AnyObject) {
+        @IBAction func loadFuturEvent(_ sender: AnyObject) {
         btnFuturEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         btnPastEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         btnCreatedEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
@@ -224,7 +227,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         events_list.reloadData()
         
     }
-    func loadCreatedEvent(sender: AnyObject) {
+    @IBAction func loadCreatedEvent(_ sender: AnyObject) {
         btnCreatedEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         btnFuturEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)
         btnPastEvent.tintColor = UIColor(red: 137.0/255.0, green: 137.0/255.0, blue: 137.0/255.0, alpha: 1.0)

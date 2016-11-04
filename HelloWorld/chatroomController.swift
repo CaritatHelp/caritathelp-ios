@@ -21,6 +21,7 @@ class chatroomController : SLKTextViewController, WebSocketDelegate {
     var param = [String: String]()
     var list_room : JSON = []
     var chatroomID: String?
+    var chatroomTitle: String?
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -50,10 +51,10 @@ class chatroomController : SLKTextViewController, WebSocketDelegate {
         return UITableViewAutomaticDimension
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.firstConnection()
+        self.title = self.chatroomTitle
         
         self.isInverted = true
         self.tableView?.tableFooterView = UIView()
@@ -155,7 +156,19 @@ class chatroomController : SLKTextViewController, WebSocketDelegate {
 
     }
     
-    // WEBSOCKET 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "modifychatroom"){
+            
+            let secondViewController = segue.destination as! NewChatroomController
+            
+            secondViewController.from = "modify"
+            secondViewController.titlechat = self.chatroomTitle!
+            secondViewController.newID = self.chatroomID!
+        }
+    }
+
+    
+    // WEBSOCKET
     let socket : WebSocket = WebSocket(url: NSURL(string: "ws://ws.staging.caritathelp.me")! as URL)
     //ws://ws.api.caritathelp.me
     //ws://ws.staging.caritathelp.me

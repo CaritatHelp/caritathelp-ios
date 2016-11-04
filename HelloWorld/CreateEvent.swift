@@ -60,7 +60,7 @@ class CreateEvent : UIViewController {
     }
 
     
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?){
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //print("value2 ok : \(ok)")
         // get a reference to the second view controller
         if(segue.identifier == "goToDateCreateEvent"){

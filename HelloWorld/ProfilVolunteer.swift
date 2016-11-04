@@ -198,7 +198,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.request.request(type: "GET", param: self.param,add: val2, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.actu = User
+                self.actu = User["response"]
                 self.profil_list.reloadData()
                 self.refreshControl.endRefreshing()
             }

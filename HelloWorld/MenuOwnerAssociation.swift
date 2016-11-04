@@ -50,13 +50,13 @@ class MenuOwnerAssocation: UIViewController {
             if(segue.identifier == "goToNotifAsso"){
                 let secondViewController = segue.destination as! NotifAssociation
 
-                print("asso ID = \(Asso["response"]["id"])")
-                secondViewController.AssocID = String(describing: Asso["response"]["id"])
+                print("asso ID = \(Asso["id"])")
+                secondViewController.AssocID = String(describing: Asso["id"])
     
             }
             if(segue.identifier == "goToInviteMember"){
                 let secondViewController = segue.destination as! InviteMemberController
-                secondViewController.AssocID = String(describing: Asso["response"]["id"])
+                secondViewController.AssocID = String(describing: Asso["id"])
                 
             }
             if(segue.identifier == "goToParamAsso"){
@@ -67,7 +67,7 @@ class MenuOwnerAssocation: UIViewController {
             if(segue.identifier == "fromasso"){
                 let secondViewController = segue.destination as! LoadPhotoController
                 secondViewController.from = "2"
-                secondViewController.id_asso = String(describing: Asso["response"]["id"])
+                secondViewController.id_asso = String(describing: Asso["id"])
                 
             }
         }
@@ -80,7 +80,7 @@ class MenuOwnerAssocation: UIViewController {
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
 
-        param["assoc_id"] = String(describing: Asso["response"]["id"])
+        param["assoc_id"] = String(describing: Asso["id"])
         param["title"] = data?.eventTitle
         param["description"] = data?.descp
         param["place"] = data?.city

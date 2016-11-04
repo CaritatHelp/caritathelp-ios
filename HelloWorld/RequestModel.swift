@@ -30,8 +30,10 @@ class RequestModel {
                     sharedInstance.header["uid"] = String(describing: response.response!.allHeaderFields["uid"] as AnyObject)
                     
                 }
-                res = response.result.value! as AnyObject
-                let json = JSON(res)
+                var json : JSON = []
+                if let res = response.result.value {
+                     json = JSON(res)
+                }
                 switch response.result {
                 case .success:
                     callback?(true, json)

@@ -61,7 +61,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     
     
     func loadDataFirstView(){
-        user = sharedInstance.volunteer
+        user = sharedInstance.volunteer["response"]
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
@@ -216,6 +216,7 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
     }
     
     @IBAction func unwindToMyAsso(_ sender: UIStoryboardSegue) {
+        print("ENTER ******")
          let data = sender.source as! NewAssociation
         request.request(type: "POST", param: data.assoc_array,add: "associations", callback: {
             (isOK, User)-> Void in

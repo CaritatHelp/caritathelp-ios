@@ -83,6 +83,12 @@ class UpdateEventController : UIViewController {
             VC.start = StartDate.text!
             VC.end = EndDate.text!
         }
+    if(segue.identifier == "gotoemergency"){
+        //envoyer les dates au controller sur le dates
+       let secondViewController = segue.destination as! EmergencyViewController
+        secondViewController.eventID = String(describing: self.Event["id"])
+    }
+
     }
 
     

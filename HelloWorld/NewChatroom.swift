@@ -19,14 +19,22 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
     var param = [String: Any]()
     var friends : JSON = []
     var newID: String = ""
+    var from = ""
+    var titlechat = ""
     
-    
+    @IBOutlet weak var createbutton: UIBarButtonItem!
     @IBOutlet weak var titleChatroom: UITextField!
     @IBOutlet weak var friends_list: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         friends_list.tableFooterView = UIView()
+        
+        if self.from == "modify" {
+            self.createbutton.title = "modifier"
+            self.titleChatroom.text = titlechat
+        }
         
         user = sharedInstance.volunteer["response"]
         self.param["access-token"] = sharedInstance.header["access-token"]
@@ -60,15 +68,13 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
             let cell = friends_list.cellForRow(at: IndexPath(row: i, section: 0))
             
             if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
-                //var preId = String(describing: friends[i]["id"])
-                //var id = Int(preId)
                 tab_chatter.append(String(describing: friends[i]["id"]))
                 count += 1
             }
             i += 1
         }
         
-        if count == 0 {
+        if count == 0 && from == "new"{
             SCLAlertView().showError("Erreure de création", subTitle: "Ajouter des volontaires !")
             return
         }
@@ -79,14 +85,23 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
         self.param["uid"] = sharedInstance.header["uid"]
         self.param["name"] = titleChatroom.text
         self.param["volunteers[]"] = tab_chatter.description
-        let val = "chatrooms"
+        var val = "chatrooms"
         print(self.param)
-        request.request(type: "POST", param: self.param,add: val, callback: {
+        
+        var type = "POST"
+        if from == "modify" {
+            type = "PUT"
+            val = "chatrooms/" + String(newID)
+        }
+        
+        request.request(type: type, param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.newID = String(describing: User["response"]["id"])
+                if self.from == "new" {
                 SCLAlertView().showSuccess("Chatroom créer!", subTitle: "Vous pouvez maintenant discutez avec les amis que vous avez choisit.")
-                self.navigationController?.popViewController(animated: true)
+                }
+                _ = self.navigationController?.popViewController(animated: true)
             }
             else {
                 SCLAlertView().showError("Erreure de création", subTitle: "Contactez le sav")

@@ -68,10 +68,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         })
     }
+    @IBOutlet weak var connexionButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
+        self.connexionButton.layer.borderWidth = 2.0
+        self.connexionButton.layer.borderColor = UIColor.white.cgColor
+        self.connexionButton.layer.cornerRadius = 56.0 / 2
+        self.connexionButton.titleLabel!.font = UIFont.signinButtonFont()
+        self.connexionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         login.text = "jeremy@root.com"
         password.text = "root1234"
     }

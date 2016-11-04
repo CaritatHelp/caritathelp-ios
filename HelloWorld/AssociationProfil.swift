@@ -209,7 +209,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         self.request.request(type: "GET", param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.Actu = User
+                self.Actu = User["response"]
                 self.ActuAssoList.reloadData()
                 self.refreshControl.endRefreshing()
             }

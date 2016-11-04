@@ -31,11 +31,11 @@ class NewAssociation : UIViewController {
     }
     
     @IBAction func NewAssociaiton(_ sender: AnyObject) {
-        
+        self.CreateAssociation()
     }
     
-    func CreateAssociation() -> Int {
-        let check = 1
+    func CreateAssociation() {
+        var check = 1
         let Date = NSDate()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd";
@@ -56,7 +56,6 @@ class NewAssociation : UIViewController {
             
         }
         else{
-        
             self.assoc_array["access-token"] = sharedInstance.header["access-token"]
             self.assoc_array["client"] = sharedInstance.header["client"]
             self.assoc_array["uid"] = sharedInstance.header["uid"]
@@ -67,21 +66,22 @@ class NewAssociation : UIViewController {
         assoc_array["city"] = AssocVille.text!
         
         
-//        request.request("POST", param: assoc_array,add: "associations", callback: {
-//            (isOK, User)-> Void in
-//            if(isOK){
-//                //rediriger vers Home profil
-//                self.Asso = User
-//                check = 1
-//            }
-//            else {
-//                //print("isOK == = = \(isOK)")
-//                self.check_request.text = String(User["message"])
-//                check = 0
-//            }
-//        });
+        request.request(type: "POST", param: assoc_array,add: "associations", callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                //rediriger vers Home profil
+                self.Asso = User
+                _ = self.navigationController?.popViewController(animated: true)
+                check = 1
+            }
+            else {
+                //print("isOK == = = \(isOK)")
+                self.check_request.text = String(describing: User["message"])
+                check = 0
+            }
+        });
         }
-        return check
+        
     }
     
 
@@ -101,14 +101,14 @@ class NewAssociation : UIViewController {
                     check_request.text = "veuillez indiquer ou est située votre association ";
                     return false
                 }
-                else{
-                    if(CreateAssociation() == 1){
-                        return true
-                    }
-                    else{
-                        return false
-                    }
-                }
+//                else{
+//                    if(CreateAssociation() == 1){
+//                        return true
+//                    }
+//                    else{
+//                        return false
+//                    }
+//                }
                 
         }
         return true

@@ -37,9 +37,10 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         let noDataLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width: list_friends.bounds.size.width,height: list_friends.bounds.size.height))
         noDataLabel.textColor = UIColor(red: 22.0/255.0, green: 106.0/255.0, blue: 176.0/255.0, alpha: 1.0)
-        noDataLabel.textAlignment = NSTextAlignment.center
+        noDataLabel.textAlignment = .center
         
         if(friends.count == 0){
             noDataLabel.text = "Vous n'avez aucun ami... \n BOLOSS"
@@ -113,9 +114,8 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         list_friends.tableFooterView = UIView()
-        user = sharedInstance.volunteer
+        user = sharedInstance.volunteer["response"]
         refresh()
-
     }
     
     func refresh(){
@@ -129,7 +129,7 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
         }else {
             val = "volunteers/" + idfriend + "/friends"
         }
-        request.request(type: "GET", param: param,add: val, callback: {
+        self.request.request(type: "GET", param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.friends = User["response"]
@@ -137,7 +137,7 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
                 self.request.request(type: "GET", param: self.param,add: "friend_requests", callback: {
                     (isOK, User)-> Void in
                     if(isOK){
-                        self.friends_request = User
+                        self.friends_request = User["response"]
                         self.list_friends.reloadData()
                     }
                     else {

@@ -47,13 +47,17 @@ class ListchatroomController : UIViewController, UITableViewDelegate, UITableVie
         return list_room.count
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        let tabController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
+        let tabArray = tabController!.tabBar.items?[2] as UITabBarItem!
+        tabArray?.badgeValue = nil
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableview_room.tableFooterView = UIView()
         self.tableview_room.addSubview(self.refreshControl)
-        
         refresh_chatroom()
         
     }
@@ -90,9 +94,15 @@ class ListchatroomController : UIViewController, UITableViewDelegate, UITableVie
                     // set a variable in the second view controller with the String to pass
                     print("ID = " + String(describing: self.list_room[indexPath!.section]["id"]))
                     secondViewController.chatroomID = String(describing: self.list_room[indexPath!.row]["id"])
-                    //secondViewController.list_room = User["response"]
-                    //secondViewController.user = user
+            secondViewController.chatroomTitle = String(describing: self.list_room[indexPath!.row]["name"])
+            
                     }
+        if(segue.identifier == "newchatroom"){
+            
+            let secondViewController = segue.destination as! NewChatroomController
+           
+            secondViewController.from = "new"
+        }
     }
     
 }

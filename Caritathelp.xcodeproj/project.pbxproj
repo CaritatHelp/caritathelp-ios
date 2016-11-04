@@ -40,6 +40,7 @@
 		3F3FAE931D27FE0F00E2779C /* VolunteerEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */; };
 		3F3FAE971D28072C00E2779C /* CustomCellEventVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE961D28072C00E2779C /* CustomCellEventVolunteer.swift */; };
 		3F3FAE991D48EEEF00E2779C /* CustomCellAssoActu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE981D48EEEF00E2779C /* CustomCellAssoActu.swift */; };
+		3F4A56E71DCB8DD900537F3C /* EmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A56E61DCB8DD900537F3C /* EmergencyViewController.swift */; };
 		3F4FB7471D95576C004563A6 /* ListchatroomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FB7461D95576C004563A6 /* ListchatroomController.swift */; };
 		3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */; };
 		3F6025731C21EAAA00FC7FB1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025721C21EAAA00FC7FB1 /* HomeController.swift */; };
@@ -139,6 +140,7 @@
 		3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerEvents.swift; sourceTree = "<group>"; };
 		3F3FAE961D28072C00E2779C /* CustomCellEventVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellEventVolunteer.swift; sourceTree = "<group>"; };
 		3F3FAE981D48EEEF00E2779C /* CustomCellAssoActu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellAssoActu.swift; sourceTree = "<group>"; };
+		3F4A56E61DCB8DD900537F3C /* EmergencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyViewController.swift; sourceTree = "<group>"; };
 		3F4FB7461D95576C004563A6 /* ListchatroomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListchatroomController.swift; sourceTree = "<group>"; };
 		3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeCtrl.swift; sourceTree = "<group>"; };
 		3F6025721C21EAAA00FC7FB1 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 				3F0225E41CC0092700158A1B /* UpdateEvent.swift */,
 				3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */,
 				3F3FAE851CF7A0D400E2779C /* InviteGuest.swift */,
+				3F4A56E61DCB8DD900537F3C /* EmergencyViewController.swift */,
 			);
 			name = events;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				3FC521A11CA459DD00742193 /* CustomCellHomePage.swift in Sources */,
 				3F3FAE841CF74FA600E2779C /* CustomCellInviteMember.swift in Sources */,
 				3FB4BF221C6147CE00110EEA /* MyAssociations.swift in Sources */,
+				3F4A56E71DCB8DD900537F3C /* EmergencyViewController.swift in Sources */,
 				3F891F651CF3409C00712C6E /* InvitationsController.swift in Sources */,
 				3F12A0671C91F14A00513778 /* VolunteerModel.swift in Sources */,
 				3F15CD741C786E95004AB3DE /* AllAssociations.swift in Sources */,
