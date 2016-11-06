@@ -199,7 +199,7 @@ class chatroomController : SLKTextViewController, WebSocketDelegate {
         print("got some text: \(text)")
         
         let tabController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
-        let tabArray = tabController!.tabBar.items?[3] as UITabBarItem!
+        let tabArray = tabController!.tabBar.items?[2] as UITabBarItem!
         //let alertTabItem = tabArray(3) as! UITabBarItem
         //let split = text.characters.split(separator: ",")
         let myStringArr = text.components(separatedBy: ",")

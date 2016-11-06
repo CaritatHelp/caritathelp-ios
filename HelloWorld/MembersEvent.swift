@@ -24,7 +24,7 @@ class MembersEventController: UIViewController {
     @IBOutlet weak var members_list: UITableView!
     
     // init le tableview
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellEventMember = members_list.dequeueReusableCell(withIdentifier: "MemberEventCell", for: indexPath as IndexPath) as! CustomCellEventMember
         
         let nom = String(describing: members[indexPath.row]["firstname"]) + " " + String(describing: members[indexPath.row]["lastname"])
@@ -32,13 +32,12 @@ class MembersEventController: UIViewController {
         return cell
     }
     //nombre de ligne du table view
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return members.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.members.count
     }
     
     // bouton quand on slide une ligne du tableview
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         //Bouton pour kick un membre de l'event
         let shareAction2 = UITableViewRowAction(style: .normal, title: "kick") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
         }

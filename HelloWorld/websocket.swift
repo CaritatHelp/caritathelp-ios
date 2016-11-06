@@ -44,7 +44,7 @@ class ConnectionWebSocket : WebSocketDelegate {
         
         let tabController = UIApplication.shared.windows.first?.rootViewController as? UITabBarController
         let tabArrayNotif = tabController!.tabBar.items?[3] as UITabBarItem!
-        let tabArrayMsg = tabController!.tabBar.items?[3] as UITabBarItem!
+        let tabArrayMsg = tabController!.tabBar.items?[2] as UITabBarItem!
         //let alertTabItem = tabArray(3) as! UITabBarItem
         //let split = text.characters.split(separator: ",")
         var myStringArr = text.components(separatedBy: ",")
@@ -65,6 +65,10 @@ class ConnectionWebSocket : WebSocketDelegate {
             if let badgeValue = (tabArrayMsg?.badgeValue) {
             let intValue = Int(badgeValue)
             tabArrayMsg?.badgeValue = (intValue! + 1).description
+            }
+            else {
+                tabArrayMsg?.badgeValue = "1"
+            }
         }
         else {
             if let badgeValue = (tabArrayNotif?.badgeValue) {
@@ -73,7 +77,6 @@ class ConnectionWebSocket : WebSocketDelegate {
             } else {
                 tabArrayNotif?.badgeValue = "1"
             }
-        }
         }
     }
     //{"chatroom_id":17,"sender_id":4,"sender_firstname":"Jeremy","sender_lastname":"Gros","sender_thumb_path":"/uploads/picture/default_m.png","content":"C'est bien nous les meilleurs ! ;)","created_at":"2016-10-13T23:11:26.665+02:00","type":"message"}

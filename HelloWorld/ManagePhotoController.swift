@@ -11,7 +11,7 @@ import UIKit
 import SwiftyJSON
 import SCLAlertView
 
-class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ManagePhotoController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var param = [String: String]()
     var request = RequestModel()
     var user : JSON = []
@@ -26,9 +26,10 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
     
     @IBOutlet weak var PictureLoaded: UIImageView!
     
-    @IBAction func LoadPicture(_ sender: AnyObject) {
-        
-    }
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var libraryButton: UIButton!
+    @IBOutlet weak var validButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
@@ -47,6 +48,25 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
             self.LoadCamera()
         }
         alertView.showSuccess("Modification", subTitle: "Vous souhaitez modifier votre photo de profil via :")
+        
+        self.cameraButton.layer.borderWidth = 2.0
+        self.cameraButton.layer.borderColor = UIColor.GreenBasicCaritathelp().cgColor
+        self.cameraButton.layer.cornerRadius = 41.0 / 2
+        self.cameraButton.titleLabel!.font = UIFont.signinButtonFont()
+        self.cameraButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        
+        self.libraryButton.layer.borderWidth = 2.0
+        self.libraryButton.layer.borderColor = UIColor.GreenBasicCaritathelp().cgColor
+        self.libraryButton.layer.cornerRadius = 41.0 / 2
+        self.libraryButton.titleLabel!.font = UIFont.signinButtonFont()
+        self.libraryButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+       
+        self.validButton.layer.borderWidth = 2.0
+        self.validButton.layer.borderColor = UIColor.GreenBasicCaritathelp().cgColor
+        self.validButton.layer.cornerRadius = 32.0 / 2
+        self.validButton.titleLabel!.font = UIFont.signinButtonFont()
+        self.validButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+
     }
     
     
@@ -94,7 +114,7 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
     
     @IBAction func DownloadPicture(_ sender: AnyObject) {
         
-        let imageToLoad = resizeImage(image: image, newWidth: 200)
+        let imageToLoad = resizeImage(image: self.image, newWidth: 200)
         
        let imageData:NSData = UIImagePNGRepresentation(imageToLoad)! as NSData
         let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
@@ -131,16 +151,17 @@ class LoadPhotoController: UIViewController,UIImagePickerControllerDelegate, UIN
 
     }
     
-
-    
-    private func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+    internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] {
             PictureLoaded.contentMode = .scaleAspectFit
-            PictureLoaded.image = pickedImage
-            print(PictureLoaded.image)
-            image = pickedImage
+            PictureLoaded.image = pickedImage as? UIImage
+            image = PictureLoaded.image!
         }
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: { _ in })
     }
 }

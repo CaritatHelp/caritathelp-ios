@@ -30,20 +30,20 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
         let cell = list_notif.dequeueReusableCell(withIdentifier: "CellEventVolunteer", for: indexPath) as! CustomCellEventVolunteer
         
         var detail = ""
-        if notifs["response"][indexPath.row]["nb_friends_members"] == "0" {
+        if notifs[indexPath.row]["nb_friends_members"] == "0" {
             detail = ""
-        } else if notifs["response"][indexPath.row]["nb_friends_members"] == "1" {
-            detail = String(describing: notifs["response"][indexPath.row]["nb_friends_members"]) + " ami y participent"
+        } else if notifs[indexPath.row]["nb_friends_members"] == "1" {
+            detail = String(describing: notifs[indexPath.row]["nb_friends_members"]) + " ami y participent"
         }else{
-            detail = String(describing: notifs["response"][indexPath.row]["nb_friends_members"]) + " amis y participent"
+            detail = String(describing: notifs[indexPath.row]["nb_friends_members"]) + " amis y participent"
         }
         
-        cell.setCell(NameLabel: String(describing: notifs["response"][indexPath.row]["title"]), DetailLabel: detail, imageName: define.path_picture + String(describing: notifs["response"][indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: String(describing: notifs[indexPath.row]["title"]), DetailLabel: detail, imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notifs["response"].count
+        return notifs.count
     }
     
     override func viewDidLoad() {
@@ -67,7 +67,7 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                self.notifs = User
+                self.notifs = User["response"]
                 self.list_notif.reloadData()
                 self.refreshControl.endRefreshing()
             }
@@ -84,7 +84,7 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
             let secondViewController = segue.destination as! ProfilEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(describing: notifs["response"][indexPath!.row]["id"])
+            secondViewController.EventID = String(describing: notifs[indexPath!.row]["id"])
         }
     }
 

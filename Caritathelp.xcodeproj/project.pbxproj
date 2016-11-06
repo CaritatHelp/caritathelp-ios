@@ -34,7 +34,7 @@
 		3F3FAE861CF7A0D400E2779C /* InviteGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE851CF7A0D400E2779C /* InviteGuest.swift */; };
 		3F3FAE881CF7A69900E2779C /* CustomCellInviteGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */; };
 		3F3FAE8A1CF7A8FA00E2779C /* CurrentAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */; };
-		3F3FAE8D1D03143900E2779C /* LoadPhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */; };
+		3F3FAE8D1D03143900E2779C /* ManagePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8C1D03143900E2779C /* ManagePhotoController.swift */; };
 		3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */; };
 		3F3FAE911D27BA9A00E2779C /* websocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE901D27BA9A00E2779C /* websocket.swift */; };
 		3F3FAE931D27FE0F00E2779C /* VolunteerEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */; };
@@ -134,7 +134,7 @@
 		3F3FAE851CF7A0D400E2779C /* InviteGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteGuest.swift; sourceTree = "<group>"; };
 		3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInviteGuest.swift; sourceTree = "<group>"; };
 		3F3FAE891CF7A8FA00E2779C /* CurrentAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentAssociation.swift; sourceTree = "<group>"; };
-		3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadPhotoController.swift; sourceTree = "<group>"; };
+		3F3FAE8C1D03143900E2779C /* ManagePhotoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagePhotoController.swift; sourceTree = "<group>"; };
 		3F3FAE8E1D2478F800E2779C /* CustomCellInvitations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInvitations.swift; sourceTree = "<group>"; };
 		3F3FAE901D27BA9A00E2779C /* websocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = websocket.swift; sourceTree = "<group>"; };
 		3F3FAE921D27FE0F00E2779C /* VolunteerEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerEvents.swift; sourceTree = "<group>"; };
@@ -287,7 +287,7 @@
 		3F3FAE8B1D03141D00E2779C /* PHoto */ = {
 			isa = PBXGroup;
 			children = (
-				3F3FAE8C1D03143900E2779C /* LoadPhotoController.swift */,
+				3F3FAE8C1D03143900E2779C /* ManagePhotoController.swift */,
 			);
 			name = PHoto;
 			sourceTree = "<group>";
@@ -726,7 +726,7 @@
 				3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */,
 				3F3FAE861CF7A0D400E2779C /* InviteGuest.swift in Sources */,
 				3F017C471DAD7D4400649B13 /* NewChatroom.swift in Sources */,
-				3F3FAE8D1D03143900E2779C /* LoadPhotoController.swift in Sources */,
+				3F3FAE8D1D03143900E2779C /* ManagePhotoController.swift in Sources */,
 				3F639D571CDF972400F45583 /* CustomCellProfil.swift in Sources */,
 				3F3FAE8A1CF7A8FA00E2779C /* CurrentAssociation.swift in Sources */,
 				3F12A0EE1C997BD000513778 /* ProfilEvent.swift in Sources */,

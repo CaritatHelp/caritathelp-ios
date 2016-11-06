@@ -197,14 +197,14 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 //test currentEvent save
                 currentEvent.currentEvent = User["response"]
                 print(currentEvent.currentEvent["title"])
-                self.Event = User
-                if (String(describing: self.Event["response"]["rights"]) == "waiting"){
+                self.Event = User["response"]
+                if (String(describing: self.Event["rights"]) == "waiting"){
                     let imageBtnWait = UIImage(named: "waiting")
                     let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
                     self.JoinEventBtn.image = newimage
                 }
-                self.navigationItem.title = String(describing: self.Event["response"]["title"])
-                if(String(describing: self.Event["response"]["rights"]) == "host" || String(describing: self.Event["response"]["rights"]) == "member"){
+                self.navigationItem.title = String(describing: self.Event["title"])
+                if(String(describing: self.Event["rights"]) == "host" || String(describing: self.Event["rights"]) == "member"){
                     self.JoinEventBtn.image = UIImage(named: "event_joined")
                 }
                 let val2 = "/events/" + self.EventID + "/main_picture"
@@ -261,33 +261,33 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             
             // set a variable in the second view controller with the String to pass
            
-            secondViewController.Event = Event
+            secondViewController.Event = self.Event
         }
         if(segue.identifier == "EventMembersVC"){
             let secondViewController = segue.destination as! MembersEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(describing: Event["response"]["id"])
-            secondViewController.AssoID = String(describing: Event["response"]["assoc_id"])
+            secondViewController.EventID = String(describing: self.Event["id"])
+            secondViewController.AssoID = String(describing: self.Event["assoc_id"])
         }
         if(segue.identifier == "gotopostfromevent"){
             let secondViewController = segue.destination as! PostStatutAssoController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.EventID = String(describing: Event["response"]["id"])
+            secondViewController.EventID = String(describing: self.Event["id"])
             secondViewController.from = "event"
         }
         if(segue.identifier == "goToUpdateEvent"){
             let secondViewController = segue.destination as! UpdateEventController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.Event = Event["response"]
+            secondViewController.Event = self.Event
         }
         if(segue.identifier == "fromevent"){
-            let secondViewController = segue.destination as! LoadPhotoController
+            let secondViewController = segue.destination as! ManagePhotoController
             
             // set a variable in the second view controller with the String to pass
-            secondViewController.id_event = String(describing: Event["response"]["id"])
+            secondViewController.id_event = String(describing: self.Event["id"])
             secondViewController.from = "3"
             
         }

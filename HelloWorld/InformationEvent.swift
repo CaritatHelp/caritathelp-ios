@@ -23,12 +23,9 @@ class InformationsEvent: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("----------------")
-        print(Event["response"])
-        print("---------------")
-        DescEvent.text! = String(describing: Event["response"]["description"])
-        DateEvent.text! = "Début : " + String(describing: Event["response"]["begin"]) + "\nFin : " + String(describing: Event["response"]["end"])
-        LieuEvent.text! = String(describing: Event["response"]["place"])
+        DescEvent.text! = String(describing: Event["description"])
+        DateEvent.text! = "Début : " + String(describing: Event["begin"]) + "\nFin : " + String(describing: Event["end"])
+        LieuEvent.text! = String(describing: Event["place"])
         
     }
 }

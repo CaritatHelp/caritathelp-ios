@@ -53,19 +53,21 @@ class InviteGuestController: UIViewController {
             if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
                 print("invite" + String(describing: friends[i]["firstname"]))
                 
-//                param["token"] = String(user["token"])
-//                param["volunteer_id"] = String(friends[i]["id"])
-//                param["assoc_id"] = EventID
-//                let val = "guests/invite"
-//                request.request("GET", param: param,add: val, callback: {
-//                    (isOK, User)-> Void in
-//                    if(isOK){
-//                        print("membre inviter : " + String(self.friends[i]["firstname"]))
-//                    }
-//                    else {
-//                        print("n'a pas pu etre inviter")
-//                    }
-//                });
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                self.param["volunteer_id"] = String(describing: friends[i]["id"])
+                self.param["event_id"] = EventID
+                let val = "guests/invite"
+                self.request.request(type: "POST", param: self.param,add: val, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        print("membre inviter : " + String(describing: self.friends[i]["firstname"]))
+                    }
+                    else {
+                        print("n'a pas pu etre inviter")
+                    }
+                });
                 
                 
             }
@@ -73,7 +75,7 @@ class InviteGuestController: UIViewController {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellInviteGuest  = friends_list.dequeueReusableCell(withIdentifier: "GuestCell", for: indexPath as IndexPath) as! CustomCellInviteGuest
 
         let name = String(describing: friends[indexPath.row]["firstname"]) + " " + String(describing: friends[indexPath.row]["lastname"])
@@ -84,32 +86,19 @@ class InviteGuestController: UIViewController {
     }
     
     //renvoi le nombre de ligne du tableview
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath){
         
         let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
-        if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
-            cell!.accessoryType = UITableViewCellAccessoryType.none;
+        if (cell?.accessoryType == .checkmark){
+            cell!.accessoryType = .none;
             
         }else{
-            cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
-            
-        }
-    }
-    
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath){
-        
-        let cell = friends_list.cellForRow(at: indexPath as IndexPath)
-        
-        if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
-            cell!.accessoryType = UITableViewCellAccessoryType.none;
-            
-        }else{
-            cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
+            cell!.accessoryType = .checkmark;
             
         }
     }

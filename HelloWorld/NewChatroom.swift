@@ -127,14 +127,13 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
         let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
-        if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
-            cell!.accessoryType = UITableViewCellAccessoryType.none;
+        if (cell?.accessoryType == .checkmark){
+            cell!.accessoryType = .none;
             
         }else{
-            cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
+            cell!.accessoryType = .checkmark;
             
         }
     }

@@ -65,7 +65,7 @@ class MenuOwnerAssocation: UIViewController {
                 
             }
             if(segue.identifier == "fromasso"){
-                let secondViewController = segue.destination as! LoadPhotoController
+                let secondViewController = segue.destination as! ManagePhotoController
                 secondViewController.from = "2"
                 secondViewController.id_asso = String(describing: Asso["id"])
                 

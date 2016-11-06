@@ -59,6 +59,7 @@ class ManageProfileViewController: UIViewController {
                 if User["status"] == 400 {
                     SCLAlertView().showError("Erreur", subTitle: String(describing: User["message"]))
                 }
+                self.user = User["response"]
                 self.manageTableView.reloadData()
             }
             else {
