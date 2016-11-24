@@ -9,12 +9,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FLAnimatedImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MGSwipeTableCell.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods.xcscheme</key>
+		<key>NYTPhotoViewer-NYTPhotoViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NYTPhotoViewer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Caritathelp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,42 +62,57 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0DF9B52570C5F2EDB3A6FF8DB316B520</key>
+		<key>1CD80321715FDB12A3A31B7BCB09EA28</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E1263BFF45F6446CF3DE29AE234C893</key>
+		<key>4515C07B3B23190EA4CA0E50367C7815</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>624965F75647E2C87ED8E62BA9BAFBAF</key>
+		<key>5599C22FC8354F451EC910E61CEE1189</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>77F78B454C0A410DE0477E2123F8C0B9</key>
+		<key>5C4571C0563E7AB8609480FF79B88A50</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>79C040AFDDCE1BCBF6D8B5EB0B85887F</key>
+		<key>607F3C4CCDB782AE2D6BA560CB44E11D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C2AAED80F4001DF46A6D39FC7265B1EE</key>
+		<key>7393ABC2A84C80A059929EB68DCA01FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CC381CD3ECB8946256273FDD22677D4A</key>
+		<key>7DB4238B8A746CCF03DA09D462D5C57C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D28A2EF49E3201C8E7A4730D5E3B05E3</key>
+		<key>83B5B60C676A8D31829A6AE91CE86A75</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B97720AEDDAEC6569BE907F8D81E7EB7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D85C3D5A275CC39B0CEEC53C5FA8F233</key>
 		<dict>
 			<key>primary</key>
 			<true/>

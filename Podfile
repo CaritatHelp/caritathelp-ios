@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
+target "Caritathelp" do
 pod 'Alamofire'
 pod 'SwiftyJSON', '3.0.0'
 pod 'MGSwipeTableCell'
@@ -9,6 +10,8 @@ pod 'SCLAlertView', :git => 'https://github.com/vikmeup/SCLAlertView-Swift'
 pod 'Starscream'
 pod "SlackTextViewController"
 pod 'SnapKit'
+pod 'NYTPhotoViewer', '~> 1.1.0'
+end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

@@ -18,8 +18,11 @@ class CustomCellHeaderAsso: UITableViewCell {
     var request = RequestModel()
     var param = [String: String]()
     var AssoID = ""
+    var Asso : JSON =  []
     var alreadyMember = ""
     var user : JSON = []
+    
+    var showgallery: ((CustomCellHeaderAsso) -> Void)?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,6 +71,10 @@ class CustomCellHeaderAsso: UITableViewCell {
 
     }
     
+    func actionGallery() {
+        self.showgallery?(self)
+    }
+    
     func setCell(User: JSON, assoId: String, rights: String, imagePath: String){
         user = User
         AssoID = assoId
@@ -81,6 +88,9 @@ class CustomCellHeaderAsso: UITableViewCell {
         self.imageProfil.layer.borderColor = UIColor.darkGray.cgColor;
         self.imageProfil.layer.masksToBounds = true
         self.imageProfil.clipsToBounds = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(actionGallery))
+        self.imageProfil.isUserInteractionEnabled = true
+        self.imageProfil.addGestureRecognizer(tapGestureRecognizer)
         
         self.JoinBtn.layer.cornerRadius = self.JoinBtn.frame.size.width / 2;
         self.JoinBtn.layer.borderWidth = 1.0

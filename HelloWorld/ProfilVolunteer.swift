@@ -36,7 +36,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCell(withIdentifier: "CellProfilVolunteer", for: indexPath) as! CustomCellProfilVolunteer
-                cell.setCell(NameLabel: String(describing: volunteer["firstname"]) + " " + String(describing: volunteer["lastname"]), DetailLabel: String(describing: volunteer["friendship"]), imageName: main_picture, User: volunteer)
+                cell.setCell(NameLabel: String(describing: volunteer["firstname"]) + " " + String(describing: volunteer["lastname"]), DetailLabel: String(describing: volunteer["friendship"]), imageName: define.path_picture + String(describing: volunteer["thumb_path"]), User: volunteer)
                 
                 let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).cgColor, UIColor.white.cgColor]
                 let gradientLocations = [0.0,1.0]
@@ -118,7 +118,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 else {
                     from = "false"
                 }
-                cell1.setCell(NameLabel: title, DateLabel:  datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section - 1]["thumb_path"]), content: String(describing: actu[indexPath.section - 1]["content"]), from: from)
+                cell1.setCell(NameLabel: title, DateLabel:  datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section - 1]["volunteer_thumb_path"]), content: String(describing: actu[indexPath.section - 1]["content"]), from: from)
             return cell1
             } else {
                 let cell1 = profil_list.dequeueReusableCell(withIdentifier: "commentactuprofil", for: indexPath) as UITableViewCell
@@ -241,6 +241,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "1"
+            secondViewController.state = "true"
         }
         if(segue.identifier == "gotopostfromprofil"){
             

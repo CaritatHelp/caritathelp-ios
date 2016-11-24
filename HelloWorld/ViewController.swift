@@ -77,7 +77,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.connexionButton.layer.borderColor = UIColor.white.cgColor
         self.connexionButton.layer.cornerRadius = 56.0 / 2
         self.connexionButton.titleLabel!.font = UIFont.signinButtonFont()
-        self.connexionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        self.connexionButton.contentHorizontalAlignment = .center
         login.text = "jeremy@root.com"
         password.text = "root1234"
     }
@@ -130,6 +130,5 @@ extension UIImageView {
             }
         }).resume()
     }
-    
 }
 

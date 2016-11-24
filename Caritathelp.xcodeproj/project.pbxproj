@@ -42,6 +42,7 @@
 		3F3FAE991D48EEEF00E2779C /* CustomCellAssoActu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE981D48EEEF00E2779C /* CustomCellAssoActu.swift */; };
 		3F4A56E71DCB8DD900537F3C /* EmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A56E61DCB8DD900537F3C /* EmergencyViewController.swift */; };
 		3F4FB7471D95576C004563A6 /* ListchatroomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FB7461D95576C004563A6 /* ListchatroomController.swift */; };
+		3F5156F61DD629A70095B3C2 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5156F51DD629A70095B3C2 /* LogInViewController.swift */; };
 		3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */; };
 		3F6025731C21EAAA00FC7FB1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025721C21EAAA00FC7FB1 /* HomeController.swift */; };
 		3F639D551CDF960100F45583 /* ProfilVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F639D541CDF960100F45583 /* ProfilVolunteer.swift */; };
@@ -56,6 +57,8 @@
 		3F891F651CF3409C00712C6E /* InvitationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F891F641CF3409C00712C6E /* InvitationsController.swift */; };
 		3F891F671CF3491600712C6E /* InviteMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F891F661CF3491600712C6E /* InviteMember.swift */; };
 		3F9F470D1C7CC47E007DCDB1 /* itemMyAsssoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9F470C1C7CC47E007DCDB1 /* itemMyAsssoc.swift */; };
+		3FAA6F541DDF0E7E00AAE77D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA6F531DDF0E7E00AAE77D /* ImageViewController.swift */; };
+		3FAA6F561DDF0E8E00AAE77D /* GalleryAssoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAA6F551DDF0E8E00AAE77D /* GalleryAssoViewController.swift */; };
 		3FB4BF191C4F95EA00110EEA /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4BF181C4F95EA00110EEA /* MenuController.swift */; };
 		3FB4BF1E1C5171D400110EEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FB4BF1C1C5171D400110EEA /* Main.storyboard */; };
 		3FB4BF201C57F96D00110EEA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB4BF1F1C57F96D00110EEA /* TabBarController.swift */; };
@@ -86,7 +89,7 @@
 		3FF1A56B1C1722D400098FBF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FF1A56A1C1722D400098FBF /* Images.xcassets */; };
 		3FF3334E1D6741B40060313B /* CommentActu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF3334D1D6741B40060313B /* CommentActu.swift */; };
 		3FFCCAFA1CC5612E003159C9 /* CustomCellCreatedEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFCCAF91CC5612E003159C9 /* CustomCellCreatedEvents.swift */; };
-		85905B05B258F60CD56D06F5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDE962C426CAC7FDBAC4C2C7 /* Pods.framework */; };
+		8F4F0FAAFF7B30968255797F /* Pods_Caritathelp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE8906D6CCDC9ACF2C6A13E1 /* Pods_Caritathelp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +145,7 @@
 		3F3FAE981D48EEEF00E2779C /* CustomCellAssoActu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellAssoActu.swift; sourceTree = "<group>"; };
 		3F4A56E61DCB8DD900537F3C /* EmergencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmergencyViewController.swift; sourceTree = "<group>"; };
 		3F4FB7461D95576C004563A6 /* ListchatroomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListchatroomController.swift; sourceTree = "<group>"; };
+		3F5156F51DD629A70095B3C2 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeCtrl.swift; sourceTree = "<group>"; };
 		3F6025721C21EAAA00FC7FB1 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3F639D541CDF960100F45583 /* ProfilVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilVolunteer.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 		3F891F641CF3409C00712C6E /* InvitationsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvitationsController.swift; sourceTree = "<group>"; };
 		3F891F661CF3491600712C6E /* InviteMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteMember.swift; sourceTree = "<group>"; };
 		3F9F470C1C7CC47E007DCDB1 /* itemMyAsssoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = itemMyAsssoc.swift; sourceTree = "<group>"; };
+		3FAA6F531DDF0E7E00AAE77D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		3FAA6F551DDF0E8E00AAE77D /* GalleryAssoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryAssoViewController.swift; sourceTree = "<group>"; };
 		3FB4BF181C4F95EA00110EEA /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		3FB4BF1D1C5171D400110EEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3FB4BF1F1C57F96D00110EEA /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -192,8 +198,9 @@
 		3FF1A56A1C1722D400098FBF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3FF3334D1D6741B40060313B /* CommentActu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentActu.swift; sourceTree = "<group>"; };
 		3FFCCAF91CC5612E003159C9 /* CustomCellCreatedEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellCreatedEvents.swift; sourceTree = "<group>"; };
-		59FE6D63580C1ED23E788FDF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		5C38CEC44B8066BF288477C3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		65FA96CCFEB151F594E90605 /* Pods-Caritathelp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caritathelp.release.xcconfig"; path = "Pods/Target Support Files/Pods-Caritathelp/Pods-Caritathelp.release.xcconfig"; sourceTree = "<group>"; };
+		AD3A3332CCB60F30EF90BF42 /* Pods-Caritathelp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Caritathelp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Caritathelp/Pods-Caritathelp.debug.xcconfig"; sourceTree = "<group>"; };
+		DE8906D6CCDC9ACF2C6A13E1 /* Pods_Caritathelp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Caritathelp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDE962C426CAC7FDBAC4C2C7 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -202,7 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85905B05B258F60CD56D06F5 /* Pods.framework in Frameworks */,
+				8F4F0FAAFF7B30968255797F /* Pods_Caritathelp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,11 +230,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1FD5C9C2C67EBBD082E5C756 /* Pods */ = {
+		009440A615985062C11B142E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5C38CEC44B8066BF288477C3 /* Pods.debug.xcconfig */,
-				59FE6D63580C1ED23E788FDF /* Pods.release.xcconfig */,
+				AD3A3332CCB60F30EF90BF42 /* Pods-Caritathelp.debug.xcconfig */,
+				65FA96CCFEB151F594E90605 /* Pods-Caritathelp.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -288,6 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				3F3FAE8C1D03143900E2779C /* ManagePhotoController.swift */,
+				3FAA6F531DDF0E7E00AAE77D /* ImageViewController.swift */,
+				3FAA6F551DDF0E8E00AAE77D /* GalleryAssoViewController.swift */,
 			);
 			name = PHoto;
 			sourceTree = "<group>";
@@ -387,6 +396,7 @@
 				3F6025721C21EAAA00FC7FB1 /* HomeController.swift */,
 				3FB4BF181C4F95EA00110EEA /* MenuController.swift */,
 				3FB4BF1F1C57F96D00110EEA /* TabBarController.swift */,
+				3F5156F51DD629A70095B3C2 /* LogInViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -421,8 +431,8 @@
 				3FF1A5501C17168A00098FBF /* CaritathelpTests */,
 				3FF1A55B1C17168A00098FBF /* CaritathelpUITests */,
 				3FF1A53A1C17168A00098FBF /* Products */,
-				1FD5C9C2C67EBBD082E5C756 /* Pods */,
 				B687C38A455027D77069279D /* Frameworks */,
+				009440A615985062C11B142E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -476,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				EDE962C426CAC7FDBAC4C2C7 /* Pods.framework */,
+				DE8906D6CCDC9ACF2C6A13E1 /* Pods_Caritathelp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -487,12 +498,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3FF1A5611C17168A00098FBF /* Build configuration list for PBXNativeTarget "Caritathelp" */;
 			buildPhases = (
-				AD2E6A6BD2AE7E9588D5915A /* Check Pods Manifest.lock */,
+				03CB7DA765525BED152D1B66 /* [CP] Check Pods Manifest.lock */,
 				3FF1A5351C17168A00098FBF /* Sources */,
 				3FF1A5361C17168A00098FBF /* Frameworks */,
 				3FF1A5371C17168A00098FBF /* Resources */,
-				CCD1C75CC63C242EA6528DF0 /* Embed Pods Frameworks */,
-				8D0BC7D062C6CAA288C12803 /* Copy Pods Resources */,
+				9926821369ABF440B3FAEB8C /* [CP] Embed Pods Frameworks */,
+				2E8EAE342D724BE00A0AC4E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -624,49 +635,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8D0BC7D062C6CAA288C12803 /* Copy Pods Resources */ = {
+		03CB7DA765525BED152D1B66 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		AD2E6A6BD2AE7E9588D5915A /* Check Pods Manifest.lock */ = {
+		2E8EAE342D724BE00A0AC4E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Caritathelp/Pods-Caritathelp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CCD1C75CC63C242EA6528DF0 /* Embed Pods Frameworks */ = {
+		9926821369ABF440B3FAEB8C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Caritathelp/Pods-Caritathelp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -684,6 +695,7 @@
 				3F3FAE8F1D2478F800E2779C /* CustomCellInvitations.swift in Sources */,
 				3F3FAE911D27BA9A00E2779C /* websocket.swift in Sources */,
 				3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */,
+				3FAA6F541DDF0E7E00AAE77D /* ImageViewController.swift in Sources */,
 				3F011B3D1DC294220041BD65 /* ManageParticularViewController.swift in Sources */,
 				3F891F671CF3491600712C6E /* InviteMember.swift in Sources */,
 				3F12A0F41C9B0E5400513778 /* MyEvents.swift in Sources */,
@@ -717,6 +729,8 @@
 				3F12A0EC1C98C78200513778 /* EventOfAssociation.swift in Sources */,
 				3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */,
 				3FE615031C47BDED00CFCFD8 /* RequestModel.swift in Sources */,
+				3F5156F61DD629A70095B3C2 /* LogInViewController.swift in Sources */,
+				3FAA6F561DDF0E8E00AAE77D /* GalleryAssoViewController.swift in Sources */,
 				3FF1A53F1C17168A00098FBF /* ViewController.swift in Sources */,
 				3F0225DF1CB6BEBB00158A1B /* CustomCellHeaderAsso.swift in Sources */,
 				3F0225E31CBC33C400158A1B /* CustomCellEventMember.swift in Sources */,
@@ -885,7 +899,7 @@
 		};
 		3FF1A5621C17168A00098FBF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C38CEC44B8066BF288477C3 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = AD3A3332CCB60F30EF90BF42 /* Pods-Caritathelp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -903,7 +917,7 @@
 		};
 		3FF1A5631C17168A00098FBF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59FE6D63580C1ED23E788FDF /* Pods.release.xcconfig */;
+			baseConfigurationReference = 65FA96CCFEB151F594E90605 /* Pods-Caritathelp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

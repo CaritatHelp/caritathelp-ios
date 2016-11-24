@@ -30,6 +30,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         
         return refreshControl
     }()
+    var headerSection = 2
 
     
     
@@ -54,8 +55,35 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         //let cell : UITableViewCell!
         if indexPath.section == 0 {
             let cell1 : CustomCellHeaderAsso = ActuAssoList.dequeueReusableCell(withIdentifier: "ActuAssoCellHeader", for: indexPath) as! CustomCellHeaderAsso
-            cell1.setCell(User: user, assoId: AssocID, rights: alreadyMember,imagePath: main_picture)
-            return cell1
+            cell1.showgallery = { [unowned self] (selectedCell) -> Void in
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCircularIcon: false
+                )
+                let alertView = SCLAlertView(appearance: appearance)
+                alertView.addButton("logo") {
+                    print("vers le logo")
+                    let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "imageViewController")
+                    
+                    self.navigationController!.pushViewController(VC1, animated: true)
+                    
+                }
+                alertView.addButton("gallerie") {//galleryViewController
+                    print("gallerie")
+                    let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
+                    VC1.assoID = self.AssocID
+                    self.navigationController!.pushViewController(VC1, animated: true)
+                }
+                alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
+                
+            }
+            cell1.setCell(User: user, assoId: AssocID, rights: alreadyMember,imagePath: define.path_picture + String(describing: Asso["thumb_path"]))
+            return cell1 //showInfoAsso
+        }else if indexPath.section == 1 {
+            let cell1 = ActuAssoList.dequeueReusableCell(withIdentifier: "showInfoAsso", for: indexPath)
+            
+            cell1.textLabel?.text = "Centre d'hébergement de l'association"
+            cell1.textLabel?.textColor = UIColor.lightGray
+            return cell1 //showInfoAsso
         }else{
             if indexPath.row == 0 {
                 let cell1 = ActuAssoList.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
@@ -67,7 +95,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                     self.param["uid"] = sharedInstance.header["uid"]
 
                     self.param["content"] = Newcontent
-                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.Actu[path.section - 1]["id"]), callback: {
+                    self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.Actu[path.section - self.headerSection]["id"]), callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             self.refreshActu()
@@ -86,7 +114,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                     self.param["client"] = sharedInstance.header["client"]
                     self.param["uid"] = sharedInstance.header["uid"]
 
-                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.Actu[path.section - 1]["id"]) , callback: {
+                    self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.Actu[path.section - self.headerSection]["id"]) , callback: {
                         (isOK, User)-> Void in
                         if(isOK){
                             //self.refreshActu()
@@ -101,15 +129,15 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 }
                 
                 var title = ""
-                    title = String(describing: Actu[indexPath.section - 1]["volunteer_name"]) + " a publié sur le mur de " + String(describing: Actu[indexPath.section - 1]["group_name"])
+                    title = String(describing: Actu[indexPath.section - self.headerSection]["volunteer_name"]) + " a publié sur le mur de " + String(describing: Actu[indexPath.section - self.headerSection]["group_name"])
                 var from = ""
-                if Actu[indexPath.section - 1]["volunteer_id"] == user["id"] {
+                if Actu[indexPath.section - self.headerSection]["volunteer_id"] == user["id"] {
                     from = "true"
                 }
                 else {
                     from = "false"
                 }
-                cell1.setCell(NameLabel: title, DateLabel: String(describing: Actu[indexPath.section-1]["updated_at"]), imageName: define.path_picture + String(describing: Actu[indexPath.section-1]["thumb_path "]), content: String(describing: Actu[indexPath.section-1]["content"]), from: from)
+                cell1.setCell(NameLabel: title, DateLabel: String(describing: Actu[indexPath.section-self.headerSection]["updated_at"]), imageName: define.path_picture + String(describing: Actu[indexPath.section-self.headerSection]["volunteer_thumb_path"]), content: String(describing: Actu[indexPath.section-self.headerSection]["content"]), from: from)
             return cell1
             }
             else {
@@ -121,18 +149,18 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return Actu.count + 1
+        return Actu.count + self.headerSection
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1 }
-        else {
+        if section > 1 {
             return 2 }
+        else {
+            return 1 }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             return 160
         } else {
             return UITableViewAutomaticDimension
@@ -277,7 +305,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 let secondViewController = segue.destination as! CommentActuController
                 
                 // set a variable in the second view controller with the String to pass
-                secondViewController.IDnews = String(describing: Actu[indexPath!.section-1]["id"])
+                secondViewController.IDnews = String(describing: Actu[indexPath!.section-self.headerSection]["id"])
                 //secondViewController.from = "asso"
             }//
         }

@@ -15,8 +15,9 @@ class ManagePhotoController: UIViewController,UIImagePickerControllerDelegate, U
     var param = [String: String]()
     var request = RequestModel()
     var user : JSON = []
-    var image = UIImage()
+    var image: UIImage!
     var from = ""
+    var state = ""
     var id_asso = ""
     var id_event = ""
     
@@ -39,12 +40,10 @@ class ManagePhotoController: UIViewController,UIImagePickerControllerDelegate, U
         )
         let alertView = SCLAlertView(appearance: appearance)
         alertView.addButton("de la bibliothèque") {
-            print("vers la bibliothèque")
             self.LoadLibrary()
             
         }
         alertView.addButton("appareil photo") {
-            print("Second button tapped")
             self.LoadCamera()
         }
         alertView.showSuccess("Modification", subTitle: "Vous souhaitez modifier votre photo de profil via :")
@@ -114,45 +113,54 @@ class ManagePhotoController: UIViewController,UIImagePickerControllerDelegate, U
     
     @IBAction func DownloadPicture(_ sender: AnyObject) {
         
-        let imageToLoad = resizeImage(image: self.image, newWidth: 200)
+        if self.image != nil {
+        let imageToLoad = resizeImage(image: self.image, newWidth: 480)
         
        let imageData:NSData = UIImagePNGRepresentation(imageToLoad)! as NSData
-        let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
+        let strBase64:String = imageData.base64EncodedString()
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
 
-        param["file"] = strBase64
-        param["filename"] = "photo_profil.jpg"
-        param["original_filename"] = "photo_profil.jpg"
+        self.param["file"] = strBase64
+        self.param["filename"] = "photo_profil.jpg"
+        self.param["original_filename"] = "photo_profil.jpg"
         if (from == "1") {
-            param["is_main"] = "true"
+            self.param["is_main"] = self.state
         }
         else if(from == "2"){
-            param["is_main"] = "true"
-            param["assoc_id"] = id_asso
+            self.param["filename"] = "photo_gallery.jpg"
+            self.param["original_filename"] = "photo_gallery.jpg"
+            self.param["is_main"] = self.state
+            self.param["assoc_id"] = self.id_asso
         }
         else if(from == "3"){
-            param["is_main"] = "true"
-            param["event_id"] = id_event
+            self.param["is_main"] = self.state
+            self.param["event_id"] = self.id_event
         }
         let val = "pictures"
-        Loader.startAnimating()
-        request.request(type: "POST", param: param,add: val, callback: {
+        self.Loader.startAnimating()
+        self.request.request(type: "POST", param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.Loader.stopAnimating()
+                self.navigationController?.popViewController(animated: true)
                 SCLAlertView().showSuccess("Telechargement terminer", subTitle: "Votre photo de profil a été remplacé !")
             }
             else {
                 SCLAlertView().showError("Un problème est survenue", subTitle: "Votre photo de profil n'a pas été remplacé...")
             }
         });
-
+        }
+        else {
+          SCLAlertView().showError("Aucune photo", subTitle: "selectionner ou prenez une photo!")
+        }
     }
     
     internal func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print("Before *****")
         if let pickedImage = info[UIImagePickerControllerOriginalImage] {
+            print("INDSIDE ====")
             PictureLoaded.contentMode = .scaleAspectFit
             PictureLoaded.image = pickedImage as? UIImage
             image = PictureLoaded.image!

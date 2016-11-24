@@ -289,6 +289,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             // set a variable in the second view controller with the String to pass
             secondViewController.id_event = String(describing: self.Event["id"])
             secondViewController.from = "3"
+            secondViewController.state = "true"
             
         }
         if(segue.identifier == "gotocommentfromevent"){

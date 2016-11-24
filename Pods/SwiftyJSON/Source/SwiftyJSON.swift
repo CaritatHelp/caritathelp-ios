@@ -790,12 +790,12 @@ extension JSON {
 extension JSON {
     
     //Optional URL
-    public var URL: Foundation.URL? {
+    public var URL: NSURL? {
         get {
             switch self.type {
             case .string:
                 if let encodedString_ = self.rawString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-                    return Foundation.URL(string: encodedString_)
+                    return NSURL(string: encodedString_)
                 } else {
                     return nil
                 }

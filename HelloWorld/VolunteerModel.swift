@@ -33,7 +33,7 @@ class VolunteerModel {
 let sharedInstance = VolunteerModel()
 
 class Define {
-    var path_picture = "http://api.caritathelp.me"
+    var path_picture = "http://staging.caritathelp.me"//"http://api.caritathelp.me"
     var nb_notif = "0"
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat{

@@ -20,18 +20,11 @@ class MenuOwnerAssocation: UIViewController {
     var EventDateStart = ""
     var EventDateEnd = ""
     @IBOutlet weak var DisplayDateEvent: UILabel!
-    @IBOutlet weak var urgenceBTN: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
-        
-        self.urgenceBTN.layer.cornerRadius = self.urgenceBTN.frame.size.width / 2;
-        self.urgenceBTN.layer.borderWidth = 1.0
-        self.urgenceBTN.layer.borderColor = UIColor.darkGray.cgColor;
-        self.urgenceBTN.layer.masksToBounds = true
-        self.urgenceBTN.clipsToBounds = true
-
     }
 
 //    override func viewWillAppear(animated: Bool) {
@@ -68,6 +61,7 @@ class MenuOwnerAssocation: UIViewController {
                 let secondViewController = segue.destination as! ManagePhotoController
                 secondViewController.from = "2"
                 secondViewController.id_asso = String(describing: Asso["id"])
+                secondViewController.state = "true"
                 
             }
         }

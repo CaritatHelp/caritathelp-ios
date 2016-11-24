@@ -92,19 +92,20 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         let datefinale = String(describing: actu[indexPath.section]["updated_at"])
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
             var title = ""
-        if actu[indexPath.section]["group_name"] == user["response"]["fullname"] {
+        if actu[indexPath.section]["group_name"] == user["fullname"] {
             title = String(describing: actu[indexPath.section]["volunteer_name"]) + " a publié sur son mur"
         } else {
             title = String(describing: actu[indexPath.section]["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu[indexPath.section]["group_name"])
             }
             
             var from = ""
-            if actu[indexPath.section]["volunteer_id"] == user["response"]["id"] {
+            if actu[indexPath.section]["volunteer_id"] == user["id"] {
                 from = "true"
             }
             else {
                 from = "false"
             }
+            print("PHOTO PATH == " + define.path_picture + String(describing: actu[indexPath.section]["volunteer_thumb_path"]))
             cell.setCell(NameLabel: title,DateLabel: datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section]["volunteer_thumb_path"]), content: String(describing: actu[indexPath.section]["content"]), from: from)
 
             return cell
@@ -155,13 +156,19 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        }
 //    }
     
-
-    
-    func getData(_user:JSON){
-        print("recu la data")
-        self.user = _user
-        //labeltest.text = String(self.user["response"]["firstname"])
-        print("recu la data : \(user)")
+    func gradientBackground() {
+        let colorTop =  UIColor(red: 250.0/255.0, green: 255.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor(red: 161.0/255.0, green: 255.0/255.0, blue: 206.0/255.0, alpha: 1.0).cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [ colorTop, colorBottom]
+        gradientLayer.locations = [ 0.0, 1.0]
+        gradientLayer.frame = self.view.bounds
+        
+        //self.list_Actu.layer.addSublayer(gradientLayer)
+        let back = UIView(frame: self.list_Actu.bounds)
+        back.layer.addSublayer(gradientLayer)
+        self.list_Actu.backgroundView?.addSubview(back)
     }
     
     @IBAction func goToMenu(_ sender: AnyObject) {
@@ -179,10 +186,11 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.gradientBackground()
         mySocket.firstConnection()
         self.list_Actu.addSubview(self.refreshControl)
-        let tbc = self.tabBarController  as! TabBarController
-        user = tbc.user
+        //let tbc = self.tabBarController  as! TabBarController
+        self.user = sharedInstance.volunteer["response"]
         print("entere : \(self.user)")
         list_Actu.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         list_Actu.estimatedRowHeight = 159.0
@@ -191,7 +199,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
         //labeltest.text = String(self.user["response"]["firstname"])
         refreshActu()
         
-            }
+    }
     
     func refreshActu() {
         self.param["access-token"] = sharedInstance.header["access-token"]
@@ -204,7 +212,6 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.actu = User["response"]
                 self.list_Actu.reloadData()
                 self.refreshControl.endRefreshing()
-                
             }
             else {
                 SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")

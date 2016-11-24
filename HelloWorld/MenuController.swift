@@ -82,8 +82,8 @@ let numberOfRowsAtSection: [Int] = [4, 1, 2, 1]
         self.request.request(type: "POST", param: param, add: "auth/sign_out", callback: {
             (isOK, User) -> Void in
             if (isOK) {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ConnectVC") as! ViewController
-                self.present(vc, animated: true, completion: nil)
+                //let vc = self.storyboard?.instantiateViewController(withIdentifier: "ConnectVC") as! ViewController
+                self.present(LogInViewController(), animated: true, completion: nil)
             }else{
                 // do error handling here
                 print("erreur de déconnexion")

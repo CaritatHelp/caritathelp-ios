@@ -73,10 +73,11 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
                 (isOK, User)-> Void in
                  if(isOK){
                     //self.refreshActu()
+                    self.navigationController?.popViewController(animated: true)
                     SCLAlertView().showSuccess("Succès !", subTitle: "Votre message a été publié.")
                     self.ZoneText.text = "Exprimez-vous..."
                     self.ZoneText.textColor = UIColor.lightGray
-                }
+                                    }
                 else {
                     SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
                 }

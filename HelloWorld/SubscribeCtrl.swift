@@ -16,8 +16,8 @@ class SubscribeCtrl: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var Nom: UITextField!
     
     @IBOutlet weak var checkLabel: UILabel!
-    var nomUser = ""
-    var prenomUser = ""
+    var nomUser: String!
+    var prenomUser: String!
     var sexUser = "m"
     
     let genders = ["homme", "femme"]
@@ -36,10 +36,17 @@ class SubscribeCtrl: UIViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
-        Nom.text = nomUser
-        Prenom.text = prenomUser
+        self.hideKeyboardWhenTappedAround()
+        self.nomUser = ""
+        self.prenomUser = ""
+        Nom.text! = nomUser
+        Prenom.text! = prenomUser
         
+        self.sex.snp.makeConstraints { (make) in
+            make.height.equalTo(40.0)
+            make.top.equalTo(self.view.snp.bottom).offset(-250.0)
+            make.centerX.equalTo(self.view)
+        }
     }
     
     func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {

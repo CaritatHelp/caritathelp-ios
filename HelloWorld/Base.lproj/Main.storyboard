@@ -75,14 +75,9 @@
                                     <color key="titleShadowColor" red="0.068557851016521454" green="0.041941214352846146" blue="0.027458667755126953" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ICK-kC-RvS" kind="show" id="Kak-kY-Faf"/>
+                                    <segue destination="ICK-kC-RvS" kind="show" identifier="gosignup" id="Kak-kY-Faf"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2017_logo_caritathelp" translatesAutoresizingMaskIntoConstraints="NO" id="QGS-ez-O03">
-                                <rect key="frame" x="73" y="43" width="226" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
                             <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xGo-aN-ddx">
                                 <rect key="frame" x="102" y="459" width="168" height="56"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -96,6 +91,11 @@
                                     <action selector="changeText:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ULu-GF-1qb"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="2017_logo_caritathelp" translatesAutoresizingMaskIntoConstraints="NO" id="QGS-ez-O03">
+                                <rect key="frame" x="41" y="43" width="277" height="150"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.43714893946944589" green="0.66666666666666663" blue="0.51562427791322807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -132,7 +132,7 @@
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="137" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dyp-WQ-Vs1">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commentcell" rowHeight="37" id="vtA-O4-K0O">
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="37"/>
@@ -802,7 +802,7 @@
             </objects>
             <point key="canvasLocation" x="877.5" y="-255.5"/>
         </scene>
-        <!--Title-->
+        <!--Profil Volunteer-->
         <scene sceneID="qu8-o8-S95">
             <objects>
                 <viewController id="cu0-SY-nD0" customClass="ProfilVolunteer" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -954,8 +954,9 @@
                     <toolbarItems>
                         <barButtonItem id="FaP-Ge-aYv"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Title" id="ShB-pC-f28">
+                    <navigationItem key="navigationItem" id="ShB-pC-f28">
                         <barButtonItem key="rightBarButtonItem" title="s'exprimer" id="xbt-gG-NUU">
+                            <color key="tintColor" red="0.036536596900000003" green="0.6671711387" blue="0.30148286120000001" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="WXl-rV-fjq" kind="show" identifier="gotopostfromprofil" id="xdW-hy-Vsd"/>
                             </connections>
@@ -1334,7 +1335,7 @@
         <!--Manage Photo Controller-->
         <scene sceneID="BRy-bX-PWy">
             <objects>
-                <viewController id="P30-fY-VqL" customClass="ManagePhotoController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="managePhoto" id="P30-fY-VqL" customClass="ManagePhotoController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lvn-3M-x8J"/>
                         <viewControllerLayoutGuide type="bottom" id="jqV-sV-q54"/>
@@ -2533,11 +2534,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActuAssoCellHeader" rowHeight="159" id="QqO-Md-Ms9" customClass="CustomCellHeaderAsso" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="159"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActuAssoCellHeader" rowHeight="158" id="QqO-Md-Ms9" customClass="CustomCellHeaderAsso" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="158"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QqO-Md-Ms9" id="v8r-UC-SLo">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="158.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="157.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bET-Kz-0Es">
@@ -2563,7 +2564,7 @@
                                                         </barButtonItem>
                                                         <barButtonItem image="info_filled" width="43.5" id="zTA-dY-sIk">
                                                             <connections>
-                                                                <segue destination="wVR-kW-DZn" kind="show" identifier="goToDescription" id="1u8-Zb-O53"/>
+                                                                <segue destination="wVR-kW-DZn" kind="show" identifier="goToDescription" id="FcP-2Q-BBS"/>
                                                             </connections>
                                                         </barButtonItem>
                                                     </items>
@@ -2593,8 +2594,16 @@
                                             <outlet property="imageProfil" destination="PGF-NU-5C4" id="mzM-sS-vzh"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="showInfoAsso" rowHeight="46" id="WVi-x7-opi">
+                                        <rect key="frame" x="0.0" y="213.5" width="375" height="46"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WVi-x7-opi" id="fcq-vR-7mQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="45.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="gotocommentfromasso" rowHeight="45" id="oPt-M9-vSH">
-                                        <rect key="frame" x="0.0" y="215" width="375" height="45"/>
+                                        <rect key="frame" x="0.0" y="259.5" width="375" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oPt-M9-vSH" id="h7b-he-D9x">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="44.5"/>
@@ -2610,7 +2619,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="NBd-2V-eRT" kind="show" identifier="gotocommentfromasso" id="mHl-v4-VUx"/>
+                                            <segue destination="NBd-2V-eRT" kind="show" id="kKP-fO-xml"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2638,12 +2647,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q3J-8x-LqU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3972.5" y="-1773.5"/>
+            <point key="canvasLocation" x="3972" y="-1774.3628185907048"/>
         </scene>
         <!--Description Association-->
         <scene sceneID="WQJ-oW-yHM">
             <objects>
-                <viewController id="wVR-kW-DZn" customClass="DescriptionAssociation" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="descriptionAssoVC" id="wVR-kW-DZn" customClass="DescriptionAssociation" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DlC-Wq-a1t"/>
                         <viewControllerLayoutGuide type="bottom" id="hsf-U3-WZ0"/>
@@ -2679,6 +2688,14 @@
                                 <rect key="frame" x="120" y="521" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9NG-mw-N2G">
+                                <rect key="frame" x="10" y="8" width="42" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="retour"/>
+                                <connections>
+                                    <action selector="backProfile:" destination="wVR-kW-DZn" eventType="touchUpInside" id="Noh-3L-xn1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -2690,7 +2707,104 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BgM-Sv-fAH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4318.5" y="-933.5"/>
+            <point key="canvasLocation" x="3927" y="-893"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="WAw-5A-33V">
+            <objects>
+                <viewController storyboardIdentifier="imageViewController" id="I40-2y-jx2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QrV-ZY-wPY"/>
+                        <viewControllerLayoutGuide type="bottom" id="9Id-K7-Suq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qpL-GT-JEw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNd-Gq-dZI">
+                                <rect key="frame" x="153" y="179" width="39" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yzV-ui-BZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4735" y="-1010"/>
+        </scene>
+        <!--Gallery Asso View Controller-->
+        <scene sceneID="ryT-6c-RgE">
+            <objects>
+                <viewController storyboardIdentifier="galleryViewController" id="AWi-Nz-7RD" customClass="GalleryAssoViewController" customModule="Caritathelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EcO-ny-oXO"/>
+                        <viewControllerLayoutGuide type="bottom" id="hpI-Vn-xi6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nwQ-dh-jWs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iR-UB-VUx">
+                                <rect key="frame" x="158" y="252" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="278-KF-cWg">
+                                <rect key="frame" x="7" y="73" width="360" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="scrollIndicatorInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="2" id="93a-oJ-KkI">
+                                    <size key="itemSize" width="115" height="115"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="LyH-1h-BVQ" customClass="CustomCellGallery" customModule="Caritathelp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hn6-XE-vjI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="115" height="115"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="ImageProfilFriends" destination="hn6-XE-vjI" id="7C9-xq-ydn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="AWi-Nz-7RD" id="zPR-fG-Fdc"/>
+                                    <outlet property="delegate" destination="AWi-Nz-7RD" id="oQ2-yg-NmG"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="278-KF-cWg" secondAttribute="trailing" constant="8" id="Cay-4g-L5D"/>
+                            <constraint firstItem="278-KF-cWg" firstAttribute="leading" secondItem="nwQ-dh-jWs" secondAttribute="leading" constant="7" id="NBZ-xp-88u"/>
+                            <constraint firstItem="hpI-Vn-xi6" firstAttribute="top" secondItem="278-KF-cWg" secondAttribute="bottom" constant="38" id="QEm-If-IGO"/>
+                            <constraint firstItem="278-KF-cWg" firstAttribute="top" secondItem="EcO-ny-oXO" secondAttribute="bottom" constant="53" id="qho-Cd-2x6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gallery" destination="278-KF-cWg" id="Olw-JG-w2n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mNB-rs-vLb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5613.6000000000004" y="-1009.7451274362819"/>
         </scene>
         <!--Membres-->
         <scene sceneID="dLE-aT-RSX">
@@ -2808,15 +2922,6 @@
                                     <segue destination="nEb-xJ-qBN" kind="presentation" id="fgK-jd-vZJ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBb-Nb-K8U">
-                                <rect key="frame" x="81" y="369" width="211" height="211"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title=" Urgence">
-                                    <color key="titleColor" red="0.88320469856262207" green="0.32721573114395142" blue="0.26106718182563782" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bF4-TL-xhl">
                                 <rect key="frame" x="0.0" y="230" width="375" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -2837,6 +2942,13 @@
                                     <segue destination="6tu-2D-ulU" kind="show" identifier="goToParamAsso" id="jpa-bA-zFF"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p30-tM-Rfb">
+                                <rect key="frame" x="0.0" y="360" width="375" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="créer un centre d'hebergement"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -2849,9 +2961,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="urgenceBTN" destination="tBb-Nb-K8U" id="VQS-oF-edZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8FY-ho-1aq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3650,11 +3759,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1D9-Z6-yrJ">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1D9-Z6-yrJ">
                                 <rect key="frame" x="105" y="390" width="165" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="zXn-df-47y"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Homme"/>
                                     <segment title="Femme"/>
@@ -4199,7 +4306,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2017_logo_caritathelp" width="1191" height="842"/>
+        <image name="2017_logo_caritathelp" width="725" height="369"/>
         <image name="2017_logo_caritathelp (1)" width="196" height="209"/>
         <image name="P_20151203_110827" width="3264" height="1836"/>
         <image name="about" width="96" height="96"/>
@@ -4238,18 +4345,18 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MoD-cH-jlH"/>
-        <segue reference="3Lt-6m-30b"/>
-        <segue reference="cum-nY-A2V"/>
-        <segue reference="2s0-n8-0SF"/>
-        <segue reference="dvS-1y-DKn"/>
-        <segue reference="aRZ-vF-bno"/>
-        <segue reference="oEU-cS-sLN"/>
-        <segue reference="5LN-Ot-TU7"/>
-        <segue reference="GjO-AN-1Im"/>
-        <segue reference="Qu8-yW-0gK"/>
+        <segue reference="uYc-IU-TMd"/>
         <segue reference="xmC-vA-Z09"/>
+        <segue reference="F4x-iW-kpX"/>
+        <segue reference="BwG-1R-ddS"/>
+        <segue reference="Qe5-Kj-aGY"/>
+        <segue reference="aRZ-vF-bno"/>
+        <segue reference="xdW-hy-Vsd"/>
+        <segue reference="ao9-7r-IEV"/>
+        <segue reference="dvS-1y-DKn"/>
         <segue reference="Kak-kY-Faf"/>
+        <segue reference="j0r-d4-0hx"/>
+        <segue reference="MoD-cH-jlH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99687499999999996" green="0.99687499999999996" blue="0.99687499999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
