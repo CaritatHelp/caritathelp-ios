@@ -38,8 +38,12 @@ class CustomCellMyAsso: UITableViewCell {
         self.NameAsso.text = NameLabel
         self.PictureAsso.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.PictureAsso.layer.cornerRadius = 10
+        self.PictureAsso.layer.borderWidth = 1.0
         self.PictureAsso.layer.borderColor = UIColor.darkGray.cgColor;
-        self.PictureAsso.layer.masksToBounds = true
+        self.PictureAsso.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.PictureAsso.layer.shadowOpacity = 0.4
+        self.PictureAsso.layer.shadowColor = UIColor.black.cgColor
+        self.PictureAsso.layer.masksToBounds = false
         self.PictureAsso.clipsToBounds = true
         self.LieuAsso.text = state
         

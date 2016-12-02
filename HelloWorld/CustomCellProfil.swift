@@ -94,14 +94,17 @@ class CustomCellProfilVolunteer: UITableViewCell {
     }
     
     @IBAction func add_friend(_ sender: AnyObject) {
-        
-        if (user["friendship"] == "none") {
-            self.param["token"] = String(describing: sharedInstance.volunteer["response"]["token"])
+        print("\(user)")
+        if (user["friendship"] == "none" || user["friendship"] == nil) {
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
             self.param["volunteer_id"] = String(describing: user["id"])
             let val = "friendship/add"
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
+                    self.BtnAddFriend.setImage(UIImage(named: "hourglass"), for: .normal)
                     //self.friends = User
                     //self.list_friends.reloadData()
                 }
@@ -110,40 +113,55 @@ class CustomCellProfilVolunteer: UITableViewCell {
                 }
             });
         }
+        else {
+            SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+        }
 
     }
     @IBAction func Accept_Friend(_ sender: AnyObject) {
         if (user["friendship"] == "invitation received") {
-            self.param["token"] = String(describing: sharedInstance.volunteer["response"]["token"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
             self.param["notif_id"] = String(describing: user["notif_id"])
             self.param["acceptance"] = "true"
             let val = "friendship/reply"
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
+                    self.AccceptFriendBtn.isHidden = true
+                    self.RefusedFriendBtn.isHidden = true
+                    self.BtnAddFriend.setImage(UIImage(named: "reviewer-1"), for: .normal)
+                    self.BtnAddFriend.isHidden = false
                     //self.friends = User
                     //self.list_friends.reloadData()
                 }
                 else {
-                    
+                    SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
                 }
             });
         }
     }
     @IBAction func refused_friend(_ sender: AnyObject) {
         if (user["friendship"] == "invitation received") {
-            self.param["token"] = String(describing: sharedInstance.volunteer["response"]["token"])
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
             self.param["notif_id"] = String(describing: user["notif_id"])
             self.param["acceptance"] = "false"
             let val = "friendship/reply"
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
+                     self.AccceptFriendBtn.isHidden = true
+                    self.RefusedFriendBtn.isHidden = true
+                    self.BtnAddFriend.setImage(UIImage(named: "add-user-2"), for: .normal)
+                     self.BtnAddFriend.isHidden = false
                     //self.friends = User
                     //self.list_friends.reloadData()
                 }
                 else {
-                    
+                    SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
                 }
             });
         }

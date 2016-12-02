@@ -214,7 +214,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 self.Asso = User["response"]
                 self.title = String(describing: self.Asso["name"])
                 self.main_picture = define.path_picture + String(describing: User["thumb_path"])
-                self.alreadyMember = String(describing: User["rights"])
+                //self.alreadyMember = String(describing: self.Asso["rights"])
                 //self.ActuAssoList.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshActu()

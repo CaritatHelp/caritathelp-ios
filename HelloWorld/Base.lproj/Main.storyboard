@@ -714,6 +714,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="DetailNotif" destination="h4d-Oc-bX6" id="Aac-Ci-x57"/>
+                                            <outlet property="ImageProfilFriends" destination="7dV-EW-trn" id="bGM-Dx-4G9"/>
                                             <outlet property="LabelNotif" destination="NOa-pI-Wca" id="qv8-V1-V1n"/>
                                         </connections>
                                     </tableViewCell>
@@ -746,6 +747,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="DetailNotif" destination="D89-fL-U3D" id="RA0-oX-dso"/>
+                                            <outlet property="ImageProfilFriends" destination="LTi-eq-25a" id="8lR-pk-0kt"/>
                                             <outlet property="LabelNotif" destination="Y4y-uy-kV1" id="WmP-8a-s3f"/>
                                         </connections>
                                     </tableViewCell>
@@ -778,6 +780,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="DetailNotif" destination="5QB-l7-G8Z" id="AvA-10-1WS"/>
+                                            <outlet property="ImageProfilFriends" destination="eKh-M2-mY2" id="7Kq-6r-y23"/>
                                             <outlet property="LabelNotif" destination="Lxl-LJ-Sew" id="liW-l2-42F"/>
                                         </connections>
                                     </tableViewCell>
@@ -4345,17 +4348,17 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uYc-IU-TMd"/>
         <segue reference="xmC-vA-Z09"/>
-        <segue reference="F4x-iW-kpX"/>
-        <segue reference="BwG-1R-ddS"/>
+        <segue reference="uYc-IU-TMd"/>
+        <segue reference="cum-nY-A2V"/>
+        <segue reference="dvS-1y-DKn"/>
         <segue reference="Qe5-Kj-aGY"/>
+        <segue reference="ao9-7r-IEV"/>
         <segue reference="aRZ-vF-bno"/>
         <segue reference="xdW-hy-Vsd"/>
-        <segue reference="ao9-7r-IEV"/>
-        <segue reference="dvS-1y-DKn"/>
-        <segue reference="Kak-kY-Faf"/>
+        <segue reference="F4x-iW-kpX"/>
         <segue reference="j0r-d4-0hx"/>
+        <segue reference="Kak-kY-Faf"/>
         <segue reference="MoD-cH-jlH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99687499999999996" green="0.99687499999999996" blue="0.99687499999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

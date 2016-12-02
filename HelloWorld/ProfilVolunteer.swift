@@ -178,11 +178,11 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         self.param["uid"] = sharedInstance.header["uid"]
 
         let val = "volunteers/" + idvolunteer
-        request.request(type: "GET", param: param,add: val, callback: {
+        self.request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                 self.volunteer = User["response"]
-                self.main_picture = define.path_picture + String(describing: User["thumb_path"])
+                self.main_picture = define.path_picture + String(describing: User["response"]["thumb_path"])
                 self.profil_list.reloadData()
                 self.refreshActu()
             }

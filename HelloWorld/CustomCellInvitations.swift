@@ -14,6 +14,7 @@ class CustomCellInvits: UITableViewCell {
     
     @IBOutlet weak var LabelNotif: UILabel!
     @IBOutlet weak var DetailNotif: UILabel!
+    @IBOutlet weak var ImageProfilFriends: UIImageView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,15 +34,13 @@ class CustomCellInvits: UITableViewCell {
     }
     
     func setCell(NameLabel: String, DetailLabel: String, imageName: String){
-        //self.TitleNews.text = NameLabel
-        //self.DateNews.text = DateLabel
-        //        self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2
-        //        self.ImageProfilFriends.layer.borderColor = UIColor.darkGrayColor().CGColor;
-        //        self.ImageProfilFriends.layer.masksToBounds = true
-        //        self.ImageProfilFriends.clipsToBounds = true
+        self.ImageProfilFriends.downloadedFrom(link: imageName, contentMode: .scaleToFill)
+        self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2
+        self.ImageProfilFriends.layer.borderColor = UIColor.lightGray.cgColor;
+        self.ImageProfilFriends.layer.borderWidth = 1.0
+        self.ImageProfilFriends.layer.masksToBounds = true
+        self.ImageProfilFriends.clipsToBounds = true
         self.LabelNotif.text = NameLabel
         self.DetailNotif.text = DetailLabel
-        //cell.imageView?.layer.cornerRadius = 25
-        //cell.imageView?.clipsToBounds = true
     }
 }
