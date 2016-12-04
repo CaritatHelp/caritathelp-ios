@@ -30,6 +30,8 @@
 		3F15CD741C786E95004AB3DE /* AllAssociations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15CD731C786E95004AB3DE /* AllAssociations.swift */; };
 		3F1CC05F1D75CC34006F38D7 /* CustomCellActu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F1CC05E1D75CC34006F38D7 /* CustomCellActu.xib */; };
 		3F1CC0611D75CF01006F38D7 /* CustomCellActu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CC0601D75CF01006F38D7 /* CustomCellActu.swift */; };
+		3F38B3EA1DF32019002C81FB /* ShelterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F38B3E91DF32019002C81FB /* ShelterViewController.swift */; };
+		3F38B3EC1DF4971D002C81FB /* CreateShelterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F38B3EB1DF4971D002C81FB /* CreateShelterViewController.swift */; };
 		3F3FAE841CF74FA600E2779C /* CustomCellInviteMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE831CF74FA600E2779C /* CustomCellInviteMember.swift */; };
 		3F3FAE861CF7A0D400E2779C /* InviteGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE851CF7A0D400E2779C /* InviteGuest.swift */; };
 		3F3FAE881CF7A69900E2779C /* CustomCellInviteGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */; };
@@ -133,6 +135,8 @@
 		3F15CD731C786E95004AB3DE /* AllAssociations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAssociations.swift; sourceTree = "<group>"; };
 		3F1CC05E1D75CC34006F38D7 /* CustomCellActu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellActu.xib; sourceTree = "<group>"; };
 		3F1CC0601D75CF01006F38D7 /* CustomCellActu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellActu.swift; sourceTree = "<group>"; };
+		3F38B3E91DF32019002C81FB /* ShelterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelterViewController.swift; sourceTree = "<group>"; };
+		3F38B3EB1DF4971D002C81FB /* CreateShelterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateShelterViewController.swift; sourceTree = "<group>"; };
 		3F3FAE831CF74FA600E2779C /* CustomCellInviteMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInviteMember.swift; sourceTree = "<group>"; };
 		3F3FAE851CF7A0D400E2779C /* InviteGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteGuest.swift; sourceTree = "<group>"; };
 		3F3FAE871CF7A69900E2779C /* CustomCellInviteGuest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellInviteGuest.swift; sourceTree = "<group>"; };
@@ -287,6 +291,8 @@
 				3F12A0EB1C98C78200513778 /* EventOfAssociation.swift */,
 				3FC5219E1CA4318000742193 /* PostStatutAsso.swift */,
 				3F891F661CF3491600712C6E /* InviteMember.swift */,
+				3F38B3E91DF32019002C81FB /* ShelterViewController.swift */,
+				3F38B3EB1DF4971D002C81FB /* CreateShelterViewController.swift */,
 			);
 			name = Association;
 			sourceTree = "<group>";
@@ -715,6 +721,7 @@
 				3FC521A51CA49B7300742193 /* CustomFriendCell.swift in Sources */,
 				3FE614FD1C42736500CFCFD8 /* SubscribeFinishCtrl.swift in Sources */,
 				3FCC1FA11C7E709000B5EA9A /* NotifAssociation.swift in Sources */,
+				3F38B3EC1DF4971D002C81FB /* CreateShelterViewController.swift in Sources */,
 				3FB4BF201C57F96D00110EEA /* TabBarController.swift in Sources */,
 				3F639D5B1CE10AFF00F45583 /* CustomCellAssoVolunteer.swift in Sources */,
 				3F639D551CDF960100F45583 /* ProfilVolunteer.swift in Sources */,
@@ -743,6 +750,7 @@
 				3F3FAE8D1D03143900E2779C /* ManagePhotoController.swift in Sources */,
 				3F639D571CDF972400F45583 /* CustomCellProfil.swift in Sources */,
 				3F3FAE8A1CF7A8FA00E2779C /* CurrentAssociation.swift in Sources */,
+				3F38B3EA1DF32019002C81FB /* ShelterViewController.swift in Sources */,
 				3F12A0EE1C997BD000513778 /* ProfilEvent.swift in Sources */,
 				3F12A0F21C9B03B500513778 /* MembersEvent.swift in Sources */,
 				3FB52A531CA1AEBB004D56D3 /* CustomCellMemberAssociation.swift in Sources */,

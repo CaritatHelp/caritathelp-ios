@@ -46,6 +46,15 @@ class Define {
         label.sizeToFit()
         return label.frame.height
     }
+    
+    static func doStringContainsNumber( _string : String) -> Bool{
+        
+        let numberRegEx  = ".*[0-9]+.*"
+        let testCase = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
+        let containsNumber = testCase.evaluate(with: _string)
+        
+        return containsNumber
+    }
 }
 
 let define = Define()

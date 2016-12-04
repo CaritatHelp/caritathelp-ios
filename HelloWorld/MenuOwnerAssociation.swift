@@ -39,7 +39,15 @@ class MenuOwnerAssocation: UIViewController {
     
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-
+            
+            if(segue.identifier == "createshelter"){
+                let secondViewController = segue.destination as! CreateShelterViewController
+                
+                print("asso ID = \(Asso["id"])")
+                secondViewController.AssocID = String(describing: Asso["id"])
+                secondViewController.create = true
+                
+            }
             if(segue.identifier == "goToNotifAsso"){
                 let secondViewController = segue.destination as! NotifAssociation
 

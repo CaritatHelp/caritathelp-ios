@@ -284,6 +284,15 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 secondViewController.Asso = Asso
                 //secondViewController.user = user
             }
+        if(segue.identifier == "showshelters"){
+            
+            let secondViewController = segue.destination as! ShelterViewController
+            
+            // set a variable in the second view controller with the String to pass
+            secondViewController.AssocID = AssocID
+            secondViewController.rights = alreadyMember
+            
+            }
             if(segue.identifier == "goToMenuOwner"){
                 
                 let secondViewController = segue.destination as! MenuOwnerAssocation

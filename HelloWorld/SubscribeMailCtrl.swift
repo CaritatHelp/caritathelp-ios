@@ -39,15 +39,6 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func doStringContainsNumber( _string : String) -> Bool{
-        
-        let numberRegEx  = ".*[0-9]+.*"
-        let testCase = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
-        let containsNumber = testCase.evaluate(with: _string)
-        
-        return containsNumber
-    }
-    
     func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
         if (identifier == "goToFinishSub") {
             if (mail.text!.isEmpty ) {
@@ -65,7 +56,7 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
                 checkMail.text = ""
                 return false
             }
-            else if(doStringContainsNumber(_string: password.text!) == false){
+            else if(Define.doStringContainsNumber(_string: password.text!) == false){
                 checkPassword.text = "votre mot de passe doit contenir lettre/chiffre"
                 checkMail.text = ""
                 return false
