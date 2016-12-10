@@ -149,10 +149,12 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             }else if self.invits[indexPath.row]["notif_type"] == "InviteGuest" {
                 val = "guests/reply_invite"
             }
+            print("val = = \(val)")
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    self.refresh()                }
+                    self.refresh()
+                }
                 else {
                     
                 }

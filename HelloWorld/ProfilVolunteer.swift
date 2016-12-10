@@ -36,7 +36,31 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell : CustomCellProfilVolunteer = profil_list.dequeueReusableCell(withIdentifier: "CellProfilVolunteer", for: indexPath) as! CustomCellProfilVolunteer
+                
+                cell.showgallery = { [unowned self] (selectedCell) -> Void in
+                    let appearance = SCLAlertView.SCLAppearance(
+                        showCircularIcon: false
+                    )
+                    let alertView = SCLAlertView(appearance: appearance)
+                    alertView.addButton("logo") {
+                        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "imageViewController")
+                        
+                        self.navigationController!.pushViewController(VC1, animated: true)
+                        
+                    }
+                    alertView.addButton("gallerie") {//galleryViewController
+                        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
+                        VC1.volunteerID = self.idvolunteer
+                        self.navigationController!.pushViewController(VC1, animated: true)
+                    }
+                    alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
+                    
+                }
+
+                
                 cell.setCell(NameLabel: String(describing: volunteer["firstname"]) + " " + String(describing: volunteer["lastname"]), DetailLabel: String(describing: volunteer["friendship"]), imageName: define.path_picture + String(describing: volunteer["thumb_path"]), User: volunteer)
+                
+                
                 
                 let gradientBackgroundColors = [UIColor(red: 125.0/255, green: 191.0/255, blue: 149.0/255, alpha: 1.0).cgColor, UIColor.white.cgColor]
                 let gradientLocations = [0.0,1.0]

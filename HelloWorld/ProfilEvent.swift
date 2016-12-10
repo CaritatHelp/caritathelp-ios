@@ -104,6 +104,27 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         return actu.count
     }
     
+    func showGallery() {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("logo") {
+            print("vers le logo")
+            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "imageViewController")
+            
+            self.navigationController!.pushViewController(VC1, animated: true)
+            
+        }
+        alertView.addButton("gallerie") {//galleryViewController
+            print("gallerie")
+            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
+            VC1.eventID = self.EventID
+            self.navigationController!.pushViewController(VC1, animated: true)
+        }
+        alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
+    }
+    
     @IBAction func JoinEvent(_ sender: AnyObject) {
         //quitter un event en tant que membre
         if(String(describing: Event["response"]["rights"]) == "member"){
@@ -185,7 +206,12 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         eventsNewsList.estimatedRowHeight = 159.0
         eventsNewsList.rowHeight = UITableViewAutomaticDimension
         eventsNewsList.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
+        
         user = sharedInstance.volunteer["response"]
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(showGallery))
+        self.imageEvent.isUserInteractionEnabled = true
+        self.imageEvent.addGestureRecognizer(tapGestureRecognizer)
+        
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]

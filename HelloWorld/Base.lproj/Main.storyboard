@@ -824,7 +824,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CellProfilVolunteer" rowHeight="200" id="ut3-8m-QJy" customClass="CustomCellProfilVolunteer" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="200"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ut3-8m-QJy" id="FOd-JO-uee">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
@@ -889,7 +889,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MenuProfil" rowHeight="46" id="HWj-2e-MgB">
-                                        <rect key="frame" x="0.0" y="256" width="375" height="46"/>
+                                        <rect key="frame" x="0.0" y="255.5" width="375" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HWj-2e-MgB" id="ijE-Xv-Mo0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="45.5"/>
@@ -926,7 +926,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="commentactuprofil" rowHeight="37" id="fIc-XW-M4p">
-                                        <rect key="frame" x="0.0" y="302" width="375" height="37"/>
+                                        <rect key="frame" x="0.0" y="301.5" width="375" height="37"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fIc-XW-M4p" id="DoN-iJ-vWz">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="36.5"/>
@@ -1755,14 +1755,7 @@
                     <toolbarItems>
                         <barButtonItem title="Item" id="nIW-ib-x5I"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="fEa-Fg-A4L">
-                        <barButtonItem key="rightBarButtonItem" title="MAJ" id="KVL-Hf-tfq">
-                            <color key="tintColor" red="0.49019607840000001" green="0.74901960779999999" blue="0.58431372550000005" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="update:" destination="Ae6-B5-jup" id="Ia6-E0-SJS"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="fEa-Fg-A4L"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="manageTableView" destination="OYZ-WR-Sro" id="aai-Ay-uXY"/>
@@ -2917,7 +2910,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dk4-o9-wiR" id="f01-4q-VfM">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6UA-P7-Cyh">
@@ -3385,9 +3378,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="7yd-9T-cgU"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Inviter vos amis" id="u0c-56-yP8">
                         <barButtonItem key="rightBarButtonItem" title="inviter" id="NPb-xf-OXH">
                             <color key="tintColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4437,18 +4428,18 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xmC-vA-Z09"/>
-        <segue reference="uYc-IU-TMd"/>
-        <segue reference="dvS-1y-DKn"/>
-        <segue reference="F4x-iW-kpX"/>
-        <segue reference="kKP-fO-xml"/>
-        <segue reference="3r6-pW-jNR"/>
-        <segue reference="5LN-Ot-TU7"/>
-        <segue reference="BwG-1R-ddS"/>
         <segue reference="Qe5-Kj-aGY"/>
+        <segue reference="BwG-1R-ddS"/>
+        <segue reference="oEU-cS-sLN"/>
         <segue reference="j0r-d4-0hx"/>
         <segue reference="Kak-kY-Faf"/>
         <segue reference="MoD-cH-jlH"/>
+        <segue reference="DJC-K9-eE8"/>
+        <segue reference="xmC-vA-Z09"/>
+        <segue reference="dvS-1y-DKn"/>
+        <segue reference="dyz-Mz-TIx"/>
+        <segue reference="p6J-xB-Bxu"/>
+        <segue reference="Qu8-yW-0gK"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99687499999999996" green="0.99687499999999996" blue="0.99687499999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

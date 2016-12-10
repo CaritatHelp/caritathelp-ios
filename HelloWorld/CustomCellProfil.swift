@@ -26,6 +26,8 @@ class CustomCellProfilVolunteer: UITableViewCell {
     var request = RequestModel()
     var param = [String: String]()
     
+    var showgallery: ((CustomCellProfilVolunteer) -> Void)?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -76,8 +78,8 @@ class CustomCellProfilVolunteer: UITableViewCell {
         }
         
         imgProfilVol.downloadedFrom(link: imageName, contentMode: .scaleToFill)
-                self.imgProfilVol.layer.cornerRadius = self.imgProfilVol.frame.size.width / 2
-                self.imgProfilVol.layer.borderColor = UIColor.darkGray.cgColor;
+        self.imgProfilVol.layer.cornerRadius = self.imgProfilVol.frame.size.width / 2
+        self.imgProfilVol.layer.borderColor = UIColor.darkGray.cgColor;
         
         self.imgProfilVol.layer.borderWidth = 1.0
         self.imgProfilVol.layer.borderColor = UIColor.darkGray.cgColor;
@@ -86,11 +88,17 @@ class CustomCellProfilVolunteer: UITableViewCell {
         self.imgProfilVol.layer.shadowColor = UIColor.black.cgColor
         self.imgProfilVol.layer.shadowRadius = self.imgProfilVol.frame.size.width + 10 / 2;
         
-                self.imgProfilVol.layer.masksToBounds = true
-                self.imgProfilVol.clipsToBounds = true
-        
+        self.imgProfilVol.layer.masksToBounds = true
+        self.imgProfilVol.clipsToBounds = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(actionGallery))
+        self.imgProfilVol.isUserInteractionEnabled = true
+        self.imgProfilVol.addGestureRecognizer(tapGestureRecognizer)
         NomVolunteer.text = NameLabel
-                
+        
+    }
+    
+    func actionGallery() {
+        self.showgallery?(self)
     }
     
     @IBAction func add_friend(_ sender: AnyObject) {

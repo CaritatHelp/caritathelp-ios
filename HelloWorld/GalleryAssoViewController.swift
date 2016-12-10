@@ -14,6 +14,8 @@ class GalleryAssoViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var gallery: UICollectionView!
 
     var assoID = ""
+    var volunteerID = ""
+    var eventID = ""
     var request = RequestModel()
     private var photo : JSON = []
     var photos : [NYTPhoto]!
@@ -79,8 +81,21 @@ class GalleryAssoViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func loadImage() {
-        let param = [String: String]()
-        let val = "associations/" + self.assoID + "/pictures"
+        var param = [String: String]()
+        var val = ""
+        if assoID != "" {
+            val = "associations/" + self.assoID + "/pictures"
+        }
+        else if eventID != "" {
+            val = "events/" + self.eventID + "/pictures"
+        }
+        else if volunteerID != "" {
+            val = "volunteers/" + self.volunteerID + "/pictures"
+            param["access-token"] = sharedInstance.header["access-token"]
+            param["client"] = sharedInstance.header["client"]
+            param["uid"] = sharedInstance.header["uid"]
+
+        }
         self.request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){

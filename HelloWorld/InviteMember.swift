@@ -11,7 +11,7 @@ import UIKit
 import SwiftyJSON
 import SCLAlertView
 
-class InviteMemberController: UIViewController {
+class InviteMemberController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var user : JSON = []
     var AssocID = ""
@@ -23,9 +23,9 @@ class InviteMemberController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        friends_list.tableFooterView = UIView()
+        self.friends_list.tableFooterView = UIView()
         
-        user = sharedInstance.volunteer["response"]
+        self.user = sharedInstance.volunteer["response"]
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
@@ -50,7 +50,8 @@ class InviteMemberController: UIViewController {
     
         while i < friends.count {
             //let rowToSelect: IndexPath = IndexPath(forRow: i, inSection: 0) //NSIndexPath(forRow: i, inSection: 0)
-            let cell = friends_list.cellForRow(at: sender.indexPath as IndexPath)
+            print("index : \(sender.indexPath)")
+            let cell = friends_list.cellForRow(at: IndexPath(row: i, section: 0))
             
             if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
                 //print("invite" + String(friends[i]["firstname"]))
@@ -78,7 +79,7 @@ class InviteMemberController: UIViewController {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->  UITableViewCell {
         let cell : CustomCellInviteMember  = friends_list.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath as IndexPath) as! CustomCellInviteMember
         let name = String(describing: friends[indexPath.row]["firstname"]) + " " + String(describing: friends[indexPath.row]["lastname"])
         cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: friends[indexPath.row]["thumb_path"]))
@@ -88,11 +89,11 @@ class InviteMemberController: UIViewController {
     }
     
     //renvoi le nombre de ligne du tableview
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
         let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
@@ -105,7 +106,7 @@ class InviteMemberController: UIViewController {
         }
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
         
         let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
