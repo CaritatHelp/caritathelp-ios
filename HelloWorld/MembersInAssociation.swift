@@ -18,6 +18,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var members_list: UITableView!
     var user : JSON = []
     var AssocID = ""
+    var status = ""
     var request = RequestModel()
     var param = [String: String]()
     var members : JSON = []
@@ -127,20 +128,39 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
                 else {
                     
                 }
-            });
-            
+            })
             
         }
         //bouton kick un membre
-        let shareAction2 = UITableViewRowAction(style: .normal, title: "kick membre") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+        let shareAction2 = UITableViewRowAction(style: .normal, title: "virer") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
             
+            self.param["volunteer_id"] = String(describing: self.members[indexPath.row]["id"])
+            self.param["assoc_id"] = self.AssocID
+            let val = "membership/kick"
+            self.request.request(type: "DELETE", param: self.param,add: val, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    self.members = User["response"]
+                    self.members_list.reloadData()
+                }
+                else {
+                    
+                }
+            })
+
         }
         
         shareAction.backgroundColor = UIColor(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)
         shareAction2.backgroundColor = UIColor.red
         
-        return [shareAction]
-        
+        if status == "owner" {
+            return [shareAction, shareAction2]
+        }else {
+            return [shareAction]
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

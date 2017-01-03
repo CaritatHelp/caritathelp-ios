@@ -120,5 +120,3 @@ class ConnectionWebSocket : WebSocketDelegate {
     }
     
 }
-
-//let ws = ConnectionWebSocket()

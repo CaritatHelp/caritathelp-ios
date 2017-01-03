@@ -265,7 +265,8 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 let secondViewController = segue.destination as! MembersInAssociation
     
                 // set a variable in the second view controller with the String to pass
-                secondViewController.AssocID = AssocID
+                secondViewController.AssocID = self.AssocID
+                secondViewController.status = self.alreadyMember
                 //secondViewController.user = user
             }
             if(segue.identifier == "goToEvents"){
