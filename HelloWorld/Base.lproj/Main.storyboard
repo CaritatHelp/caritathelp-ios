@@ -3017,18 +3017,26 @@
                                     <segue destination="ZYd-AB-2Yo" kind="show" identifier="createshelter" id="b3J-7e-41a"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qfh-LC-Sxx">
+                                <rect key="frame" x="0.0" y="425" width="375" height="57"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.48828655700000001" green="0.75018028849999996" blue="0.58362798090000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Supprimer l'associaton">
+                                    <color key="titleColor" red="0.91450577970000002" green="0.41733849049999999" blue="0.32793667910000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="DeleteAssociation:" destination="lNG-rE-wdJ" eventType="touchUpInside" id="642-kj-g5q"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.4371489395" green="0.66666666669999997" blue="0.51562427789999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Gestion de l'association" id="OvM-Zf-ryl">
-                        <barButtonItem key="rightBarButtonItem" image="google_alerts_copyrighted_filled" id="Z7v-Zp-lQV">
-                            <color key="tintColor" red="0.41047676280000001" green="0.41047676280000001" blue="0.41047676280000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <segue destination="tRl-xE-kKk" kind="show" identifier="goToNotifAsso" id="z35-kN-2cy"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Gestion de l'association" id="OvM-Zf-ryl"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="qfh-LC-Sxx" id="78b-VP-W8S"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8FY-ho-1aq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -4404,7 +4412,6 @@
         <image name="fond_event" width="8670" height="3016"/>
         <image name="friends_3" width="96" height="96"/>
         <image name="google_alerts_copyrighted" width="32" height="32"/>
-        <image name="google_alerts_copyrighted_filled" width="32" height="32"/>
         <image name="groups_filled" width="32" height="32"/>
         <image name="help" width="96" height="96"/>
         <image name="home" width="32" height="32"/>
@@ -4429,18 +4436,18 @@
         <image name="wwf_logo" width="300" height="360"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Qe5-Kj-aGY"/>
-        <segue reference="BwG-1R-ddS"/>
-        <segue reference="oEU-cS-sLN"/>
-        <segue reference="j0r-d4-0hx"/>
-        <segue reference="Kak-kY-Faf"/>
-        <segue reference="MoD-cH-jlH"/>
-        <segue reference="DJC-K9-eE8"/>
         <segue reference="xmC-vA-Z09"/>
         <segue reference="dvS-1y-DKn"/>
-        <segue reference="dyz-Mz-TIx"/>
+        <segue reference="DJC-K9-eE8"/>
         <segue reference="p6J-xB-Bxu"/>
         <segue reference="Qu8-yW-0gK"/>
+        <segue reference="Kak-kY-Faf"/>
+        <segue reference="j0r-d4-0hx"/>
+        <segue reference="MoD-cH-jlH"/>
+        <segue reference="oEU-cS-sLN"/>
+        <segue reference="BwG-1R-ddS"/>
+        <segue reference="Qe5-Kj-aGY"/>
+        <segue reference="5LN-Ot-TU7"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99687499999999996" green="0.99687499999999996" blue="0.99687499999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

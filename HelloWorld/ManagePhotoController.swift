@@ -144,7 +144,7 @@ class ManagePhotoController: UIViewController,UIImagePickerControllerDelegate, U
             (isOK, User)-> Void in
             if(isOK){
                 self.Loader.stopAnimating()
-                self.navigationController?.popViewController(animated: true)
+                _ = self.navigationController?.popViewController(animated: true)
                 SCLAlertView().showSuccess("Telechargement terminer", subTitle: "Votre photo de profil a été remplacé !")
             }
             else {

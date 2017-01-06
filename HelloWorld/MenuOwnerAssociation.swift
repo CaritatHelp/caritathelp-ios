@@ -9,22 +9,28 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class MenuOwnerAssocation: UIViewController {
     var user : JSON = []
     var Asso : JSON = []
     var request = RequestModel()
     var param = [String: String]()
+    var AssocId = ""
     
     //data for create event
     var EventDateStart = ""
     var EventDateEnd = ""
     @IBOutlet weak var DisplayDateEvent: UILabel!
 
+    @IBOutlet weak var deleteButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
+        if String(describing: self.Asso["rights"]) != "owner" {
+            self.deleteButton.isHidden = true
+        }
     }
 
 //    override func viewWillAppear(animated: Bool) {
@@ -36,6 +42,35 @@ class MenuOwnerAssocation: UIViewController {
 //
 //                }
 //
+    @IBAction func DeleteAssociation(_ sender: Any) {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("supprimer") {
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+            
+            self.request.request(type: "DELETE", param: self.param,add: "associations/"+self.AssocId, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    _ = self.navigationController?.popToRootViewController(animated: true)
+                }
+                else {
+                    
+                }
+            });
+        }
+        alertView.addButton("annuler") {
+            
+        }
+        alertView.showError("Supprimer", subTitle: "Vous souhaitez supprimer votre association ?")
+        
+       
+
+    }
     
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
@@ -63,6 +98,7 @@ class MenuOwnerAssocation: UIViewController {
             if(segue.identifier == "goToParamAsso"){
                 let secondViewController = segue.destination as! ParametreAssociations
                 secondViewController.Asso = Asso
+                secondViewController.AssocId = self.AssocId
                 
             }
             if(segue.identifier == "fromasso"){

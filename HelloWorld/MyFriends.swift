@@ -88,8 +88,7 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
             self.param["uid"] = sharedInstance.header["uid"]
 
             self.param["notif_id"] = String(describing: self.friends_request[indexPath!.row]["notif_id"])
-            self.param["acceptance"] = "false"
-            self.request.request(type: "POST", param: self.param,add: "friendship/reply", callback: {
+            self.request.request(type: "DELETE", param: self.param,add: "friendship/cancel_request", callback: {
                 (isOK, User)-> Void in
                 if(isOK){
                     self.refresh()

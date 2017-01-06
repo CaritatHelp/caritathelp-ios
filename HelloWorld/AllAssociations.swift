@@ -57,7 +57,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.hideKeyboardWhenTappedAround()
         let tbc = self.tabBarController  as! TabBarController
         user = tbc.user
         self.tableViewAssoc.addSubview(self.refreshControl)

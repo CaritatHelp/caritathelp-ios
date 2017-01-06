@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-
+import SCLAlertView
 
 class MembersInAssociation: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
@@ -122,6 +122,12 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
+                    if User["status"] == 200 {
+                        SCLAlertView().showSuccess("Succès", subTitle: String(describing: User["message"]))
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
                     //self.friends = User
                     //self.list_friends.reloadData()
                 }
@@ -153,11 +159,57 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
 
         }
         
+        //bouton kick un membre
+        let rightsAction = UITableViewRowAction(style: .normal, title: "Modifier\n droits") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            
+//            guard self.status != "owner" else {
+//                SCLAlertView().showError("Erreur droits", subTitle: "Vous êtes propriétaires de l'association.")
+//                return
+//            }
+            var rights = ""
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+            
+            self.param["volunteer_id"] = String(describing: self.members[indexPath.row]["id"])
+            self.param["assoc_id"] = self.AssocID
+            if String(describing: self.members[indexPath.row]["rights"]) == "admin" {
+                rights = "member"
+            }
+            else if String(describing: self.members[indexPath.row]["rights"]) == "member" {
+                rights = "admin"
+            }
+            self.param["rights"] = rights
+            let val = "membership/upgrade"
+            self.request.request(type: "PUT", param: self.param,add: val, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    print(User["status"])
+                    if User["status"] == 200 {
+                        print("here")
+                        SCLAlertView().showSuccess("Succès", subTitle: "Les droits ont été mis à jour.")
+                        //self.members[indexPath.row]["rights"] as String = rights
+                        // update user
+                        self.members_list.reloadData()
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
+                }
+                else {
+                    
+                }
+            })
+            
+        }
+        
         shareAction.backgroundColor = UIColor(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)
         shareAction2.backgroundColor = UIColor.red
         
-        if status == "owner" {
-            return [shareAction, shareAction2]
+        rightsAction.backgroundColor = UIColor.gray
+        
+        if status == "owner" || status == "admin" {
+            return [shareAction, shareAction2, rightsAction]
         }else {
             return [shareAction]
         }

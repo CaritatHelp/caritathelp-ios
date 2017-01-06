@@ -185,7 +185,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         ActuAssoList.estimatedRowHeight = 159.0
         ActuAssoList.rowHeight = UITableViewAutomaticDimension
         print("ASSO RIGHTS = \(alreadyMember)")
-        if (alreadyMember != "owner"){
+        if (alreadyMember != "owner" && alreadyMember != "admin"){
             self.ButtonMenuOwner.isEnabled = false
             self.ButtonMenuOwner.tintColor = UIColor.clear
         }else{
@@ -207,7 +207,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
 
-        let val = "associations/" + AssocID
+        let val = "associations/" + self.AssocID
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
@@ -300,6 +300,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 
                 // set a variable in the second view controller with the String to pass
                 secondViewController.Asso = Asso
+                secondViewController.AssocId = self.AssocID
                 //secondViewController.user = user
             }
             if(segue.identifier == "gotopostfromasso"){
