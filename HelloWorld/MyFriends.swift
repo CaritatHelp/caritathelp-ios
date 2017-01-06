@@ -104,7 +104,31 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
         return [shareAction2]
         }
         else {
-            return []
+            if !fromProfil {
+            let shareAction2 = UITableViewRowAction(style: .normal, title: "Supprimer cet ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+                
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                
+                self.param["volunteer_id"] = String(describing: self.friends[indexPath!.row]["id"])
+                self.request.request(type: "DELETE", param: self.param,add: "friendship/remove", callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.refresh()
+                    }
+                    else {
+                        
+                    }
+                });
+                
+            }
+            shareAction2.backgroundColor = UIColor.red
+            return [shareAction2]
+            }
+            else {
+                return []
+            }
         }
         
     }

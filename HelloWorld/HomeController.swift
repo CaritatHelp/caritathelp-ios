@@ -89,7 +89,7 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             }
        
-        let datefinale = String(describing: actu[indexPath.section]["updated_at"])
+        let datefinale = String(describing: actu[indexPath.section]["updated_at"])//.transformToDate() + " à " + String(describing: actu[indexPath.section]["updated_at"]).getHeureFromString()
         //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
             var title = ""
         if actu[indexPath.section]["group_name"] == user["fullname"] {

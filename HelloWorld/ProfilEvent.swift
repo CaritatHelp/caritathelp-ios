@@ -20,26 +20,26 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     var user : JSON = []
     var main_picture = ""
     var actu : JSON = []
+    var rights = ""
     
-    
-    @IBOutlet weak var imageEvent: UIImageView!
     //variable en lien avec la storyBoard
+    @IBOutlet weak var imageEvent: UIImageView!
     @IBOutlet weak var StateMembersOnEvent: UIButton!
+    @IBOutlet weak var rightsButtonItem: UIBarButtonItem!
     @IBOutlet weak var eventsNewsList: UITableView!
     @IBOutlet weak var JoinEventBtn: UIBarButtonItem!
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
         let cell : CustomCellActu = eventsNewsList.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
-        
-//        cell.textLabel!.text = String(events["response"][indexPath.row]["title"])
             
             cell.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
                 let path = tableView.indexPathForRow(at: selectedCell.center)!
-                let selectedItem = self.actu[path.section]["content"]
+                //let selectedItem = self.actu[path.section]["content"]
                 
-                print("the selected item is \(selectedItem) and new : \(Newcontent)")
-                self.param["token"] = String(describing: self.user["token"])
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
                 self.param["content"] = Newcontent
                 self.request.request(type: "PUT", param: self.param, add: "news/" + String(describing: self.actu[path.section]["id"]), callback: {
                     (isOK, User)-> Void in
@@ -55,9 +55,8 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             
             cell.tapped_delete = { [unowned self] (selectedCell, Newcontent) -> Void in
                 let path = tableView.indexPathForRow(at: selectedCell.center)!
-                let selectedItem = self.actu[path.section]["content"]
+                //let selectedItem = self.actu[path.section]["content"]
                 
-                print("the selected item is \(selectedItem) and new : \(Newcontent)")
                 self.param["access-token"] = sharedInstance.header["access-token"]
                 self.param["client"] = sharedInstance.header["client"]
                 self.param["uid"] = sharedInstance.header["uid"]
@@ -127,7 +126,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func JoinEvent(_ sender: AnyObject) {
         //quitter un event en tant que membre
-        if(String(describing: Event["response"]["rights"]) == "member"){
+        if(self.rights == "member"){
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
@@ -138,7 +137,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 (isOK, User)-> Void in
                 if(isOK){
                     self.JoinEventBtn.image = UIImage(named: "event_not_joined")
-                    //self.tableViewAssoc.reloadData()
+                    self.rights = "none"
                 }
                 else {
                     SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
@@ -147,10 +146,10 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
 
         }
             //empecher a l'host de quitter
-        else if (String(describing: Event["response"]["rights"]) == "host"){
+        else if (self.rights == "host"){
             SCLAlertView().showError("Attention", subTitle: "Vous avez créé cet évènement \n Vous ne pouvez le quitter !")
         }
-        else if (String(describing: Event["response"]["rights"]) == "waiting"){
+        else if (self.rights == "waiting"){
             SCLAlertView().showError("En attente", subTitle: "le créateur de l'évènement est en train de traiter votre demande !")
         }
         else{//Rejoindre l'event (envoyer une demande à l'host)
@@ -175,7 +174,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                     let imageBtnWait = UIImage(named: "waiting")
                     let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
                     self.JoinEventBtn.image = newimage
-                    
+                    self.rights = "waiting"
                     //self.tableViewAssoc.reloadData()
                 }
                 else {
@@ -212,6 +211,26 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         self.imageEvent.isUserInteractionEnabled = true
         self.imageEvent.addGestureRecognizer(tapGestureRecognizer)
         
+//        switch rights {
+//        case "host":
+//            let imageBtnWait = UIImage(named: "event_joined")
+//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+//            self.JoinEventBtn.image = newimage
+//        case "member":
+//            let imageBtnWait = UIImage(named: "event_joined")
+//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+//            self.JoinEventBtn.image = newimage
+//        case "waiting":
+//            let imageBtnWait = UIImage(named: "waiting")
+//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+//            self.JoinEventBtn.image = newimage
+//        default:
+//            let imageBtnWait = UIImage(named: "event_not_joined")
+//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+//            self.JoinEventBtn.image = newimage
+//        }
+        
+        
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
@@ -224,13 +243,13 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 currentEvent.currentEvent = User["response"]
                 print(currentEvent.currentEvent["title"])
                 self.Event = User["response"]
-                if (String(describing: self.Event["rights"]) == "waiting"){
+                if (self.rights == "waiting"){
                     let imageBtnWait = UIImage(named: "waiting")
                     let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
                     self.JoinEventBtn.image = newimage
                 }
                 self.navigationItem.title = String(describing: self.Event["title"])
-                if(String(describing: self.Event["rights"]) == "host" || String(describing: self.Event["rights"]) == "member"){
+                if(self.rights == "host" || self.rights == "member"){
                     self.JoinEventBtn.image = UIImage(named: "event_joined")
                 }
                 let val2 = "/events/" + self.EventID + "/main_picture"
@@ -302,6 +321,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             // set a variable in the second view controller with the String to pass
             secondViewController.EventID = String(describing: self.Event["id"])
             secondViewController.from = "event"
+            secondViewController.name = String(describing: self.Event["title"])
         }
         if(segue.identifier == "goToUpdateEvent"){
             let secondViewController = segue.destination as! UpdateEventController

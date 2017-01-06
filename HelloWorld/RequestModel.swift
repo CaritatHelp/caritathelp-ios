@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import SystemConfiguration
+import SCLAlertView
 
 class RequestModel {
     
@@ -21,6 +22,7 @@ class RequestModel {
         guard Reachability.isConnectedToNetwork() else {
             let jsonFail: JSON = ["connection":"false"]
             callback?(false, jsonFail)
+            SCLAlertView().showError("Problème de connexion", subTitle: "Vous n'êtes pas connecté...")
             return
         }
         

@@ -39,8 +39,12 @@ class CommentActuController: UIViewController, UITableViewDataSource, UITableVie
             } else {
                 title = String(describing: actu["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu["group_name"])
             }
+            var date = "2017-01-05T14:00:31.567+01:00"
+            if actu["updated_at"] != nil {
+                date = String(describing: actu["updated_at"])
+            }
             
-            cell.setCell(NameLabel: title, DateLabel: String(describing: actu["updated_at"]), imageName: define.path_picture + String(describing: actu["volunteer_thumb_path"]), content: String(describing: actu["content"]))
+            cell.setCell(NameLabel: title, DateLabel: date, imageName: define.path_picture + String(describing: actu["volunteer_thumb_path"]), content: String(describing: actu["content"]))
         return cell
         } else if indexPath.row == 1 {
             let cell = list_actu.dequeueReusableCell(withIdentifier: "CommentNews", for: indexPath) as! CustomCellCommentNews
@@ -103,7 +107,12 @@ class CommentActuController: UIViewController, UITableViewDataSource, UITableVie
                 from = "false"
             }
             
-            cell.setCell(NameLabel: String(describing: comments[indexPath.row - 2]["firstname"]) + " " + String(describing: comments[indexPath.row - 2]["lastname"]), DateLabel: String(describing: comments[indexPath.row - 2]["updated_at"]), imageName: define.path_picture + String(describing: comments[indexPath.row - 2]["thumb_path"]), content: String(describing: comments[indexPath.row - 2]["content"]), from: from)
+            var date = "2017-01-05T14:00:31.567+01:00"
+            if actu["updated_at"] != nil {
+                date = String(describing: comments[indexPath.row - 2]["updated_at"])
+            }
+            
+            cell.setCell(NameLabel: String(describing: comments[indexPath.row - 2]["firstname"]) + " " + String(describing: comments[indexPath.row - 2]["lastname"]), DateLabel: date, imageName: define.path_picture + String(describing: comments[indexPath.row - 2]["thumb_path"]), content: String(describing: comments[indexPath.row - 2]["content"]), from: from)
         return cell
         }
         
@@ -207,9 +216,15 @@ class CustomCellHeaderNews: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String){
+    func setCell(NameLabel: String, DateLabel: String?, imageName: String, content: String){
+        print("DAte = \(DateLabel)")
         self.TitleNews.text = NameLabel
-        self.DateNews.text = DateLabel
+        if DateLabel != nil {
+            self.DateNews.text = DateLabel!.transformToDate() + " à " + DateLabel!.getHeureFromString()
+        }
+//        (DateLabel ?? "lol").isEmpty
+//        print("DAte = \(DateLabel)")
+//        self.DateNews.text = DateLabel
         self.ImageProfilNews.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.ImageProfilNews.layer.cornerRadius = self.ImageProfilNews.frame.size.width / 2
         self.ImageProfilNews.layer.borderColor = UIColor.darkGray.cgColor;
@@ -358,7 +373,7 @@ class CustomCellListCommentsNews: UITableViewCell {
     func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String, from: String){
         print("-------- " + NameLabel)
         self.TitleNews.text = NameLabel
-        self.DateNews.text = DateLabel
+        self.DateNews.text = DateLabel.transformToDate() + " à " +  DateLabel.getHeureFromString()
         self.ImageProfilNews.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.ImageProfilNews.layer.cornerRadius = 5
         self.ImageProfilNews.layer.borderColor = UIColor.darkGray.cgColor;

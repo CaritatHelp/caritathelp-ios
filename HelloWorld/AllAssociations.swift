@@ -108,10 +108,10 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         if(segue.identifier == "showeventfromresearch"){
             let secondViewController = segue.destination as! ProfilEventController
             secondViewController.EventID = String(describing: asso_list[indexPath!.row]["id"])
+            secondViewController.rights = String(describing: asso_list[indexPath!.row]["rights"])
         }
         if(segue.identifier == "showprofilfromresearch"){
             let secondViewController = segue.destination as! ProfilVolunteer
-            print(indexPath?.row)
             secondViewController.idvolunteer = String(describing: asso_list[indexPath!.row]["id"])
         }
     }

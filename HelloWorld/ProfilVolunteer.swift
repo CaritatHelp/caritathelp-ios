@@ -273,6 +273,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             
             // set a variable in the second view controller with the String to pass
             secondViewController.from = "profil"
+            secondViewController.name = String(describing: self.volunteer["fullname"])
         }
         if(segue.identifier == "gotocommentfromprofil"){
             let indexPath = profil_list.indexPath(for: sender as! UITableViewCell)

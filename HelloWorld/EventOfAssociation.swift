@@ -81,9 +81,7 @@ class EventOfAssociation : UIViewController, UITableViewDataSource, UITableViewD
             
             // set a variable in the second view controller with the String to pass
             secondViewController.EventID = String(describing: events[indexPath!.row]["id"])
-            //secondViewController.user = user
-            print(indexPath?.row);
-            navigationItem.title = "back"
+            secondViewController.rights = String(describing: events[indexPath!.row]["rights"])
         }
     }
 

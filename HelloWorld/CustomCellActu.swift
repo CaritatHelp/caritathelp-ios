@@ -73,7 +73,7 @@ class CustomCellActu: UITableViewCell {
     
     func setCell(NameLabel: String, DateLabel: String, imageName: String, content: String, from: String){
         self.titre.text = NameLabel
-        self.date.text = DateLabel
+        self.date.text = DateLabel.transformToDate() + " à " + DateLabel.getHeureFromString()
         self.photo.downloadedFrom(link: imageName, contentMode: .scaleToFill)
         self.photo.layer.cornerRadius = self.photo.frame.size.width / 2
         self.photo.layer.borderColor = UIColor.darkGray.cgColor;

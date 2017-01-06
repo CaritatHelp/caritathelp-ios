@@ -37,7 +37,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         let str = String(describing: events[index]["begin"])
         //let heure = str[str.startIndex.advancedBy(11)...str.startIndex.advancedBy(15)]
         let start = str.index(str.startIndex, offsetBy: 11)
-        let end = str.index(str.endIndex, offsetBy: -7)
+        let end = str.index(str.endIndex, offsetBy: -8)
         let Range = start..<end
         let heure = str.substring(with: Range)
         if let range = str.range(of: "") {
@@ -125,13 +125,14 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.date(from: tabDate[section])
-        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale!
-        dateFormatter.dateStyle = DateFormatter.Style.full
-        let datefinale = dateFormatter.string(from: date!)
-        return datefinale
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let date = dateFormatter.date(from: tabDate[section])
+//        dateFormatter.locale = NSLocale(localeIdentifier: "fr_FR") as Locale!
+//        dateFormatter.dateStyle = DateFormatter.Style.full
+//        let datefinale = dateFormatter.string(from: date!)
+        print("DATE Event : \(tabDate[section])")
+        return String(tabDate[section])?.transformToDate()
         
     }
     
@@ -261,6 +262,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
             print(events["response"])
             print("*$$$$$$$*************")
             secondViewController.EventID = String(describing: events[newindex]["id"])
+            secondViewController.rights = String(describing: events[newindex]["rights"])
             //secondViewController.user = user
             print(indexPath?.row);
             //navigationItem.title = "back"

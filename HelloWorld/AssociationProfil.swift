@@ -309,6 +309,8 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 // set a variable in the second view controller with the String to pass
                 secondViewController.AssoID = AssocID
                 secondViewController.from = "asso"
+                print("NAME = "+String(describing: Asso["group_name"]))
+                secondViewController.name = String(describing: Asso["name"])
             }
             if(segue.identifier == "gotocommentfromasso"){
                 let indexPath = ActuAssoList.indexPath(for: sender as! UITableViewCell)

@@ -85,6 +85,7 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
             
             // set a variable in the second view controller with the String to pass
             secondViewController.EventID = String(describing: notifs[indexPath!.row]["id"])
+            secondViewController.rights = String(describing: notifs[indexPath!.row]["rights"])
         }
     }
 

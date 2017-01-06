@@ -14,7 +14,8 @@ import SCLAlertView
 class PostStatutAssoController : UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var ZoneText: UITextView!
-    @IBOutlet weak var Statut: UITextView!
+    @IBOutlet weak var headerLabel: UILabel!
+
     var assoc_array = [String: String]()
     var AssoID = ""
     var EventID = ""
@@ -22,13 +23,17 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
     var user : JSON = []
     var from = ""
     var request = RequestModel()
+    var name = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         user = sharedInstance.volunteer["response"]
-        Statut.text = "Exprimez-vous..."
-        Statut.textColor = UIColor.lightGray
+        self.ZoneText.text = "Exprimez-vous..."
+        self.ZoneText.textColor = UIColor.lightGray
+        
+        self.headerLabel.adjustsFontSizeToFitWidth = true
+        self.headerLabel.text = "Publication pour " + self.name
     }
     
     
@@ -49,14 +54,14 @@ class PostStatutAssoController : UIViewController, UITextViewDelegate {
     
     @IBAction func Publish(_ sender: AnyObject) {
         
-        if(Statut.text == ""){
+        if(self.ZoneText.text == ""){
             print("Votre message est vide. Ecrivez quelque chose.")
         }else{
             self.assoc_array["access-token"] = sharedInstance.header["access-token"]
             self.assoc_array["client"] = sharedInstance.header["client"]
             self.assoc_array["uid"] = sharedInstance.header["uid"]
 
-            assoc_array["content"] = Statut.text!
+            assoc_array["content"] = self.ZoneText.text!
             if from == "asso" {
                 assoc_array["group_id"] = AssoID
                 assoc_array["group_type"] = "Assoc"
