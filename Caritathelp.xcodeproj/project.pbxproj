@@ -46,6 +46,9 @@
 		3F4FB7471D95576C004563A6 /* ListchatroomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4FB7461D95576C004563A6 /* ListchatroomController.swift */; };
 		3F5156F61DD629A70095B3C2 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5156F51DD629A70095B3C2 /* LogInViewController.swift */; };
 		3F5CBA641E1E881100B56B3B /* UIString+Caritathelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CBA631E1E881100B56B3B /* UIString+Caritathelp.swift */; };
+		3F5CBA661E211A5E00B56B3B /* UIImage+Caritathelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CBA651E211A5E00B56B3B /* UIImage+Caritathelp.swift */; };
+		3F5CBA681E2137F100B56B3B /* ManageDemandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CBA671E2137F100B56B3B /* ManageDemandViewController.swift */; };
+		3F5CBA6A1E21533200B56B3B /* noDataLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5CBA691E21533200B56B3B /* noDataLabel.swift */; };
 		3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */; };
 		3F6025731C21EAAA00FC7FB1 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6025721C21EAAA00FC7FB1 /* HomeController.swift */; };
 		3F639D551CDF960100F45583 /* ProfilVolunteer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F639D541CDF960100F45583 /* ProfilVolunteer.swift */; };
@@ -152,6 +155,9 @@
 		3F4FB7461D95576C004563A6 /* ListchatroomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListchatroomController.swift; sourceTree = "<group>"; };
 		3F5156F51DD629A70095B3C2 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		3F5CBA631E1E881100B56B3B /* UIString+Caritathelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIString+Caritathelp.swift"; sourceTree = "<group>"; };
+		3F5CBA651E211A5E00B56B3B /* UIImage+Caritathelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Caritathelp.swift"; sourceTree = "<group>"; };
+		3F5CBA671E2137F100B56B3B /* ManageDemandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageDemandViewController.swift; sourceTree = "<group>"; };
+		3F5CBA691E21533200B56B3B /* noDataLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = noDataLabel.swift; sourceTree = "<group>"; };
 		3F6025701C21B68600FC7FB1 /* SubscribeCtrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeCtrl.swift; sourceTree = "<group>"; };
 		3F6025721C21EAAA00FC7FB1 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		3F639D541CDF960100F45583 /* ProfilVolunteer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilVolunteer.swift; sourceTree = "<group>"; };
@@ -295,6 +301,7 @@
 				3F891F661CF3491600712C6E /* InviteMember.swift */,
 				3F38B3E91DF32019002C81FB /* ShelterViewController.swift */,
 				3F38B3EB1DF4971D002C81FB /* CreateShelterViewController.swift */,
+				3F5CBA671E2137F100B56B3B /* ManageDemandViewController.swift */,
 			);
 			name = Association;
 			sourceTree = "<group>";
@@ -342,6 +349,8 @@
 				3F70CA631DC2665B009663E3 /* UIColor+Caritathelp.swift */,
 				3F70CA651DC2682F009663E3 /* UIFont+Caritathelp.swift */,
 				3F5CBA631E1E881100B56B3B /* UIString+Caritathelp.swift */,
+				3F5CBA651E211A5E00B56B3B /* UIImage+Caritathelp.swift */,
+				3F5CBA691E21533200B56B3B /* noDataLabel.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -739,6 +748,7 @@
 				3F12A0EC1C98C78200513778 /* EventOfAssociation.swift in Sources */,
 				3F6025711C21B68600FC7FB1 /* SubscribeCtrl.swift in Sources */,
 				3FE615031C47BDED00CFCFD8 /* RequestModel.swift in Sources */,
+				3F5CBA6A1E21533200B56B3B /* noDataLabel.swift in Sources */,
 				3F5156F61DD629A70095B3C2 /* LogInViewController.swift in Sources */,
 				3FAA6F561DDF0E8E00AAE77D /* GalleryAssoViewController.swift in Sources */,
 				3FF1A53F1C17168A00098FBF /* ViewController.swift in Sources */,
@@ -768,11 +778,13 @@
 				3FC521A81CA4A6C100742193 /* VolunteerNotification.swift in Sources */,
 				3F9F470D1C7CC47E007DCDB1 /* itemMyAsssoc.swift in Sources */,
 				3FCC1F9D1C7DE4AE00B5EA9A /* MembersInAssociation.swift in Sources */,
+				3F5CBA681E2137F100B56B3B /* ManageDemandViewController.swift in Sources */,
 				3F5CBA641E1E881100B56B3B /* UIString+Caritathelp.swift in Sources */,
 				3F639D591CE1047100F45583 /* VolunteerAsso.swift in Sources */,
 				3F3FAE931D27FE0F00E2779C /* VolunteerEvents.swift in Sources */,
 				3FC521A31CA49AB700742193 /* MyFriends.swift in Sources */,
 				3F4FB7471D95576C004563A6 /* ListchatroomController.swift in Sources */,
+				3F5CBA661E211A5E00B56B3B /* UIImage+Caritathelp.swift in Sources */,
 				3FE614FB1C4193A200CFCFD8 /* SubscribeDateCtrl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

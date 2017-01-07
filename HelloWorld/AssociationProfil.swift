@@ -76,6 +76,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
                 
             }
+            self.alreadyMember = String(describing: self.Asso["rights"])
             cell1.setCell(User: user, assoId: AssocID, rights: alreadyMember,imagePath: define.path_picture + String(describing: Asso["thumb_path"]))
             return cell1 //showInfoAsso
         }else if indexPath.section == 1 {

@@ -50,6 +50,10 @@ class CustomCellProfilVolunteer: UITableViewCell {
         //self.DateNews.text = DateLabel
         AccceptFriendBtn.isHidden = true
         RefusedFriendBtn.isHidden = true
+        self.BtnAddFriend.layer.shadowColor = UIColor(white: 0.0, alpha: 0.5).cgColor
+        self.BtnAddFriend.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        self.BtnAddFriend.layer.shadowOpacity = 0.5
+        self.BtnAddFriend.layer.shadowRadius = 25.0
         user = User
         if (user["id"] == sharedInstance.volunteer["response"]["id"]){
             BtnAddFriend.isHidden = true
@@ -59,11 +63,9 @@ class CustomCellProfilVolunteer: UITableViewCell {
             if (DetailLabel == "friend"){
                 let alreadyAccept = UIImage(named: "reviewer-1")
                 BtnAddFriend.setImage(alreadyAccept, for: .normal)
-                BtnAddFriend.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
             }else if (DetailLabel == "invitation sent"){
                 let alreadyAccept = UIImage(named: "hourglass")
                 BtnAddFriend.setImage(alreadyAccept, for: .normal)
-                BtnAddFriend.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
             }else if (DetailLabel == "invitation received") {
                 AccceptFriendBtn.isHidden = false
                 RefusedFriendBtn.isHidden = false
@@ -112,7 +114,8 @@ class CustomCellProfilVolunteer: UITableViewCell {
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    self.BtnAddFriend.setImage(UIImage(named: "hourglass"), for: .normal)
+                    let newimage = UIImage(named: "hourglass")
+                    self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
                     //self.friends = User
                     //self.list_friends.reloadData()
                 }
@@ -121,8 +124,73 @@ class CustomCellProfilVolunteer: UITableViewCell {
                 }
             });
         }
+        else if user["friendship"] == "invitation sent" {
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false,
+                showCircularIcon: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("oui") {
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                self.param["notif_id"] = String(describing: self.user["notif_id"])
+                let val = "friendship/cancel_request"
+                self.request.request(type: "DELETE", param: self.param,add: val, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        if User["status"] == 200 {
+                            let newimage = UIImage(named: "add_user-2")
+                            self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
+                        }
+                        else {
+                            SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                        }
+                        //self.friends = User
+                        //self.list_friends.reloadData()
+                    }
+                    else {
+                        
+                    }
+                });            }
+            alertView.addButton("non") {
+                
+            }
+            alertView.showError("Annuler", subTitle: "Souhaitez-vous annuler cette invitation?")
+        }
         else {
-            SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false,
+                showCircularIcon: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("supprimer") {
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                self.param["volunteer_id"] = String(describing: self.user["id"])
+                let val = "friendship/remove"
+                self.request.request(type: "DELETE", param: self.param,add: val, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        if User["status"] == 200 {
+                            let newimage = UIImage(named: "add_user-2")
+                            self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
+                        }
+                        else {
+                            SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                        }
+                        //self.friends = User
+                        //self.list_friends.reloadData()
+                    }
+                    else {
+                        
+                    }
+                });            }
+            alertView.addButton("annuler") {
+                
+            }
+            alertView.showError("Supprimer", subTitle: "Vous souhaitez supprimer cet amitié?")
         }
 
     }

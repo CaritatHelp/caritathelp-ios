@@ -20,6 +20,12 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     var fromProfil = false
     var idfriend = ""
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MyFriendsController.refresh), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
     
     @IBOutlet weak var list_friends: UITableView!
     
@@ -137,8 +143,9 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         list_friends.tableFooterView = UIView()
+        self.list_friends.addSubview(self.refreshControl)
         user = sharedInstance.volunteer["response"]
-        refresh()
+        self.refresh()
     }
     
     func refresh(){
@@ -162,6 +169,7 @@ class MyFriendsController : UIViewController, UITableViewDataSource, UITableView
                     if(isOK){
                         self.friends_request = User["response"]
                         self.list_friends.reloadData()
+                        self.refreshControl.endRefreshing()
                     }
                     else {
                         

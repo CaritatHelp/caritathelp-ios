@@ -33,6 +33,7 @@ class VolunteerAsso: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Associations"
         user = sharedInstance.volunteer["response"]
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]

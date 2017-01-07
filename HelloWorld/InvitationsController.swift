@@ -37,47 +37,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         self.list_invits.addSubview(self.refreshControl)
         InvitsAssoBtn.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         user = sharedInstance.volunteer["response"]
-        self.param["access-token"] = sharedInstance.header["access-token"]
-        self.param["client"] = sharedInstance.header["client"]
-        self.param["uid"] = sharedInstance.header["uid"]
-
-        let val = "notifications/"
-        request.request(type: "GET", param: param,add: val, callback: {
-            (isOK, User)-> Void in
-            if(isOK){
-                var TableData:Array< JSON > = Array < JSON >()
-                var TableData2:Array< JSON > = Array < JSON >()
-                var TableData3:Array< JSON > = Array < JSON >()
-                //let dateFormatter = NSDateFormatter()
-                let total = User["response"].count
-                var i = 0
-                while i < total{
-                    if User["response"][i]["notif_type"] == "InviteMember"  {
-                        TableData.append(User["response"][i])
-                    }else if User["response"][i]["notif_type"] == "InviteGuest"{
-                        TableData2.append(User["response"][i])
-                    }
-                    else if User["response"][i]["notif_type"] == "AddFriend"{
-                        print("entrer !!!!!")
-                            TableData3.append(User["response"][i])
-                    }
-                    i += 1
-                }
-                self.invits_asso = JSON(TableData)
-                self.invits_event = JSON(TableData2)
-                self.invits_friend = JSON(TableData3)
-                self.invits = self.invits_asso
-                //self.nb_futur = self.events.count
-
-                //self.invits = User
-                self.list_invits.reloadData()
-            }
-            else {
-                
-            }
-        });
-
-        
+        self.refresh()
     }
     
     
@@ -182,7 +142,8 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    self.refresh()                }
+                    self.refresh()
+                }
                 else {
                     
                 }
@@ -230,8 +191,8 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-
-        let val = "volunteers/" + String(describing: user["id"]) + "/notifications"
+        
+        let val = "notifications/"
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
@@ -242,12 +203,13 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
                 let total = User["response"].count
                 var i = 0
                 while i < total{
-                    if User["response"][i]["notif_type"] == "InvitGuest"  {
+                    if User["response"][i]["notif_type"] == "InviteMember"  {
                         TableData.append(User["response"][i])
-                    }else if User["response"][i]["notif_type"] == "InvitMember"{
+                    }else if User["response"][i]["notif_type"] == "InviteGuest"{
                         TableData2.append(User["response"][i])
                     }
                     else if User["response"][i]["notif_type"] == "AddFriend"{
+                        print("entrer !!!!!")
                         TableData3.append(User["response"][i])
                     }
                     i += 1
@@ -256,9 +218,10 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
                 self.invits_event = JSON(TableData2)
                 self.invits_friend = JSON(TableData3)
                 self.invits = self.invits_asso
-
+                //self.nb_futur = self.events.count
+                
+                //self.invits = User
                 self.list_invits.reloadData()
-                self.refreshControl.endRefreshing()
             }
             else {
                 

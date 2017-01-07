@@ -193,7 +193,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         profil_list.estimatedRowHeight = 159.0
         profil_list.rowHeight = UITableViewAutomaticDimension
         
-        refresh()
+        self.refresh()
     }
     
     func refresh(){

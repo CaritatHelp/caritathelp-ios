@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class NewAssociation : UIViewController {
     var user : JSON = []
@@ -70,9 +71,15 @@ class NewAssociation : UIViewController {
             (isOK, User)-> Void in
             if(isOK){
                 //rediriger vers Home profil
-                self.Asso = User
-                _ = self.navigationController?.popViewController(animated: true)
-                check = 1
+                if User["status"] == 200 {
+                    self.Asso = User
+                    self.dismiss(animated: true, completion: nil)
+                    //_ = self.navigationController?.diss(animated: true)
+                    check = 1
+                }
+                else {
+                    SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                }
             }
             else {
                 //print("isOK == = = \(isOK)")

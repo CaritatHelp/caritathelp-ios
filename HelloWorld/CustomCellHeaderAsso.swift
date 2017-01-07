@@ -54,16 +54,22 @@ class CustomCellHeaderAsso: UITableViewCell {
             request.request(type: "POST", param: param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    SCLAlertView().showTitle(
-                        "Demande envoyée", // Title of view
-                        subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
-                        duration: 10.0, // Duration to show before closing automatically, default: 0.0
-                        completeText: "ok", // Optional button value, default: ""
-                        style: .success, // Styles - see below.
-                        colorStyle: 0x22B573,
-                        colorTextButton: 0xFFFFFF
-                    )
-                    self.JoinBtn.setImage(self.waiting, for: .normal)
+                    if User["status"] == 200 {
+                        self.alreadyMember = "waiting"
+                        SCLAlertView().showTitle(
+                            "Demande envoyée", // Title of view
+                            subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
+                            duration: 10.0, // Duration to show before closing automatically, default: 0.0
+                            completeText: "ok", // Optional button value, default: ""
+                            style: .success, // Styles - see below.
+                            colorStyle: 0x22B573,
+                            colorTextButton: 0xFFFFFF
+                        )
+                        self.JoinBtn.setImage(self.waiting, for: .normal)
+                    }
+                    else {
+                        SCLAlertView().showError("Attention", subTitle: String(describing: User["message"]))
+                    }
                 }
                 else {
                     SCLAlertView().showError("Attention", subTitle: "une erreuere est survenue...")
@@ -72,7 +78,39 @@ class CustomCellHeaderAsso: UITableViewCell {
         }
         else if (alreadyMember == "owner"){
             SCLAlertView().showError("Attention", subTitle: "Vous avez créé cette assocation \n vous ne pouvez la quitter!")
-            
+        }
+        else if (alreadyMember == "waiting"){
+            let appearance = SCLAlertView.SCLAppearance(
+                showCloseButton: false,
+                showCircularIcon: false
+            )
+            let alertView = SCLAlertView(appearance: appearance)
+            alertView.addButton("oui") {
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                self.param["volunteer_id"] = String(describing: self.user["id"])
+                self.param["assoc_id"] = self.AssoID
+                self.request.request(type: "DELETE", param: self.param,add: "membership/unjoin", callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        if User["status"] == 200 {
+                            self.alreadyMember = "none"
+                            self.JoinBtn.setImage(self.notJoined, for: .normal)
+                        }
+                        else {
+                            SCLAlertView().showError("Attention", subTitle: String(describing: User["message"]))
+                        }
+                    }
+                    else {
+                        
+                    }
+                });
+            }
+            alertView.addButton("non") {
+                
+            }
+            alertView.showError("Annuler", subTitle: "Souhaitez-vous annuler votre demande pour rejoindre cette association ?")
         }
         
     }

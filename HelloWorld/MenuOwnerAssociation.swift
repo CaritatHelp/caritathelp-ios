@@ -22,6 +22,7 @@ class MenuOwnerAssocation: UIViewController {
     var EventDateStart = ""
     var EventDateEnd = ""
     @IBOutlet weak var DisplayDateEvent: UILabel!
+    @IBOutlet weak var ManageInvitationsBtn: UIButton!
 
     @IBOutlet weak var deleteButton: UIButton!
     
@@ -31,6 +32,8 @@ class MenuOwnerAssocation: UIViewController {
         if String(describing: self.Asso["rights"]) != "owner" {
             self.deleteButton.isHidden = true
         }
+        self.ManageInvitationsBtn.addTarget(self, action: #selector(moveToManageDemand), for: .touchUpInside)
+        
     }
 
 //    override func viewWillAppear(animated: Bool) {
@@ -42,6 +45,12 @@ class MenuOwnerAssocation: UIViewController {
 //
 //                }
 //
+    func moveToManageDemand() {
+        let controller = ManageDemandViewController()
+        controller.AssocID = self.AssocId
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
     @IBAction func DeleteAssociation(_ sender: Any) {
         let appearance = SCLAlertView.SCLAppearance(
             showCloseButton: false,

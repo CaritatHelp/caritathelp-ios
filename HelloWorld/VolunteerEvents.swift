@@ -43,16 +43,22 @@ class VolunteerEventsController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notifs.count
+        if self.notifs.count == 0 {
+            self.list_notif.backgroundView = NoDataLabel("Cet utilisateur ne participe à aucun évènements...")
+        }
+        else  {
+            self.list_notif.backgroundView = NoDataLabel("")
+        }
+        return self.notifs.count
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Evènements"
         list_notif.tableFooterView = UIView()
         self.list_notif.addSubview(self.refreshControl)
         user = sharedInstance.volunteer["response"]
         refresh()
-        
     }
     
     

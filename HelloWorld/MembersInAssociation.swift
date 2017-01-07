@@ -25,6 +25,13 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     var filtered:[String] = []
     var filteredTableData = [String]()
     var searchActive = false
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(AssociationProfil.refresh), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
+
     
     //init le tableview avec des data
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,7 +43,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         else{
             name = String(filteredTableData[indexPath.row])
         }
-        cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: members[indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: name, imageName: define.path_picture + String(describing: members[indexPath.row]["thumb_path"]), rights: String(describing: members[indexPath.row]["rights"]))
         
     
         return cell
@@ -73,15 +80,20 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     // init les données au chargement de la vue
     override func viewDidLoad() {
         super.viewDidLoad()
-        members_list.tableFooterView = UIView()
+        self.members_list.tableFooterView = UIView()
+        self.members_list.addSubview(self.refreshControl)
         //let sfondo = UIImage(named: "BoisFond")
         //members_list.backgroundColor = UIColor(patternImage: sfondo!)
         
         user = sharedInstance.volunteer["response"]
+        self.refresh()
+    }
+    
+    func refresh() {
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-
+        
         let val = "associations/" + AssocID + "/members"
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
@@ -93,14 +105,12 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
                     self.filtered.append(String(describing: self.members[i]["firstname"]) + " " + String(describing: self.members[i]["lastname"]))
                     i += 1
                 }
-
+                self.refreshControl.endRefreshing()
             }
             else {
                 
             }
         });
-        
-        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -111,7 +121,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
     //bouton quand on slide une ligne du tableview
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //bouton Ajouter en ami
-        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter en ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter\nen ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
@@ -128,8 +138,6 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
                     else {
                         SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
                     }
-                    //self.friends = User
-                    //self.list_friends.reloadData()
                 }
                 else {
                     
@@ -149,8 +157,13 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
             self.request.request(type: "DELETE", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    self.members = User["response"]
-                    self.members_list.reloadData()
+                    if User["status"] == 200 {
+                        SCLAlertView().showSuccess("Succès", subTitle: String(describing: User["message"]))
+                        self.refresh()
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
                 }
                 else {
                     
@@ -162,10 +175,6 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         //bouton kick un membre
         let rightsAction = UITableViewRowAction(style: .normal, title: "Modifier\n droits") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
-//            guard self.status != "owner" else {
-//                SCLAlertView().showError("Erreur droits", subTitle: "Vous êtes propriétaires de l'association.")
-//                return
-//            }
             var rights = ""
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
@@ -190,6 +199,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
                         SCLAlertView().showSuccess("Succès", subTitle: "Les droits ont été mis à jour.")
                         //self.members[indexPath.row]["rights"] as String = rights
                         // update user
+                        self.refresh()
                         self.members_list.reloadData()
                     }
                     else {

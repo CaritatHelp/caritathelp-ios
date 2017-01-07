@@ -156,14 +156,19 @@ class MyAssociations : UIViewController, UITableViewDataSource, UITableViewDeleg
                 self.param["access-token"] = sharedInstance.header["access-token"]
                 self.param["client"] = sharedInstance.header["client"]
                 self.param["uid"] = sharedInstance.header["uid"]
-                self.param["assoc_id"] = String(describing: self.asso_list[indexPath!.row]["id"])
+                self.param["assoc_id"] = String(describing: self.asso_member_list[indexPath!.row]["id"])
                 let val = "membership/leave"
                 self.request.request(type: "DELETE", param: self.param,add: val, callback: {
                     (isOK, User)-> Void in
                     if(isOK){
                         //self.asso_list = User
-                        SCLAlertView().showSuccess("Opération réussi", subTitle: "Vous venez de quittez une association.") // Edit
-                        self.tableViewAssoc.reloadData()
+                        if User["status"] == 200 {
+                            SCLAlertView().showSuccess("Opération réussi", subTitle: String(describing: User["message"]))
+                             self.tableViewAssoc.reloadData()
+                        }
+                        else {
+                            SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                        }
                     }
                     else {
                         
