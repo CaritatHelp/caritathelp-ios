@@ -30,8 +30,8 @@ class UpdateEventController : UIViewController {
         user = sharedInstance.volunteer["response"]
         TitleEvent.text = String(describing: Event["title"])
         PlaceEvent.text = String(describing: Event["place"])
-        StartDate.text = "début : " + String(describing: Event["begin"])
-        EndDate.text = "fin : " + String(describing: Event["end"])
+        StartDate.text = "début : " + String(describing: Event["begin"]).transformToDate() + " à " + String(describing: Event["begin"]).getHeureFromString()
+        EndDate.text = "fin : " + String(describing: Event["end"]).transformToDate() + " à " + String(describing: Event["end"]).getHeureFromString()
         DescEvent.text = String(describing: Event["description"])
 
     }
@@ -73,8 +73,7 @@ class UpdateEventController : UIViewController {
         }
     }
     
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // get a reference to the second view controller
         if(segue.identifier == "goToUpdateDateEvent"){
             //envoyer les dates au controller sur le dates
@@ -83,19 +82,19 @@ class UpdateEventController : UIViewController {
             VC.start = StartDate.text!
             VC.end = EndDate.text!
         }
-    if(segue.identifier == "gotoemergency"){
-        //envoyer les dates au controller sur le dates
-       let secondViewController = segue.destination as! EmergencyViewController
-        secondViewController.eventID = String(describing: self.Event["id"])
-    }
-
+        if(segue.identifier == "gotoemergency"){
+            //envoyer les dates au controller sur le dates
+            let secondViewController = segue.destination as! EmergencyViewController
+            secondViewController.eventID = String(describing: self.Event["id"])
+        }
+        
     }
 
     
     @IBAction func unwindToUpdateEvent(_ sender: UIStoryboardSegue) {
         let data = sender.source as! UpdateEventDateController
-        StartDate.text = "début : " + data.start
-        EndDate.text = "fin : " + data.end
+        StartDate.text = "début : " + data.start.transformToDate() + " à " + data.start.getHeureFromString()
+        EndDate.text = "fin : " + data.end.transformToDate() + " à " + data.end.getHeureFromString()
     }
     
     @IBAction func unwindToUpdateEventCancel(_ sender: UIStoryboardSegue) {

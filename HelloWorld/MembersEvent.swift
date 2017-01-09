@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class MembersEventController: UIViewController {
     
@@ -22,13 +23,15 @@ class MembersEventController: UIViewController {
     
     //variable en lien avec la storyBoard
     @IBOutlet weak var members_list: UITableView!
+    @IBOutlet weak var manageMemberEvent: UIBarButtonItem!
     
+
     // init le tableview
     func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : CustomCellEventMember = members_list.dequeueReusableCell(withIdentifier: "MemberEventCell", for: indexPath as IndexPath) as! CustomCellEventMember
         
         let nom = String(describing: members[indexPath.row]["firstname"]) + " " + String(describing: members[indexPath.row]["lastname"])
-        cell.setCell(NameLabel: nom, DetailLabel: "8 amis en commun", imageName: define.path_picture + String(describing: members[indexPath.row]["thumb_path"]))
+        cell.setCell(NameLabel: nom, DetailLabel: String(describing: members[indexPath.row]["rights"]), imageName: define.path_picture + String(describing: members[indexPath.row]["thumb_path"]))
         return cell
     }
     //nombre de ligne du table view
@@ -42,7 +45,7 @@ class MembersEventController: UIViewController {
         let shareAction2 = UITableViewRowAction(style: .normal, title: "kick") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
         }
         //Bouton pour ajouter un ami
-        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter en ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter\nen ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
@@ -62,26 +65,50 @@ class MembersEventController: UIViewController {
 
         }
         //couleur des boutons
-        shareAction.backgroundColor = UIColor.green
+        shareAction.backgroundColor = UIColor.GreenBasicCaritathelp()
         //shareAction.backgroundColor = UIColor(patternImage: UIImage(named: "add_user")!)
         shareAction2.backgroundColor = UIColor.red
          return [shareAction, shareAction2]
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // get a reference to the second view controller
-        if(segue.identifier == "goToInviteGuest"){
-            let secondViewController = segue.destination as! InviteGuestController
-            
-            // set a variable in the second view controller with the String to pass
-            
-            secondViewController.EventID = EventID
-            secondViewController.AssoID = AssoID
+    @IBAction func ManageMember(_ sender: Any) {
+        let appearance = SCLAlertView.SCLAppearance(
+            showCloseButton: false,
+            showCircularIcon: false
+        )
+        let alertView = SCLAlertView(appearance: appearance)
+        alertView.addButton("inviter") {
+            let controller = InviteGuestController()
+            controller.EventID = self.EventID
+            controller.AssoID = self.AssoID
+            self.navigationController?.pushViewController(controller, animated: true)
         }
-        
+        alertView.addButton("gérer mes invitations") {
+            let controller = ManageDemandViewController()
+            controller.EventID = self.EventID
+            controller.from = "event"
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        alertView.addButton("annuler") {
+            
+        }
+        alertView.showError("Invitations", subTitle: "Que souhaitez-vous faire?")
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        
+//        // get a reference to the second view controller
+//        if(segue.identifier == "goToInviteGuest"){
+//            let secondViewController = segue.destination as! InviteGuestController
+//            
+//            // set a variable in the second view controller with the String to pass
+//            
+//            secondViewController.EventID = EventID
+//            secondViewController.AssoID = AssoID
+//        }
+//        
+//    }
 
 
     //init les données au chargement de la vue

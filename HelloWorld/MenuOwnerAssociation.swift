@@ -48,6 +48,7 @@ class MenuOwnerAssocation: UIViewController {
     func moveToManageDemand() {
         let controller = ManageDemandViewController()
         controller.AssocID = self.AssocId
+        controller.from = "asso"
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -102,7 +103,6 @@ class MenuOwnerAssocation: UIViewController {
             if(segue.identifier == "goToInviteMember"){
                 let secondViewController = segue.destination as! InviteMemberController
                 secondViewController.AssocID = String(describing: Asso["id"])
-                
             }
             if(segue.identifier == "goToParamAsso"){
                 let secondViewController = segue.destination as! ParametreAssociations

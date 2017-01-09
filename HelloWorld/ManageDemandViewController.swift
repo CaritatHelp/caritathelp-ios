@@ -24,6 +24,7 @@ class ManageDemandViewController: UIViewController {
     var param = [String: String]()
     var searching = "get"
     var titleSearching = "envoyées"
+    var from = ""
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -65,14 +66,16 @@ class ManageDemandViewController: UIViewController {
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-        self.param["assoc_id"] = self.AssocID
+        
         
         var val = ""
-        if self.searching == "get" {
-            val = "membership/waiting"
+        if self.from == "asso" {
+            self.param["assoc_id"] = self.AssocID
+            val = self.searching == "get" ? "membership/waiting" : "membership/invited"
         }
         else {
-            val = "membership/invited"
+            self.param["event_id"] = self.EventID
+            val = self.searching == "get" ? "guests/waiting" : "guests/invited"
         }
         
         self.request.request(type: "GET", param: self.param,add: val, callback: {
@@ -141,7 +144,7 @@ extension ManageDemandViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //bouton Ajouter en ami
+        //Accepter membre
         let acceptButton = UITableViewRowAction(style: .normal, title: "Accepter") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
             self.param["access-token"] = sharedInstance.header["access-token"]
@@ -168,7 +171,7 @@ extension ManageDemandViewController : UITableViewDataSource {
             })
             
         }
-        //bouton kick un membre
+        //refuser membre
         let refusedButton = UITableViewRowAction(style: .normal, title: "Refuser") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
@@ -194,7 +197,7 @@ extension ManageDemandViewController : UITableViewDataSource {
             })
         }
 
-        //bouton kick un membre
+        //annuler invitation
         let cancelButton = UITableViewRowAction(style: .normal, title: "annuler") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
@@ -220,7 +223,7 @@ extension ManageDemandViewController : UITableViewDataSource {
             })
         }
         
-        acceptButton.backgroundColor = UIColor(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)
+        acceptButton.backgroundColor = UIColor.GreenBasicCaritathelp()//(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)
         refusedButton.backgroundColor = UIColor.red
         cancelButton.backgroundColor = UIColor.red
         

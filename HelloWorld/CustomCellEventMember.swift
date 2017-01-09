@@ -49,6 +49,18 @@ class CustomCellEventMember: UITableViewCell {
         self.NameMember.text = NameLabel
         
         //detail du membre
-        self.DetailMember.text = DetailLabel
+        var rights = ""
+        switch DetailLabel {
+        case "host":
+            rights = "créateur"
+        case "admin":
+            rights = "administrateur"
+        case "member":
+            rights = "participant"
+        default:
+            rights =  "none"
+        }
+        self.DetailMember.text = rights
+        
     }
 }
