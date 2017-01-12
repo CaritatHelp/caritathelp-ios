@@ -34,17 +34,33 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : CustomCellMyEvents = events_list.dequeueReusableCell(withIdentifier: "MyEventsCell", for: indexPath as IndexPath) as! CustomCellMyEvents
+        
         let str = String(describing: events[index]["begin"])
         //let heure = str[str.startIndex.advancedBy(11)...str.startIndex.advancedBy(15)]
-        let start = str.index(str.startIndex, offsetBy: 11)
-        let end = str.index(str.endIndex, offsetBy: -8)
-        let Range = start..<end
-        let heure = str.substring(with: Range)
-        if let range = str.range(of: "") {
-            let lo = str.index(range.lowerBound, offsetBy: 11)
-            let hi = str.index(range.lowerBound, offsetBy: 15)
-            let heure = lo ..< hi
-            print(str[heure]) }// "DE"
+        var heure = ""
+        
+        if events[index]["begin"] != nil {
+            print("begin = " + str)
+            print("count events =  \(self.events.count)")
+            let start = str.index(str.startIndex, offsetBy: 11)
+            let end = str.index(str.endIndex, offsetBy: -8)
+            let Range = start..<end
+            heure = str.substring(with: Range)
+            //heure = str.getHeureFromString()
+            print("heure = " + heure)
+        }
+        
+//            print("STR == === \(str)")
+//            let start = str.index(str.startIndex, offsetBy: 11)
+//            let end = str.index(str.endIndex, offsetBy: -8)
+//            let Range = start..<end
+//            heure = str.substring(with: Range)
+//            if let range = str.range(of: "") {
+//                let lo = str.index(range.lowerBound, offsetBy: 11)
+//                let hi = str.index(range.lowerBound, offsetBy: 15)
+//                let heure = lo ..< hi
+//                print(str[heure]) }// "DE"
+        
         cell.setCell(NameLabel: String(describing: events[index]["title"]), imageName: String(describing: events[index]["thumb_path"]), state: heure)
         
         index += 1
@@ -152,59 +168,86 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         btnFuturEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         events_list.tableFooterView = UIView()
         user = sharedInstance.volunteer["response"]
+//        self.param["access-token"] = sharedInstance.header["access-token"]
+//        self.param["client"] = sharedInstance.header["client"]
+//        self.param["uid"] = sharedInstance.header["uid"]
+//
+//        let val = "volunteers/" + String(describing: user["id"]) + "/events"
+//        request.request(type: "GET", param: self.param,add: val, callback: {
+//            (isOK, User)-> Void in
+//            if(isOK){
+//                //self.events = User
+//                let currentDate = NSDate()
+//                var TableData:Array< JSON > = Array < JSON >()
+//                var TableData2:Array< JSON > = Array < JSON >()
+//                var TableData3:Array< JSON > = Array < JSON >()
+//                let dateFormatter = DateFormatter()
+//                let total = User["response"].count
+//                var i = 0
+//                while i < total{
+//                    dateFormatter.dateFormat = "yyyy-MM-dd"
+//                    //print(String(User["response"][i]["begin"]))
+//                    let range = String(describing: User["response"][i]["begin"]).index(String(describing: User["response"][i]["begin"]).startIndex, offsetBy: 10)
+//                    let currentdate = dateFormatter.string(from: currentDate as Date)
+//                    let date = String(describing: User["response"][i]["begin"]).substring(to: range)
+//                    print(currentDate)
+//                    print(date)
+//                    print("----")
+//                    if currentdate > date  {
+//                        TableData2.append(User["response"][i])
+//                    }else {
+//                        
+//                        if(User["response"][i]["rights"] == "host"){
+//                            //self.asso_created_list.rawValue
+//                            TableData.append(User["response"][i])
+//                            
+//                        }
+//                        else {
+//                            TableData3.append(User["response"][i])
+//                        }
+//                    }
+//                    i += 1
+//                }
+//                self.events_past = JSON(TableData2)
+//                self.events_created = JSON(TableData)
+//                self.events_futur = JSON(TableData3)
+//                self.events = self.events_futur
+//                self.nb_futur = self.events.count
+//                self.events_list.reloadData()
+//            }
+//            else {
+//                self.param["access-token"] = sharedInstance.header["access-token"]
+//                self.param["client"] = sharedInstance.header["client"]
+//                self.param["uid"] = sharedInstance.header["uid"]
+//                
+//                let val = "volunteers/" + String(describing: user["id"]) + "/events"
+//                request.request(type: "GET", param: self.param,add: val, callback: {
+//                    (isOK, User)-> Void in
+//                    if(isOK){
+//                        self.events = User["response"]
+//                        self.events_list.reloadData()
+//
+//            }
+//        });
+        
+        
+    }
+    
+    
+    func refresh() {
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-
+        
         let val = "volunteers/" + String(describing: user["id"]) + "/events"
         request.request(type: "GET", param: self.param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
-                //self.events = User
-                let currentDate = NSDate()
-                var TableData:Array< JSON > = Array < JSON >()
-                var TableData2:Array< JSON > = Array < JSON >()
-                var TableData3:Array< JSON > = Array < JSON >()
-                let dateFormatter = DateFormatter()
-                let total = User["response"].count
-                var i = 0
-                while i < total{
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    //print(String(User["response"][i]["begin"]))
-                    let range = String(describing: User["response"][i]["begin"]).index(String(describing: User["response"][i]["begin"]).startIndex, offsetBy: 10)
-                    let currentdate = dateFormatter.string(from: currentDate as Date)
-                    let date = String(describing: User["response"][i]["begin"]).substring(to: range)
-                    print(currentDate)
-                    print(date)
-                    print("----")
-                    if currentdate > date  {
-                        TableData2.append(User["response"][i])
-                    }else {
-                        
-                        if(User["response"][i]["rights"] == "host"){
-                            //self.asso_created_list.rawValue
-                            TableData.append(User["response"][i])
-                            
-                        }
-                        else {
-                            TableData3.append(User["response"][i])
-                        }
-                    }
-                    i += 1
-                }
-                self.events_past = JSON(TableData2)
-                self.events_created = JSON(TableData)
-                self.events_futur = JSON(TableData3)
-                self.events = self.events_futur
-                self.nb_futur = self.events.count
+                self.events = User["response"]
                 self.events_list.reloadData()
-            }
-            else {
                 
             }
-        });
-        
-        
+        })
     }
         
     @IBAction func loadPastEvent(_ sender: AnyObject) {

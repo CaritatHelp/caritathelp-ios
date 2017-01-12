@@ -142,6 +142,7 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
                 else {
                     from = "false"
                 }
+
                 cell1.setCell(NameLabel: title, DateLabel:  datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section - 1]["volunteer_thumb_path"]), content: String(describing: actu[indexPath.section - 1]["content"]), from: from)
             return cell1
             } else {

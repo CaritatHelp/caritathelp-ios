@@ -153,7 +153,7 @@ extension ManageDemandViewController : UITableViewDataSource {
             
             self.param["notif_id"] = String(describing: self.list_demand[indexPath.row]["notif_id"])
             self.param["acceptance"] = "true"
-            let val = "membership/reply_member"
+            let val = self.from == "event" ? "guests/reply_member" : "membership/reply_member"
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
@@ -179,7 +179,7 @@ extension ManageDemandViewController : UITableViewDataSource {
             
             self.param["notif_id"] = String(describing: self.list_demand[indexPath.row]["notif_id"])
             self.param["acceptance"] = "false"
-            let val = "membership/reply_member"
+            let val = self.from == "event" ? "guests/reply_guest" : "membership/reply_member"
             self.request.request(type: "DELETE", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
@@ -205,7 +205,7 @@ extension ManageDemandViewController : UITableViewDataSource {
             
             self.param["volunteer_id"] = String(describing: self.list_demand[indexPath.row]["id"])
             self.param["assoc_id"] = self.AssocID
-            let val = "membership/uninvite"
+            let val = self.from == "event" ? "guests/uninvite" : "membership/uninvite"
             self.request.request(type: "DELETE", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){

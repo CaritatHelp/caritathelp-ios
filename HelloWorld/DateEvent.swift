@@ -22,6 +22,7 @@ class DateCreateEvent : UIViewController {
     var eventTitle = ""
     var city = ""
     var descp = ""
+    var state = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

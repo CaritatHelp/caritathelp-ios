@@ -31,7 +31,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-        let cell : CustomCellActu = eventsNewsList.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
+            let cell : CustomCellActu = eventsNewsList.dequeueReusableCell(withIdentifier: "customcellactu", for: indexPath) as! CustomCellActu
             
             cell.tapped_modify = { [unowned self] (selectedCell, Newcontent) -> Void in
                 let path = tableView.indexPathForRow(at: selectedCell.center)!
@@ -60,7 +60,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 self.param["access-token"] = sharedInstance.header["access-token"]
                 self.param["client"] = sharedInstance.header["client"]
                 self.param["uid"] = sharedInstance.header["uid"]
-
+                
                 self.request.request(type: "DELETE", param: self.param, add: "news/" + String(describing: self.actu[path.section]["id"]) , callback: {
                     (isOK, User)-> Void in
                     if(isOK){
@@ -75,8 +75,8 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 
             }
             
-        let datefinale = String(describing: actu[indexPath.section]["updated_at"])
-        //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
+            let datefinale = String(describing: actu[indexPath.section]["updated_at"])
+            //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
             var title = ""
             title = String(describing: actu[indexPath.section]["volunteer_name"]) + " a publié sur le mur de " + String(describing: actu[indexPath.section]["group_name"])
             var from = ""
@@ -88,7 +88,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             }
             
             cell.setCell(NameLabel: title,DateLabel: datefinale, imageName: define.path_picture + String(describing: actu[indexPath.section]["volunteer_thumb_path"]), content: String(describing: actu[indexPath.section]["content"]), from: from)
-        return cell
+            return cell
         } else {
             let cell = eventsNewsList.dequeueReusableCell(withIdentifier: "commentactuevent", for: indexPath) as UITableViewCell
             return cell
@@ -125,12 +125,14 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func JoinEvent(_ sender: AnyObject) {
+        let prive = String(describing: self.Event["private"])
+        print("PRIVE = \(prive)")
         //quitter un event en tant que membre
         if(self.rights == "member"){
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
-
+            
             param["event_id"] = EventID
             let val = "guests/leave"
             request.request(type: "DELETE", param: param,add: val, callback: {
@@ -143,46 +145,84 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                     SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
                 }
             });
-
+            
         }
             //empecher a l'host de quitter
         else if (self.rights == "host"){
             SCLAlertView().showError("Attention", subTitle: "Vous avez créé cet évènement \n Vous ne pouvez le quitter !")
         }
         else if (self.rights == "waiting"){
-            SCLAlertView().showError("En attente", subTitle: "le créateur de l'évènement est en train de traiter votre demande !")
+            if prive == "true" {
+                let appearance = SCLAlertView.SCLAppearance(
+                    showCloseButton: false,
+                    showCircularIcon: false
+                )
+                let alertView = SCLAlertView(appearance: appearance)
+                alertView.addButton("oui") {
+                    self.param["access-token"] = sharedInstance.header["access-token"]
+                    self.param["client"] = sharedInstance.header["client"]
+                    self.param["uid"] = sharedInstance.header["uid"]
+                    self.param["event_id"] = self.EventID
+                    self.request.request(type: "DELETE", param: self.param,add: "guests/unjoin", callback: {
+                        (isOK, User)-> Void in
+                        if(isOK){
+                            if User["status"] == 200 {
+                                let imageBtnWait = UIImage(named: "event_joined")
+                                let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+                                self.JoinEventBtn.image = newimage
+                                self.rights = "none"
+                            }else {
+                                SCLAlertView().showError("En attente", subTitle: String(describing: User["message"]))
+                            }
+                        }
+                        else {
+                            
+                        }
+                    });
+                }
+                alertView.addButton("non") {
+                    
+                }
+                alertView.showError("Annuler", subTitle: "Souhaitez-vous annuler votre demande pour rejoindre cette association ?")
+            }
         }
         else{//Rejoindre l'event (envoyer une demande à l'host)
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
-
+            
             param["event_id"] = EventID
             let val = "guests/join"
             request.request(type: "POST", param: param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    SCLAlertView().showTitle(
-                        "Demande envoyé", // Title of view
-                        subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
-                        duration: 10.0, // Duration to show before closing automatically, default: 0.0
-                        completeText: "ok", // Optional button value, default: ""
-                        style: .success, // Styles - see below.
-                        colorStyle: 0x22B573,
-                        colorTextButton: 0xFFFFFF
-                    )
-                    let imageBtnWait = UIImage(named: "waiting")
-                    let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-                    self.JoinEventBtn.image = newimage
-                    self.rights = "waiting"
-                    //self.tableViewAssoc.reloadData()
+                    if prive == "true" {
+                        SCLAlertView().showTitle("Demande envoyé", // Title of view
+                            subTitle: "Vous receverez une notification concernant le retour de l'association", // String of view
+                            duration: 10.0, // Duration to show before closing automatically, default: 0.0
+                            completeText: "ok", // Optional button value, default: ""
+                            style: .success, // Styles - see below.
+                            colorStyle: 0x22B573,
+                            colorTextButton: 0xFFFFFF
+                        )
+                        let imageBtnWait = UIImage(named: "waiting")
+                        let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+                        self.JoinEventBtn.image = newimage
+                        self.rights = "waiting"
+                    }
+                    else {
+                        let imageBtnWait = UIImage(named: "event_joined")
+                        let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+                        self.JoinEventBtn.image = newimage
+                        self.rights = "none"
+                    }
                 }
                 else {
                     SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
                 }
             });
         }
-
+        
     }
     
     func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
@@ -196,7 +236,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         
         return newImage!
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -211,30 +251,30 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         self.imageEvent.isUserInteractionEnabled = true
         self.imageEvent.addGestureRecognizer(tapGestureRecognizer)
         
-//        switch rights {
-//        case "host":
-//            let imageBtnWait = UIImage(named: "event_joined")
-//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-//            self.JoinEventBtn.image = newimage
-//        case "member":
-//            let imageBtnWait = UIImage(named: "event_joined")
-//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-//            self.JoinEventBtn.image = newimage
-//        case "waiting":
-//            let imageBtnWait = UIImage(named: "waiting")
-//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-//            self.JoinEventBtn.image = newimage
-//        default:
-//            let imageBtnWait = UIImage(named: "event_not_joined")
-//            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-//            self.JoinEventBtn.image = newimage
-//        }
+        //        switch rights {
+        //        case "host":
+        //            let imageBtnWait = UIImage(named: "event_joined")
+        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+        //            self.JoinEventBtn.image = newimage
+        //        case "member":
+        //            let imageBtnWait = UIImage(named: "event_joined")
+        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+        //            self.JoinEventBtn.image = newimage
+        //        case "waiting":
+        //            let imageBtnWait = UIImage(named: "waiting")
+        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+        //            self.JoinEventBtn.image = newimage
+        //        default:
+        //            let imageBtnWait = UIImage(named: "event_not_joined")
+        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
+        //            self.JoinEventBtn.image = newimage
+        //        }
         
         
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-
+        
         let val = "events/" + EventID
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
@@ -264,7 +304,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                         
                     }
                 });
-
+                
                 
                 //self.tableViewAssoc.reloadData()
             }
@@ -278,7 +318,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-
+        
         let val = "events/" + EventID + "/news"
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
@@ -287,10 +327,10 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 self.eventsNewsList.reloadData()
             }
             else {
-                        print("erreure")
-                    }
-                });
-
+                print("erreure")
+            }
+        });
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -305,7 +345,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             let secondViewController = segue.destination as! InformationsEvent
             
             // set a variable in the second view controller with the String to pass
-           
+            
             secondViewController.Event = self.Event
         }
         if(segue.identifier == "EventMembersVC"){
@@ -314,6 +354,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             // set a variable in the second view controller with the String to pass
             secondViewController.EventID = String(describing: self.Event["id"])
             secondViewController.AssoID = String(describing: self.Event["assoc_id"])
+            secondViewController.status = self.rights
         }
         if(segue.identifier == "gotopostfromevent"){
             let secondViewController = segue.destination as! PostStatutAssoController
@@ -346,8 +387,8 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             secondViewController.IDnews = String(describing: actu[indexPath!.section]["id"])
             
         }
-
+        
     }//goToInviteGuest
-
+    
     
 }

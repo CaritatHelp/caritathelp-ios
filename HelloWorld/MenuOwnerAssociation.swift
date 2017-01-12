@@ -133,12 +133,19 @@ class MenuOwnerAssocation: UIViewController {
         param["place"] = data?.city
         param["begin"] = data?.start
         param["end"] = data?.end
+        param["private"] = data?.state
         let val = "events"
         request.request(type: "POST", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
                // self.notifs = User
                 //self.notifs_list.reloadData()
+                if User["status"] == 200 {
+                    SCLAlertView().showSuccess("Succès", subTitle: "Votre évènement a bien été créer !")
+                }
+                else {
+                    SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                }
             }
             else {
                 

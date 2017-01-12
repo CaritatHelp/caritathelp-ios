@@ -20,6 +20,13 @@ class MembersEventController: UIViewController {
     var EventID : String = ""
     var AssoID : String = ""
     var members : JSON = []
+    var status = ""
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MyAssociations.loadDataFirstView), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
     
     //variable en lien avec la storyBoard
     @IBOutlet weak var members_list: UITableView!
@@ -41,11 +48,36 @@ class MembersEventController: UIViewController {
     
     // bouton quand on slide une ligne du tableview
     func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
         //Bouton pour kick un membre de l'event
-        let shareAction2 = UITableViewRowAction(style: .normal, title: "kick") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+        let kickButton = UITableViewRowAction(style: .normal, title: "kick") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+            
+            self.param["volunteer_id"] = String(describing: self.members[indexPath.row]["id"])
+            self.param["event_id"] = self.EventID
+            let val = "guests/kick"
+            self.request.request(type: "DELETE", param: self.param,add: val, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    if User["status"] == 200 {
+                        SCLAlertView().showSuccess("Succès", subTitle: String(describing: User["message"]))
+                        self.refresh()
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
+                }
+                else {
+                    
+                }
+            });
+
         }
+        
         //Bouton pour ajouter un ami
-        let shareAction = UITableViewRowAction(style: .normal, title: "Ajouter\nen ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+        let AddFriend = UITableViewRowAction(style: .normal, title: "Ajouter\nen ami") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
@@ -55,21 +87,72 @@ class MembersEventController: UIViewController {
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    //self.friends = User
-                    //self.list_friends.reloadData()
+                    if User["status"] == 200 {
+                        SCLAlertView().showSuccess("Succès", subTitle: String(describing: User["message"]))
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
                 }
                 else {
                     
                 }
             });
-
         }
-        //couleur des boutons
-        shareAction.backgroundColor = UIColor.GreenBasicCaritathelp()
-        //shareAction.backgroundColor = UIColor(patternImage: UIImage(named: "add_user")!)
-        shareAction2.backgroundColor = UIColor.red
-         return [shareAction, shareAction2]
         
+        //Bouton pour modifier les droits
+        let ModifyRights = UITableViewRowAction(style: .normal, title: "Modifier\nles droits") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            var rights = ""
+            var rightsTexte = ""
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+            
+            self.param["volunteer_id"] = String(describing: self.members[indexPath.row]["id"])
+            self.param["event_id"] = self.EventID
+            if String(describing: self.members[indexPath.row]["rights"]) == "admin" {
+                rights = "member"
+                rightsTexte = "membre"
+            }
+            else if String(describing: self.members[indexPath.row]["rights"]) == "member" {
+                rights = "admin"
+                rightsTexte = "administrateur"
+            }
+            self.param["rights"] = rights
+            let val = "guests/upgrade"
+            self.request.request(type: "PUT", param: self.param,add: val, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    print(User["status"])
+                    if User["status"] == 200 {
+                        print("here")
+                        let message = String(describing: self.members[indexPath.row]["fullname"]) + " a maintenant les droits: " + rightsTexte
+                        SCLAlertView().showSuccess("Succès", subTitle: message)
+                        //self.members[indexPath.row]["rights"] as String = rights
+                        // update user
+                        self.refresh()
+                        self.members_list.reloadData()
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
+                }
+                else {
+                    
+                }
+            })
+        }
+
+        //couleur des boutons
+        AddFriend.backgroundColor = UIColor.GreenBasicCaritathelp()
+        //shareAction.backgroundColor = UIColor(patternImage: UIImage(named: "add_user")!)
+        kickButton.backgroundColor = UIColor.red
+        
+        if self.status == "host" || self.status == "admin" {
+            return [AddFriend, kickButton, ModifyRights]
+        }else {
+            return [AddFriend]
+        }
     }
     
     @IBAction func ManageMember(_ sender: Any) {
@@ -93,7 +176,7 @@ class MembersEventController: UIViewController {
         alertView.addButton("annuler") {
             
         }
-        alertView.showError("Invitations", subTitle: "Que souhaitez-vous faire?")
+        alertView.showSuccess("Invitations", subTitle: "Que souhaitez-vous faire?")
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -115,10 +198,15 @@ class MembersEventController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         user = sharedInstance.volunteer["response"]
+        
+        self.refresh()
+    }
+    
+    func refresh() {
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
-
+        
         let val = "events/" + EventID + "/guests"
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
@@ -130,8 +218,6 @@ class MembersEventController: UIViewController {
                 
             }
         });
-        
-        
     }
 
 }

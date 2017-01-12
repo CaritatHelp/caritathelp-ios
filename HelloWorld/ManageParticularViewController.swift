@@ -129,7 +129,7 @@ class ManageParticularViewController: UIViewController {
                 if User["status"] == 400 {
                     SCLAlertView().showError("Erreur", subTitle: String(describing: User["message"]))
                 } else {
-                sharedInstance.volunteer = User
+                    sharedInstance.volunteer = User
                     _ = self.navigationController?.popViewController(animated: true)
                 }
             }

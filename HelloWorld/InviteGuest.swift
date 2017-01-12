@@ -52,7 +52,7 @@ class InviteGuestController: UIViewController, UITableViewDataSource, UITableVie
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
 
-        let val = "associations/" + AssoID + "/members"
+        let val = "events/" + self.EventID + "/invitable_volunteers"
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
@@ -81,6 +81,12 @@ class InviteGuestController: UIViewController, UITableViewDataSource, UITableVie
                 (isOK, User)-> Void in
                 if(isOK){
                     print("invitation envoyé")
+                    if User["status"] == 200 {
+                       
+                    }
+                    else {
+                        SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
+                    }
                     //print("membre inviter : " + String(describing: self.selectedUser[i]["firstname"]))
                 }
                 else {
@@ -89,36 +95,9 @@ class InviteGuestController: UIViewController, UITableViewDataSource, UITableVie
             });
             i += 1
         }
-        
-//        while i < self.friends.count {
-//            let rowToSelect = IndexPath(forRow: i, inSection: 0)
-//            print("sender = \(sender.indexPath)")
-//            if let cell = self.friends_list?.cellForRow(at: sender.indexPath as IndexPath) {
-//            
-//            if (cell.accessoryType == .checkmark){
-//                print("invite" + String(describing: friends[i]["firstname"]))
-//                
-//                self.param["access-token"] = sharedInstance.header["access-token"]
-//                self.param["client"] = sharedInstance.header["client"]
-//                self.param["uid"] = sharedInstance.header["uid"]
-//                self.param["volunteer_id"] = String(describing: friends[i]["id"])
-//                self.param["event_id"] = EventID
-//                let val = "guests/invite"
-//                self.request.request(type: "POST", param: self.param,add: val, callback: {
-//                    (isOK, User)-> Void in
-//                    if(isOK){
-//                        print("membre inviter : " + String(describing: self.friends[i]["firstname"]))
-//                    }
-//                    else {
-//                        print("n'a pas pu etre inviter")
-//                    }
-//                });
-//                
-//                
-//            }
-//            }
-//            i += 1
-//        }
+         SCLAlertView().showSuccess("Succès", subTitle: "Les invitations sont envoyées.")
+        //self.dismiss(animated: true, completion: nil)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

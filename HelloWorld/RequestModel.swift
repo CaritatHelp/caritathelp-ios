@@ -15,7 +15,8 @@ import SCLAlertView
 class RequestModel {
     
     var status = ""
-    let server = "http://staging.caritathelp.me/" //http://api.caritathelp.me/
+    let server = "https://staging.caritathelp.me/"
+    //https://api.caritathelp.me/
     
     func request(type:String,param:[String:Any], add:String, callback: ((_ isOk: Bool, _ User : JSON)->Void)?){
         
@@ -31,9 +32,13 @@ class RequestModel {
             Alamofire.request(server + add, method: .post, parameters: param)
             .responseJSON() { response in
                 print("Response JSON: \(response.result.value)")
+                guard response.result.value != nil else {
+                    SCLAlertView().showError("Problème de connexion", subTitle: "Nos serveurs sont en maintenance...")
+                    return
+                }
                 
                 if add == "auth/sign_in" {
-                    print("HEADER\(response.response!.allHeaderFields["client"] as AnyObject)")
+                    //print("HEADER\(response.response!.allHeaderFields["client"] as AnyObject)")
                     sharedInstance.header["client"] = String(describing: response.response!.allHeaderFields["client"] as AnyObject)
                     sharedInstance.header["access-token"] = String(describing: response.response!.allHeaderFields["access-token"] as AnyObject)
                     sharedInstance.header["uid"] = String(describing: response.response!.allHeaderFields["uid"] as AnyObject)

@@ -16,12 +16,15 @@ class CreateEvent : UIViewController {
     @IBOutlet weak var titleEvent: UITextField!
     @IBOutlet weak var cityEvent: UITextField!
     @IBOutlet weak var DescEvent: UITextView!
+    @IBOutlet weak var stateEvent: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround() 
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.stateEvent.setTitle("Public", forSegmentAt: 0)
+        self.stateEvent.setTitle("Privé", forSegmentAt: 1)
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,7 +34,6 @@ class CreateEvent : UIViewController {
 
     
     @IBAction func unwindToSecondVC(_ sender: UIStoryboardSegue) {
-        print("******************** JUOUIJUIKRZQC")
         _ = sender.source
     }
 
@@ -59,6 +61,11 @@ class CreateEvent : UIViewController {
         return true
     }
 
+    @IBAction func modifyStateEvent(_ sender: Any) {
+        if self.stateEvent.selectedSegmentIndex == 0 {
+            
+        }
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //print("value2 ok : \(ok)")
@@ -71,6 +78,7 @@ class CreateEvent : UIViewController {
             firstViewController.eventTitle = titleEvent.text!
             firstViewController.city = cityEvent.text!
             firstViewController.descp = DescEvent.text!
+            firstViewController.state = self.stateEvent.selectedSegmentIndex == 0 ? "false" : "true"
         }
     }
     

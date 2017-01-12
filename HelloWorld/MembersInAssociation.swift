@@ -82,6 +82,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         self.members_list.tableFooterView = UIView()
         self.members_list.addSubview(self.refreshControl)
+        self.hideKeyboardWhenTappedAround()
         //let sfondo = UIImage(named: "BoisFond")
         //members_list.backgroundColor = UIColor(patternImage: sfondo!)
         
@@ -176,6 +177,7 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
         let rightsAction = UITableViewRowAction(style: .normal, title: "Modifier\n droits") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             
             var rights = ""
+            var rightsTexte = ""
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
@@ -184,21 +186,21 @@ class MembersInAssociation: UIViewController, UITableViewDataSource, UITableView
             self.param["assoc_id"] = self.AssocID
             if String(describing: self.members[indexPath.row]["rights"]) == "admin" {
                 rights = "member"
+                rightsTexte = "membre"
             }
             else if String(describing: self.members[indexPath.row]["rights"]) == "member" {
                 rights = "admin"
+                rightsTexte = "administrateur"
             }
             self.param["rights"] = rights
             let val = "membership/upgrade"
             self.request.request(type: "PUT", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    print(User["status"])
                     if User["status"] == 200 {
-                        print("here")
-                        SCLAlertView().showSuccess("Succès", subTitle: "Les droits ont été mis à jour.")
-                        //self.members[indexPath.row]["rights"] as String = rights
-                        // update user
+                        let message = String(describing: self.members[indexPath.row]["fullname"]) + " a maintenant les droits: " + rightsTexte
+                        SCLAlertView().showSuccess("Succès", subTitle: message)
+
                         self.refresh()
                         self.members_list.reloadData()
                     }

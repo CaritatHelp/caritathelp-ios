@@ -30,7 +30,7 @@ class InviteMemberController: UIViewController, UITableViewDelegate, UITableView
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
 
-        let val = "volunteers/" + String(describing: user["id"]) + "/friends"
+        let val = "associations/" + self.AssocID + "/invitable_volunteers"
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
