@@ -6,7 +6,6 @@
 //  Copyright © 2016 Jeremy gros. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import SwiftyJSON
 import SCLAlertView
@@ -21,6 +20,12 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     var main_picture = ""
     var actu : JSON = []
     var rights = ""
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(ProfilEventController.refresh), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
     
     //variable en lien avec la storyBoard
     @IBOutlet weak var imageEvent: UIImageView!
@@ -28,6 +33,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var rightsButtonItem: UIBarButtonItem!
     @IBOutlet weak var eventsNewsList: UITableView!
     @IBOutlet weak var JoinEventBtn: UIBarButtonItem!
+    @IBOutlet weak var publishButton: UIBarButtonItem!
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
@@ -242,6 +248,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         print(EventID)
         print("----------")
+        eventsNewsList.addSubview(self.refreshControl)
         eventsNewsList.estimatedRowHeight = 159.0
         eventsNewsList.rowHeight = UITableViewAutomaticDimension
         eventsNewsList.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
@@ -250,27 +257,9 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(showGallery))
         self.imageEvent.isUserInteractionEnabled = true
         self.imageEvent.addGestureRecognizer(tapGestureRecognizer)
-        
-        //        switch rights {
-        //        case "host":
-        //            let imageBtnWait = UIImage(named: "event_joined")
-        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-        //            self.JoinEventBtn.image = newimage
-        //        case "member":
-        //            let imageBtnWait = UIImage(named: "event_joined")
-        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-        //            self.JoinEventBtn.image = newimage
-        //        case "waiting":
-        //            let imageBtnWait = UIImage(named: "waiting")
-        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-        //            self.JoinEventBtn.image = newimage
-        //        default:
-        //            let imageBtnWait = UIImage(named: "event_not_joined")
-        //            let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
-        //            self.JoinEventBtn.image = newimage
-        //        }
-        
-        
+    }
+    
+    func refresh() {
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
@@ -282,15 +271,21 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 //test currentEvent save
                 currentEvent.currentEvent = User["response"]
                 print(currentEvent.currentEvent["title"])
+                self.rights = String(describing: User["response"]["rights"])
                 self.Event = User["response"]
+                self.navigationItem.title = String(describing: self.Event["title"])
+                
                 if (self.rights == "waiting"){
                     let imageBtnWait = UIImage(named: "waiting")
                     let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
                     self.JoinEventBtn.image = newimage
+                    self.publishButton.isEnabled = false
                 }
-                self.navigationItem.title = String(describing: self.Event["title"])
-                if(self.rights == "host" || self.rights == "member"){
+                else if(self.rights == "host" || self.rights == "member"){
                     self.JoinEventBtn.image = UIImage(named: "event_joined")
+                }
+                else {
+                    self.publishButton.isEnabled = false
                 }
                 let val2 = "/events/" + self.EventID + "/main_picture"
                 self.request.request(type: "GET", param: self.param,add: val2, callback: {
@@ -323,6 +318,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
         request.request(type: "GET", param: param,add: val, callback: {
             (isOK, User)-> Void in
             if(isOK){
+                self.refreshControl.endRefreshing()
                 self.actu = User["response"]
                 self.eventsNewsList.reloadData()
             }
@@ -335,7 +331,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         print(currentEvent.currentEvent["title"])
-        
+        self.refresh()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

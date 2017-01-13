@@ -32,6 +32,7 @@ extension String {
         guard self != nil else {
             return ""
         }
+        print("HERUER = "+self)
         let start = self.index(self.startIndex, offsetBy: 11)
         let end = self.index(self.endIndex, offsetBy: -13)
         let Range = start..<end

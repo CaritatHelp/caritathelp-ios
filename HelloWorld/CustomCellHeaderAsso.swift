@@ -16,6 +16,7 @@ class CustomCellHeaderAsso: UITableViewCell {
     @IBOutlet weak var imageProfil: UIImageView!
     @IBOutlet weak var JoinBtn: UIButton!
     var request = RequestModel()
+    @IBOutlet weak var publishButton: UIBarButtonItem!
     var param = [String: String]()
     var AssoID = ""
     var Asso : JSON =  []
@@ -150,6 +151,7 @@ class CustomCellHeaderAsso: UITableViewCell {
             //self.JoinBtn.hidden = false
             JoinBtn.setImage(self.notJoined, for: .normal)
             JoinBtn.imageEdgeInsets = UIEdgeInsetsMake(50,50,50,50)
+            self.publishButton.isEnabled = false
 
         }
         else if alreadyMember == "waiting"{

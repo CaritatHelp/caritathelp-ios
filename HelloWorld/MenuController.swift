@@ -138,7 +138,7 @@ class MenuController : UIViewController, UITableViewDataSource, UITableViewDeleg
 
 class ProfileMenuTableViewCell : UITableViewCell {
     
-    @IBOutlet weak var ProfilePicture: UIImageView!
+    private var ProfilePicture: UIImageView!
     @IBOutlet weak var ProfileName: UILabel!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -148,8 +148,15 @@ class ProfileMenuTableViewCell : UITableViewCell {
     
     required init(coder decoder: NSCoder) {
         super.init(coder: decoder)!
-        
-
+        self.ProfilePicture = UIImageView()
+        self.ProfilePicture.layer.cornerRadius = 8.0
+        self.ProfilePicture.layer.masksToBounds = true
+        self.addSubview(self.ProfilePicture)
+        self.ProfilePicture.snp.makeConstraints { (make) in
+            make.width.height.equalTo(42.0)
+            make.centerY.equalTo(self)
+            make.left.equalTo(10.0)
+        }
     }
     
     override func awakeFromNib() {
@@ -162,11 +169,7 @@ class ProfileMenuTableViewCell : UITableViewCell {
         //self.ProfilePicture.layer.borderColor = UIColor.black.cgColor
         //self.ProfilePicture.layer.borderWidth = 1.0
         
-        self.ProfilePicture.snp.makeConstraints { (make) in
-            make.width.height.equalTo(42.0)
-            make.centerY.equalTo(self)
-            make.left.equalTo(10.0)
-        }
+        
         
         self.ProfileName.text = String(describing: user["fullname"])
         self.ProfileName.adjustsFontSizeToFitWidth = true

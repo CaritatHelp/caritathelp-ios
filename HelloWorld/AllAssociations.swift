@@ -62,26 +62,33 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         user = tbc.user
         self.tableViewAssoc.addSubview(self.refreshControl)
         self.tableViewAssoc.tableFooterView = UIView()
-        refresh(search: "pierre")
+        refresh(search: "")
     }
     
     func refresh(search: String){
-        self.param["access-token"] = sharedInstance.header["access-token"]
-        self.param["client"] = sharedInstance.header["client"]
-        self.param["uid"] = sharedInstance.header["uid"]
-
-        self.param["research"] = search
-        request.request(type: "GET", param: self.param, add: "search", callback: {
-            (isOK, User)-> Void in
-            if(isOK){
-                self.asso_list = User["response"]
-                self.refreshControl.endRefreshing()
-                self.tableViewAssoc.reloadData()
-            }
-            else {
-                print("erreure")
-            }
-        })
+        if search != "" {
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+            
+            self.param["research"] = search
+            request.request(type: "GET", param: self.param, add: "search", callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    self.asso_list = User["response"]
+                    self.refreshControl.endRefreshing()
+                    self.tableViewAssoc.reloadData()
+                }
+                else {
+                    print("erreure")
+                }
+            })
+        }
+        else {
+            self.asso_list = []
+            self.refreshControl.endRefreshing()
+            self.tableViewAssoc.reloadData()
+        }
     }
     
 

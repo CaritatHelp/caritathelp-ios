@@ -20,8 +20,10 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
     var idvolunteer = ""
     var param = [String: String]()
     var request = RequestModel()
-    @IBOutlet weak var profil_list: UITableView!
     var main_picture = ""
+    
+    @IBOutlet weak var profil_list: UITableView!
+    @IBOutlet weak var publishButton: UIBarButtonItem!
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -189,10 +191,16 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         profil_list.tableFooterView = UIView()
         self.profil_list.addSubview(self.refreshControl)
-        user = sharedInstance.volunteer
+        user = sharedInstance.volunteer["response"]
         profil_list.register(UINib(nibName: "CustomCellActu", bundle: nil), forCellReuseIdentifier: "customcellactu")
         profil_list.estimatedRowHeight = 159.0
         profil_list.rowHeight = UITableViewAutomaticDimension
+        print("userID = \(self.user["id"]) + idvolunteer = "+self.idvolunteer)
+        if String(describing: self.user["id"]) != self.idvolunteer {
+            self.publishButton.isEnabled = false
+            self.publishButton.tintColor = UIColor.clear
+        }
+        
         
         self.refresh()
     }

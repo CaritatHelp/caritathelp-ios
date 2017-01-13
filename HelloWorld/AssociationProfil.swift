@@ -191,7 +191,6 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
             self.ButtonMenuOwner.tintColor = UIColor.clear
         }else{
             self.ButtonMenuOwner.isEnabled = true
-            
         }
 
         

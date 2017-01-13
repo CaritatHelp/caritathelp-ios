@@ -373,7 +373,7 @@
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu0" rowHeight="63" id="nWW-4h-YzU" customClass="ProfileMenuTableViewCell" customModule="Caritathelp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="63"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nWW-4h-YzU" id="Zbk-Q5-tCL">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="62"/>
@@ -386,20 +386,15 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zmj-ub-YZe">
-                                                    <rect key="frame" x="8" y="8" width="41" height="41"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="ProfileName" destination="Of9-ep-mVx" id="vl6-Mi-TDS"/>
-                                            <outlet property="ProfilePicture" destination="Zmj-ub-YZe" id="85c-ph-xLk"/>
                                             <segue destination="cu0-SY-nD0" kind="show" identifier="GoToProfilVol" id="cum-nY-A2V"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu1" id="rbM-Cy-TBO">
-                                        <rect key="frame" x="0.0" y="119" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="118.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rbM-Cy-TBO" id="i3E-wR-0nD">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -423,7 +418,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu2" id="rpI-Xn-usA">
-                                        <rect key="frame" x="0.0" y="163" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="162.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rpI-Xn-usA" id="gM7-ij-mrD">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -447,7 +442,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu3" id="g9a-mY-YiU">
-                                        <rect key="frame" x="0.0" y="207" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="206.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g9a-mY-YiU" id="XhU-Th-jMp">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -471,7 +466,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu4" id="z6S-bm-ZUa">
-                                        <rect key="frame" x="0.0" y="251" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="250.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z6S-bm-ZUa" id="f7G-ve-3uL">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -495,7 +490,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Menu5" id="KXK-su-aSi">
-                                        <rect key="frame" x="0.0" y="295" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="294.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KXK-su-aSi" id="ERy-ez-8HC">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -519,7 +514,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Menu8" id="5XJ-96-w7q">
-                                        <rect key="frame" x="0.0" y="339" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="338.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5XJ-96-w7q" id="nGb-SD-daZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -878,13 +873,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <items>
-                                                        <barButtonItem image="groups_filled" width="69" id="Nf4-QS-2Z5">
+                                                        <barButtonItem image="groups_filled" width="104" id="Nf4-QS-2Z5">
                                                             <color key="tintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
                                                                 <segue destination="55g-pO-o4g" kind="show" identifier="friendoffriend" id="Qe5-Kj-aGY"/>
                                                             </connections>
                                                         </barButtonItem>
-                                                        <barButtonItem image="volunteering_filled" width="76" id="oDX-87-Hxj">
+                                                        <barButtonItem image="volunteering_filled" width="122" id="oDX-87-Hxj">
                                                             <color key="tintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
                                                                 <segue destination="8j6-xo-aWg" kind="show" identifier="AssoVolunteer" id="f5o-Kf-A7g"/>
@@ -895,9 +890,6 @@
                                                             <connections>
                                                                 <segue destination="gw4-5y-qwC" kind="show" identifier="fromprofiltoevents" id="iEG-HF-ed6"/>
                                                             </connections>
-                                                        </barButtonItem>
-                                                        <barButtonItem image="info_filled" width="50" id="fDk-qw-DUl">
-                                                            <color key="tintColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </barButtonItem>
                                                     </items>
                                                 </toolbar>
@@ -947,6 +939,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="profil_list" destination="aBR-Sz-50l" id="Opb-lD-XXC"/>
+                        <outlet property="publishButton" destination="xbt-gG-NUU" id="ls8-TO-Co7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q1a-UM-YC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1252,7 +1245,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wB0-f7-Ng8">
                                                     <rect key="frame" x="86" y="31" width="248" height="28.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
                                                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1277,19 +1270,19 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <barButtonItem title="A venir" width="69" style="plain" id="acc-0a-Bnk">
+                                    <barButtonItem title="En ce moment" style="plain" id="acc-0a-Bnk">
                                         <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="loadFuturEvent:" destination="B0n-a3-E90" id="hqd-6m-hal"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Créer" width="155.5" id="w9a-A8-MK9">
+                                    <barButtonItem title="Futur" width="126.5" id="w9a-A8-MK9">
                                         <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="loadCreatedEvent:" destination="B0n-a3-E90" id="w0E-zO-oGw"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="passé" width="76" id="vSP-ZN-Iow">
+                                    <barButtonItem title="Passé" width="76" id="vSP-ZN-Iow">
                                         <color key="tintColor" red="0.53617788460000004" green="0.53617788460000004" blue="0.53617788460000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <action selector="loadPastEvent:" destination="B0n-a3-E90" id="3ah-xI-Ftt"/>
@@ -2527,6 +2520,7 @@
                                         <connections>
                                             <outlet property="JoinBtn" destination="DKf-V1-7Zi" id="bse-Et-fUv"/>
                                             <outlet property="imageProfil" destination="PGF-NU-5C4" id="mzM-sS-vzh"/>
+                                            <outlet property="publishButton" destination="6r7-Kd-O7c" id="8ef-OP-L5o"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="showInfoAsso" rowHeight="46" id="WVi-x7-opi">
@@ -4405,9 +4399,9 @@
         <segue reference="3r6-pW-jNR"/>
         <segue reference="Qhu-SJ-Z9l"/>
         <segue reference="cum-nY-A2V"/>
-        <segue reference="2s0-n8-0SF"/>
         <segue reference="dvS-1y-DKn"/>
-        <segue reference="ao9-7r-IEV"/>
+        <segue reference="Qe5-Kj-aGY"/>
+        <segue reference="dyz-Mz-TIx"/>
         <segue reference="j0r-d4-0hx"/>
         <segue reference="Kak-kY-Faf"/>
         <segue reference="MoD-cH-jlH"/>
