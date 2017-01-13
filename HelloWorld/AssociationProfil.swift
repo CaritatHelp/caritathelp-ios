@@ -275,6 +275,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
                 
                 // set a variable in the second view controller with the String to pass
                 secondViewController.AssocID = AssocID
+                secondViewController.rights = self.alreadyMember
                 //secondViewController.user = user
             }
             if(segue.identifier == "goToDescription"){

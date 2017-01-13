@@ -145,7 +145,8 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                 (isOK, User)-> Void in
                 if(isOK){
                     self.JoinEventBtn.image = UIImage(named: "event_not_joined")
-                    self.rights = "none"
+                    self.rights = "null"
+                    self.publishButton.isEnabled = false
                 }
                 else {
                     SCLAlertView().showError("Attention", subTitle: "une erreur est survenue...")
@@ -220,7 +221,8 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
                         let imageBtnWait = UIImage(named: "event_joined")
                         let newimage = self.resizeImage(image: imageBtnWait!, newWidth: 30)
                         self.JoinEventBtn.image = newimage
-                        self.rights = "none"
+                        self.rights = "member"
+                        self.publishButton.isEnabled = true
                     }
                 }
                 else {
@@ -343,6 +345,7 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
             // set a variable in the second view controller with the String to pass
             
             secondViewController.Event = self.Event
+            secondViewController.rights = self.rights
         }
         if(segue.identifier == "EventMembersVC"){
             let secondViewController = segue.destination as! MembersEventController

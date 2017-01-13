@@ -151,15 +151,9 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
         }
     }//fromcreatechatroom
     
-    //override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // get a reference to the second view controller
-    //    if(segue.identifier == "fromcreatechatroom"){
-            //let secondViewController = segue.destination as! chatroomController
-        // set a variable in the second view controller with the String to pass
-            
-           // secondViewController.chatroomID = self.newID
-    //    }
-    //}
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
 
 }

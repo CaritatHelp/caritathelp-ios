@@ -13,7 +13,7 @@ import SwiftyJSON
 class ConnectionWebSocket : WebSocketDelegate {
     
     var i = 0
-    let socket : WebSocket = WebSocket(url: NSURL(string: "ws://ws.staging.caritathelp.me")! as URL)
+    let socket : WebSocket = WebSocket(url: NSURL(string: "wss://ws.staging.caritathelp.me")! as URL)
    //ws://ws.api.caritathelp.me
     //ws://ws.staging.caritathelp.me
     var data : JSON?
@@ -47,7 +47,7 @@ class ConnectionWebSocket : WebSocketDelegate {
         let tabArrayMsg = tabController!.tabBar.items?[2] as UITabBarItem!
         //let alertTabItem = tabArray(3) as! UITabBarItem
         //let split = text.characters.split(separator: ",")
-        var myStringArr = text.components(separatedBy: ",")
+        let myStringArr = text.components(separatedBy: ",")
         
         var TableData = [String: String]()
         for str in myStringArr {

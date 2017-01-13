@@ -15,6 +15,7 @@
 		3F0225E51CC0092700158A1B /* UpdateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E41CC0092700158A1B /* UpdateEvent.swift */; };
 		3F0225E71CC00E0E00158A1B /* UpdateEventDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */; };
 		3F0225E91CC1503100158A1B /* CurrentEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0225E81CC1503100158A1B /* CurrentEvent.swift */; };
+		3F113AB21E2930A200884F89 /* AnswerEmergencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F113AB11E2930A200884F89 /* AnswerEmergencyViewController.swift */; };
 		3F12A0651C91E53900513778 /* gestionCompte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F12A0641C91E53900513778 /* gestionCompte.swift */; };
 		3F12A0671C91F14A00513778 /* VolunteerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F12A0661C91F14A00513778 /* VolunteerModel.swift */; };
 		3F12A0691C94484700513778 /* ParametreAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F12A0681C94484700513778 /* ParametreAssociation.swift */; };
@@ -124,6 +125,7 @@
 		3F0225E41CC0092700158A1B /* UpdateEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateEvent.swift; sourceTree = "<group>"; };
 		3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateEventDate.swift; sourceTree = "<group>"; };
 		3F0225E81CC1503100158A1B /* CurrentEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentEvent.swift; sourceTree = "<group>"; };
+		3F113AB11E2930A200884F89 /* AnswerEmergencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnswerEmergencyViewController.swift; sourceTree = "<group>"; };
 		3F12A0641C91E53900513778 /* gestionCompte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gestionCompte.swift; sourceTree = "<group>"; };
 		3F12A0661C91F14A00513778 /* VolunteerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerModel.swift; sourceTree = "<group>"; };
 		3F12A0681C94484700513778 /* ParametreAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParametreAssociation.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				3F0225E61CC00E0E00158A1B /* UpdateEventDate.swift */,
 				3F3FAE851CF7A0D400E2779C /* InviteGuest.swift */,
 				3F4A56E61DCB8DD900537F3C /* EmergencyViewController.swift */,
+				3F113AB11E2930A200884F89 /* AnswerEmergencyViewController.swift */,
 			);
 			name = events;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				3FCC1F9F1C7DEF6900B5EA9A /* DescriptionAssociation.swift in Sources */,
 				3F15CD721C737753004AB3DE /* AssociationProfil.swift in Sources */,
 				3FE614F91C41904400CFCFD8 /* SubscribeMailCtrl.swift in Sources */,
+				3F113AB21E2930A200884F89 /* AnswerEmergencyViewController.swift in Sources */,
 				3FCC1FA41C7E754E00B5EA9A /* MenuOwnerAssociation.swift in Sources */,
 				3F6025731C21EAAA00FC7FB1 /* HomeController.swift in Sources */,
 				3F0225E91CC1503100158A1B /* CurrentEvent.swift in Sources */,

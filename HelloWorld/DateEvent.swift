@@ -6,9 +6,10 @@
 //  Copyright © 2016 Jeremy gros. All rights reserved.
 //
 
-import Foundation
+import SwiftyJSON
 import UIKit
 import SCLAlertView
+import MapKit
 
 class DateCreateEvent : UIViewController {
     
@@ -17,12 +18,18 @@ class DateCreateEvent : UIViewController {
     @IBOutlet weak var DateStart: UIDatePicker!
     @IBOutlet weak var DateEnd: UIDatePicker!
     
+    var request = RequestModel()
+    var param = [String: String]()
+    var user : JSON = []
     var start = ""
     var end = ""
     var eventTitle = ""
     var city = ""
     var descp = ""
     var state = ""
+    var AssocID = ""
+    var longitude = ""
+    var latitude = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,36 +56,46 @@ class DateCreateEvent : UIViewController {
         end = strDate
     }
     
-    func shouldPerformSegueWithIdentifier(identifier: String,sender: AnyObject?) -> Bool {
-        
-        if (identifier == "BackToMenuVC") {
-            
-            if (DisplayStart.text!.isEmpty) {
-                SCLAlertView().showError("Attention", subTitle: "veuillez donner une date de début à votre évènement")
-                return false
-            }
-            else {
-                return true
-            }
-
+    @IBAction func CreateEvent(_ sender: Any) {
+        if (DisplayStart.text!.isEmpty) {
+            SCLAlertView().showError("Attention", subTitle: "veuillez donner une date de début à votre évènement")
+        }
+        else if DateStart.date.compare(DateEnd.date) == .orderedDescending {
+            SCLAlertView().showError("Attention", subTitle: "La fin ne peut être avant le début... ")
         }
         else {
-            return false
-        }
+            self.param["access-token"] = sharedInstance.header["access-token"]
+            self.param["client"] = sharedInstance.header["client"]
+            self.param["uid"] = sharedInstance.header["uid"]
+            
+            param["assoc_id"] = AssocID
+            param["title"] = eventTitle
+            param["description"] = descp
+            param["place"] = city
+            param["begin"] = start
+            param["end"] = end
+            param["private"] = state
+            param["latitude"] = latitude
+            param["longitude"] = longitude
 
-    }
-    
-    func viewWillDisappear(animated: Bool) {
-        print("avant d'envoyer les data.....")
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        let StarDate = dateFormatter.string(from: DateStart.date)
-        let EndDate = dateFormatter.string(from: DateEnd.date)
-        let myVC = storyboard!.instantiateViewController(withIdentifier: "CreateEventVC") as! MenuOwnerAssocation
-        
-        myVC.EventDateStart = StarDate
-        myVC.EventDateEnd = EndDate
-        
-        
+            
+            
+            let val = "events"
+            request.request(type: "POST", param: param,add: val, callback: {
+                (isOK, User)-> Void in
+                if(isOK){
+                    if User["status"] == 200 {
+                        SCLAlertView().showSuccess("Succès", subTitle: "Votre évènement a bien été créer !")
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
+                }
+                else {
+                    
+                }
+            });
+        }
     }
 }

@@ -51,6 +51,14 @@ class MenuOwnerAssocation: UIViewController {
         controller.from = "asso"
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    @IBAction func goToCreateEvent(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CreateEventVC2") as! CreateEvent
+        vc.AssocID = self.AssocId
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.present(navigationController, animated: true, completion: nil)
+    }
     
     @IBAction func DeleteAssociation(_ sender: Any) {
         let appearance = SCLAlertView.SCLAppearance(

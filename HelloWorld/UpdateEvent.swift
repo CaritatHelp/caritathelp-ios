@@ -27,6 +27,7 @@ class UpdateEventController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
         user = sharedInstance.volunteer["response"]
         TitleEvent.text = String(describing: Event["title"])
         PlaceEvent.text = String(describing: Event["place"])
