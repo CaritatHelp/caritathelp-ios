@@ -227,7 +227,7 @@ class chatroomController : SLKTextViewController, WebSocketDelegate {
             if let badgeValue = (tabArray?.badgeValue) {
                 let intValue = Int(badgeValue)
                 tabArray?.badgeValue = (intValue! + 1).description
-                print(intValue)
+                //print(intValue)
             } else {
                 tabArray?.badgeValue = "1"
             }

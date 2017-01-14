@@ -12,10 +12,11 @@ class SubscribeDateController: UIViewController {
     var nom = ""
     var prenom = ""
     var sex = ""
-   // var date = ""
+    var city = ""
     var strDate = ""
     
     @IBOutlet weak var naissance: UIDatePicker!
+    @IBOutlet weak var background: UIView!
     
     
     @IBAction func naissanceAction(_ sender: AnyObject) {
@@ -31,9 +32,28 @@ class SubscribeDateController: UIViewController {
         print(nom)
         print(prenom)
         print(sex)
-        
+        let backgroundColor = self.gradientBackground()
+        backgroundColor.frame = self.view.bounds
+        self.background.layer.addSublayer(backgroundColor)
+        self.naissance.maximumDate = NSDate() as Date
         // Used the text from the First View Controller to set the label
         //nom = receivedString
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+           _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func nextAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name:"Main",bundle: nil)
+        let secondViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeMailVC") as! SubscribeMailController
+        secondViewController.nom = nom
+        secondViewController.prenom = prenom
+        secondViewController.date = strDate
+        secondViewController.gender = sex
+        secondViewController.city = city
+        
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -47,6 +67,7 @@ class SubscribeDateController: UIViewController {
             secondViewController.prenom = prenom
             secondViewController.date = strDate
             secondViewController.gender = sex
+            secondViewController.city = city
         }
         if(segue.identifier == "goToStartSubscribe"){
             let firstViewController = segue.destination as! SubscribeCtrl
@@ -54,6 +75,7 @@ class SubscribeDateController: UIViewController {
             // set a variable in the second view controller with the String to pass
             firstViewController.nomUser = nom
             firstViewController.prenomUser = prenom
+            firstViewController.ville = city
         }
     }
 

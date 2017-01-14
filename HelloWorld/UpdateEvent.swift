@@ -34,6 +34,8 @@ class UpdateEventController : UIViewController {
         StartDate.text = "début : " + String(describing: Event["begin"]).transformToDate() + " à " + String(describing: Event["begin"]).getHeureFromString()
         EndDate.text = "fin : " + String(describing: Event["end"]).transformToDate() + " à " + String(describing: Event["end"]).getHeureFromString()
         DescEvent.text = String(describing: Event["description"])
+        PlaceEvent.adjustsFontSizeToFitWidth = true
+        TitleEvent.adjustsFontSizeToFitWidth = true
 
     }
     

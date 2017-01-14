@@ -29,6 +29,7 @@
 		3F15CD701C70DBC5004AB3DE /* NewAssociation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15CD6F1C70DBC5004AB3DE /* NewAssociation.swift */; };
 		3F15CD721C737753004AB3DE /* AssociationProfil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15CD711C737753004AB3DE /* AssociationProfil.swift */; };
 		3F15CD741C786E95004AB3DE /* AllAssociations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F15CD731C786E95004AB3DE /* AllAssociations.swift */; };
+		3F1B97541E2A304C00998B27 /* UIViewController+Caritathelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1B97531E2A304C00998B27 /* UIViewController+Caritathelp.swift */; };
 		3F1CC05F1D75CC34006F38D7 /* CustomCellActu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F1CC05E1D75CC34006F38D7 /* CustomCellActu.xib */; };
 		3F1CC0611D75CF01006F38D7 /* CustomCellActu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CC0601D75CF01006F38D7 /* CustomCellActu.swift */; };
 		3F38B3EA1DF32019002C81FB /* ShelterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F38B3E91DF32019002C81FB /* ShelterViewController.swift */; };
@@ -139,6 +140,7 @@
 		3F15CD6F1C70DBC5004AB3DE /* NewAssociation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAssociation.swift; sourceTree = "<group>"; };
 		3F15CD711C737753004AB3DE /* AssociationProfil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociationProfil.swift; sourceTree = "<group>"; };
 		3F15CD731C786E95004AB3DE /* AllAssociations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAssociations.swift; sourceTree = "<group>"; };
+		3F1B97531E2A304C00998B27 /* UIViewController+Caritathelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Caritathelp.swift"; sourceTree = "<group>"; };
 		3F1CC05E1D75CC34006F38D7 /* CustomCellActu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellActu.xib; sourceTree = "<group>"; };
 		3F1CC0601D75CF01006F38D7 /* CustomCellActu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellActu.swift; sourceTree = "<group>"; };
 		3F38B3E91DF32019002C81FB /* ShelterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelterViewController.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				3F5CBA631E1E881100B56B3B /* UIString+Caritathelp.swift */,
 				3F5CBA651E211A5E00B56B3B /* UIImage+Caritathelp.swift */,
 				3F5CBA691E21533200B56B3B /* noDataLabel.swift */,
+				3F1B97531E2A304C00998B27 /* UIViewController+Caritathelp.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 				3FAA6F541DDF0E7E00AAE77D /* ImageViewController.swift in Sources */,
 				3F011B3D1DC294220041BD65 /* ManageParticularViewController.swift in Sources */,
 				3F891F671CF3491600712C6E /* InviteMember.swift in Sources */,
+				3F1B97541E2A304C00998B27 /* UIViewController+Caritathelp.swift in Sources */,
 				3F12A0F41C9B0E5400513778 /* MyEvents.swift in Sources */,
 				3FC521A11CA459DD00742193 /* CustomCellHomePage.swift in Sources */,
 				3F3FAE841CF74FA600E2779C /* CustomCellInviteMember.swift in Sources */,

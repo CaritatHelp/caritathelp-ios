@@ -25,6 +25,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
     var user: JSON = []
     var request = RequestModel()
     var param = [String: String]()
+    var rights = ""
     
     var showgallery: ((CustomCellProfilVolunteer) -> Void)?
     
@@ -55,6 +56,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
         self.BtnAddFriend.layer.shadowOpacity = 0.5
         self.BtnAddFriend.layer.shadowRadius = 25.0
         user = User
+        rights = String(describing: user["friendship"])
         if (user["id"] == sharedInstance.volunteer["response"]["id"]){
             BtnAddFriend.isHidden = true
             ModifyPictureBtn.isHidden = false
@@ -105,7 +107,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
     
     @IBAction func add_friend(_ sender: AnyObject) {
         print("\(user)")
-        if (user["friendship"] == "none" || user["friendship"] == nil) {
+        if (rights == "none" || rights == "null") {
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
             self.param["uid"] = sharedInstance.header["uid"]
@@ -114,17 +116,20 @@ class CustomCellProfilVolunteer: UITableViewCell {
             self.request.request(type: "POST", param: self.param,add: val, callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    let newimage = UIImage(named: "hourglass")
-                    self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
-                    //self.friends = User
-                    //self.list_friends.reloadData()
+                    if User["status"] == 200 {
+                        let newimage = UIImage(named: "hourglass")
+                        self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
+                    }
+                    else {
+                        SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
+                    }
                 }
                 else {
                     
                 }
             });
         }
-        else if user["friendship"] == "invitation sent" {
+        else if rights == "invitation sent" {
             let appearance = SCLAlertView.SCLAppearance(
                 showCloseButton: false,
                 showCircularIcon: false
@@ -142,12 +147,11 @@ class CustomCellProfilVolunteer: UITableViewCell {
                         if User["status"] == 200 {
                             let newimage = UIImage(named: "add_user-2")
                             self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
+                            self.rights = "null"
                         }
                         else {
                             SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
                         }
-                        //self.friends = User
-                        //self.list_friends.reloadData()
                     }
                     else {
                         
@@ -164,7 +168,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
                 showCircularIcon: false
             )
             let alertView = SCLAlertView(appearance: appearance)
-            alertView.addButton("supprimer") {
+            alertView.addButton("oui") {
                 self.param["access-token"] = sharedInstance.header["access-token"]
                 self.param["client"] = sharedInstance.header["client"]
                 self.param["uid"] = sharedInstance.header["uid"]
@@ -176,18 +180,17 @@ class CustomCellProfilVolunteer: UITableViewCell {
                         if User["status"] == 200 {
                             let newimage = UIImage(named: "add_user-2")
                             self.BtnAddFriend.setImage(newimage?.resizeImage(newWidth: 30.0), for: .normal)
+                            self.rights = "null"
                         }
                         else {
                             SCLAlertView().showError("Erreure", subTitle: String(describing: User["message"]))
                         }
-                        //self.friends = User
-                        //self.list_friends.reloadData()
                     }
                     else {
                         
                     }
                 });            }
-            alertView.addButton("annuler") {
+            alertView.addButton("non") {
                 
             }
             alertView.showError("Supprimer", subTitle: "Vous souhaitez supprimer cet amitié?")
@@ -209,8 +212,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
                     self.RefusedFriendBtn.isHidden = true
                     self.BtnAddFriend.setImage(UIImage(named: "reviewer-1"), for: .normal)
                     self.BtnAddFriend.isHidden = false
-                    //self.friends = User
-                    //self.list_friends.reloadData()
+                    self.rights = "friend"
                 }
                 else {
                     SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")
@@ -235,6 +237,7 @@ class CustomCellProfilVolunteer: UITableViewCell {
                      self.BtnAddFriend.isHidden = false
                     //self.friends = User
                     //self.list_friends.reloadData()
+                    self.rights = "none"
                 }
                 else {
                     SCLAlertView().showError("Erreur info", subTitle: "Une erreur est survenue")

@@ -156,20 +156,20 @@ class HomeController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        }
 //    }
     
-    func gradientBackground() {
-        let colorTop =  UIColor(red: 250.0/255.0, green: 255.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
-        let colorBottom = UIColor(red: 161.0/255.0, green: 255.0/255.0, blue: 206.0/255.0, alpha: 1.0).cgColor
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [ colorTop, colorBottom]
-        gradientLayer.locations = [ 0.0, 1.0]
-        gradientLayer.frame = self.view.bounds
-        
-        //self.list_Actu.layer.addSublayer(gradientLayer)
-        let back = UIView(frame: self.list_Actu.bounds)
-        back.layer.addSublayer(gradientLayer)
-        self.list_Actu.backgroundView?.addSubview(back)
-    }
+//    func gradientBackground() {
+//        let colorTop =  UIColor(red: 250.0/255.0, green: 255.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
+//        let colorBottom = UIColor(red: 161.0/255.0, green: 255.0/255.0, blue: 206.0/255.0, alpha: 1.0).cgColor
+//        
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.colors = [ colorTop, colorBottom]
+//        gradientLayer.locations = [ 0.0, 1.0]
+//        gradientLayer.frame = self.view.bounds
+//        
+//        //self.list_Actu.layer.addSublayer(gradientLayer)
+//        let back = UIView(frame: self.list_Actu.bounds)
+//        back.layer.addSublayer(gradientLayer)
+//        self.list_Actu.backgroundView?.addSubview(back)
+//    }
     
     @IBAction func goToMenu(_ sender: AnyObject) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuVC") as! MenuController

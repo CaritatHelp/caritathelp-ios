@@ -36,6 +36,8 @@ class DateCreateEvent : UIViewController {
         
         DisplayStart.text = start
         DisplayEnd.text = end
+        DateEnd.minimumDate = NSDate() as Date
+        DateStart.minimumDate = NSDate() as Date
         
     }
 

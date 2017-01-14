@@ -18,6 +18,7 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     var param = [String: String]()
     var asso_list : JSON = []
     var tmp_list : JSON = []
+    var search = ""
     
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -62,10 +63,10 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
         user = tbc.user
         self.tableViewAssoc.addSubview(self.refreshControl)
         self.tableViewAssoc.tableFooterView = UIView()
-        refresh(search: "")
+        refresh()
     }
     
-    func refresh(search: String){
+    func refresh(){
         if search != "" {
             self.param["access-token"] = sharedInstance.header["access-token"]
             self.param["client"] = sharedInstance.header["client"]
@@ -130,7 +131,8 @@ class AllAssociations : UIViewController, UITableViewDataSource, UITableViewDele
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //self.refreshControl.beginRefreshing()
-        refresh(search: searchText)
+        search = searchText
+        refresh()
 
     }
 

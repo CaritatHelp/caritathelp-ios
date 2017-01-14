@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     
@@ -16,9 +17,14 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     var date = ""
     var mail = ""
     var mdp = ""
-    
+    var city = ""
+    var longitude = ""
+    var latitude = ""
+    let locationManager = CLLocationManager()
+    fileprivate var geoOk = false
     @IBOutlet weak var termes: UISwitch!
     @IBOutlet weak var geoloc: UISwitch!
+    @IBOutlet weak var background: UIView!
     
     @IBOutlet weak var check_termes: UILabel!
     //let SubModel = SubscribeModel()
@@ -26,15 +32,38 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     
     var request = RequestModel()
     var user_array = [String: String]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let backgroundColor = self.gradientBackground()
+        backgroundColor.frame = self.view.bounds
+        self.background.layer.addSublayer(backgroundColor)
+    }
+    
+    
+    @IBAction func AcceptGeolocalization(_ sender: Any) {
+        self.geoOk = self.geoloc.isOn
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
     @IBAction func validSubscribe(_ sender: AnyObject) {
         
-        user_array["mail"] = mail
+        user_array["email"] = mail
         user_array["password"] = mdp
         user_array["firstname"] = prenom
         user_array["lastname"] = nom
         user_array["birthday"] = date
         user_array["gender"] = gender
-        
+        user_array["city"] = city
+        user_array["longitude"] = self.longitude
+        user_array["latitude"] = self.latitude
+
         if(termes.isOn == false){
             check_termes.text = "Pour continuer, accepter les termes !"
         }
@@ -44,17 +73,21 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
             }else {
                 user_array["allowgps"] = "false"
             }
-            
-        request.request(type: "POST", param: user_array,add: "volunteers", callback: {
+        print("param == \(user_array)")
+        request.request(type: "POST", param: user_array,add: "auth", callback: {
                 (isOK, User)-> Void in
                 if(isOK){
-                    sharedInstance.setUser(user: User)
-                    let storyboard = UIStoryboard(name:"Main",bundle: nil)
-                    let TBCtrl = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarController
-                    TBCtrl.user = User
-                    let appdelegate = UIApplication.shared.delegate as! AppDelegate
-                    appdelegate.window?.rootViewController = TBCtrl
-                    
+                    if User["status"] == 200 {
+                        sharedInstance.setUser(user: User)
+                        let storyboard = UIStoryboard(name:"Main",bundle: nil)
+                        let TBCtrl = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarController
+                        TBCtrl.user = User
+                        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+                        appdelegate.window?.rootViewController = TBCtrl
+                    }
+                    else {
+                        self.check_termes.text = String(describing: User["message"])
+                    }
                 }
                 else {
                     //print("isOK == = = \(isOK)")
@@ -63,6 +96,9 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
                 }
             });
         }
+    }
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -88,4 +124,17 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     }
 }
 
+
+extension SubscribeFinishController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if geoOk {
+            let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+            print("locations = \(locValue.latitude) \(locValue.longitude)")
+            self.longitude = String(describing: locValue.longitude)
+            self.latitude = String(describing: locValue.latitude)
+            geoOk = false
+        }
+    }
+    
+}
 

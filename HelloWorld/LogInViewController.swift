@@ -23,7 +23,6 @@ class LogInViewController: UIViewController {
     private var logo: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "2017_logo_caritathelp"))
         imageView.clipsToBounds = true
-        //imageView.
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -31,7 +30,9 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
-        self.gradientBackground()
+        let backgroundColor = self.gradientBackground()
+        backgroundColor.frame = self.view.bounds
+        self.view.layer.addSublayer(backgroundColor)
         
         // Mail
         self.mail = UITextField()
@@ -171,17 +172,17 @@ class LogInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func gradientBackground() {
-        let colorBottom =  UIColor(red: 250.0/255.0, green: 255.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
-        let colorTop = UIColor(red: 161.0/255.0, green: 255.0/255.0, blue: 206.0/255.0, alpha: 1.0).cgColor
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [ 0.0, 1.0]
-        gradientLayer.frame = self.view.bounds
-        
-        self.view.layer.addSublayer(gradientLayer)
-    }
+//    func gradientBackground() {
+//        let colorBottom =  UIColor(red: 250.0/255.0, green: 255.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
+//        let colorTop = UIColor(red: 161.0/255.0, green: 255.0/255.0, blue: 206.0/255.0, alpha: 1.0).cgColor
+//        
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.colors = [colorTop, colorBottom]
+//        gradientLayer.locations = [ 0.0, 1.0]
+//        gradientLayer.frame = self.view.bounds
+//        
+//        self.view.layer.addSublayer(gradientLayer)
+//    }
     
     func logIn() {
         let param = ["email": self.mail.text!, "password": self.password.text!]
@@ -212,7 +213,8 @@ class LogInViewController: UIViewController {
     func signUp() {
         let storyboard = UIStoryboard(name:"Main",bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "SubscribeNameVC") as! SubscribeCtrl
-        self.present(vc, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: vc)
+        self.present(navigationController, animated: true, completion: nil)
     }
 }
 

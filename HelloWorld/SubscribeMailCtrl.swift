@@ -16,11 +16,13 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
     var gender = ""
     var date = ""
     var mailUser = ""
+    var city = ""
     
     @IBOutlet weak var checkMail: UILabel!
     @IBOutlet weak var checkPassword: UILabel!
     @IBOutlet weak var mail: UITextField!
     
+    @IBOutlet weak var background: UIView!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var check_password: UITextField!
     
@@ -28,7 +30,10 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
+        let backgroundColor = self.gradientBackground()
+        backgroundColor.frame = self.view.bounds
+        self.background.layer.addSublayer(backgroundColor)
         //print(gender)
         // Used the text from the First View Controller to set the label
         //nom = receivedString
@@ -39,37 +44,50 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject!) -> Bool {
-        if (identifier == "goToFinishSub") {
-            if (mail.text!.isEmpty ) {
-                
-                checkMail.text = "Veuillez saisir un mail."
-                return false
-            }
-            else if (mail.text!.range(of: "@") == nil) {
-                
-                checkMail.text = "Veuillez saisir un mail valide."
-                return false
-            }
-            else if(password.text!.isEmpty && check_password.text!.isEmpty){
-                checkPassword.text = "Veuillez choisir un mot de passe"
-                checkMail.text = ""
-                return false
-            }
-            else if(Define.doStringContainsNumber(_string: password.text!) == false){
-                checkPassword.text = "votre mot de passe doit contenir lettre/chiffre"
-                checkMail.text = ""
-                return false
-            }
-            else if(password.text! != check_password.text!){
-                checkPassword.text = "Mots de passe non identiques"
-                checkMail.text = ""
-                return false
-            }
-            else {
-                return true
-            }
+    @IBAction func backAction(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func nextAction(_ sender: Any) {
+        if (mail.text!.isEmpty ) {
+            checkMail.text = "Veuillez saisir un mail."
         }
+        else if (mail.text!.range(of: "@") == nil) {
+            checkMail.text = "Veuillez saisir un mail valide."
+        }
+        else if(password.text!.isEmpty && check_password.text!.isEmpty){
+            checkPassword.text = "Veuillez choisir un mot de passe"
+            checkMail.text = ""
+        }
+        else if(Define.doStringContainsNumber(_string: password.text!) == false){
+            checkPassword.text = "votre mot de passe doit contenir lettre/chiffre"
+            checkMail.text = ""
+        }
+        else if(password.text! != check_password.text!){
+            checkPassword.text = "Mots de passe non identiques"
+            checkMail.text = ""
+
+        }
+        else {
+            let storyboard = UIStoryboard(name:"Main",bundle: nil)
+            let secondViewController = storyboard.instantiateViewController(withIdentifier: "SubscribeFinishVC") as! SubscribeFinishController
+            secondViewController.nom = nom
+            secondViewController.prenom = prenom
+            secondViewController.date = date
+            secondViewController.gender = gender
+            secondViewController.city = city
+            secondViewController.mail = mail.text!
+            secondViewController.mdp = password.text!
+            
+            self.navigationController?.pushViewController(secondViewController, animated: true)
+        }
+
+        
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if (identifier == "goToFinishSub") {
+                    }
         return true
     }
 
@@ -85,6 +103,7 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
             secondViewController.prenom = prenom
             secondViewController.date = date
             secondViewController.gender = gender
+            secondViewController.city = city
             secondViewController.mail = mail.text!
             secondViewController.mdp = password.text!
         }
@@ -92,6 +111,7 @@ class SubscribeMailController: UIViewController, UITextFieldDelegate {
             let firstViewController = segue.destination as! SubscribeDateController
             firstViewController.nom = nom
             firstViewController.prenom = prenom
+            firstViewController.city = city
         }
     }
 }

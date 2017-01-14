@@ -37,7 +37,7 @@ class RequestModel {
                     return
                 }
                 
-                if add == "auth/sign_in" {
+                if add == "auth/sign_in" || (type == "POST" && add == "auth") {
                     //print("HEADER\(response.response!.allHeaderFields["client"] as AnyObject)")
                     sharedInstance.header["client"] = String(describing: response.response!.allHeaderFields["client"] as AnyObject)
                     sharedInstance.header["access-token"] = String(describing: response.response!.allHeaderFields["access-token"] as AnyObject)
