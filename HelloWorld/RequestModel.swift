@@ -58,11 +58,11 @@ class RequestModel {
         else if(type == "GET"){
             Alamofire.request(server+add, method: .get, parameters: param)
                 .responseJSON { response in
-                    //                    guard response.result.isSuccess else {
-                    //                        print("Error while fetching remote rooms: \(response.result.error)")
-                    //                        return
-                    //                    }
                     print("Response JSON: \(response.result.value)")
+                    guard response.result.value != nil else {
+                        SCLAlertView().showError("Problème de connexion", subTitle: "Nos serveurs sont en maintenance...")
+                        return
+                    }
                     res = response.result.value! as AnyObject
                     let json = JSON(res)
                     //self.status = String(res["status"])
@@ -80,6 +80,10 @@ class RequestModel {
             Alamofire.request(server + add, method: .put, parameters: param)
                 .responseJSON { response in
                     print("Response JSON: \(response.result.value)")
+                    guard response.result.value != nil else {
+                        SCLAlertView().showError("Problème de connexion", subTitle: "Nos serveurs sont en maintenance...")
+                        return
+                    }
                     res = response.result.value! as AnyObject
                     let json = JSON(res)
                     //print(json["response"]["lastname"])
@@ -97,6 +101,10 @@ class RequestModel {
             Alamofire.request(server+add, method: .delete, parameters: param)
                 .responseJSON { response in
                     print("Response JSON: \(response.result.value)")
+                    guard response.result.value != nil else {
+                        SCLAlertView().showError("Problème de connexion", subTitle: "Nos serveurs sont en maintenance...")
+                        return
+                    }
                     res = response.result.value! as AnyObject
                     let json = JSON(res)
                     switch response.result {

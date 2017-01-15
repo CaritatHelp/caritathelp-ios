@@ -19,6 +19,7 @@ class GalleryAssoViewController: UIViewController, UICollectionViewDelegate, UIC
     var request = RequestModel()
     private var photo : JSON = []
     var photos : [NYTPhoto]!
+    var rights = ""
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.photo.count
@@ -66,18 +67,26 @@ class GalleryAssoViewController: UIViewController, UICollectionViewDelegate, UIC
         //self.gallery.collectionViewLayout = layout
         // Do any additional setup after loading the view.
         
-        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(GalleryAssoViewController.addPicture))
-        navigationItem.rightBarButtonItem = refreshButton
-        
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(addPicture))
+        refreshButton.tintColor = UIColor.GreenBasicCaritathelp()
+        if assoID != "" && rights == "owner" {
+            navigationItem.rightBarButtonItem = refreshButton
+        }
+        if eventID != "" && rights == "host" {
+            navigationItem.rightBarButtonItem = refreshButton
+        }
+        if volunteerID == String(describing: sharedInstance.volunteer["response"]["id"]) {
+            navigationItem.rightBarButtonItem = refreshButton
+        }
         self.loadImage()
     }
     
     func addPicture() {
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "managePhoto") as! ManagePhotoController
-        vc.from = "2"
-        vc.id_asso = self.assoID
-        vc.state = "false"
-        self.navigationController?.pushViewController(vc, animated: true)
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "managePhoto") as! ManagePhotoController
+            vc.from = "2"
+            vc.id_asso = self.assoID
+            vc.state = "false"
+            self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func loadImage() {

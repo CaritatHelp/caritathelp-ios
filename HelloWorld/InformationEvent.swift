@@ -28,8 +28,11 @@ class InformationsEvent: UIViewController {
         self.title = String(describing: Event["title"])
         self.navigationItem.backBarButtonItem?.title = ""
         self.navigationItem.backBarButtonItem?.tintColor = UIColor.GreenBasicCaritathelp()
+        
+        let start = String(describing: Event["begin"])
+        let end = String(describing: Event["end"])
         DescEvent.text! = String(describing: Event["description"])
-        DateEvent.text! = "Début : " + String(describing: Event["begin"]) + "\nFin : " + String(describing: Event["end"])
+        DateEvent.text! = "Début : " + start.transformToDate() + " à " + start.getHeureFromString() + "\nFin : " + end.transformToDate() + " à " + end.getHeureFromString()
         LieuEvent.text! = String(describing: Event["place"])
         
         self.showAnswerEmergencyButton.isHidden = true

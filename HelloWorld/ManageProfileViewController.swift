@@ -158,42 +158,36 @@ extension ManageProfileViewController : UITableViewDelegate {
 extension ManageProfileViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "introductionCell", for: indexPath as IndexPath) as! IntroductionCustomCell
-                    cell.backgroundColor = UIColor.lightGreenCaritathelp()
-                    cell.setCell(image: define.path_picture + String(describing: user["thumb_path"]), texte: String(describing: user["fullname"]))
-                return cell
-            }
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "introductionCell", for: indexPath as IndexPath) as! IntroductionCustomCell
+            cell.backgroundColor = UIColor.lightGreenCaritathelp()
+            cell.setCell(image: define.path_picture + String(describing: user["thumb_path"]), texte: String(describing: user["fullname"]))
+            return cell
+        }
         else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "autorisationCell", for: indexPath as IndexPath) as! AutorisationCustomCell
             cell.backgroundColor = UIColor.lightGreenCaritathelp()
             var title = ""
-            if indexPath.row == 0 {
-                title = "Notifications"
-                cell.setCell(NameLabel: String(describing: user["allow_notifications"]), texte: title)
-            }
-            else {
-                title = "Géolocalisations"
-                cell.setCell(NameLabel: String(describing: user["allowgps"]), texte: title)
-            }
+            title = "Géolocalisations"
+            cell.setCell(NameLabel: String(describing: user["allowgps"]), texte: title)
             return cell
         }
-            else {
-                
-                if indexPath.section == 1 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "generalCell", for: indexPath as IndexPath) as! General2CustomCell
-                    cell.backgroundColor = UIColor.lightGreenCaritathelp()
-                    cell.textLabel?.text = String(describing: user["email"])
-                    return cell
-                }
-                else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "general2Cell", for: indexPath as IndexPath) as! General2CustomCell
-                    cell.backgroundColor = UIColor.lightGreenCaritathelp()
-                    cell.textLabel?.text = "Modifier votre mot de passe"
-                    return cell
-                }
-                
+        else {
+            
+            if indexPath.section == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "generalCell", for: indexPath as IndexPath) as! General2CustomCell
+                cell.backgroundColor = UIColor.lightGreenCaritathelp()
+                cell.textLabel?.text = String(describing: user["email"])
+                return cell
             }
+            else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "general2Cell", for: indexPath as IndexPath) as! General2CustomCell
+                cell.backgroundColor = UIColor.lightGreenCaritathelp()
+                cell.textLabel?.text = "Modifier votre mot de passe"
+                return cell
+            }
+            
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -201,18 +195,19 @@ extension ManageProfileViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 2
-        case 3:
-            return 1
-        default:
-            return 1
-        }
+//        switch section {
+//        case 0:
+//            return 1
+//        case 1:
+//            return 1
+//        case 2:
+//            return 1
+//        case 3:
+//            return 1
+//        default:
+//            return 1
+//        }
+        return 1
     }
 }
 

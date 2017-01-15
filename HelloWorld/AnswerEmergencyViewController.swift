@@ -41,7 +41,7 @@ class AnswerEmergencyViewController: UIViewController {
         self.answerTableView?.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         })
-        
+        print("HERE ANSWER!")
         self.refresh()
     }
     
@@ -55,6 +55,7 @@ class AnswerEmergencyViewController: UIViewController {
             (isOK, User)-> Void in
             if(isOK){
                 if User["status"] == 200 {
+                    print("\(User)")
                     self.answers = User["response"]
                     self.answerTableView?.reloadData()
                     self.refreshControl.endRefreshing()
@@ -95,11 +96,12 @@ class AnswerEmergencyTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.configureView()
     }
     
     required init(coder decoder: NSCoder) {
         super.init(coder: decoder)!
-        self.configureView()
+        
     }
     
     override func awakeFromNib() {

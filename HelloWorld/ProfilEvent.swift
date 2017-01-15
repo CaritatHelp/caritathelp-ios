@@ -110,24 +110,10 @@ class ProfilEventController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func showGallery() {
-        let appearance = SCLAlertView.SCLAppearance(
-            showCircularIcon: false
-        )
-        let alertView = SCLAlertView(appearance: appearance)
-        alertView.addButton("logo") {
-            print("vers le logo")
-            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "imageViewController")
-            
-            self.navigationController!.pushViewController(VC1, animated: true)
-            
-        }
-        alertView.addButton("gallerie") {//galleryViewController
-            print("gallerie")
-            let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
-            VC1.eventID = self.EventID
-            self.navigationController!.pushViewController(VC1, animated: true)
-        }
-        alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
+        let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
+        VC1.eventID = self.EventID
+        VC1.rights = self.rights
+        self.navigationController!.pushViewController(VC1, animated: true)
     }
     
     @IBAction func JoinEvent(_ sender: AnyObject) {

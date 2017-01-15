@@ -66,8 +66,12 @@ class InviteMemberController: UIViewController, UITableViewDelegate, UITableView
                 request.request(type: "POST", param: param,add: val, callback: {
                     (isOK, User)-> Void in
                     if(isOK){
+                        if User["status"] == 200 {
                         print("membre inviter : " + String(describing: self.friends[i]["firstname"]))
-                        SCLAlertView().showSuccess("invitations envoyées", subTitle: "Vos invitations viennent d'être envoyer à vos amis pour rejoindre votre association.")
+                        }
+                        else {
+                            SCLAlertView().showError("invitations non envoyée", subTitle: String(describing: User["message"]))
+                        }
                     }
                     else {
                         SCLAlertView().showError("Invitations non envoyés", subTitle: "une invitation a déjà été envoyé.")
@@ -77,6 +81,8 @@ class InviteMemberController: UIViewController, UITableViewDelegate, UITableView
             }
             i += 1
         }
+        SCLAlertView().showSuccess("invitations envoyées", subTitle: "Vos invitations viennent d'être envoyer à vos amis pour rejoindre votre association.")
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->  UITableViewCell {

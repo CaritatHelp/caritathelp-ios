@@ -56,26 +56,31 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
         if indexPath.section == 0 {
             let cell1 : CustomCellHeaderAsso = ActuAssoList.dequeueReusableCell(withIdentifier: "ActuAssoCellHeader", for: indexPath) as! CustomCellHeaderAsso
             cell1.showgallery = { [unowned self] (selectedCell) -> Void in
-                let appearance = SCLAlertView.SCLAppearance(
-                    showCircularIcon: false
-                )
-                let alertView = SCLAlertView(appearance: appearance)
-                alertView.addButton("logo") {
-                    print("vers le logo")
-                    let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "imageViewController")
-                    
-                    self.navigationController!.pushViewController(VC1, animated: true)
-                    
-                }
-                alertView.addButton("gallerie") {//galleryViewController
-                    print("gallerie")
-                    let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
-                    VC1.assoID = self.AssocID
-                    self.navigationController!.pushViewController(VC1, animated: true)
-                }
-                alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
+//                let appearance = SCLAlertView.SCLAppearance(
+//                    showCircularIcon: false
+//                )
+//                let alertView = SCLAlertView(appearance: appearance)
+//                alertView.addButton("logo") {
+//                    print("vers le logo")
+//                    let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "imageViewController")
+//                    
+//                    self.navigationController!.pushViewController(VC1, animated: true)
+//                    
+//                }
+//                alertView.addButton("gallerie") {//galleryViewController
+//                    print("gallerie")
+//                    let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
+//                    VC1.assoID = self.AssocID
+//                    self.navigationController!.pushViewController(VC1, animated: true)
+//                }
+//                alertView.showSuccess("Photos", subTitle: "Que souhaitez-vous regarder ?")
+                let VC1 = self.storyboard!.instantiateViewController(withIdentifier: "galleryViewController") as! GalleryAssoViewController
+                VC1.assoID = self.AssocID
+                VC1.rights = self.alreadyMember
+                self.navigationController!.pushViewController(VC1, animated: true)
                 
             }
+            
             self.alreadyMember = String(describing: self.Asso["rights"])
             cell1.setCell(User: user, assoId: AssocID, rights: alreadyMember,imagePath: define.path_picture + String(describing: Asso["thumb_path"]))
             return cell1 //showInfoAsso
