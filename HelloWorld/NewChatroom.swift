@@ -47,7 +47,6 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
             if(isOK){
                 self.friends = User["response"]
                 self.friends_list.reloadData()
-                
             }
             else {
                 

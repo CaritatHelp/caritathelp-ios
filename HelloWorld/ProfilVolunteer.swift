@@ -186,8 +186,9 @@ class ProfilVolunteer: UIViewController, UITableViewDataSource, UITableViewDeleg
             self.publishButton.isEnabled = false
             self.publishButton.tintColor = UIColor.clear
         }
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.refresh()
     }
     

@@ -23,7 +23,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
     var invits_event : JSON = []
     var invits_friend : JSON = []
     var request = RequestModel()
-    var param = [String: String]()
+    var param = [String: Any]()
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(VolunteerNotificationController.refresh), for: UIControlEvents.valueChanged)
@@ -98,7 +98,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             self.param["uid"] = sharedInstance.header["uid"]
 
             self.param["notif_id"] = String(describing: self.invits[indexPath!.row]["id"])
-            self.param["acceptance"] = "true"
+            self.param["acceptance"] = true
             //print(self.param["notif_id"])
             var val = ""
             if self.invits[indexPath.row]["notif_type"] == "AddFriend" {
@@ -129,7 +129,7 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
             self.param["uid"] = sharedInstance.header["uid"]
 
             self.param["notif_id"] = String(describing: self.invits[indexPath!.row]["id"])
-            self.param["acceptance"] = "false"
+            self.param["acceptance"] = false
             var val = ""
             if self.invits[indexPath.row]["notif_type"] == "AddFriend" {
                 val = "friendship/reply"

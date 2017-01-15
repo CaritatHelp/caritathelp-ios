@@ -23,7 +23,7 @@ class RequestModel {
         guard Reachability.isConnectedToNetwork() else {
             let jsonFail: JSON = ["connection":"false"]
             callback?(false, jsonFail)
-            SCLAlertView().showError("Problème de connexion", subTitle: "Vous n'êtes pas connecté...")
+            SCLAlertView().showError("Problème de connexion", subTitle: "Vous n'êtes pas connecté à internet...")
             return
         }
         

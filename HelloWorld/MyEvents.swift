@@ -27,6 +27,12 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
     var nb_futur = 1
     var nb_created = 1
     private var state = "current"
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(MyEventsController.refresh), for: UIControlEvents.valueChanged)
+        
+        return refreshControl
+    }()
     
     @IBOutlet weak var btnCreatedEvent: UIBarButtonItem!
     @IBOutlet weak var btnFuturEvent: UIBarButtonItem!
@@ -111,7 +117,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
         btnFuturEvent.tintColor = UIColor(red: 111.0/255.0, green: 170.0/255.0, blue: 131.0/255.0, alpha: 1.0)
         events_list.tableFooterView = UIView()
         user = sharedInstance.volunteer["response"]
-
+        events_list.addSubview(self.refreshControl)
         self.refresh()
         
     }
@@ -129,6 +135,7 @@ class MyEventsController : UIViewController, UITableViewDataSource, UITableViewD
             if(isOK){
                 self.events = User["response"]
                 self.events_list.reloadData()
+                self.refreshControl.endRefreshing()
             }
         })
     }

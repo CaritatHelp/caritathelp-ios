@@ -27,22 +27,23 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell : CustomCellNotif!
         let message = MessageNotif(row: indexPath.row)
+        let date = String(describing: notifs[indexPath.row]["created_at"]).transformToDate() + " à " + String(describing: notifs[indexPath.row]["created_at"]).getHeureFromString()
         switch notifs[indexPath.row]["notif_type"] {
         case "JoinAssoc", "InviteMember":
             cell = list_notif.dequeueReusableCell(withIdentifier: "NotifCell", for: indexPath) as! CustomCellNotif
             
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs[indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
+            cell.setCell(NameLabel: message, DetailLabel: date, imageName: define.path_picture + String(describing: notifs[indexPath.row]["sender_thumb_path"]))
         case "JoinEvent", "InviteGuest":
             cell = list_notif.dequeueReusableCell(withIdentifier: "NotifCell2", for: indexPath) as! CustomCellNotif
             
             //        cell.textLabel!.text = String(asso_list[indexPath.row]["name"])
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs[indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
+            cell.setCell(NameLabel: message, DetailLabel: date, imageName: define.path_picture + String(describing: notifs[indexPath.row]["sender_thumb_path"]))
         default :
             print(notifs[indexPath.row]["notif_type"])
             cell = list_notif.dequeueReusableCell(withIdentifier: "NotifCell3", for: indexPath) as! CustomCellNotif
             
             //        cell.textLabel!.text = String(asso_list[indexPath.row]["name"])
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: notifs[indexPath.row]["created_at"]), imageName: define.path_picture + String(describing: notifs[indexPath.row]["thumb_path"]))
+            cell.setCell(NameLabel: message, DetailLabel: date, imageName: define.path_picture + String(describing: notifs[indexPath.row]["sender_thumb_path"]))
         }
         return cell
     }

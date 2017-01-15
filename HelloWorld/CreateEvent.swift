@@ -46,11 +46,8 @@ class CreateEvent : UIViewController {
     func getLocalisation(_ address: String, completion:@escaping ((_ finished: Bool) -> Void)) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
-            print("test0")
             if let placemarks = placemarks {
-                print("test")
                 if placemarks.count != 0 {
-                    print("test2")
                     let placemark = placemarks[0] as CLPlacemark
                     let location = placemark.location
                     
@@ -61,12 +58,10 @@ class CreateEvent : UIViewController {
                     completion(true)
                 }
                 else {
-                    print("test3")
                     completion(false)
                 }
             }
             else {
-                print("test3")
                 completion(false)
             }
         }
