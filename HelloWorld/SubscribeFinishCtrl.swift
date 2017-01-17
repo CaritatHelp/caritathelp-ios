@@ -27,7 +27,6 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var background: UIView!
     
     @IBOutlet weak var check_termes: UILabel!
-    //let SubModel = SubscribeModel()
     var ok = true
     
     var request = RequestModel()
@@ -102,8 +101,6 @@ class SubscribeFinishController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //print("value2 ok : \(ok)")
-        // get a reference to the second view controller
         if(segue.identifier == "goToMailSubscribe"){
             
             let firstViewController = segue.destination as! SubscribeMailController

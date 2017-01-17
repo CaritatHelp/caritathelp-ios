@@ -12,7 +12,7 @@ import SwiftyJSON
 import SnapKit
 import SCLAlertView
 
-class NewChatroomController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewChatroomController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var user : JSON = []
     var AssocID = ""
     var request = RequestModel()
@@ -28,7 +28,7 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
+        //self.hideKeyboardWhenTappedAround()
         friends_list.tableFooterView = UIView()
         
         if self.from == "modify" {
@@ -66,7 +66,7 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
             
             let cell = friends_list.cellForRow(at: IndexPath(row: i, section: 0))
             
-            if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
+            if (cell?.accessoryType == .checkmark){
                 tab_chatter.append(String(describing: friends[i]["id"]))
                 count += 1
             }
@@ -77,7 +77,6 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
             SCLAlertView().showError("Erreure de création", subTitle: "Ajouter des volontaires !")
             return
         }
-        //tab_chatter = tab_chatter + String(describing: user["id"]) + "]"
         
         self.param["access-token"] = sharedInstance.header["access-token"]
         self.param["client"] = sharedInstance.header["client"]
@@ -120,7 +119,6 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
-    //renvoi le nombre de ligne du tableview
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friends.count
     }
@@ -138,21 +136,19 @@ class NewChatroomController : UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath){
-        
         let cell = friends_list.cellForRow(at: indexPath as IndexPath)
         
-        if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
-            cell!.accessoryType = UITableViewCellAccessoryType.none;
+        if (cell?.accessoryType == .checkmark){
+            cell!.accessoryType = .none;
             
         }else{
-            cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
+            cell!.accessoryType = .checkmark;
             
         }
     }//fromcreatechatroom
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
     }
-
 }

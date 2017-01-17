@@ -69,6 +69,8 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
             message = "L'evènement " + String(describing: notifs[row]["event_name"]) + " a besoin de vous urgement !"
         case "AcceptedEmergency":
             message = " Vous participez à l'urgence de l'evènement " + String(describing: notifs[row]["event_name"])
+        case "RefusedEmergency":
+            message = " Vous ne participez pas à l'urgence de l'evènement " + String(describing: notifs[row]["event_name"])
         default:
             message = "erreur...."
         }
@@ -81,76 +83,99 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
     }
     
     
+    func replyEmergency(indexPath: IndexPath, acceptance: String) {
+        self.param["access-token"] = sharedInstance.header["access-token"]
+        self.param["client"] = sharedInstance.header["client"]
+        self.param["uid"] = sharedInstance.header["uid"]
+        
+        self.param["acceptance"] = acceptance
+        let val = "notifications/" + String(describing: self.notifs[indexPath.row]["id"]) + "/reply_emergency"
+        
+        self.request.request(type: "PUT", param: self.param,add: val, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                self.refresh()
+            }
+            else {
+                
+            }
+        });
+    }
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         
         //var unsubscribe = UITableViewRowAction(style: .Normal, title: "Quitter") { handler: (UITableViewRowAction, NSIndexPath) -> Void))
         
         let shareAction = UITableViewRowAction(style: .normal, title: "Confirmer") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-            
-            print(String(describing: self.notifs[indexPath.row]["notif_type"]))
-            self.param["access-token"] = sharedInstance.header["access-token"]
-            self.param["client"] = sharedInstance.header["client"]
-            self.param["uid"] = sharedInstance.header["uid"]
-            
-            self.param["notif_id"] = String(describing: self.notifs[indexPath!.row]["id"])
-            self.param["acceptance"] = "true"
-            var val = ""
-            if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
-                val = "friendship/reply"
-            }
-            else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
-                val = "membership/reply_invite"
-            }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
-                val = "guests/reply_invite"
-            }
-            else if self.notifs[indexPath.row]["notif_type"] == "JoinAssoc" {
-                val = "membership/reply_member"
-            }else if self.notifs[indexPath.row]["notif_type"] == "JoinEvent" {
-                val = "guests/reply_guest"
-            }
-            self.request.request(type: "POST", param: self.param,add: val, callback: {
-                (isOK, User)-> Void in
-                if(isOK){
-                    self.refresh()
+            guard self.notifs[indexPath.row]["notif_type"] == "Emergency" else {
+                print(String(describing: self.notifs[indexPath.row]["notif_type"]))
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                
+                self.param["notif_id"] = String(describing: self.notifs[indexPath!.row]["id"])
+                self.param["acceptance"] = "true"
+                var val = ""
+                if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
+                    val = "friendship/reply"
                 }
-                else {
-                    
+                else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
+                    val = "membership/reply_invite"
+                }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
+                    val = "guests/reply_invite"
                 }
-            });
-            
+                else if self.notifs[indexPath.row]["notif_type"] == "JoinAssoc" {
+                    val = "membership/reply_member"
+                }else if self.notifs[indexPath.row]["notif_type"] == "JoinEvent" {
+                    val = "guests/reply_guest"
+                }
+                self.request.request(type: "POST", param: self.param,add: val, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.refresh()
+                    }
+                    else {
+                        
+                    }
+                });
+                return
+            }
+            self.replyEmergency(indexPath: indexPath, acceptance: "true")
         }
         let shareAction2 = UITableViewRowAction(style: .normal, title: "refuser") { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-            
-            self.param["access-token"] = sharedInstance.header["access-token"]
-            self.param["client"] = sharedInstance.header["client"]
-            self.param["uid"] = sharedInstance.header["uid"]
-            
-            self.param["notif_id"] = String(describing: self.notifs[indexPath!.row]["id"])
-            self.param["acceptance"] = "false"
-            var val = ""
-            if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
-                val = "friendship/reply"
-            }
-            else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
-                val = "membership/reply_invite"
-            }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" {
-                val = "guests/reply_invite"
-            }else if self.notifs[indexPath.row]["notif_type"] == "JoinAssoc" {
-                val = "membership/reply_member"
-            }else if self.notifs[indexPath.row]["notif_type"] == "JoinEvent" {
-                val = "guests/reply_guest"
-            }
-            self.request.request(type: "POST", param: self.param,add: val, callback: {
-                (isOK, User)-> Void in
-                if(isOK){
-                    self.refresh()
+            guard self.notifs[indexPath.row]["notif_type"] == "Emergency" else {
+                self.param["access-token"] = sharedInstance.header["access-token"]
+                self.param["client"] = sharedInstance.header["client"]
+                self.param["uid"] = sharedInstance.header["uid"]
+                
+                self.param["notif_id"] = String(describing: self.notifs[indexPath!.row]["id"])
+                self.param["acceptance"] = "false"
+                var val = ""
+                if self.notifs[indexPath.row]["notif_type"] == "AddFriend" {
+                    val = "friendship/reply"
                 }
-                else {
-                    
+                else if self.notifs[indexPath.row]["notif_type"] == "InviteMember" {
+                    val = "membership/reply_invite"
+                }else if self.notifs[indexPath.row]["notif_type"] == "InviteGuest" || self.notifs[indexPath.row]["notif_type"] == "Emergency" {
+                    val = "guests/reply_invite"
+                }else if self.notifs[indexPath.row]["notif_type"] == "JoinAssoc" {
+                    val = "membership/reply_member"
+                }else if self.notifs[indexPath.row]["notif_type"] == "JoinEvent" {
+                    val = "guests/reply_guest"
                 }
-            });
-            
+                self.request.request(type: "POST", param: self.param,add: val, callback: {
+                    (isOK, User)-> Void in
+                    if(isOK){
+                        self.refresh()
+                    }
+                    else {
+                        
+                    }
+                });
+                return
+            }
+             self.replyEmergency(indexPath: indexPath, acceptance: "false")
         }
         shareAction2.backgroundColor = UIColor.red
         shareAction.backgroundColor = UIColor(red: 50.0/255, green: 150.0/255, blue: 65.0/255, alpha: 1.0)

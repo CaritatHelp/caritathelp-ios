@@ -59,8 +59,13 @@ class ManageProfileViewController: UIViewController {
                 if User["status"] == 400 {
                     SCLAlertView().showError("Erreur", subTitle: String(describing: User["message"]))
                 }
-                self.user = User["response"]
-                self.manageTableView.reloadData()
+                else {
+                    self.user = User["response"]
+                    sharedInstance.volunteer = User
+                    self.manageTableView.reloadData()
+                    sharedInstance.allowgps = sender.isOn
+                    sharedInstance.AcceptGeolocalisation()
+                }
             }
             else {
                 SCLAlertView().showError("Erreur", subTitle: "Une erreure est survenue.")

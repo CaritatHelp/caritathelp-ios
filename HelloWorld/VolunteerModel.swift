@@ -9,12 +9,22 @@
 import Foundation
 import SwiftyJSON
 import UIKit
+import CoreLocation
 
-class VolunteerModel {
+class VolunteerModel: NSObject {
     
     var volunteer : JSON = []
     var header = [String: String]()
     var nb_notif = 0
+    let locationManager = CLLocationManager()
+    var allowgps = false
+    var refreshPosition = true
+    var timer = Timer()
+    var request = RequestModel()
+    var param = [String: String]()
+    var longitude = ""
+    var latitude = ""
+    
     func setUser(user : JSON){
         volunteer = user
         print("DATA SEND TO MODEL")
@@ -27,7 +37,72 @@ class VolunteerModel {
         return volunteer
     }
     
+    func AcceptGeolocalisation () {
+        print("\(self.volunteer["response"]["allowgps"])")
+        if self.volunteer["response"]["allowgps"] == true {
+            self.allowgps = true
+            self.locationManager.requestAlwaysAuthorization()
+            self.locationManager.requestWhenInUseAuthorization()
+            if CLLocationManager.locationServicesEnabled() {
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                //locationManager.startUpdatingLocation()
+                self.refreshGeoposition()
+            }
+        }
+        else {
+            self.locationManager.stopUpdatingLocation()
+            timer.invalidate()
+            timer.fire()
+        }
+    }
+    
+    func refreshGeoposition() {
+        if allowgps {
+            self.locationManager.startUpdatingLocation()
+            timer = Timer.scheduledTimer(withTimeInterval: 300.0, repeats: allowgps, block: { (timer) in
+                self.refreshPosition = true
+                self.sendGeoposition()
+            })
+        }
+        else {
+            self.locationManager.stopUpdatingLocation()
+            timer.invalidate()
+            timer.fire()
+        }
+    }
+    
+    func sendGeoposition() {
+        self.param["access-token"] = self.header["access-token"]
+        self.param["client"] = self.header["client"]
+        self.param["uid"] = self.header["uid"]
+        self.param["latitude"] = self.latitude
+        self.param["longitude"] = self.longitude
+        let val = "auth/"
+        request.request(type: "PUT", param: param,add: val, callback: {
+            (isOK, User)-> Void in
+            if(isOK){
+                if User["status"] == 200 {
+                    self.volunteer = User["response"]
+                }
+            }
+            else {
+                
+            }
+        });
+
+    }
 }
+
+extension VolunteerModel: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+            print("locations = \(locValue.latitude) \(locValue.longitude)")
+            self.longitude = String(describing: locValue.longitude)
+            self.latitude = String(describing: locValue.latitude)
+        }
+}
+
 
 //singleton (variable accessible partout dans le code)
 let sharedInstance = VolunteerModel()

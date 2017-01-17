@@ -172,18 +172,6 @@ class LogInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-//    func gradientBackground() {
-//        let colorBottom =  UIColor(red: 250.0/255.0, green: 255.0/255.0, blue: 209.0/255.0, alpha: 1.0).cgColor
-//        let colorTop = UIColor(red: 161.0/255.0, green: 255.0/255.0, blue: 206.0/255.0, alpha: 1.0).cgColor
-//        
-//        let gradientLayer = CAGradientLayer()
-//        gradientLayer.colors = [colorTop, colorBottom]
-//        gradientLayer.locations = [ 0.0, 1.0]
-//        gradientLayer.frame = self.view.bounds
-//        
-//        self.view.layer.addSublayer(gradientLayer)
-//    }
-    
     func logIn() {
         let param = ["email": self.mail.text!, "password": self.password.text!]
         print("\(self.mail.text!) + \(self.password.text!)")
@@ -192,6 +180,7 @@ class LogInViewController: UIViewController {
             if (isOK) {
                 if User["status"] == 200 {
                     sharedInstance.setUser(user: User)
+                    sharedInstance.AcceptGeolocalisation()
                     let storyboard = UIStoryboard(name:"Main",bundle: nil)
                     let TBCtrl = storyboard.instantiateViewController(withIdentifier: "TabBarVC") as! TabBarController
                     TBCtrl.user = User
@@ -217,31 +206,3 @@ class LogInViewController: UIViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
 }
-
-//extension UIImage {
-//    func resizeImage(targetSize: CGSize) {
-//        let size = self.size
-//        
-//        let widthRatio  = targetSize.width  / self.size.width
-//        let heightRatio = targetSize.height / self.size.height
-//        
-//        // Figure out what our orientation is, and use that to form the rectangle
-//        var newSize: CGSize
-//        if(widthRatio > heightRatio) {
-//            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-//        } else {
-//            newSize = CGSize(width: size.width * widthRatio,height: size.height * widthRatio)
-//        }
-//        
-//        // This is the rect that we've calculated out and this is what is actually used below
-//        let rect = CGRect(x: 0,y: 0,width: newSize.width,height: newSize.height)
-//        
-//        // Actually do the resizing to the rect using the ImageContext stuff
-//        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-//        self.draw(in: rect)
-//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//        
-//        //return newImage!
-//    }
-//}

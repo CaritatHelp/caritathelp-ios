@@ -46,22 +46,23 @@ class InvitationsController: UIViewController, UITableViewDataSource, UITableVie
         let message = MessageNotif(row: indexPath.row)
         let imagePath = define.path_picture + String(describing: invits[indexPath.row]["sender_thumb_path"])
         print("image :::: " + imagePath)
+        let date = String(describing: invits[indexPath.row]["created_at"]).transformToDate() + " à " + String(describing: invits[indexPath.row]["created_at"]).getHeureFromString()
         switch invits[indexPath.row]["notif_type"] {
         case "InviteMember":
             cell = list_invits.dequeueReusableCell(withIdentifier: "CellInvitation", for: indexPath) as! CustomCellInvits
             
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: invits[indexPath.row]["created_at"]), imageName: imagePath)
+            cell.setCell(NameLabel: message, DetailLabel: date, imageName: imagePath)
         case "InviteGuest":
             cell = list_invits.dequeueReusableCell(withIdentifier: "CellInvitation2", for: indexPath) as! CustomCellInvits
             
             //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: invits[indexPath.row]["created_at"]), imageName: imagePath)
+            cell.setCell(NameLabel: message, DetailLabel: date, imageName: imagePath)
         default :
             print(invits["notif_type"])
             cell = list_invits.dequeueReusableCell(withIdentifier: "CellInvitation3", for: indexPath) as! CustomCellInvits
             
             //        cell.textLabel!.text = String(asso_list["response"][indexPath.row]["name"])
-            cell.setCell(NameLabel: message, DetailLabel: String(describing: invits[indexPath.row]["created_at"]), imageName: imagePath)
+            cell.setCell(NameLabel: message, DetailLabel: date, imageName: imagePath)
         }
         return cell
     }

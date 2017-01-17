@@ -28,10 +28,6 @@ class CustomCellInviteMember: UITableViewCell {
         super.awakeFromNib()
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
     func setCell(NameLabel: String, imageName: String){
         self.ImageProfilFriends.downloadedFrom(link: imageName, contentMode: .scaleAspectFit)
         self.ImageProfilFriends.layer.cornerRadius = self.ImageProfilFriends.frame.size.width / 2

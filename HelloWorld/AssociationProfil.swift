@@ -261,9 +261,7 @@ class AssociationProfil : UIViewController, UITableViewDataSource,UITableViewDel
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            
-            
-    
+
             // get a reference to the second view controller
             if(segue.identifier == "goToMembers"){
     
