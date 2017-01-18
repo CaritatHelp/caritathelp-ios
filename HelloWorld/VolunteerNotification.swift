@@ -88,7 +88,7 @@ class VolunteerNotificationController : UIViewController, UITableViewDataSource,
         self.param["client"] = sharedInstance.header["client"]
         self.param["uid"] = sharedInstance.header["uid"]
         
-        self.param["acceptance"] = acceptance
+        self.param["accept"] = acceptance
         let val = "notifications/" + String(describing: self.notifs[indexPath.row]["id"]) + "/reply_emergency"
         
         self.request.request(type: "PUT", param: self.param,add: val, callback: {
